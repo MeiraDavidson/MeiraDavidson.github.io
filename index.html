@@ -40,6 +40,9 @@
   /* clickable foundation names (jump links) */
   .fdn-jump{font-weight:600;color:var(--ink);text-decoration:none;border-bottom:2px solid var(--gold);transition:.15s;white-space:nowrap}
   .fdn-jump:hover{color:var(--sage-dark);border-bottom-color:var(--sage)}
+  /* hero: same font weight/colour as the lead, just a subtle clickable underline */
+  .hero .lead .fdn-jump{font-weight:inherit;color:inherit;border-bottom:1px solid rgba(193,154,75,.55)}
+  .hero .lead .fdn-jump:hover{color:var(--sage-dark);border-bottom-color:var(--sage)}
   .math .section-head .fdn-jump{color:#fff;border-bottom-color:#8fd3ab}
   .math .section-head .fdn-jump:hover{color:#8fd3ab;border-bottom-color:#fff}
   .cta{display:inline-flex;gap:14px;flex-wrap:wrap;justify-content:center}
@@ -198,7 +201,7 @@
   <div class="wrap">
     <div class="eyebrow">The Curious Family Library</div>
     <h1>Be curious. Stay open.<br/>Be kind.</h1>
-    <p class="lead">The work of Meira Davidson — a gentle guide to meditation, vivid explainers on how the world really works, and three complete, build-it-yourself foundations: <a class="fdn-jump" href="#f-math">Mathematics</a>, <a class="fdn-jump" href="#f-compute">Computing &amp; Machine Learning</a>, and <a class="fdn-jump" href="#f-biology">Biology &amp; AI for Drug Design</a>.</p>
+    <p class="lead">The work of Meira Davidson — a gentle guide to meditation, vivid explainers on how the world really works, and three build-it-yourself foundations: <a class="fdn-jump" href="#f-math">Mathematics</a>, <a class="fdn-jump" href="#f-compute">Computing &amp; Machine Learning</a>, and <a class="fdn-jump" href="#f-biology">Biology &amp; AI for Drug Design</a>.</p>
     <div class="cta">
       <a class="btn btn-primary" href="#foundations">Explore the foundations →</a>
       <a class="btn btn-ghost" href="#library">Browse the books</a>
@@ -242,9 +245,9 @@
 <section class="section math" id="foundations">
   <div class="wrap">
     <div class="section-head">
-      <div class="eyebrow">Build-It-Yourself Foundations</div>
-      <h2>Three Complete Foundations</h2>
-      <p>Beyond the standalone books, Meira is building three complete, ground-up foundations — full guides that carry a curious mind from first principles to real capability, in <a class="fdn-jump" href="#f-math">Mathematics</a>, <a class="fdn-jump" href="#f-compute">Computing &amp; Machine Learning</a>, and <a class="fdn-jump" href="#f-biology">Biology &amp; AI for Drug Design</a>. Every idea is earned from a reason; many chapters also come with a free notebook you can open and run yourself.</p>
+      <div class="eyebrow">Three Foundations</div>
+      <h2>A fast, ordered path through the basics</h2>
+      <p>Beyond the standalone books, Meira is building ground-up guides that carry a curious mind from first principles to real capability — in <a class="fdn-jump" href="#f-math">Mathematics</a>, <a class="fdn-jump" href="#f-compute">Computing &amp; Machine Learning</a>, and <a class="fdn-jump" href="#f-biology">Biology &amp; AI for Drug Design</a>. Every idea is earned from a reason; many chapters come with a free notebook you can open and run yourself.</p>
     </div>
     <div id="series"></div>
   </div>
