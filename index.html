@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Meira Davidson — Books</title>
+<meta name="description" content="Books by Meira Davidson — a kid's guide to meditation, The Curious Family Library, and interactive math notebooks for young readers." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --cream:#faf6ef;--paper:#ffffff;--ink:#23303a;--ink-soft:#4a5a64;
+    --sage:#5b8a72;--sage-dark:#3f6b56;--gold:#c19a4b;--line:#e7ddcd;
+    --shadow:0 18px 40px -22px rgba(35,48,58,.45);--radius:16px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:'Inter',system-ui,-apple-system,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,.serif{font-family:'Fraunces',Georgia,serif;font-weight:500;letter-spacing:-.01em}
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  .eyebrow{font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:600}
+
+  /* nav */
+  header.nav{position:sticky;top:0;z-index:20;background:rgba(250,246,239,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{font-family:'Fraunces',serif;font-size:1.18rem;font-weight:600}
+  .brand small{display:block;font-family:'Inter';font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;margin-top:-2px}
+  nav a{margin-left:26px;text-decoration:none;font-size:.92rem;color:var(--ink-soft);font-weight:500}
+  nav a:hover{color:var(--sage-dark)}
+  .nav-links{display:flex}
+  @media(max-width:680px){.nav-links{display:none}}
+
+  /* hero */
+  .hero{padding:80px 0 60px;text-align:center}
+  .hero h1{font-size:clamp(2.6rem,6vw,4.4rem);line-height:1.04;margin:.2em 0 .3em}
+  .hero p.lead{font-size:1.16rem;color:var(--ink-soft);max-width:660px;margin:0 auto 2em}
+  .hero p.lead strong{color:var(--ink);font-weight:600}
+  .cta{display:inline-flex;gap:14px;flex-wrap:wrap;justify-content:center}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.95rem;border:1px solid transparent;transition:.18s;cursor:pointer}
+  .btn-primary{background:var(--sage);color:#fff}
+  .btn-primary:hover{background:var(--sage-dark)}
+  .btn-ghost{background:transparent;border-color:var(--line);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--sage);color:var(--sage-dark)}
+
+  .section{padding:62px 0}
+  .section-head{max-width:680px;margin-bottom:40px}
+  .section-head h2{font-size:clamp(1.9rem,4vw,2.6rem);margin:.25em 0 .35em}
+  .section-head p{color:var(--ink-soft);font-size:1.04rem;margin:0}
+
+  /* featured */
+  .featured{background:linear-gradient(180deg,#f3efe5,#faf6ef);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .feature-grid{display:grid;grid-template-columns:300px 1fr;gap:52px;align-items:center}
+  @media(max-width:760px){.feature-grid{grid-template-columns:1fr;gap:30px;text-align:center}}
+  .feature-cover{max-width:300px;margin:0 auto;width:100%}
+
+  /* book cover */
+  .cover{position:relative;aspect-ratio:2/3;border-radius:10px;box-shadow:var(--shadow);overflow:hidden;
+    display:flex;flex-direction:column;justify-content:space-between;padding:22px 20px;color:#fff;background:#456}
+  .cover.grad::after{content:"";position:absolute;left:0;top:0;bottom:0;width:9px;background:rgba(0,0,0,.18);box-shadow:inset -2px 0 4px rgba(0,0,0,.25)}
+  .cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .cover .c-kicker{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;opacity:.85;font-weight:600}
+  .cover .c-title{font-family:'Fraunces',serif;font-size:1.45rem;line-height:1.12;font-weight:600}
+  .cover .c-author{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;opacity:.9}
+
+  /* sample chips (featured) */
+  .samples{display:flex;flex-direction:column;gap:8px;margin:22px 0 26px}
+  .chip{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-size:.92rem;font-weight:500;color:var(--ink);
+    background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 16px;transition:.16s;max-width:max-content}
+  .chip:hover{border-color:var(--sage);color:var(--sage-dark);transform:translateX(3px)}
+  .chip .n{font-family:'Inter';font-size:.66rem;font-weight:700;letter-spacing:.06em;color:#fff;background:var(--sage);border-radius:999px;padding:3px 9px;text-transform:uppercase}
+  @media(max-width:760px){.samples{align-items:center}}
+
+  /* grid */
+  .books{display:grid;grid-template-columns:repeat(2,1fr);gap:42px 44px}
+  @media(max-width:760px){.books{grid-template-columns:1fr;gap:34px}}
+  .book{display:flex;flex-direction:column}
+  .book-cover-wrap{display:grid;grid-template-columns:140px 1fr;gap:24px;align-items:start}
+  @media(max-width:380px){.book-cover-wrap{grid-template-columns:110px 1fr;gap:16px}}
+  .book .cover{margin:0;transition:transform .2s,box-shadow .2s}
+  .book a.cover-link{text-decoration:none;display:block}
+  .book a.cover-link:hover .cover{transform:translateY(-4px);box-shadow:0 26px 46px -22px rgba(35,48,58,.55)}
+  .book h3{font-size:1.12rem;margin:0 0 3px;font-weight:600}
+  .book .sub{font-size:.82rem;color:var(--gold);font-weight:600;margin:0 0 9px}
+  .book p.desc{font-size:.92rem;color:var(--ink-soft);margin:0 0 12px}
+  .book .links{display:flex;flex-wrap:wrap;gap:8px 18px}
+  .book .links a{font-size:.86rem;font-weight:600;text-decoration:none}
+  .book .links a.sample{color:var(--sage-dark)}
+  .book .links a.sample:hover{text-decoration:underline}
+  .book .links a.amz{color:var(--ink-soft)}
+  .book .links a.amz:hover{color:var(--sage-dark);text-decoration:underline}
+
+  /* table of contents disclosure */
+  .toc{margin-top:14px}
+  .toc>summary{cursor:pointer;font-size:.84rem;font-weight:600;color:var(--sage-dark);list-style:none;display:inline-flex;align-items:center;gap:7px;user-select:none}
+  .toc>summary::-webkit-details-marker{display:none}
+  .toc>summary::before{content:"▸";font-size:.7em;color:var(--gold)}
+  .toc[open]>summary::before{content:"▾"}
+  .toc-list{list-style:none;columns:170px;column-gap:28px;margin:13px 0 0;padding:0;font-size:.85rem;color:var(--ink-soft);line-height:1.5}
+  .toc.single .toc-list{columns:1}
+  .toc-list li{margin:0 0 5px;break-inside:avoid;padding-left:1.1em;text-indent:-1.1em}
+  .toc-list li::before{content:"•";color:var(--gold);margin-right:.55em}
+  .toc-list li.toc-group{font-weight:700;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);padding:0;text-indent:0;margin:11px 0 5px;break-after:avoid}
+  .toc-list li.toc-group::before{content:""}
+  /* featured TOC sits on the cream featured panel */
+  #feat-toc .toc{margin-top:20px}
+  #feat-toc .toc-list{columns:200px}
+  @media(max-width:760px){#feat-toc .toc{text-align:left}}
+
+  /* math */
+  .math{background:var(--ink);color:#eaf1ee}
+  .math .eyebrow{color:var(--gold)}
+  .math h2{color:#fff}
+  .math .section-head p{color:#aebcc2}
+  .math .section-head p strong{color:#fff;font-weight:600}
+  .series-block{margin-top:54px;padding-top:30px;border-top:1px solid #38474f}
+  .series-block:first-child{margin-top:4px;padding-top:0;border-top:none}
+  .series-name{color:#fff;font-size:1.6rem;margin:0 0 10px}
+  .series-intro{color:#aebcc2;font-size:1.02rem;max-width:68ch;margin:0 0 26px}
+  .series-intro p{margin:0 0 12px}
+  .series-intro em{color:#cfe6da;font-style:italic}
+  /* foundation module plan */
+  .fdn-note{font-size:.8rem;font-weight:600;letter-spacing:.02em;color:#8fd3ab;margin:-10px 0 6px;display:flex;align-items:center;gap:8px}
+  .fdn-note::before{content:"▶";font-size:.7em}
+  .fdn-list{list-style:none;padding:0;margin:18px 0 0}
+  .fdn-item{display:grid;grid-template-columns:104px 1fr;gap:22px;padding:19px 0;border-top:1px solid #38474f}
+  .fdn-item:first-child{border-top:none}
+  .fdn-step{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8aa0ab;padding-top:6px}
+  .fdn-item.live .fdn-step{color:#8fd3ab}
+  .fdn-title-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:5px}
+  .fdn-title{color:#fff;font-family:'Fraunces',serif;font-weight:500;font-size:1.24rem}
+  .fdn-badge{font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:999px}
+  .fdn-badge.live{color:#0f231a;background:#8fd3ab}
+  .fdn-badge.soon{color:#9fb4bd;background:#33444e}
+  .fdn-desc{color:#aebcc2;font-size:.95rem;line-height:1.55;margin:0;max-width:64ch}
+  .fdn-link{display:inline-block;margin-top:11px;color:#8fd3ab;font-weight:600;font-size:.87rem;text-decoration:none}
+  .fdn-link:hover{text-decoration:underline}
+  @media(max-width:560px){.fdn-item{grid-template-columns:1fr;gap:7px}.fdn-step{padding-top:0}}
+  .roadmap-wrap{margin-top:24px}
+  .roadmap-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8aa0ab;margin-bottom:12px}
+  .roadmap{list-style:none;display:flex;flex-wrap:wrap;gap:10px;padding:0;margin:0;counter-reset:none}
+  .roadmap li{display:flex;align-items:center;gap:9px;background:#2c3a45;border:1px solid #38474f;border-radius:999px;padding:7px 14px 7px 8px;font-size:.9rem;color:#c4d2d8}
+  .roadmap li.live{border-color:var(--sage);color:#fff}
+  .roadmap .rn{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#22343b;color:#8aa0ab;font-size:.74rem;font-weight:700}
+  .roadmap li.live .rn{background:var(--sage);color:#fff}
+  .roadmap .rs{font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#7e929c}
+  .roadmap li.live .rs{color:#8fd3ab}
+  .modules{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  @media(max-width:820px){.modules{grid-template-columns:1fr}}
+  .module{background:#2c3a45;border:1px solid #38474f;border-radius:var(--radius);padding:26px;display:flex;flex-direction:column}
+  .module.live{border-color:var(--sage);box-shadow:0 0 0 1px var(--sage) inset}
+  .module .tag{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
+  .module.live .tag{color:#8fd3ab}
+  .module.soon .tag{color:#8aa0ab}
+  .module h3{color:#fff;font-size:1.3rem;margin:0 0 6px}
+  .module p{color:#b6c4cb;font-size:.92rem;margin:0 0 18px}
+  .nb-list{list-style:none;padding:0;margin:0 0 20px}
+  .nb-list li{margin-bottom:9px}
+  .nb-list a{display:flex;align-items:center;gap:9px;text-decoration:none;color:#dfe9e5;font-size:.88rem;padding:7px 10px;border-radius:9px;transition:.15s}
+  .nb-list a:hover{background:#33444e;color:#fff}
+  .nb-list .ch{font-size:.64rem;font-weight:700;color:#8fd3ab;background:#22343b;border-radius:6px;padding:2px 7px;letter-spacing:.04em;white-space:nowrap}
+  .module .btn-primary{align-self:flex-start;margin-top:auto}
+  .module.soon{opacity:.78}
+  .colab-badge{height:20px;vertical-align:middle;margin-left:auto}
+
+  /* about */
+  .about-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:48px;align-items:start}
+  @media(max-width:760px){.about-grid{grid-template-columns:1fr;gap:24px}}
+  .about p{color:var(--ink-soft);font-size:1.04rem}
+
+  footer{background:#1a242c;color:#9fb0b8;padding:46px 0;font-size:.9rem}
+  footer .f-in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:18px;align-items:center}
+  footer a{color:#cdd9de;text-decoration:none}
+  footer a:hover{color:#fff}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <div class="brand">Meira Davidson<small>Author</small></div>
+    <nav class="nav-links">
+      <a href="#meditation">Meditation</a>
+      <a href="#library">The Library</a>
+      <a href="#foundations">Foundations</a>
+      <a href="#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">The Curious Family Library</div>
+    <h1>Be curious. Stay open.<br/>Be kind.</h1>
+    <p class="lead">The work of Meira Davidson — a gentle guide to meditation, vivid explainers on how the world really works, and three complete, build-it-yourself foundations: <strong>Mathematics</strong>, <strong>Computing &amp; Machine Learning</strong>, and <strong>Biology &amp; AI for Drug Design</strong>.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="#foundations">Explore the foundations →</a>
+      <a class="btn btn-ghost" href="#library">Browse the books</a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED: MEDITATION -->
+<section class="featured section" id="meditation">
+  <div class="wrap feature-grid">
+    <div class="feature-cover">
+      <a class="cover-link" id="feat-cover-link" href="#" target="_blank" rel="noopener">
+        <div class="cover"><img id="feat-cover" alt=""/></div>
+      </a>
+    </div>
+    <div>
+      <div class="eyebrow">Featured · A Kid's Guide to Meditation</div>
+      <h2 id="feat-title" style="font-size:clamp(1.9rem,4vw,2.7rem);margin:.2em 0 .35em"></h2>
+      <p id="feat-summary" style="font-size:1.1rem;color:var(--ink-soft);max-width:52ch"></p>
+      <div style="font-family:'Inter';font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:6px 0 4px">Read a sample chapter</div>
+      <div class="samples" id="feat-samples"></div>
+      <a class="btn btn-primary" id="feat-amazon" href="#" target="_blank" rel="noopener">Get it on Amazon</a>
+      <div id="feat-toc"></div>
+    </div>
+  </div>
+</section>
+
+<!-- LIBRARY GRID -->
+<section class="section" id="library">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">The Collection</div>
+      <h2>The Curious Family Library</h2>
+      <p>Short, vivid books that take one big idea — a cancer drug, the power grid, your immune system — and make it clear enough to fall in love with. Each opens with a free sample chapter.</p>
+    </div>
+    <div class="books" id="books-grid"></div>
+  </div>
+</section>
+
+<!-- MATH NOTEBOOKS -->
+<section class="section math" id="foundations">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Build-It-Yourself Foundations</div>
+      <h2>Three Complete Foundations</h2>
+      <p>Beyond the standalone books, Meira is building three complete, ground-up foundations — full guides that carry a curious mind from first principles to real capability, in <strong>Mathematics</strong>, <strong>Computing &amp; Machine Learning</strong>, and <strong>Biology &amp; AI for Drug Design</strong>. Every idea is earned from a reason; many chapters also come with a free notebook you can open and run yourself.</p>
+    </div>
+    <div id="series"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="wrap about-grid">
+    <div>
+      <div class="eyebrow">About</div>
+      <h2 style="font-size:clamp(1.8rem,4vw,2.4rem);margin:.2em 0 0">Meira Davidson</h2>
+    </div>
+    <div class="about">
+      <p>Meira Davidson writes the kind of books she wished existed when she was young — short, honest, and unafraid of a real idea. Her work runs from stillness and meditation to the hidden machinery of the modern world: chips and data centers, mRNA and targeted drugs, the electric grid, the immune system, a working dairy farm.</p>
+      <p>Every book treats the reader as capable. The science books explain things all the way down without dumbing them down; the foundations hand kids the controls and let them break things and rebuild them. They are dedicated, always, to the Jessica family kids — <em>be curious, stay open, be kind.</em></p>
+      <p style="margin-top:22px"><a class="btn btn-primary" href="mailto:meira.davidson.author@gmail.com?subject=Hello%20Meira">Write to Meira →</a></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap f-in">
+    <div>© <span id="yr"></span> Meira Davidson · The Curious Family Library</div>
+    <div>
+      <a href="mailto:meira.davidson.author@gmail.com">Email</a> ·
+      <a href="https://www.amazon.com/s?k=Meira+Davidson" target="_blank" rel="noopener">Amazon</a> ·
+      <a href="https://github.com/MeiraDavidson" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ===================== BOOK DATA ===================== */
+const FEATURED = {
+  title:"The Light That Stays",
+  cover:"assets/covers/light-that-stays.jpg",
+  summary:"A warm, practical guide to meditation for young readers — and the grown-ups beside them. It begins with one promise: there's a quiet, steady light inside you that doesn't go out. From there it teaches how to sit, how to breathe, how to picture and steady the mind, and how kindness and an unforced inner joy grow out of the practice — in fifteen short chapters, with practices small enough to actually keep.",
+  amazon:"https://www.amazon.com/Light-That-Stays-Meditation-Curious/dp/B0H3NRZP6M",
+  toc:[
+    "There's a Light in You, and It Doesn't Go Out","The Boy Who Got Lost","My Own Long Walk Inward",
+    "Once You See It, You Can't Unsee It","How to Sit — Your Body Is the Foundation",
+    "The Big Question, and the Surprise Behind It","The One-Minute Practice",
+    "Breathing — Telling Your Body You're Safe","Picturing It — Visualization",
+    "Mindfulness — The View from the Eagle","Mantra — A Sound to Come Home To",
+    "Five Ways to Stay Out of Trouble","The Traps","Kindness Without Keeping Score",
+    "Inner Joy, and the Days That Are Hard"
+  ],
+  samples:[
+    {n:"Ch 2",  title:"The Boy Who Got Lost", href:"samples/light-that-stays-ch2.html"},
+    {n:"Ch 10", title:"Mindfulness — The View from the Eagle", href:"samples/light-that-stays-ch10.html"},
+    {n:"Ch 14", title:"Kindness Without Keeping Score", href:"samples/light-that-stays-ch14.html"}
+  ]
+};
+
+const BOOKS = [
+  { title:"The Invisible Trillion", sub:"Chips, data centers & the things you can't see",
+    desc:"How a grain of sand becomes a microchip in the world's most precise factories, what a data center actually is, and the honest costs of it all — energy, water, mining, e-waste, and attention — ending with what actually matters and what you can do.",
+    cover:"assets/covers/invisible-trillion.jpg",
+    amazon:"https://www.amazon.com/Invisible-Trillion-centers-Curious-Library/dp/B0H3M7F27C", sample:"samples/invisible-trillion-sample.html",
+    toc:["Sand, Light & the World's Most Precise Factories","What Chips Actually Do","Data Centers: The Cathedrals Nobody Visits","The Energy Question, Honestly","The Water Question, Honestly","The Mining & E-Waste Question, Honestly","The Highway in the Bronx","The Legal Weapons","How a Neighborhood Dies","No Going Back","How Much Do We Actually Need?","The Architecture That Works","The Bill","The Other Ledger","The Attention Chapter","Who Decides","What You Can Do That Actually Matters"] },
+  { title:"How the World Got Wired", sub:"A Brief History of the Internet",
+    desc:"The whole arc of the internet in twenty-two short chapters — from a 1945 “memex” and the first packet, through the web given away, the dot-com crash, search and the smartphone, to the cloud and the two AI internets now taking shape.",
+    cover:"assets/covers/world-got-wired.jpg",
+    amazon:"https://www.amazon.com/How-World-Got-Wired-Internet-ebook/dp/B0H3GN8SSK", sample:"samples/world-got-wired-sample.html",
+    toc:["Prologue · A Sunset in Da Nang","A Memex and a Satellite","Licklider's Dream","Packets","The First Message","The Constitution","The Web, Given Away","Ships and Sharks","Routers and the People Who Built Them","Mosaic, the Pivot","The Day Everything Tipped","Sock Puppets and Pet Food","Three Ships and a Fire Sale","What Survived","Search","The Phone in Your Pocket","The Social Graph","The Other Internet","The Cloud","A Naval Office in Arlington","Why Hinton Went North","2012 and After","Two AI Internets","Epilogue · One Last Thing"] },
+  { title:"Self & Other", sub:"A Field Guide to Your Immune System",
+    desc:"A field guide to the body's defenses — the first responders and specialists, how it remembers and learns tolerance, and what goes wrong in inflammation, allergies, autoimmune disease, and cancer — plus an honest look at what truly strengthens it and what only sounds like it does.",
+    cover:"assets/covers/self-and-other.jpg",
+    amazon:"https://www.amazon.com/Self-Other-Immune-Curious-Library-ebook/dp/B0H3MMXBQQ", sample:"samples/self-and-other-sample.html",
+    toc:["Self and Other","The First Responders","The Specialists","The Memory Library","The Border Towns","The ID Check","The Schools of Tolerance","Inflammation: The Double-Edged Sword","Allergies: When the Guards Panic","Autoimmune Disease: Friendly Fire","When the System Is Quiet","Cancer and the Immune System","The Things That Actually Help","The Things That Sound Like They Help (But Mostly Don't)","Stress, Loneliness & the Vagus Nerve","The Honest Chapter","mRNA, and What COVID Taught Us"] },
+  { title:"The Pill That Could", sub:"The first targeted cancer drug",
+    desc:"The decades-long story of Gleevec — from the Philadelphia chromosome and a single rogue gene to the first pill that turned a fatal leukemia into a manageable disease — including the long argument to make it, the resistance that followed, and what “cure” really means.",
+    cover:"assets/covers/pill-that-could.jpg",
+    amazon:"https://www.amazon.com/Pill-That-Could-improbable-targeted-ebook/dp/B0H3NXMC52", sample:"samples/pill-that-could-sample.html",
+    toc:["Prologue · A Patient in Portland","Philadelphia, 1960","The Translocation","BCR-ABL","The Compound","The Long Argument","First in Human","Approval","A Different Cancer","Resistance","What Cure Means","The Generalization Problem","The Patients Who Waited"] },
+  { title:"A Year on a Dairy Farm", sub:"Twelve Months on a Finger Lakes Dairy",
+    desc:"Twelve months on a working Finger Lakes dairy, told month by month — a February barn before dawn, a March calving, the milk check that has to add up, the migrant crew who do the haying, and the hard November decision. An honest, unsentimental year on the land.",
+    cover:"assets/covers/dairy-farm.jpg",
+    amazon:"https://www.amazon.com/Year-Dairy-Farm-Curious-Library-ebook/dp/B0H3N4MC8P", sample:"samples/dairy-farm-sample.html",
+    toc:["February: Inside the Barn","The Cow Herself","March: A Calf Is Born","April: Out to Pasture","The Morning","June: The Milk Check","August: Haying & the People Who Do It","Goats, Sheep & the Cheese Across the Ocean","October: Breeding Back","November: The Decision","December: The Year, Counted","Could You Do This?"] },
+  { title:"How Cars Work", sub:"For Curious Passengers",
+    desc:"How a car works across three eras — the purely mechanical car of the 1960s (suck, squeeze, bang, blow), the computerized car of the 1990s that learned to think and brake itself, and today's electric car — engine to motor, battery to brain, in clear hands-on steps.",
+    cover:"assets/covers/how-cars-work.jpg",
+    amazon:"https://www.amazon.com/How-Cars-Work-curious-passengers-ebook/dp/B0H3LWMHHS", sample:"samples/how-cars-work-sample.html",
+    toc:["Opening the Box","— The 1960s car —","How an Old Car Works","Suck, Squeeze, Bang, Blow","The Mix","The Spark","From Bang to Wheels","Stopping and Steering","— The 1990s car —","How Cars Got Smart","The Brain","Crash Prevention","On the Same Wire","— The electric car —","How an Electric Car Works","The Big Battery","The Motor","Energy Back","By the Time You Drive"] },
+  { title:"How the Lights Stay On", sub:"How the Electric Grid Really Works",
+    desc:"Why the electric grid is the most astonishing machine you never think about — power made and used in the very same instant, the blackouts that taught us how it works (Ohio 2003, Texas 2021), the rise of solar, wind, batteries and nuclear, and the hard trilemma of keeping the lights cheap, clean, and always on.",
+    cover:"assets/covers/lights-stay-on.png",
+    amazon:"https://www.amazon.com/How-Lights-Stay-electricity-everything-ebook/dp/B0H3MT8WX2", sample:"samples/lights-stay-on-sample.html",
+    toc:["The Blink","The Juggling Act","The Long Road","Seven Minutes in Ohio","The Last Hundred Feet","The Sun Doesn't Ask Permission","Catching Lightning in a Bottle","The Frozen Texan","The Bare Roof","The Atom Comes Back","The Grid That Has to Grow","The Grid Grows a Brain","The Order of Operations","The Trilemma","The Lights in Shanghai","The People Who Watch the Grid","The Grid You'll Build"] }
+];
+
+const SERIES = [
+  {
+    name:"The Mathematics Foundation",
+    intro:`<p>A small, deliberately ordered foundation that gives you the backbone of mathematics — quickly, and deeply enough that it lasts — so you can dive into whatever you choose: AI, engineering, medicine, or science. The goal is never to memorize; it's to understand well enough to <em>rebuild</em>. Six modules, read roughly in order; each stands on its own.</p>`,
+    note:"Every chapter comes with a free, run-it-yourself Colab notebook.",
+    modules:[
+      { label:"Module 1", title:"Numbers &amp; Functions", status:"live", repo:"https://github.com/MeiraDavidson/math_module1", count:"5 notebooks",
+        desc:"The number systems, and the handful of function families that everything else is built from." },
+      { label:"Module 2", title:"Calculus I", status:"live", repo:"https://github.com/MeiraDavidson/math_module2", count:"12 notebooks",
+        desc:"Single variable — limits, derivatives, and integrals: the mathematics of change and accumulation." },
+      { label:"Module 3", title:"Linear Algebra", status:"soon",
+        desc:"Vectors, matrices, and the language of high dimensions — the language modern AI lives in." },
+      { label:"Module 4", title:"Calculus II", status:"soon",
+        desc:"Several variables — the ideas of Calculus I set loose in more than one dimension." },
+      { label:"Module 5", title:"Probability &amp; Statistics", status:"soon",
+        desc:"Reasoning carefully about uncertainty, data, and evidence." },
+      { label:"Module 6", title:"The Summary", status:"soon",
+        desc:"A short capstone that ties the whole foundation together and shows how the pieces connect." }
+    ]
+  },
+  {
+    name:"The Computing &amp; Machine Learning Foundation",
+    intro:"A complete, build-it-yourself foundation in how computers think and learn — from how an algorithm actually works up to how a machine learns from data.",
+    modules:[
+      { label:"Book 1", title:"A First Taste of Algorithms", status:"live", repo:"https://github.com/MeiraDavidson/compute_module1", count:"10 labs",
+        desc:"How algorithms actually work — counting steps, dots and lines, the honest die, downhill optimization, and the first machines that learn." },
+      { label:"Book 2", title:"Machine Learning", status:"soon",
+        desc:"How machines actually learn from data, built up one runnable idea at a time." }
+    ]
+  },
+  {
+    name:"The Biology &amp; AI Drug-Design Foundation",
+    intro:"A ground-up foundation in the biology of medicine and the AI now transforming it — from how cells, immune systems, and diseases work to the models that design new molecules. Several Curious Family Library books (the immune system, mRNA, the first targeted cancer drug) are early steps on this path.",
+    modules:[
+      { label:"New foundation", title:"Biology &amp; AI for Drug Design", status:"soon",
+        desc:"From how a cell and a disease really work to the molecules and models that treat them — the biology underneath modern medicine, and how AI is reshaping it." }
+    ]
+  }
+];
+
+/* ===================== RENDER ===================== */
+function coverInner(b){
+  if(b.cover){
+    return `<div class="cover"><img src="${b.cover}" alt="${b.title} cover"/></div>`;
+  }
+  const g = b.grad || ["#5b8a72","#33564a"];
+  return `<div class="cover grad" style="background:linear-gradient(150deg,${g[0]},${g[1]})">
+      <div class="c-kicker">Meira Davidson</div>
+      <div class="c-title">${b.title}</div>
+      <div class="c-author">The Curious Family Library</div>
+    </div>`;
+}
+
+function renderToc(toc){
+  if(!toc || !toc.length) return '';
+  const count = toc.filter(t => !t.startsWith('—')).length;
+  const hasGroups = toc.some(t => t.startsWith('—'));
+  const items = toc.map(t => t.startsWith('—')
+    ? `<li class="toc-group">${t.replace(/—/g,'').trim()}</li>`
+    : `<li>${t}</li>`).join('');
+  return `<details class="toc${hasGroups?' single':''}">
+    <summary>Contents · ${count} chapters</summary>
+    <ul class="toc-list">${items}</ul></details>`;
+}
+
+// featured
+document.getElementById('feat-cover').src = FEATURED.cover;
+document.getElementById('feat-cover').alt = FEATURED.title + " cover";
+document.getElementById('feat-cover-link').href = FEATURED.amazon;
+document.getElementById('feat-title').textContent = FEATURED.title;
+document.getElementById('feat-summary').textContent = FEATURED.summary;
+document.getElementById('feat-amazon').href = FEATURED.amazon;
+document.getElementById('feat-samples').innerHTML = FEATURED.samples.map(s =>
+  `<a class="chip" href="${s.href}" target="_blank" rel="noopener"><span class="n">${s.n}</span>${s.title}</a>`
+).join('');
+document.getElementById('feat-toc').innerHTML = renderToc(FEATURED.toc);
+
+// library grid
+document.getElementById('books-grid').innerHTML = BOOKS.map(b => {
+  const coverHref = b.noAmazon ? b.sample : b.amazon;
+  const amzLink = b.noAmazon ? '' :
+    `<a class="amz" href="${b.amazon}" target="_blank" rel="noopener">Amazon →</a>`;
+  return `
+  <div class="book">
+    <div class="book-cover-wrap">
+      <a class="cover-link" href="${coverHref}" target="_blank" rel="noopener">${coverInner(b)}</a>
+      <div style="display:flex;flex-direction:column">
+        <h3>${b.title}</h3>
+        <div class="sub">${b.sub}</div>
+        <p class="desc">${b.desc}</p>
+        <div class="links">
+          <a class="sample" href="${b.sample}" target="_blank" rel="noopener">Read sample →</a>
+          ${amzLink}
+        </div>
+        ${renderToc(b.toc)}
+      </div>
+    </div>
+  </div>`;
+}).join('');
+
+// foundations — clear module plan, notebooks as a single quiet link
+function moduleRow(m){
+  const live = m.status === 'live';
+  const badge = live ? '<span class="fdn-badge live">Live</span>'
+                     : '<span class="fdn-badge soon">Coming soon</span>';
+  const link = live && m.repo
+    ? `<a class="fdn-link" href="${m.repo}" target="_blank" rel="noopener">${m.count} · open in Colab on GitHub →</a>`
+    : '';
+  return `<li class="fdn-item ${live?'live':'soon'}">
+    <div class="fdn-step">${m.label}</div>
+    <div class="fdn-body">
+      <div class="fdn-title-row"><span class="fdn-title">${m.title}</span>${badge}</div>
+      <p class="fdn-desc">${m.desc}</p>
+      ${link}
+    </div>
+  </li>`;
+}
+document.getElementById('series').innerHTML = SERIES.map(s => `
+  <div class="series-block">
+    <h3 class="series-name">${s.name}</h3>
+    <div class="series-intro">${s.intro}</div>
+    ${s.note ? `<div class="fdn-note">${s.note}</div>` : ''}
+    <ol class="fdn-list">${s.modules.map(moduleRow).join('')}</ol>
+  </div>`).join('');
+
+document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

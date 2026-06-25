@@ -1,0 +1,6 @@
+.DS_Store
+__pycache__/
+build_samples.py
+sample_specs.json
+assets/covers/_*
+assets/pdfs/
