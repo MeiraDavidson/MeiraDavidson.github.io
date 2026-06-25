@@ -37,6 +37,11 @@
   .hero h1{font-size:clamp(2.6rem,6vw,4.4rem);line-height:1.04;margin:.2em 0 .3em}
   .hero p.lead{font-size:1.16rem;color:var(--ink-soft);max-width:660px;margin:0 auto 2em}
   .hero p.lead strong{color:var(--ink);font-weight:600}
+  /* clickable foundation names (jump links) */
+  .fdn-jump{font-weight:600;color:var(--ink);text-decoration:none;border-bottom:2px solid var(--gold);transition:.15s;white-space:nowrap}
+  .fdn-jump:hover{color:var(--sage-dark);border-bottom-color:var(--sage)}
+  .math .section-head .fdn-jump{color:#fff;border-bottom-color:#8fd3ab}
+  .math .section-head .fdn-jump:hover{color:#8fd3ab;border-bottom-color:#fff}
   .cta{display:inline-flex;gap:14px;flex-wrap:wrap;justify-content:center}
   .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.95rem;border:1px solid transparent;transition:.18s;cursor:pointer}
   .btn-primary{background:var(--sage);color:#fff}
@@ -114,7 +119,7 @@
   .math h2{color:#fff}
   .math .section-head p{color:#aebcc2}
   .math .section-head p strong{color:#fff;font-weight:600}
-  .series-block{margin-top:54px;padding-top:30px;border-top:1px solid #38474f}
+  .series-block{margin-top:54px;padding-top:30px;border-top:1px solid #38474f;scroll-margin-top:84px}
   .series-block:first-child{margin-top:4px;padding-top:0;border-top:none}
   .series-name{color:#fff;font-size:1.6rem;margin:0 0 10px}
   .series-intro{color:#aebcc2;font-size:1.02rem;max-width:68ch;margin:0 0 26px}
@@ -193,7 +198,7 @@
   <div class="wrap">
     <div class="eyebrow">The Curious Family Library</div>
     <h1>Be curious. Stay open.<br/>Be kind.</h1>
-    <p class="lead">The work of Meira Davidson — a gentle guide to meditation, vivid explainers on how the world really works, and three complete, build-it-yourself foundations: <strong>Mathematics</strong>, <strong>Computing &amp; Machine Learning</strong>, and <strong>Biology &amp; AI for Drug Design</strong>.</p>
+    <p class="lead">The work of Meira Davidson — a gentle guide to meditation, vivid explainers on how the world really works, and three complete, build-it-yourself foundations: <a class="fdn-jump" href="#f-math">Mathematics</a>, <a class="fdn-jump" href="#f-compute">Computing &amp; Machine Learning</a>, and <a class="fdn-jump" href="#f-biology">Biology &amp; AI for Drug Design</a>.</p>
     <div class="cta">
       <a class="btn btn-primary" href="#foundations">Explore the foundations →</a>
       <a class="btn btn-ghost" href="#library">Browse the books</a>
@@ -239,7 +244,7 @@
     <div class="section-head">
       <div class="eyebrow">Build-It-Yourself Foundations</div>
       <h2>Three Complete Foundations</h2>
-      <p>Beyond the standalone books, Meira is building three complete, ground-up foundations — full guides that carry a curious mind from first principles to real capability, in <strong>Mathematics</strong>, <strong>Computing &amp; Machine Learning</strong>, and <strong>Biology &amp; AI for Drug Design</strong>. Every idea is earned from a reason; many chapters also come with a free notebook you can open and run yourself.</p>
+      <p>Beyond the standalone books, Meira is building three complete, ground-up foundations — full guides that carry a curious mind from first principles to real capability, in <a class="fdn-jump" href="#f-math">Mathematics</a>, <a class="fdn-jump" href="#f-compute">Computing &amp; Machine Learning</a>, and <a class="fdn-jump" href="#f-biology">Biology &amp; AI for Drug Design</a>. Every idea is earned from a reason; many chapters also come with a free notebook you can open and run yourself.</p>
     </div>
     <div id="series"></div>
   </div>
@@ -334,6 +339,7 @@ const BOOKS = [
 
 const SERIES = [
   {
+    key:"math",
     name:"The Mathematics Foundation",
     intro:`<p>A small, deliberately ordered foundation that gives you the backbone of mathematics — quickly, and deeply enough that it lasts — so you can dive into whatever you choose: AI, engineering, medicine, or science. The goal is never to memorize; it's to understand well enough to <em>rebuild</em>. Six modules, read roughly in order; each stands on its own.</p>`,
     note:"Every chapter comes with a free, run-it-yourself Colab notebook.",
@@ -353,6 +359,7 @@ const SERIES = [
     ]
   },
   {
+    key:"compute",
     name:"The Computing &amp; Machine Learning Foundation",
     intro:"A complete, build-it-yourself foundation in how computers think and learn — from how an algorithm actually works up to how a machine learns from data.",
     modules:[
@@ -363,6 +370,7 @@ const SERIES = [
     ]
   },
   {
+    key:"biology",
     name:"The Biology &amp; AI Drug-Design Foundation",
     intro:"A ground-up foundation in the biology of medicine and the AI now transforming it — from how cells, immune systems, and diseases work to the models that design new molecules. Several Curious Family Library books (the immune system, mRNA, the first targeted cancer drug) are early steps on this path.",
     modules:[
@@ -450,7 +458,7 @@ function moduleRow(m){
   </li>`;
 }
 document.getElementById('series').innerHTML = SERIES.map(s => `
-  <div class="series-block">
+  <div class="series-block" id="f-${s.key}">
     <h3 class="series-name">${s.name}</h3>
     <div class="series-intro">${s.intro}</div>
     ${s.note ? `<div class="fdn-note">${s.note}</div>` : ''}
