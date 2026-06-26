@@ -4,7 +4,22 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Meira Davidson — Books</title>
-<meta name="description" content="Books by Meira Davidson — a kid's guide to meditation, The Curious Family Library, and interactive math notebooks for young readers." />
+<meta name="description" content="Books by Meira Davidson — a kid's guide to meditation, vivid science explainers (chips, the immune system, the electric grid, a cancer drug), and build-it-yourself foundations in math, computing &amp; ML, and biology — with free downloads and interactive Colab notebooks." />
+<link rel="canonical" href="https://meiradavidson.github.io/" />
+<!-- social link preview (Open Graph + Twitter Card) -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Meira Davidson · The Curious Family Library" />
+<meta property="og:title" content="Meira Davidson — The Curious Family Library" />
+<meta property="og:description" content="Books that explain the world to curious minds — a kid's guide to meditation, vivid science explainers, and build-it-yourself foundations in math, computing &amp; ML, and biology. Free downloads + interactive notebooks." />
+<meta property="og:url" content="https://meiradavidson.github.io/" />
+<meta property="og:image" content="https://meiradavidson.github.io/assets/og-image.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Meira Davidson — The Curious Family Library: a row of book covers" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Meira Davidson — The Curious Family Library" />
+<meta name="twitter:description" content="Books that explain the world to curious minds — meditation, science explainers, and build-it-yourself foundations. Free downloads + interactive notebooks." />
+<meta name="twitter:image" content="https://meiradavidson.github.io/assets/og-image.jpg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -280,7 +295,7 @@
       <div style="font-family:'Inter';font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:6px 0 4px">Read a sample chapter</div>
       <div class="samples" id="feat-samples"></div>
       <a class="btn btn-primary" id="feat-amazon" href="#" target="_blank" rel="noopener">Get it on Amazon</a>
-      <a class="feat-share" href="#meditation" data-share="meditation">Share this book</a>
+      <a class="feat-share" href="#meditation" data-share="meditation" data-title="The Light That Stays">Share this book</a>
       <div id="feat-toc"></div>
     </div>
   </div>
@@ -504,8 +519,8 @@ function dlLink(href, title, dark, label){
 const slug = s => s.replace(/&amp;/g,'and').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
 // "Share" affordance — copies a deep link to this book (single page, so the
 // reader still lands in the whole library)
-function shareLink(id, cls){
-  return `<a class="${cls||'share'}" href="#${id}" data-share="${id}">Share</a>`;
+function shareLink(id, cls, title){
+  return `<a class="${cls||'share'}" href="#${id}" data-share="${id}" data-title="${(title||'').replace(/&amp;/g,'&').replace(/"/g,'')}">Share</a>`;
 }
 
 // featured
@@ -538,7 +553,7 @@ document.getElementById('books-grid').innerHTML = BOOKS.map(b => {
           <a class="sample" href="${b.sample}" target="_blank" rel="noopener">Read sample →</a>
           ${amzLink}
           ${b.download ? dlLink(b.download, b.title, false) : ''}
-          ${shareLink(id)}
+          ${shareLink(id, null, b.title)}
         </div>
         ${renderToc(b.toc)}
       </div>
@@ -567,7 +582,7 @@ function moduleRow(m){
     <div class="fdn-body">
       <div class="fdn-title-row"><span class="fdn-title">${m.title}</span>${badge}</div>
       <p class="fdn-desc">${m.desc}</p>
-      <div class="fdn-links">${link}${dl}${shareLink(id, 'fdn-share')}</div>
+      <div class="fdn-links">${link}${dl}${shareLink(id, 'fdn-share', m.title)}</div>
     </div>
   </li>`;
 }
@@ -582,22 +597,29 @@ document.getElementById('series').innerHTML = SERIES.map(s => `
 
 document.getElementById('yr').textContent = new Date().getFullYear();
 
-// "Share" — copy a deep link to the clicked book (whole single page still loads)
+// "Share" — native OS share sheet on mobile; otherwise copy a friendly message.
+// Either way it's a deep link into the single page, so the reader lands on the
+// book but still has the whole library to scroll through.
 document.addEventListener('click', function(e){
   const s = e.target.closest('[data-share]');
   if(!s) return;
   e.preventDefault();
+  const title = (s.getAttribute('data-title') || '').trim() || 'Meira Davidson';
   const url = location.origin + location.pathname + '#' + s.getAttribute('data-share');
+  if(navigator.share){
+    navigator.share({ title: title, text: title + ' — The Curious Family Library by Meira Davidson', url: url }).catch(()=>{});
+    return;
+  }
+  const msg = title + ' — Meira Davidson\n' + url;
   const show = () => {
     if(!s.dataset.label) s.dataset.label = s.textContent;
-    s.textContent = '✓ Copied';
-    s.classList.add('copied');
+    s.textContent = '✓ Copied'; s.classList.add('copied');
     setTimeout(() => { s.textContent = s.dataset.label; s.classList.remove('copied'); }, 1600);
   };
   if(navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(url).then(show).catch(() => window.prompt('Copy this link:', url));
+    navigator.clipboard.writeText(msg).then(show).catch(() => window.prompt('Copy this link:', msg));
   } else {
-    window.prompt('Copy this link:', url);
+    window.prompt('Copy this link:', msg);
   }
 });
 
