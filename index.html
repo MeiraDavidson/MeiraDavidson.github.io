@@ -383,7 +383,7 @@ const BOOKS = [
     desc:"How a grain of sand becomes a microchip in the world's most precise factories, what a data center actually is, and the honest costs of it all — energy, water, mining, e-waste, and attention — ending with what actually matters and what you can do.",
     cover:"assets/covers/invisible-trillion.jpg",
     amazon:"https://www.amazon.com/Invisible-Trillion-centers-Curious-Library/dp/B0H3M7F27C", sample:"samples/invisible-trillion-sample.html",
-    download:"downloads/the-invisible-trillion.pdf",
+    download:"downloads/the-invisible-trillion.pdf", downloadEpub:"downloads/the-invisible-trillion.epub",
     toc:["Sand, Light & the World's Most Precise Factories","What Chips Actually Do","Data Centers: The Cathedrals Nobody Visits","The Energy Question, Honestly","The Water Question, Honestly","The Mining & E-Waste Question, Honestly","The Highway in the Bronx","The Legal Weapons","How a Neighborhood Dies","No Going Back","How Much Do We Actually Need?","The Architecture That Works","The Bill","The Other Ledger","The Attention Chapter","Who Decides","What You Can Do That Actually Matters"] },
   { title:"How the World Got Wired", sub:"A Brief History of the Internet",
     desc:"The whole arc of the internet in twenty-two short chapters — from a 1945 “memex” and the first packet, through the web given away, the dot-com crash, search and the smartphone, to the cloud and the two AI internets now taking shape.",
@@ -552,7 +552,8 @@ document.getElementById('books-grid').innerHTML = BOOKS.map(b => {
         <div class="links">
           <a class="sample" href="${b.sample}" target="_blank" rel="noopener">Read sample →</a>
           ${amzLink}
-          ${b.download ? dlLink(b.download, b.title, false) : ''}
+          ${b.download ? dlLink(b.download, b.title, false, 'Free&nbsp;PDF') : ''}
+          ${b.downloadEpub ? dlLink(b.downloadEpub, b.title, false, 'EPUB') : ''}
           ${shareLink(id, null, b.title)}
         </div>
         ${renderToc(b.toc)}
