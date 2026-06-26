@@ -122,6 +122,19 @@
   .fdn-links{display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px}
   .fdn-dl{color:#8fd3ab;font-weight:600;font-size:.87rem;text-decoration:none;margin-top:11px}
   .fdn-dl:hover{text-decoration:underline}
+  /* share links + deep-link glow */
+  .book{scroll-margin-top:90px}
+  .fdn-item{scroll-margin-top:90px}
+  .book .links a.share{color:var(--ink-soft);cursor:pointer}
+  .book .links a.share:hover,.book .links a.share.copied{color:var(--sage-dark)}
+  .fdn-share{color:#8aa0ab;font-weight:600;font-size:.87rem;text-decoration:none;cursor:pointer;margin-top:11px}
+  .fdn-share:hover,.fdn-share.copied{color:#8fd3ab;text-decoration:underline}
+  .feat-share{display:inline-block;margin-left:18px;color:var(--ink-soft);font-weight:600;font-size:.92rem;text-decoration:none;cursor:pointer}
+  .feat-share:hover,.feat-share.copied{color:var(--sage-dark);text-decoration:underline}
+  @keyframes tflash{0%,55%{box-shadow:0 0 0 2px var(--sage)}100%{box-shadow:0 0 0 2px rgba(91,138,114,0)}}
+  .book:target{border-radius:12px;animation:tflash 3s ease-out}
+  @keyframes tflashD{0%,55%{box-shadow:0 0 0 2px #8fd3ab}100%{box-shadow:0 0 0 2px rgba(143,211,171,0)}}
+  .fdn-item:target{border-radius:10px;animation:tflashD 3s ease-out}
 
   /* table of contents disclosure */
   .toc{margin-top:14px}
@@ -267,6 +280,7 @@
       <div style="font-family:'Inter';font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:6px 0 4px">Read a sample chapter</div>
       <div class="samples" id="feat-samples"></div>
       <a class="btn btn-primary" id="feat-amazon" href="#" target="_blank" rel="noopener">Get it on Amazon</a>
+      <a class="feat-share" href="#meditation" data-share="meditation">Share this book</a>
       <div id="feat-toc"></div>
     </div>
   </div>
@@ -486,6 +500,14 @@ function dlLink(href, title, dark, label){
     data-goatcounter-title="Download (${ext.toUpperCase()}) — ${title}">↓&nbsp;${lbl}</a>`;
 }
 
+// slug for shareable anchors
+const slug = s => s.replace(/&amp;/g,'and').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+// "Share" affordance — copies a deep link to this book (single page, so the
+// reader still lands in the whole library)
+function shareLink(id, cls){
+  return `<a class="${cls||'share'}" href="#${id}" data-share="${id}">Share</a>`;
+}
+
 // featured
 document.getElementById('feat-cover').src = FEATURED.cover;
 document.getElementById('feat-cover').alt = FEATURED.title + " cover";
@@ -503,8 +525,9 @@ document.getElementById('books-grid').innerHTML = BOOKS.map(b => {
   const coverHref = b.noAmazon ? b.sample : b.amazon;
   const amzLink = b.noAmazon ? '' :
     `<a class="amz" href="${b.amazon}" target="_blank" rel="noopener">Amazon →</a>`;
+  const id = 'book-' + slug(b.title);
   return `
-  <div class="book">
+  <div class="book" id="${id}">
     <div class="book-cover-wrap">
       <a class="cover-link" href="${coverHref}" target="_blank" rel="noopener">${coverInner(b)}</a>
       <div style="display:flex;flex-direction:column">
@@ -515,6 +538,7 @@ document.getElementById('books-grid').innerHTML = BOOKS.map(b => {
           <a class="sample" href="${b.sample}" target="_blank" rel="noopener">Read sample →</a>
           ${amzLink}
           ${b.download ? dlLink(b.download, b.title, false) : ''}
+          ${shareLink(id)}
         </div>
         ${renderToc(b.toc)}
       </div>
@@ -537,12 +561,13 @@ function moduleRow(m){
   const dl = (m.download ? dlLink(m.download, m.title, true, 'Free&nbsp;PDF') : '')
            + (m.downloadEpub ? dlLink(m.downloadEpub, m.title, true, 'EPUB') : '')
            + (m.solutions ? `<a class="fdn-dl" href="${m.solutions}" target="_blank" rel="noopener">Solutions&nbsp;(PDF)&nbsp;→</a>` : '');
-  return `<li class="fdn-item ${live?'live':'soon'}">
+  const id = 'fbook-' + slug(m.title);
+  return `<li class="fdn-item ${live?'live':'soon'}" id="${id}">
     <div class="fdn-step">${m.label}</div>
     <div class="fdn-body">
       <div class="fdn-title-row"><span class="fdn-title">${m.title}</span>${badge}</div>
       <p class="fdn-desc">${m.desc}</p>
-      <div class="fdn-links">${link}${dl}</div>
+      <div class="fdn-links">${link}${dl}${shareLink(id, 'fdn-share')}</div>
     </div>
   </li>`;
 }
@@ -556,6 +581,25 @@ document.getElementById('series').innerHTML = SERIES.map(s => `
   </div>`).join('');
 
 document.getElementById('yr').textContent = new Date().getFullYear();
+
+// "Share" — copy a deep link to the clicked book (whole single page still loads)
+document.addEventListener('click', function(e){
+  const s = e.target.closest('[data-share]');
+  if(!s) return;
+  e.preventDefault();
+  const url = location.origin + location.pathname + '#' + s.getAttribute('data-share');
+  const show = () => {
+    if(!s.dataset.label) s.dataset.label = s.textContent;
+    s.textContent = '✓ Copied';
+    s.classList.add('copied');
+    setTimeout(() => { s.textContent = s.dataset.label; s.classList.remove('copied'); }, 1600);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(show).catch(() => window.prompt('Copy this link:', url));
+  } else {
+    window.prompt('Copy this link:', url);
+  }
+});
 
 // mobile nav toggle
 (function(){
