@@ -144,6 +144,13 @@
   .fdn-desc{color:#aebcc2;font-size:.95rem;line-height:1.55;margin:0;max-width:64ch}
   .fdn-link{display:inline-block;margin-top:11px;color:#8fd3ab;font-weight:600;font-size:.87rem;text-decoration:none}
   .fdn-link:hover{text-decoration:underline}
+  .fdn-commit{list-style:none;padding:0;margin:8px 0 0;display:flex;flex-direction:column;gap:14px}
+  .fdn-commit li{color:#aebcc2;font-size:.95rem;line-height:1.6;padding-left:18px;border-left:2px solid #4a5d68}
+  .fdn-commit strong{color:#fff;font-weight:600}
+  .fdn-listlabel{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#8fd3ab;margin:30px 0 2px}
+  .fdn-grouprow{padding:30px 0 0;display:block}
+  .fdn-grouptitle{color:#fff;font-family:'Fraunces',serif;font-size:1.18rem;font-weight:500}
+  .fdn-groupnote{color:#8aa0ab;font-size:.8rem;font-style:italic;margin-left:10px}
   @media(max-width:560px){.fdn-item{grid-template-columns:1fr;gap:7px}.fdn-step{padding-top:0}}
   .roadmap-wrap{margin-top:24px}
   .roadmap-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8aa0ab;margin-bottom:12px}
@@ -201,7 +208,7 @@
   <div class="wrap">
     <div class="eyebrow">The Curious Family Library</div>
     <h1>Be curious. Stay open.<br/>Be kind.</h1>
-    <p class="lead">The work of Meira Davidson — a gentle guide to meditation, vivid explainers on how the world really works, and three build-it-yourself foundations: <a class="fdn-jump" href="#f-math">Mathematics</a>, <a class="fdn-jump" href="#f-compute">Computing &amp; Machine Learning</a>, and <a class="fdn-jump" href="#f-biology">Biology &amp; AI for Drug Design</a>.</p>
+    <p class="lead">The work of Meira Davidson — a gentle guide to meditation, vivid explainers on how the world really works, and three build-it-yourself foundations: <a class="fdn-jump" href="#f-math">Mathematics</a>, <a class="fdn-jump" href="#f-compute">Computing &amp; Machine Learning</a>, and <a class="fdn-jump" href="#f-biology">Biology &amp; Drug Discovery</a>.</p>
     <div class="cta">
       <a class="btn btn-primary" href="#foundations">Explore the foundations →</a>
       <a class="btn btn-ghost" href="#library">Browse the books</a>
@@ -247,7 +254,7 @@
     <div class="section-head">
       <div class="eyebrow">Three Foundations</div>
       <h2>A fast, ordered path through the basics</h2>
-      <p>Beyond the standalone books, Meira is building ground-up guides that carry a curious mind from first principles to real capability — in <a class="fdn-jump" href="#f-math">Mathematics</a>, <a class="fdn-jump" href="#f-compute">Computing &amp; Machine Learning</a>, and <a class="fdn-jump" href="#f-biology">Biology &amp; AI for Drug Design</a>. Every idea is earned from a reason; many chapters come with a free notebook you can open and run yourself.</p>
+      <p>Beyond the standalone books, Meira is building ground-up guides that carry a curious mind from first principles to real capability — in <a class="fdn-jump" href="#f-math">Mathematics</a>, <a class="fdn-jump" href="#f-compute">Computing &amp; Machine Learning</a>, and <a class="fdn-jump" href="#f-biology">Biology &amp; Drug Discovery</a>. Every idea is earned from a reason; many chapters come with a free notebook you can open and run yourself.</p>
     </div>
     <div id="series"></div>
   </div>
@@ -378,11 +385,23 @@ const SERIES = [
   },
   {
     key:"biology",
-    name:"The Biology &amp; AI Drug-Design Foundation",
-    intro:"A ground-up foundation in the biology of medicine and the AI now transforming it — from how cells, immune systems, and diseases work to the models that design new molecules. Several Curious Family Library books (the immune system, mRNA, the first targeted cancer drug) are early steps on this path.",
+    name:"Biology, Drug Discovery &amp; the Science of How Living Things Break Down",
+    intro:`<p>A growing collection of books for readers who want to <em>genuinely understand</em> this — the curious teenager who might one day work in a lab like the ones in these pages, the adult who wants to make sense of the headlines and the choices, the reader who needs to evaluate claims rather than absorb conclusions. The books don't assume prior biology, and they don't condescend either. Where there's real mechanism, you get the real mechanism; where an equation genuinely illuminates, it's on the page and explained in plain sight.</p>
+      <p>Across the library, two commitments hold:</p>
+      <ul class="fdn-commit">
+        <li><strong>The contested-material discipline.</strong> Where a field's dominant frameworks are partly right and partly wrong, we teach both halves honestly rather than presenting marketing-grade consensus — the amyloid hypothesis in Alzheimer's, the AI-native pharma thesis, the genetics-to-drugs paradigm in cardiology, the rate-of-living theory of aging. We walk through what's settled and what isn't, because knowing the difference is more useful than pretending.</li>
+        <li><strong>The mouse-and-human discipline.</strong> Most of the astonishing results in biology are in animals; some survive the jump to humans, and many quietly don't. Across every book we keep asking: does this result actually transfer? And is this a real lever on the underlying biology, or just a marker someone has learned to move?</li>
+      </ul>`,
+    listLabel:"Currently in the library",
     modules:[
-      { label:"New foundation", title:"Biology &amp; AI for Drug Design", status:"soon",
-        desc:"From how a cell and a disease really work to the molecules and models that treat them — the biology underneath modern medicine, and how AI is reshaping it." }
+      { group:"A Field Guide to Drug Discovery", groupNote:"two books" },
+      { label:"Book One", title:"The Biology", status:"soon",
+        desc:"The cellular and methodological foundations — proteins, drugs, targets, pipelines, and the evidence behind the claims." },
+      { label:"Book Two", title:"The Modern Stack", status:"soon",
+        desc:"The field in 2026 — AlphaFold and the structural revolution, immuno-oncology, the data-scale shift in genetics and cell biology, and an honest read on which AI-native drug-discovery approaches are working and which are oversold." },
+      { group:"The Hundred-and-Twenty Question", groupNote:"the book of aging · seven chapters" },
+      { label:"Seven chapters", title:"Will you live to 120?", status:"live", repo:"https://github.com/MeiraDavidson/biology_aging", count:"6 notebooks",
+        desc:"Whether you'll live to a hundred and twenty — and how to tell the science from the slogans. A guided tour of the seven most illuminating hallmarks of aging, done at real depth: more mathematical than the Field Guide, with the equations on the page where they earn their keep." }
     ]
   }
 ];
@@ -449,6 +468,10 @@ document.getElementById('books-grid').innerHTML = BOOKS.map(b => {
 
 // foundations — clear module plan, notebooks as a single quiet link
 function moduleRow(m){
+  if(m.group){
+    return `<li class="fdn-grouprow"><span class="fdn-grouptitle">${m.group}</span>${
+      m.groupNote ? `<span class="fdn-groupnote">${m.groupNote}</span>` : ''}</li>`;
+  }
   const live = m.status === 'live';
   const badge = live ? '<span class="fdn-badge live">Live</span>'
                      : '<span class="fdn-badge soon">Coming soon</span>';
@@ -469,6 +492,7 @@ document.getElementById('series').innerHTML = SERIES.map(s => `
     <h3 class="series-name">${s.name}</h3>
     <div class="series-intro">${s.intro}</div>
     ${s.note ? `<div class="fdn-note">${s.note}</div>` : ''}
+    ${s.listLabel ? `<div class="fdn-listlabel">${s.listLabel}</div>` : ''}
     <ol class="fdn-list">${s.modules.map(moduleRow).join('')}</ol>
   </div>`).join('');
 
