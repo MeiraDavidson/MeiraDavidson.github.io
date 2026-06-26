@@ -134,6 +134,9 @@
   .math h2{color:#fff}
   .math .section-head p{color:#aebcc2}
   .math .section-head p strong{color:#fff;font-weight:600}
+  .run-note{max-width:720px;margin:-12px 0 4px;padding:17px 22px;background:#2c3a45;border:1px solid #38474f;border-left:3px solid var(--sage);border-radius:12px;color:#c4d2d8;font-size:.96rem;line-height:1.62}
+  .run-note strong{color:#fff;font-weight:600}
+  .run-note em{color:#cfe6da;font-style:italic}
   .series-block{margin-top:54px;padding-top:30px;border-top:1px solid #38474f;scroll-margin-top:84px}
   .series-block:first-child{margin-top:4px;padding-top:0;border-top:none}
   .series-name{color:#fff;font-size:1.6rem;margin:0 0 10px}
@@ -270,7 +273,10 @@
     <div class="section-head">
       <div class="eyebrow">Three Foundations</div>
       <h2>A fast, ordered path through the basics</h2>
-      <p>Beyond the standalone books, Meira is building ground-up guides that carry a curious mind from first principles to real capability — in <a class="fdn-jump" href="#f-math">Mathematics</a>, <a class="fdn-jump" href="#f-compute">Computing &amp; Machine Learning</a>, and <a class="fdn-jump" href="#f-biology">Biology &amp; Drug Discovery</a>. Every idea is earned from a reason; many chapters come with a free notebook you can open and run yourself.</p>
+      <p>Beyond the standalone books, Meira is building ground-up guides that carry a curious mind from first principles to real capability — in <a class="fdn-jump" href="#f-math">Mathematics</a>, <a class="fdn-jump" href="#f-compute">Computing &amp; Machine Learning</a>, and <a class="fdn-jump" href="#f-biology">Biology &amp; Drug Discovery</a>. Every idea is earned from a reason.</p>
+    </div>
+    <div class="run-note">
+      <strong>How the notebooks work.</strong> Every interactive notebook opens in Google&nbsp;Colab — all you need is a free Google&nbsp;(Gmail) sign-in. Nothing to install, nothing to set up. And they're meant to be <em>played with</em>: change the numbers, drag the sliders, break something on purpose, then put it back together. The tinkering <em>is</em> the point.
     </div>
     <div id="series"></div>
   </div>
@@ -369,7 +375,6 @@ const SERIES = [
     key:"math",
     name:"The Mathematics Foundation",
     intro:`<p>A small, deliberately ordered foundation that gives you the backbone of mathematics — quickly, and deeply enough that it lasts — so you can dive into whatever you choose: AI, engineering, medicine, or science. The goal is never to memorize; it's to understand well enough to <em>rebuild</em>. Six modules, read roughly in order; each stands on its own.</p>`,
-    note:"Every chapter comes with a free, run-it-yourself Colab notebook.",
     modules:[
       { label:"Module 1", title:"Numbers &amp; Functions", status:"live", repo:"https://github.com/MeiraDavidson/math_module1", count:"5 notebooks", download:"downloads/numbers-and-functions.pdf",
         desc:"The number systems, and the handful of function families that everything else is built from." },
