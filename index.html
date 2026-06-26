@@ -408,16 +408,17 @@ const SERIES = [
   {
     key:"compute",
     name:"The Computing &amp; Machine Learning Foundation",
-    intro:"A complete, build-it-yourself foundation in how computers think and learn — four books that climb from how an algorithm actually works to what a modern foundation model really is.",
+    intro:"This isn't a complete course in anything — it's a first taste. Four short books that start from nothing and build up the few ideas behind how computers solve problems and how machines learn from examples. The hope is simple: that the words you keep hearing — <em>algorithm, model, neural network, foundation model</em> — stop sounding like intimidating jargon and start feeling like things you actually understand, so you can see how plain, and how quietly clever, they really are.",
     modules:[
       { label:"Book 1", title:"A First Taste of Algorithms", status:"live", repo:"https://github.com/MeiraDavidson/compute_module1", count:"10 labs",
-        desc:"How algorithms actually work — counting steps, dots and lines, the honest die, downhill optimization, and the first machines that learn." },
+        download:"downloads/a-first-taste-of-algorithms.pdf", downloadEpub:"downloads/a-first-taste-of-algorithms.epub",
+        desc:"An algorithm is just a recipe a computer follows, one step at a time. This book builds that idea up from scratch — how to count the steps a method takes (and why that suddenly matters when the numbers get big), how puzzles made of dots and lines get solved, how a little randomness can actually help, and how a program can roll “downhill” to find the best answer. By the end you've met the first simple programs that learn from examples. Nothing is taken on faith; every idea is something you can run and watch happen." },
       { label:"Book 2", title:"Traditional Machine Learning", status:"soon",
-        desc:"The first kind of learning, where a human still picks what matters and the models stay small enough to read by hand. Fitting and loss, why acing the practice isn't passing the test, and why on a plain spreadsheet the simplest methods often win." },
+        desc:"The oldest and friendliest kind of machine learning — where a person still decides what the computer should pay attention to, and the methods are small enough to follow by hand. You'll see how a model “learns” by getting a little less wrong each time, why doing well on practice problems doesn't mean you'll do well on the real test, and why, on an ordinary spreadsheet of data, the simplest method often beats the fancy one." },
       { label:"Book 3", title:"Neural Networks", status:"soon",
-        desc:"Where the machine starts choosing its own features. The classic architectures — nets that stack, nets that see, nets that remember, and at last attention — each one built by hand, each the answer to a kind of data the one before couldn't handle, up to a small transformer of your own." },
+        desc:"This is where the machine starts to work out for itself what's worth paying attention to. We build it up one idea at a time: networks that stack into layers, networks that learn to see pictures, networks that remember what came before, and finally “attention,” the trick behind today's AI. Each one is built by hand, and each exists because the one before it couldn't handle some new kind of data — ending with a small, working version of the same machine that powers chatbots." },
       { label:"Book 4", title:"What a Foundation Model Is", status:"soon",
-        desc:"The honest shape of modern AI: you'll likely never train the giant models — you'll adapt one. How a few labs pay the enormous cost once, how everyone else builds on it with a little data, and why learned features can be general enough to lend out. It ends where the real questions begin — by asking what's going on inside." }
+        desc:"The honest shape of modern AI. Almost nobody trains the giant models from scratch — it costs a fortune, so a handful of labs pay that price once and everyone else builds on top with just a little of their own data. This book explains how that actually works, why a model trained on nearly everything can turn out to be useful for almost anything, and what people really mean when they say they “fine-tuned” one. It ends where the real questions begin: what on earth is going on inside these things?" }
     ]
   },
   {
