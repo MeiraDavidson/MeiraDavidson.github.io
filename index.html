@@ -418,6 +418,7 @@ const SERIES = [
         desc:"The field in 2026 — AlphaFold and the structural revolution, immuno-oncology, the data-scale shift in genetics and cell biology, and an honest read on which of the new computational methods are working and which are oversold." },
       { group:"The Hundred-and-Twenty Question", groupNote:"the book of aging · seven chapters" },
       { label:"Seven chapters", title:"Will you live to 120?", status:"live", repo:"https://github.com/MeiraDavidson/biology_aging", count:"6 notebooks",
+        download:"downloads/the-hundred-and-twenty-question.pdf", downloadEpub:"downloads/the-hundred-and-twenty-question.epub",
         desc:"Whether you'll live to a hundred and twenty — and how to tell the science from the slogans. A guided tour of the seven most illuminating hallmarks of aging, done at real depth: more mathematical than the Field Guide, with the equations on the page where they earn their keep." }
     ]
   }
@@ -448,13 +449,16 @@ function renderToc(toc){
     <ul class="toc-list">${items}</ul></details>`;
 }
 
-// download link with per-book GoatCounter click event
-function dlLink(href, title, dark){
-  const key = href.split('/').pop().replace(/\.pdf$/,'');
+// download link with per-book, per-format GoatCounter click event
+function dlLink(href, title, dark, label){
+  const file = href.split('/').pop();
+  const ext = (file.match(/\.(pdf|epub)$/) || [,'pdf'])[1];
+  const base = file.replace(/\.(pdf|epub)$/,'');
   const cls = dark ? 'fdn-dl' : 'dl';
+  const lbl = label || 'Free&nbsp;PDF';
   return `<a class="${cls}" href="${href}" download
-    data-goatcounter-click="download-${key}"
-    data-goatcounter-title="Download — ${title}">↓&nbsp;Free&nbsp;PDF</a>`;
+    data-goatcounter-click="download-${base}-${ext}"
+    data-goatcounter-title="Download (${ext.toUpperCase()}) — ${title}">↓&nbsp;${lbl}</a>`;
 }
 
 // featured
@@ -505,7 +509,8 @@ function moduleRow(m){
   const link = live && m.repo
     ? `<a class="fdn-link" href="${m.repo}" target="_blank" rel="noopener">${m.count} · open in Colab on GitHub →</a>`
     : '';
-  const dl = m.download ? dlLink(m.download, m.title, true) : '';
+  const dl = (m.download ? dlLink(m.download, m.title, true, 'Free&nbsp;PDF') : '')
+           + (m.downloadEpub ? dlLink(m.downloadEpub, m.title, true, 'EPUB') : '');
   return `<li class="fdn-item ${live?'live':'soon'}">
     <div class="fdn-step">${m.label}</div>
     <div class="fdn-body">
