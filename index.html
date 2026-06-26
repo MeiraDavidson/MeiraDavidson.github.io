@@ -105,6 +105,11 @@
   .book .links a.sample:hover{text-decoration:underline}
   .book .links a.amz{color:var(--ink-soft)}
   .book .links a.amz:hover{color:var(--sage-dark);text-decoration:underline}
+  .book .links a.dl{color:var(--sage-dark)}
+  .book .links a.dl:hover{text-decoration:underline}
+  .fdn-links{display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px}
+  .fdn-dl{color:#8fd3ab;font-weight:600;font-size:.87rem;text-decoration:none;margin-top:11px}
+  .fdn-dl:hover{text-decoration:underline}
 
   /* table of contents disclosure */
   .toc{margin-top:14px}
@@ -325,6 +330,7 @@ const BOOKS = [
     desc:"How a grain of sand becomes a microchip in the world's most precise factories, what a data center actually is, and the honest costs of it all — energy, water, mining, e-waste, and attention — ending with what actually matters and what you can do.",
     cover:"assets/covers/invisible-trillion.jpg",
     amazon:"https://www.amazon.com/Invisible-Trillion-centers-Curious-Library/dp/B0H3M7F27C", sample:"samples/invisible-trillion-sample.html",
+    download:"downloads/the-invisible-trillion.pdf",
     toc:["Sand, Light & the World's Most Precise Factories","What Chips Actually Do","Data Centers: The Cathedrals Nobody Visits","The Energy Question, Honestly","The Water Question, Honestly","The Mining & E-Waste Question, Honestly","The Highway in the Bronx","The Legal Weapons","How a Neighborhood Dies","No Going Back","How Much Do We Actually Need?","The Architecture That Works","The Bill","The Other Ledger","The Attention Chapter","Who Decides","What You Can Do That Actually Matters"] },
   { title:"How the World Got Wired", sub:"A Brief History of the Internet",
     desc:"The whole arc of the internet in twenty-two short chapters — from a 1945 “memex” and the first packet, through the web given away, the dot-com crash, search and the smartphone, to the cloud and the two AI internets now taking shape.",
@@ -365,7 +371,7 @@ const SERIES = [
     intro:`<p>A small, deliberately ordered foundation that gives you the backbone of mathematics — quickly, and deeply enough that it lasts — so you can dive into whatever you choose: AI, engineering, medicine, or science. The goal is never to memorize; it's to understand well enough to <em>rebuild</em>. Six modules, read roughly in order; each stands on its own.</p>`,
     note:"Every chapter comes with a free, run-it-yourself Colab notebook.",
     modules:[
-      { label:"Module 1", title:"Numbers &amp; Functions", status:"live", repo:"https://github.com/MeiraDavidson/math_module1", count:"5 notebooks",
+      { label:"Module 1", title:"Numbers &amp; Functions", status:"live", repo:"https://github.com/MeiraDavidson/math_module1", count:"5 notebooks", download:"downloads/numbers-and-functions.pdf",
         desc:"The number systems, and the handful of function families that everything else is built from." },
       { label:"Module 2", title:"Calculus I", status:"live", repo:"https://github.com/MeiraDavidson/math_module2", count:"12 notebooks",
         desc:"Single variable — limits, derivatives, and integrals: the mathematics of change and accumulation." },
@@ -442,6 +448,15 @@ function renderToc(toc){
     <ul class="toc-list">${items}</ul></details>`;
 }
 
+// download link with per-book GoatCounter click event
+function dlLink(href, title, dark){
+  const key = href.split('/').pop().replace(/\.pdf$/,'');
+  const cls = dark ? 'fdn-dl' : 'dl';
+  return `<a class="${cls}" href="${href}" download
+    data-goatcounter-click="download-${key}"
+    data-goatcounter-title="Download — ${title}">↓&nbsp;Free&nbsp;PDF</a>`;
+}
+
 // featured
 document.getElementById('feat-cover').src = FEATURED.cover;
 document.getElementById('feat-cover').alt = FEATURED.title + " cover";
@@ -470,6 +485,7 @@ document.getElementById('books-grid').innerHTML = BOOKS.map(b => {
         <div class="links">
           <a class="sample" href="${b.sample}" target="_blank" rel="noopener">Read sample →</a>
           ${amzLink}
+          ${b.download ? dlLink(b.download, b.title, false) : ''}
         </div>
         ${renderToc(b.toc)}
       </div>
@@ -489,12 +505,13 @@ function moduleRow(m){
   const link = live && m.repo
     ? `<a class="fdn-link" href="${m.repo}" target="_blank" rel="noopener">${m.count} · open in Colab on GitHub →</a>`
     : '';
+  const dl = m.download ? dlLink(m.download, m.title, true) : '';
   return `<li class="fdn-item ${live?'live':'soon'}">
     <div class="fdn-step">${m.label}</div>
     <div class="fdn-body">
       <div class="fdn-title-row"><span class="fdn-title">${m.title}</span>${badge}</div>
       <p class="fdn-desc">${m.desc}</p>
-      ${link}
+      <div class="fdn-links">${link}${dl}</div>
     </div>
   </li>`;
 }
@@ -508,6 +525,18 @@ document.getElementById('series').innerHTML = SERIES.map(s => `
   </div>`).join('');
 
 document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+
+<!-- ============================================================
+     DOWNLOAD COUNTER — GoatCounter (free, privacy-friendly)
+     SETUP: make a free account at https://www.goatcounter.com/ and claim the
+     code "meiradavidson" (or any code). Then replace MEIRADAVIDSON below with
+     your code. Each "Download" click is recorded as its own event — your
+     dashboard at https://meiradavidson.goatcounter.com shows counts per book.
+     ============================================================ -->
+<script data-goatcounter="https://MEIRADAVIDSON.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+<script>
 </script>
 </body>
 </html>
