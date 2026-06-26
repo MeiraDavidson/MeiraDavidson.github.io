@@ -397,6 +397,7 @@ const SERIES = [
       { label:"Module 1", title:"Numbers &amp; Functions", status:"live", repo:"https://github.com/MeiraDavidson/math_module1", count:"5 notebooks", download:"downloads/numbers-and-functions.pdf",
         desc:"The number systems, and the handful of function families that everything else is built from." },
       { label:"Module 2", title:"Calculus I", status:"live", repo:"https://github.com/MeiraDavidson/math_module2", count:"12 notebooks",
+        download:"downloads/calculus-i.pdf", downloadEpub:"downloads/calculus-i.epub", solutions:"https://github.com/MeiraDavidson/math_module2/blob/main/solutions.pdf",
         desc:"Single variable — limits, derivatives, and integrals: the mathematics of change and accumulation." },
       { label:"Module 3", title:"Linear Algebra", status:"soon",
         desc:"Vectors, matrices, and the language of high dimensions — the language modern AI lives in." },
@@ -534,7 +535,8 @@ function moduleRow(m){
     ? `<a class="fdn-link" href="${m.repo}" target="_blank" rel="noopener">${m.count} · open in Colab on GitHub →</a>`
     : '';
   const dl = (m.download ? dlLink(m.download, m.title, true, 'Free&nbsp;PDF') : '')
-           + (m.downloadEpub ? dlLink(m.downloadEpub, m.title, true, 'EPUB') : '');
+           + (m.downloadEpub ? dlLink(m.downloadEpub, m.title, true, 'EPUB') : '')
+           + (m.solutions ? `<a class="fdn-dl" href="${m.solutions}" target="_blank" rel="noopener">Solutions&nbsp;(PDF)&nbsp;→</a>` : '');
   return `<li class="fdn-item ${live?'live':'soon'}">
     <div class="fdn-step">${m.label}</div>
     <div class="fdn-body">
