@@ -598,6 +598,19 @@ document.getElementById('series').innerHTML = SERIES.map(s => `
 
 document.getElementById('yr').textContent = new Date().getFullYear();
 
+// Fire a GoatCounter event once the tracker is ready (its script loads async,
+// so retry briefly until window.goatcounter.count exists).
+function gcEvent(path, title){
+  let tries = 0;
+  (function go(){
+    if(window.goatcounter && window.goatcounter.count){
+      window.goatcounter.count({ path: path, title: title, event: true });
+    } else if(tries++ < 50){
+      setTimeout(go, 200);
+    }
+  })();
+}
+
 // "Share" — native OS share sheet on mobile; otherwise copy a friendly message.
 // Either way it's a deep link into the single page, so the reader lands on the
 // book but still has the whole library to scroll through.
@@ -605,8 +618,10 @@ document.addEventListener('click', function(e){
   const s = e.target.closest('[data-share]');
   if(!s) return;
   e.preventDefault();
+  const id = s.getAttribute('data-share');
   const title = (s.getAttribute('data-title') || '').trim() || 'Meira Davidson';
-  const url = location.origin + location.pathname + '#' + s.getAttribute('data-share');
+  gcEvent('share-' + id, 'Share — ' + title);   // per-book share-click count
+  const url = location.origin + location.pathname + '#' + id;
   if(navigator.share){
     navigator.share({ title: title, text: title + ' — The Curious Family Library by Meira Davidson', url: url }).catch(()=>{});
     return;
@@ -623,6 +638,14 @@ document.addEventListener('click', function(e){
     window.prompt('Copy this link:', msg);
   }
 });
+
+// Count arrivals that came in via a shared deep link, per book — the normal
+// pageview only ever records "/", so the #book-…/#fbook-… hash is what tells
+// us which shared link brought someone in.
+(function(){
+  const h = (location.hash || '').replace(/^#/, '');
+  if(/^(book|fbook)-/.test(h)) gcEvent('arrive-' + h, 'Arrived via shared link — ' + h);
+})();
 
 // mobile nav toggle
 (function(){
