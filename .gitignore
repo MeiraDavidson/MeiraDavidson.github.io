@@ -4,3 +4,5 @@ build_samples.py
 sample_specs.json
 assets/covers/_*
 assets/pdfs/
+
+.claude/
