@@ -1,7 +1,7 @@
 /* Knowledge Map service worker.
    Network-first (so new content/updates always appear when online), with a
    cache fallback so the whole app still works offline on an iPad. */
-var CACHE = "knowledge-map-v10";
+var CACHE = "knowledge-map-v11";
 var CORE = [
   "./",
   "./index.html",
