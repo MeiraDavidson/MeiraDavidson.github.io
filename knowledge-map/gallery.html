@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Visual Library · Knowledge Map</title>
+  <meta name="theme-color" content="#4f6ef7" />
+  <link rel="icon" type="image/svg+xml" href="icons/icon.svg" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .gal-grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+    .gal-card h3 { font-size: 1rem; margin: 0 0 4px; }
+    .gal-card .k { font-size: .72rem; color: var(--ink-faint); font-weight: 800; text-transform: uppercase; letter-spacing: .05em; }
+    figure.visual { min-height: 200px; }
+  </style>
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand" onclick="location.href='index.html'">
+      <div class="brand-badge">🧭</div>
+      <div>
+        <div class="brand-title">Visual Library</div>
+        <div class="brand-sub">All interactive animations</div>
+      </div>
+    </div>
+    <div class="header-spacer"></div>
+    <a class="btn ghost" href="index.html">← Back to app</a>
+  </header>
+  <main class="container">
+    <div class="hero">
+      <h1>🔬 Visual Library</h1>
+      <p>Every interactive animation in the Knowledge Map, in one place. Tap, drag, and press the buttons — each one is live. Teachers can use these to preview or project a concept.</p>
+    </div>
+    <div id="mathSection"></div>
+    <div id="sciSection"></div>
+  </main>
+  <script src="js/animations.js"></script>
+  <script>
+    var NAMES = {
+      statesOfMatter:"States of Matter", photosynthesis:"Photosynthesis", waterCycle:"The Water Cycle",
+      animalCell:"Animal Cell", plantCell:"Plant Cell", mitosis:"Mitosis (Cell Division)", dnaHelix:"DNA Double Helix",
+      punnettSquare:"Punnett Square", foodWeb:"Food Web", energyPyramid:"Energy Pyramid", atomBohr:"Atom (Bohr Model)",
+      phScale:"The pH Scale", chemicalReaction:"Chemical Reaction", forcesMotion:"Forces & Motion (F = ma)",
+      newtonsCradle:"Newton's Cradle", waveTransverse:"Transverse Wave", waveLongitudinal:"Longitudinal Wave",
+      emSpectrum:"Electromagnetic Spectrum", simpleCircuit:"Simple Circuit", plateTectonics:"Plate Tectonics",
+      rockCycle:"The Rock Cycle", moonPhases:"Moon Phases", solarSystem:"The Solar System", seasons:"Why We Have Seasons",
+      carbonCycle:"The Carbon Cycle", periodicTrends:"Periodic Table",
+      numberLine:"Number Line", doubleNumberLine:"Double Number Line", coordinatePlane:"Coordinate Plane",
+      linearGrapher:"Linear Function Grapher", quadraticGrapher:"Quadratic Grapher", pythagorean:"Pythagorean Theorem",
+      transformations:"Transformations", fractionBars:"Fraction Bars", scatterPlot:"Scatter Plot & Best Fit",
+      systemsGraph:"System of Equations"
+    };
+    var MATH = ["numberLine","doubleNumberLine","coordinatePlane","linearGrapher","quadraticGrapher","pythagorean","transformations","fractionBars","scatterPlot","systemsGraph"];
+    function card(key) {
+      var wrap = document.createElement("div"); wrap.className = "panel gal-card";
+      var k = document.createElement("div"); k.className = "k"; k.textContent = key; wrap.appendChild(k);
+      var h = document.createElement("h3"); h.textContent = NAMES[key] || key; wrap.appendChild(h);
+      var fig = document.createElement("figure"); fig.className = "visual"; wrap.appendChild(fig);
+      AnimLib.render(key, fig, {});
+      return wrap;
+    }
+    function section(title, keys, host) {
+      var t = document.createElement("div"); t.className = "section-title";
+      t.appendChild(Object.assign(document.createElement("span"), { textContent: title }));
+      t.appendChild(Object.assign(document.createElement("span"), { className: "line" }));
+      host.appendChild(t);
+      var g = document.createElement("div"); g.className = "gal-grid";
+      keys.forEach(function (key) { g.appendChild(card(key)); });
+      host.appendChild(g);
+    }
+    var all = AnimLib.keys();
+    var mathKeys = all.filter(function (k) { return MATH.indexOf(k) > -1; });
+    var sciKeys = all.filter(function (k) { return MATH.indexOf(k) < 0; });
+    section("🔢 Math visuals", mathKeys, document.getElementById("mathSection"));
+    section("🔬 Science visuals", sciKeys, document.getElementById("sciSection"));
+  </script>
+  <script data-goatcounter="https://meiradavidson.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

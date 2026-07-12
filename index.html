@@ -475,6 +475,15 @@ const SERIES = [
         download:"downloads/the-hundred-and-twenty-question.pdf", downloadEpub:"downloads/the-hundred-and-twenty-question.epub",
         desc:"Seven chapters on the science of living longer — and how to tell it from the hype. It names and works through the things you actually hear on longevity podcasts: telomeres; the epigenetic “clocks” that claim to read your biological age; the senescent “zombie” cells and the senolytics meant to clear them; the nutrient-and-hunger switches behind fasting, rapamycin, and metformin; the free-radical theory (a beautiful wrong idea) and the antioxidants it inspired; protein aggregation; and cellular reprogramming. For each one it asks the only question that counts: is this a real lever on aging, or just a number someone has learned to move? More mathematical than the rest — the equations are right there on the page, where they earn their keep." }
     ]
+  },
+  {
+    key:"knowledgemap",
+    name:"The Grades 7–9 Knowledge Map",
+    intro:`<p>Not a book this time, but an interactive tool. A standards-aligned map of everything a student meets in grades 7–9 — Mathematics, Science, English, and Social Studies, built to the New York (Westchester) standards. Every idea is a node you can open: interactive science and math animations you can actually poke at, self-checking practice, quizzes and timed tests, and a prerequisite graph that shows what each concept builds on — and, when you slip, traces it back to the foundation to review first. Free, works offline, and a student's answers never leave their device.</p>`,
+    modules:[
+      { label:"Grades 7–9", title:"Explore the Knowledge Map", status:"live", app:"knowledge-map/", count:"61 units · 258 connected concepts",
+        desc:"Pick a subject and follow the path, or open the map and watch how every idea connects — across subjects too (a Punnett square is probability; slope is speed). Interactive animations for science and math, about eleven practice problems per concept, unit quizzes, timed practice tests, a personalized review plan when you miss things, and Regents prep for grade 9." }
+    ]
   }
 ];
 
@@ -573,7 +582,9 @@ function moduleRow(m){
                      : '<span class="fdn-badge soon">Coming soon</span>';
   const link = live && m.repo
     ? `<a class="fdn-link" href="${m.repo}" target="_blank" rel="noopener">${m.count} · open in Colab on GitHub →</a>`
-    : '';
+    : (live && m.app
+      ? `<a class="fdn-link" href="${m.app}">${m.count ? m.count + ' · ' : ''}open the interactive map →</a>`
+      : '');
   const dl = (m.download ? dlLink(m.download, m.title, true, 'Free&nbsp;PDF') : '')
            + (m.downloadEpub ? dlLink(m.downloadEpub, m.title, true, 'EPUB') : '')
            + (m.solutions ? `<a class="fdn-dl" href="${m.solutions}" target="_blank" rel="noopener">Solutions&nbsp;(PDF)&nbsp;→</a>` : '');
