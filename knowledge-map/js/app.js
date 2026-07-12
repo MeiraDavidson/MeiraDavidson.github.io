@@ -1369,8 +1369,9 @@
   /* ---------- shared bits -------------------------------------------------*/
   function footer() {
     return el("div", { class: "footer" }, [
-      el("div", { html: 'Knowledge Map · aligned to NYS Next Generation Learning Standards · <a href="gallery.html">🔬 Visual Library</a>' }),
-      el("div", { style: "margin-top:6px", text: "Built for curious minds in grades 7–9" })
+      el("div", { html: '<a href="../">↩ Part of <b>The Curious Family Library</b></a>' }),
+      el("div", { style: "margin-top:6px", html: 'Knowledge Map · aligned to NYS Next Generation Learning Standards · <a href="gallery.html">🔬 Visual Library</a>' }),
+      el("div", { style: "margin-top:4px", text: "Built for curious minds in grades 7–9" })
     ]);
   }
   function emptyBox(msg) { return el("div", { class: "empty" }, [el("div", { class: "big", text: "🌱" }), el("p", { text: msg })]); }
