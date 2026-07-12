@@ -3,7 +3,7 @@
    =========================================================================== */
 (function () {
   "use strict";
-  var KM = window.KNOWLEDGE_MAP || { subjects: [], units: {}, kps: {}, quizzes: {}, problemSets: {} };
+  var KM = window.KNOWLEDGE_MAP || { subjects: [], units: {}, kps: {}, quizzes: {}, problemSets: {}, challenges: {} };
   var view = document.getElementById("view");
   var TCLASS = { "math": "t-math", "science": "t-science", "ela": "t-ela", "social-studies": "t-social" };
   var GRADES = ["7", "8", "9"];
@@ -34,9 +34,51 @@
   function save() { try { localStorage.setItem(PKEY, JSON.stringify(P)); } catch (e) {} }
   function kpState(id) { P.kps = P.kps || {}; return (P.kps[id] = P.kps[id] || { done: false, ex: {} }); }
   function quizState(id) { P.quizzes = P.quizzes || {}; return (P.quizzes[id] = P.quizzes[id] || { best: 0, passed: false, attempts: 0 }); }
-  function markKP(id, done) { kpState(id).done = done !== false; if (done !== false && P.needsReview) delete P.needsReview[id]; save(); }
+  function markKP(id, done) { kpState(id).done = done !== false; if (done !== false) { if (P.needsReview) delete P.needsReview[id]; enqueueReview(id); } save(); }
   function recordEx(kpId, qid, ok) { var s = kpState(kpId); s.ex[qid] = ok; save(); }
   function recordVisit(id) { P.last = id; save(); }
+
+  /* ---------- spaced review + stretch mastery ----------------------------*/
+  function reviewMap() { P.review = P.review || {}; return P.review; }
+  function enqueueReview(id) { if (window.KMReview) { window.KMReview.enqueue(reviewMap(), id, Date.now()); save(); } }
+  function gradeReview(id, ok) { if (window.KMReview) { window.KMReview.grade(reviewMap(), id, ok, Date.now()); save(); } }
+  function dueReviews() { return window.KMReview ? window.KMReview.dueIds(reviewMap(), Date.now()) : []; }
+  function pendingReviews() { return window.KMReview ? window.KMReview.pendingIds(reviewMap()) : []; }
+  function stretchState() { P.stretch = P.stretch || {}; return P.stretch; }
+  function recordStretch(prob, ok, hintsUsed, thinkMs) {
+    var st = stretchState();
+    var e = st[prob.id] = st[prob.id] || { solved: false, attempts: 0, hints: 0, thinkMs: 0 };
+    e.attempts++; e.hints = Math.max(e.hints, hintsUsed || 0); e.thinkMs = Math.max(e.thinkMs, thinkMs || 0);
+    if (ok) { e.solved = true; (prob.kpIds || []).forEach(function (id) { enqueueReview(id); }); }
+    save();
+  }
+  function stretchSolvedForKp(kpId) {
+    var set = KM.challenges || {}, st = P.stretch || {};
+    for (var uid in set) {
+      var probs = set[uid].problems || [];
+      for (var i = 0; i < probs.length; i++)
+        if ((probs[i].kpIds || []).indexOf(kpId) > -1 && st[probs[i].id] && st[probs[i].id].solved) return true;
+    }
+    return false;
+  }
+  // Mastered = learned AND (graduated the full spacing ladder OR conquered a stretch problem).
+  function isMastered(kpId) {
+    if (!(P.kps && P.kps[kpId] && P.kps[kpId].done)) return false;
+    if (window.KMReview && window.KMReview.graduated((P.review || {})[kpId])) return true;
+    return stretchSolvedForKp(kpId);
+  }
+  function challengesForKp(kpId) {
+    var uid = KM.kps[kpId] && KM.kps[kpId].unitId, set = (KM.challenges || {})[uid];
+    if (!set) return [];
+    return (set.problems || []).filter(function (p) { return (p.kpIds || []).indexOf(kpId) > -1; });
+  }
+  // Reusable nudge: attempt stretch problems AFTER a few days, not right after the lesson.
+  function stretchTimingNote() {
+    return el("div", { class: "timing-note" }, [
+      el("span", { class: "tn-emoji", text: "⏳" }),
+      el("div", { html: "<b>Come back to these in a few days.</b> They work best <i>after</i> a gap — once you've slept on the ideas and let them settle, not right after the lesson. Struggling with them a few days later is what carves them into intuition. Finish the lesson now, and swing back to these in a few days." })
+    ]);
+  }
 
   /* ---------- concept mastery & gap diagnosis ----------------------------*/
   function rankOf(kp) { return (Number(kp.grade) || 0) * 1e6 + ((KM.units[kp.unitId] || {}).order || 0) * 1e3 + (kp.order || 0); }
@@ -199,6 +241,22 @@
           el("div", { class: "r-sub", text: (subjectByKey(lk.subject) || {}).name + " · " + (lu.title || "") })
         ]),
         el("div", { class: "r-go", text: "Continue →" })
+      ]));
+    }
+
+    // spaced-review hub — the retention engine
+    var rvDue = dueReviews(), rvPend = pendingReviews();
+    if (rvPend.length) {
+      var nd = window.KMReview.nextDue(P.review || {});
+      root.appendChild(el("div", { class: "review-card", onclick: function () { location.hash = "#/review"; } }, [
+        el("div", { class: "rv-emoji", text: rvDue.length ? "🔁" : "✅" }),
+        el("div", {}, [
+          el("div", { style: "font-weight:900", text: rvDue.length ? "Review — bring it back to lock it in" : "Spaced review on track" }),
+          el("div", { class: "rv-sub", text: rvDue.length
+            ? (rvDue.length + " concept" + (rvDue.length > 1 ? "s" : "") + " ready to recall now")
+            : ("All caught up — next review " + window.KMReview.whenLabel(nd, Date.now())) })
+        ]),
+        el("div", { class: "rv-go", text: rvDue.length ? "Start →" : "Review early →" })
       ]));
     }
 
@@ -393,7 +451,8 @@
       var done = P.kps && P.kps[id] && P.kps[id].done;
       var card = el("div", { class: "card", onclick: function () { location.hash = "#/kp/" + id; } });
       card.appendChild(el("div", { class: "accent-bar" }));
-      if (done) card.appendChild(el("div", { class: "badge-done", text: "✓" }));
+      if (isMastered(id)) card.appendChild(el("div", { class: "badge-done mastered", text: "★", title: "Mastered — recalled after a delay or a stretch problem conquered" }));
+      else if (done) card.appendChild(el("div", { class: "badge-done", text: "✓" }));
       card.appendChild(el("div", { class: "pill-count", text: "Idea " + (i + 1) }));
       card.appendChild(el("h3", { text: kp.title }));
       if (kp.standard && kp.standard.code) card.appendChild(el("span", { class: "chip std", text: kp.standard.code }));
@@ -463,8 +522,112 @@
         el("h3", { text: "Practice Test" }),
         el("p", { text: "A timed, randomized mix of the whole unit's questions." + (tst.attempts ? " Best: " + tst.best + "%." : " Great pre-quiz warm-up.") })
       ]));
+      // 🔥 stretch challenge set (interleaved AMC-8) — only where authored
+      if (KM.challenges && KM.challenges[unitId]) {
+        var chset = KM.challenges[unitId];
+        var chDone = (chset.problems || []).filter(function (p) { return (P.stretch || {})[p.id] && P.stretch[p.id].solved; }).length;
+        arow.appendChild(el("div", { class: "card stretch-card", onclick: function () { location.hash = "#/challenge/" + unitId; } }, [
+          el("div", { class: "accent-bar" }),
+          chDone ? el("div", { class: "badge-done mastered", text: chDone === chset.problems.length ? "★" : chDone }) : null,
+          el("div", { class: "emoji", text: "🔥" }),
+          el("h3", { text: "Stretch Challenges" }),
+          el("p", { text: (chset.problems ? chset.problems.length : 0) + " hard, multi-step problems that mix the whole unit — struggle-first, with staged hints instead of instant answers." })
+        ]));
+      }
       root.appendChild(arow);
     }
+    root.appendChild(footer());
+    mount(root);
+  }
+
+  /* ========================================================================
+     VIEW: STRETCH CHALLENGE SET (interleaved, unit-level)
+     ====================================================================== */
+  function viewChallengeSet(unitId) {
+    var set = (KM.challenges || {})[unitId], u = KM.units[unitId];
+    if (!set || !u) return notFound();
+    var s = subjectByKey(u.subject);
+    var root = el("div", { class: TCLASS[u.subject] || "" });
+    root.appendChild(crumbs([
+      { label: "Home", href: "#/" },
+      { label: s.name + " · G" + u.grade, href: "#/subject/" + u.subject + "/" + u.grade },
+      { label: "Unit " + u.order, href: "#/unit/" + unitId },
+      { label: "Stretch" }
+    ]));
+    root.appendChild(el("div", { class: "hero" }, [
+      el("h1", { text: "🔥 " + (set.title || (u.title + " — Stretch Challenges")) }),
+      el("p", { text: set.blurb || "Hard, multi-step problems that mix the whole unit. Wrestle first — hints come in stages, and the solution unlocks only after you've taken a real swing." })
+    ]));
+    root.appendChild(stretchTimingNote());
+    var probs = set.problems || [];
+    var solved = probs.filter(function (p) { return (P.stretch || {})[p.id] && P.stretch[p.id].solved; }).length;
+    root.appendChild(el("div", { class: "panel", style: "margin-bottom:16px" }, progressRow(Math.round(solved / (probs.length || 1) * 100), solved + " of " + probs.length + " conquered")));
+    var host = el("div", { class: "panel" });
+    host.appendChild(el("div", { class: "eyebrow", text: "Interleaved — first figure out which idea each one needs" }));
+    probs.forEach(function (p) { host.appendChild(renderChallenge(p, {})); });
+    root.appendChild(host);
+    root.appendChild(footer());
+    mount(root);
+  }
+
+  /* ========================================================================
+     VIEW: SPACED REVIEW (retrieval practice pulled from the queue)
+     ====================================================================== */
+  function viewReview() {
+    var root = el("div");
+    root.appendChild(crumbs([{ label: "Home", href: "#/" }, { label: "Review" }]));
+    var due = dueReviews(), pend = pendingReviews();
+    if (!pend.length) {
+      root.appendChild(el("div", { class: "panel result-card" }, [
+        el("div", { class: "result-emoji", text: "🌱" }),
+        el("h1", { text: "Nothing to review yet" }),
+        el("p", { text: "Complete a concept and it enters your spaced-review queue automatically. Then it comes back — tomorrow, in a few days, in a couple of weeks — so it moves from memory into instinct." }),
+        el("a", { class: "btn wide", href: "#/", text: "Back home" })
+      ]));
+      root.appendChild(footer()); mount(root); return;
+    }
+    var queue = (due.length ? due : pend.slice(0, 5));
+    var items = [];
+    queue.forEach(function (id) {
+      var kp = KM.kps[id]; if (!kp) return;
+      var pool = (kp.exercises || []).filter(function (q) { return q.type === "multiple-choice" || q.type === "numeric"; });
+      if (!pool.length) return;
+      var box = (P.review[id] && P.review[id].box) || 0;
+      items.push({ kpId: id, kp: kp, q: pool[(kp.title.length + box) % pool.length] });
+    });
+    root.appendChild(el("div", { class: "hero" }, [
+      el("h1", { text: due.length ? "🔁 Review — recall it cold" : "🔁 Review early" }),
+      el("p", { text: due.length
+        ? "No peeking at the lesson first. Pull each answer from memory — the effort of retrieval is exactly what strengthens it."
+        : "Nothing's due yet, but pulling a few forward is fine practice. (Spacing helps most, so no need to overdo it.)" })
+    ]));
+    var stage = el("div", { class: "panel" });
+    root.appendChild(stage);
+    var i = 0, correct = 0;
+    function renderOne() {
+      clear(stage);
+      if (i >= items.length) return finish();
+      var it = items[i];
+      stage.appendChild(el("div", { class: "pill-count", text: "Concept " + (i + 1) + " of " + items.length + " · " + it.kp.title }));
+      var next = el("button", { class: "btn wide", text: (i === items.length - 1 ? "Finish" : "Next →"), disabled: "true", style: "margin-top:14px" });
+      stage.appendChild(renderExercise(it.q, null, { quiz: true, onDone: function (ok) {
+        if (ok) correct++;
+        gradeReview(it.kpId, ok);
+        next.removeAttribute("disabled");
+      } }));
+      stage.appendChild(next);
+      next.addEventListener("click", function () { i++; renderOne(); window.scrollTo(0, 0); });
+    }
+    function finish() {
+      clear(stage);
+      stage.className = "panel result-card";
+      stage.appendChild(el("div", { class: "result-emoji", text: "🎉" }));
+      stage.appendChild(el("h1", { text: "Review done — " + correct + "/" + items.length + " recalled" }));
+      stage.appendChild(el("p", { text: "Each concept you recalled just got pushed further out in your queue; the ones you missed will come back sooner. That's the spacing doing its job." }));
+      stage.appendChild(el("a", { class: "btn wide", href: "#/", text: "Back home" }));
+      confetti();
+    }
+    renderOne();
     root.appendChild(footer());
     mount(root);
   }
@@ -632,6 +795,26 @@
       root.appendChild(mp);
     }
 
+    // 🔥 Stretch — optional AMC-8 challenge, collapsed by default (opt-in)
+    var stretch = challengesForKp(kpId);
+    if (stretch.length) {
+      var sp = el("details", { class: "panel stretch" });
+      sp.appendChild(el("summary", {}, [
+        el("span", { class: "dd-badge", text: "🔥 Stretch challenge" }),
+        el("span", { class: "dd-hint", text: stretch.length + " hard problem" + (stretch.length > 1 ? "s" : "") + " · best a few days from now · optional" })
+      ]));
+      var spOpened = false;
+      sp.addEventListener("toggle", function () {
+        if (sp.open && !spOpened) {
+          spOpened = true;
+          sp.appendChild(stretchTimingNote());
+          sp.appendChild(el("p", { class: "stretch-intro", html: "These are meant to be <b>hard</b>. Wrestle first — you'll get staged hints (a nudge, then a method), and the full solution only after you've taken a real swing. Struggling here is what turns the rule into an instinct." }));
+          stretch.forEach(function (p) { sp.appendChild(renderChallenge(p, { kpId: kpId })); });
+        }
+      });
+      root.appendChild(sp);
+    }
+
     // complete + next
     var kps = kpState(kpId);
     var doneBtn = el("button", { class: "btn good wide", html: kps.done ? "✓ Idea completed — mark not done" : "Mark this idea complete ✓",
@@ -718,6 +901,118 @@
       wrap.appendChild(el("div", { class: "btn-row" }, sbtn));
     }
     wrap.appendChild(feedback);
+    return wrap;
+  }
+
+  /* ---------- stretch challenge renderer (struggle-first, staged hints) ---*/
+  function renderChallenge(prob, opts) {
+    opts = opts || {};
+    var t0 = Date.now();
+    var attempts = 0, hintsShown = 0, solved = false, solutionShown = false, solBtnShown = false;
+    var wrap = el("div", { class: "exercise challenge" });
+    wrap.appendChild(el("div", { class: "qhead" }, [
+      el("div", { class: "prompt", html: inlineMath(prob.prompt) }),
+      el("span", { class: "diff amc8", text: prob.band || "AMC-8" })
+    ]));
+    var feedback = el("div", { class: "feedback" });
+    var hintWrap = el("div", { class: "hintwrap" });
+    var hintList = el("div", { class: "hints" });
+    var solWrap = el("div", { class: "solwrap" });
+
+    function celebrate() {
+      solved = true;
+      recordStretch(prob, true, hintsShown, Date.now() - t0);
+      var secs = Math.round((Date.now() - t0) / 1000);
+      feedback.className = "feedback show ok";
+      feedback.innerHTML = "🎯 <b>You got it — and you earned it.</b>" +
+        "<div class='struggle-note'>You wrestled with this for " + secs + "s" +
+        (hintsShown ? " and used " + hintsShown + " hint" + (hintsShown > 1 ? "s" : "") : " with no hints") +
+        ". That struggle is what turns a rule into an instinct.</div>";
+      revealSolution(true);
+      confetti();
+      if (opts.onSolved) opts.onSolved(prob);
+    }
+    function revealSolution(force) {
+      if (solutionShown) return;
+      if (!force && attempts < 1) {
+        feedback.className = "feedback show no";
+        feedback.innerHTML = "✋ Take a real swing first — then the full solution unlocks.";
+        return;
+      }
+      solutionShown = true;
+      clear(solWrap);
+      var box = el("div", { class: "solution" });
+      box.appendChild(el("div", { class: "eyebrow", text: "Full solution" }));
+      (prob.solution || []).forEach(function (stp, i) {
+        box.appendChild(el("div", { class: "sol-step" }, [el("span", { class: "sol-n", text: (i + 1) }), el("div", { html: inlineMath(stp) })]));
+      });
+      solWrap.appendChild(box);
+    }
+    function showSolBtn() {
+      if (solBtnShown || solutionShown) return;
+      solBtnShown = true;
+      solWrap.appendChild(el("button", { class: "btn ghost sol-btn", text: "I've wrestled with it — show the solution",
+        onclick: function () { revealSolution(false); } }));
+    }
+
+    if (prob.type === "multiple-choice") {
+      var choices = el("div", { class: "choices" });
+      (prob.choices || []).forEach(function (c, i) {
+        var ch = el("div", { class: "choice", html: '<span class="mark">' + String.fromCharCode(65 + i) + "</span><span>" + inlineMath(c) + "</span>" });
+        ch.addEventListener("click", function () {
+          if (solved) return;
+          attempts++;
+          if (i === prob.answerIndex) {
+            ch.classList.add("correct");
+            choices.querySelectorAll(".choice").forEach(function (x) { x.classList.add("disabled"); });
+            celebrate();
+          } else {
+            ch.classList.add("wrong"); ch.classList.add("disabled");
+            recordStretch(prob, false, hintsShown, Date.now() - t0);
+            feedback.className = "feedback show no";
+            feedback.innerHTML = "❌ Not that one — reason it through, grab a hint, or eliminate what can't be true.";
+            showSolBtn();
+          }
+        });
+        choices.appendChild(ch);
+      });
+      wrap.appendChild(choices);
+    } else {
+      var inp = el("input", { class: "answer-input", type: "text", inputmode: "decimal", placeholder: "Your answer" + (prob.unit ? " (" + prob.unit + ")" : "") });
+      var check = el("button", { class: "btn", text: "Check", onclick: function () {
+        if (solved) return;
+        var raw = String(inp.value).replace(/[^0-9.\-]/g, "");
+        var val = parseFloat(raw);
+        if (raw === "" || isNaN(val)) { feedback.className = "feedback show no"; feedback.innerHTML = "Type a number first."; return; }
+        attempts++;
+        var ok = Math.abs(val - prob.answer) <= (prob.tolerance || 0) + 1e-9;
+        inp.style.borderColor = ok ? "var(--good)" : "var(--bad)";
+        if (ok) { celebrate(); }
+        else {
+          recordStretch(prob, false, hintsShown, Date.now() - t0);
+          feedback.className = "feedback show no";
+          feedback.innerHTML = "❌ Not yet — check your steps and their order. Try again, or open a hint.";
+          showSolBtn();
+        }
+      } });
+      inp.addEventListener("keydown", function (e) { if (e.key === "Enter") check.click(); });
+      wrap.appendChild(el("div", { class: "btn-row" }, [inp, check]));
+    }
+
+    var hintBtn = el("button", { class: "btn ghost hint-btn", text: "💡 Need a nudge?", onclick: function () {
+      var hints = prob.hints || [];
+      if (hintsShown >= hints.length) return;
+      hintList.appendChild(el("div", { class: "hint" }, [el("span", { class: "hint-n", text: "Hint " + (hintsShown + 1) }), el("div", { html: inlineMath(hints[hintsShown]) })]));
+      hintsShown++;
+      if (hintsShown >= hints.length) { hintBtn.textContent = "That's every hint — you've got this"; hintBtn.disabled = true; hintBtn.classList.add("spent"); showSolBtn(); }
+      else hintBtn.textContent = "💡 Another hint (" + (hints.length - hintsShown) + " left)";
+    } });
+    hintWrap.appendChild(hintBtn);
+    hintWrap.appendChild(hintList);
+
+    wrap.appendChild(feedback);
+    wrap.appendChild(hintWrap);
+    wrap.appendChild(solWrap);
     return wrap;
   }
 
@@ -1407,6 +1702,8 @@
       case "kp": return viewKP(parts[1]);
       case "quiz": return viewQuiz(parts[1]);
       case "problemset": return viewProblemSet(parts[1]);
+      case "challenge": return viewChallengeSet(parts[1]);
+      case "review": return viewReview();
       case "final": return viewFinal(parts[1], parts[2] || "7");
       case "practicetest": return viewPracticeTest(parts[1]);
       case "print": return viewPrint(parts[1]);

@@ -490,3 +490,54 @@ textarea.answer-input { min-height: 90px; resize: vertical; }
 /* iPad / large touch layout */
 @media (min-width: 768px) { .container { padding-top: 30px; } .exercise { padding: 22px; } }
 @media (max-width: 520px) { .brand-sub { display: none; } .hero h1 { font-size: 1.6rem; } }
+
+/* ============================================================
+   Stretch challenges + spaced review  (mastery prototype)
+   ============================================================ */
+.diff.amc8 { background: #fde7d6; color: #b5540f; }
+:root[data-theme="dark"] .diff.amc8 { background: #3a2412; color: #f0a35c; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .diff.amc8 { background: #3a2412; color: #f0a35c; } }
+
+.exercise.challenge { border-color: #f0b072; box-shadow: inset 4px 0 0 #f4813f; }
+
+/* collapsed opt-in stretch panel (mirrors .deepdive) */
+.stretch { border-left: 5px solid #f4813f; }
+.stretch > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 12px; user-select: none; }
+.stretch > summary::-webkit-details-marker { display: none; }
+.stretch > summary .dd-badge { color: #e0700f; }
+.stretch > summary::after { content: "▸"; margin-left: auto; color: var(--ink-faint); font-weight: 900; transition: transform .2s; }
+.stretch[open] > summary::after { transform: rotate(90deg); }
+.stretch[open] > summary { margin-bottom: 10px; }
+.stretch-intro { color: var(--ink-soft); font-size: .98rem; margin: .2em 0 1.1em; }
+
+/* staged hints */
+.hintwrap { margin-top: 12px; }
+.hint-btn.spent { opacity: .65; }
+.hints { margin-top: 10px; display: grid; gap: 8px; }
+.hint { display: flex; gap: 10px; align-items: flex-start; background: var(--social-soft, #fff4e8); border-radius: 12px; padding: 10px 13px; font-size: .97rem; }
+.hint-n { font-weight: 900; color: #b5540f; white-space: nowrap; }
+:root[data-theme="dark"] .hint { background: #2a2113; }
+:root[data-theme="dark"] .hint-n { color: #f0a35c; }
+
+/* gated full solution */
+.solwrap { margin-top: 10px; }
+.sol-btn { font-size: .9rem; }
+.solution { background: var(--surface); border: 1px dashed var(--line); border-radius: 14px; padding: 14px 16px; }
+.sol-step { display: flex; gap: 10px; align-items: flex-start; margin: 7px 0; }
+.sol-n { display: inline-flex; width: 22px; height: 22px; flex: 0 0 22px; align-items: center; justify-content: center; border-radius: 999px; background: #f4813f; color: #fff; font-weight: 900; font-size: .78rem; }
+.struggle-note { font-weight: 600; color: var(--ink-soft); margin-top: 6px; }
+
+/* home review hub */
+.review-card { display: flex; align-items: center; gap: 14px; background: linear-gradient(135deg, #17b890, #0f9d78); color: #fff; padding: 16px 18px; border-radius: 18px; margin: 14px 0 4px; cursor: pointer; box-shadow: var(--shadow); }
+.review-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.review-card .rv-emoji { font-size: 2rem; }
+.review-card .rv-sub { opacity: .9; font-size: .85rem; }
+.review-card .rv-go { margin-left: auto; font-weight: 900; background: rgba(255,255,255,.25); padding: 10px 16px; border-radius: 999px; white-space: nowrap; }
+
+/* mastery star */
+.badge-done.mastered { background: linear-gradient(135deg, #f4b400, #f4813f); }
+
+/* "try these a few days later" nudge — teal, tied to the spacing/review colour */
+.timing-note { display: flex; gap: 10px; align-items: flex-start; background: var(--science-soft, #e6f7f1); border: 1px solid #7fd3b4; border-radius: 12px; padding: 11px 14px; margin: 0 0 14px; font-size: .95rem; }
+.timing-note .tn-emoji { font-size: 1.2rem; line-height: 1.35; }
+:root[data-theme="dark"] .timing-note { background: #13291f; border-color: #1d9e75; }
