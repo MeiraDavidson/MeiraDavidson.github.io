@@ -551,3 +551,24 @@ textarea.answer-input.open-response { min-height: 150px; }
 .rubric { margin-top: 14px; border-top: 1px dashed var(--line); padding-top: 12px; }
 .rubric-item { display: flex; gap: 10px; align-items: flex-start; padding: 7px 0; cursor: pointer; font-size: .97rem; }
 .rubric-item input { margin-top: 3px; width: 18px; height: 18px; flex: 0 0 18px; accent-color: #17b890; cursor: pointer; }
+
+/* living-picture status chip (unit cards) */
+.chip.statechip { display: inline-flex; align-items: center; gap: 6px; }
+.sc-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex: 0 0 9px; }
+
+/* ▶ Continue card (home) — the uncapped next-best-action launchpad */
+.continue-card { display: flex; align-items: center; gap: 14px; background: linear-gradient(135deg, #4f6ef7, #7a5cf0); color: #fff; padding: 16px 18px; border-radius: 18px; margin: 14px 0 4px; cursor: pointer; box-shadow: var(--shadow); }
+.continue-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.continue-card .cc-emoji { font-size: 1.6rem; }
+.continue-card .cc-sub { opacity: .92; font-size: .85rem; }
+.continue-card .cc-go { margin-left: auto; font-weight: 900; background: rgba(255,255,255,.25); padding: 10px 16px; border-radius: 999px; white-space: nowrap; }
+
+/* progress report */
+.report-grade { margin-bottom: 14px; }
+.rg-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.report-tally { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.report-units { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 8px; margin-top: 12px; }
+.report-unit { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); text-decoration: none; color: inherit; }
+.report-unit:hover { border-color: var(--brand, #4f6ef7); }
+.report-unit .ru-title { font-size: .9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.report-unit .ru-count { font-weight: 800; font-size: .85rem; color: var(--ink-soft); white-space: nowrap; }

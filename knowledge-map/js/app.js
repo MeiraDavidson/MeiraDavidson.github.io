@@ -34,14 +34,14 @@
   function save() { try { localStorage.setItem(PKEY, JSON.stringify(P)); } catch (e) {} }
   function kpState(id) { P.kps = P.kps || {}; return (P.kps[id] = P.kps[id] || { done: false, ex: {} }); }
   function quizState(id) { P.quizzes = P.quizzes || {}; return (P.quizzes[id] = P.quizzes[id] || { best: 0, passed: false, attempts: 0 }); }
-  function markKP(id, done) { kpState(id).done = done !== false; if (done !== false) { if (P.needsReview) delete P.needsReview[id]; enqueueReview(id); } save(); }
+  function markKP(id, done) { kpState(id).done = done !== false; if (done !== false) { if (P.needsReview) delete P.needsReview[id]; enqueueReview(id); bumpDaily(); } save(); }
   function recordEx(kpId, qid, ok) { var s = kpState(kpId); s.ex[qid] = ok; save(); }
   function recordVisit(id) { P.last = id; save(); }
 
   /* ---------- spaced review + stretch mastery ----------------------------*/
   function reviewMap() { P.review = P.review || {}; return P.review; }
   function enqueueReview(id) { if (window.KMReview) { window.KMReview.enqueue(reviewMap(), id, Date.now()); save(); } }
-  function gradeReview(id, ok) { if (window.KMReview) { window.KMReview.grade(reviewMap(), id, ok, Date.now()); save(); } }
+  function gradeReview(id, ok) { if (window.KMReview) { window.KMReview.grade(reviewMap(), id, ok, Date.now()); bumpDaily(); save(); } }
   function dueReviews() { return window.KMReview ? window.KMReview.dueIds(reviewMap(), Date.now()) : []; }
   function pendingReviews() { return window.KMReview ? window.KMReview.pendingIds(reviewMap()) : []; }
   function stretchState() { P.stretch = P.stretch || {}; return P.stretch; }
@@ -94,6 +94,61 @@
     if (st.attempted > 0) return "in-progress";
     var rel = kp.related || [];
     return (!rel.length || rel.every(function (r) { return P.kps && P.kps[r.id] && P.kps[r.id].done; })) ? "ready" : "locked";
+  }
+  // Student-facing mastery states → the "living picture" palette (map + cards).
+  // "Keep going" is warm amber-orange, NOT alarm red, so a struggling kid is pulled forward, not shamed.
+  var MASTERY = {
+    "not-started": { label: "Not started", dot: "#9aa5b1", fill: false },
+    "ready":       { label: "Ready to learn", dot: "#9aa5b1", fill: false, ready: true },
+    "learning":    { label: "Learning", dot: "#e8a400", fill: true, glyph: "…" },
+    "keepgoing":   { label: "Keep going", dot: "#f4813f", fill: true, glyph: "!" },
+    "mastered":    { label: "Mastered", dot: "#17b890", fill: true, glyph: "✓" },
+    "due":         { label: "Review due", dot: "#3b82f6", fill: true, glyph: "↻" }
+  };
+  function reviewDueNow(id) { var r = (P.review || {})[id]; return !!(r && window.KMReview && !window.KMReview.graduated(r) && r.due <= Date.now()); }
+  function masteryLevel(kp) {
+    var st = conceptState(kp);
+    if (st === "mastered") return reviewDueNow(kp.id) ? "due" : "mastered";
+    if (st === "shaky") return "keepgoing";
+    if (st === "in-progress") return "learning";
+    if (st === "ready") return "ready";
+    return "not-started";
+  }
+  // ---- next-best-action ("Continue" loop, uncapped) + daily rhythm + report tallies ----
+  // Ordered "what to do next": finish what you started, then the ready frontier, in curriculum order.
+  // Never blocks anything — it only SUGGESTS; a learner can still open any concept from the map.
+  function nextActions(limit) {
+    var out = [];
+    for (var kid in KM.kps) {
+      var k = KM.kps[kid];
+      if (P.kps && P.kps[kid] && P.kps[kid].done) continue;
+      var stt = conceptState(k);
+      if (stt === "locked") continue; // only suggest what you're ready for (still reachable elsewhere)
+      var pr = (stt === "in-progress" || stt === "shaky") ? 0 : 1;
+      var startedUnit = (KM.units[k.unitId] || { knowledgePoints: [] }).knowledgePoints.some(function (id) { return P.kps && P.kps[id] && P.kps[id].done; });
+      out.push({ kp: k, state: stt, pr: pr, started: startedUnit, rank: rankOf(k) });
+    }
+    out.sort(function (a, b) { return (a.pr - b.pr) || (b.started - a.started) || (a.rank - b.rank); });
+    return limit ? out.slice(0, limit) : out;
+  }
+  function suggestedStretch() {
+    for (var uid in (KM.challenges || {})) {
+      var u = KM.units[uid]; if (!u) continue;
+      if ((u.knowledgePoints || []).some(function (id) { return P.kps && P.kps[id] && P.kps[id].done; })) return { unitId: uid, unit: u };
+    }
+    return null;
+  }
+  function today() { return new Date().toDateString(); }
+  function dailyCount() { return (P.daily && P.daily.date === today()) ? P.daily.count : 0; }
+  function bumpDaily() { var t = today(); if (!P.daily || P.daily.date !== t) P.daily = { date: t, count: 0 }; P.daily.count++; save(); }
+  function masteryCounts(ids) {
+    var c = { total: 0, mastered: 0, due: 0, learning: 0, keepgoing: 0, notstarted: 0 };
+    (ids || []).forEach(function (id) { var kp = KM.kps[id]; if (!kp) return; c.total++;
+      var lvl = masteryLevel(kp);
+      if (lvl === "mastered") c.mastered++; else if (lvl === "due") c.due++;
+      else if (lvl === "learning") c.learning++; else if (lvl === "keepgoing") c.keepgoing++; else c.notstarted++;
+    });
+    return c;
   }
   // Build a prioritized review plan for a set of struggled-with concepts:
   // the weak concepts + any prerequisites that are themselves shaky or unfinished, foundational-first.
@@ -260,6 +315,22 @@
       ]));
     }
 
+    // ▶ Continue — the uncapped next-best-action launchpad (self-paced: sprint as far as you like)
+    (function () {
+      var acts = nextActions(1), cdue = dueReviews(), dc = dailyCount();
+      if (!acts.length && !cdue.length) return;
+      var primary = cdue.length ? (cdue.length + " concept" + (cdue.length > 1 ? "s" : "") + " due for review")
+        : ("Next up: " + acts[0].kp.title);
+      root.appendChild(el("div", { class: "continue-card", onclick: function () { location.hash = "#/next"; } }, [
+        el("div", { class: "cc-emoji", text: "▶" }),
+        el("div", {}, [
+          el("div", { style: "font-weight:900", text: "Continue learning" }),
+          el("div", { class: "cc-sub", text: primary + (dc ? "  ·  " + dc + " done today" : "") })
+        ]),
+        el("div", { class: "cc-go", text: "Go →" })
+      ]));
+    })();
+
     // grade tabs
     var gbar = el("div", { class: "gradebar" });
     GRADES.forEach(function (g) {
@@ -334,7 +405,7 @@
     // overall stats
     var totalKp = Object.keys(KM.kps).length;
     var doneKp = Object.keys(P.kps || {}).filter(function (k) { return P.kps[k].done; }).length;
-    root.appendChild(el("div", { class: "section-title" }, [el("span", { text: "Your journey" }), el("span", { class: "line" })]));
+    root.appendChild(el("div", { class: "section-title" }, [el("span", { text: "Your journey" }), el("span", { class: "line" }), el("a", { href: "#/progress", class: "pill-count", style: "text-decoration:underline", text: "full report →" })]));
     root.appendChild(el("div", { class: "panel" }, [
       el("div", { class: "progress-row" }, [
         ringWrap(totalKp ? Math.round(doneKp / totalKp * 100) : 0),
@@ -457,6 +528,15 @@
       card.appendChild(el("h3", { text: kp.title }));
       if (kp.standard && kp.standard.code) card.appendChild(el("span", { class: "chip std", text: kp.standard.code }));
       if (kp.visual) card.appendChild(el("span", { class: "chip accent", text: "▶ interactive" }));
+      // living-picture status chip for active/due states (mastered/done already shown by the ✓/★ badge)
+      var _lvl = masteryLevel(kp);
+      if (_lvl === "learning" || _lvl === "keepgoing" || _lvl === "due") {
+        var _m = MASTERY[_lvl];
+        var _chip = el("span", { class: "chip statechip", title: _m.label });
+        var _dot = el("span", { class: "sc-dot" }); _dot.style.background = _m.dot;
+        _chip.appendChild(_dot); _chip.appendChild(document.createTextNode(_m.label));
+        card.appendChild(_chip);
+      }
       grid.appendChild(card);
     });
     root.appendChild(grid);
@@ -628,6 +708,117 @@
       confetti();
     }
     renderOne();
+    root.appendChild(footer());
+    mount(root);
+  }
+
+  /* ========================================================================
+     VIEW: CONTINUE — the uncapped next-best-action session
+     ====================================================================== */
+  function viewNext() {
+    var root = el("div");
+    root.appendChild(crumbs([{ label: "Home", href: "#/" }, { label: "Continue" }]));
+    var due = dueReviews(), acts = nextActions(6), dc = dailyCount(), str = suggestedStretch();
+    root.appendChild(el("div", { class: "hero" }, [
+      el("h1", { text: "▶ Your next steps" }),
+      el("p", { html: "Go as far as you want — there's <b>no daily cap</b>. Learn as much as you can hold today; spaced review brings each idea back over the next days so it sticks." + (dc ? " You've done <b>" + dc + "</b> today. 🔥" : "") })
+    ]));
+    if (due.length) {
+      root.appendChild(el("div", { class: "review-card", onclick: function () { location.hash = "#/review"; } }, [
+        el("div", { class: "rv-emoji", text: "🔁" }),
+        el("div", {}, [
+          el("div", { style: "font-weight:900", text: "Review first — lock in what you've learned" }),
+          el("div", { class: "rv-sub", text: due.length + " concept" + (due.length > 1 ? "s" : "") + " due to recall" })
+        ]),
+        el("div", { class: "rv-go", text: "Review →" })
+      ]));
+    }
+    if (acts.length) {
+      root.appendChild(el("div", { class: "section-title" }, [el("span", { text: "📚 Learn next" }), el("span", { class: "line" }), el("a", { href: "#/map", class: "pill-count", style: "text-decoration:underline", text: "see the map" })]));
+      var grid = el("div", { class: "grid kps" });
+      acts.slice(0, 4).forEach(function (a) {
+        var kp = a.kp, subj = subjectByKey(kp.subject), mm = MASTERY[masteryLevel(kp)];
+        var card = el("div", { class: "card " + (TCLASS[kp.subject] || ""), onclick: function () { location.hash = "#/kp/" + kp.id; } });
+        card.appendChild(el("div", { class: "accent-bar" }));
+        card.appendChild(el("div", { class: "pill-count", text: subj.name + " · Grade " + kp.grade }));
+        card.appendChild(el("h3", { text: kp.title }));
+        var chip = el("span", { class: "chip statechip" }); var d = el("span", { class: "sc-dot" }); d.style.background = mm.dot;
+        chip.appendChild(d); chip.appendChild(document.createTextNode((a.state === "in-progress" || a.state === "shaky") ? "Continue" : "Start"));
+        card.appendChild(chip);
+        grid.appendChild(card);
+      });
+      root.appendChild(grid);
+    } else if (!due.length) {
+      root.appendChild(el("div", { class: "panel" }, el("p", { style: "margin:0;color:var(--ink-soft)", text: "You've opened everything you're ready for — nice pace. Keep reviewing to lock it in, or explore the map for anything you're curious about (nothing's locked)." })));
+    }
+    if (str) {
+      root.appendChild(el("div", { class: "section-title" }, [el("span", { text: "🔥 Push yourself (optional)" }), el("span", { class: "line" })]));
+      root.appendChild(el("div", { class: "card stretch-card", onclick: function () { location.hash = "#/challenge/" + str.unitId; } }, [
+        el("div", { class: "accent-bar" }), el("div", { class: "emoji", text: "🔥" }),
+        el("h3", { text: str.unit.title + " — Stretch" }),
+        el("p", { text: "Hard, struggle-first problems on something you've already learned. Best a few days after the lesson." })
+      ]));
+    }
+    root.appendChild(footer());
+    mount(root);
+  }
+
+  /* ========================================================================
+     VIEW: PROGRESS REPORT (for parents — what's mastered / next)
+     ====================================================================== */
+  function tallyChip(lvl, n) {
+    var m = MASTERY[lvl] || MASTERY["not-started"];
+    var chip = el("span", { class: "chip statechip" }); var d = el("span", { class: "sc-dot" }); d.style.background = m.dot;
+    chip.appendChild(d); chip.appendChild(document.createTextNode(n + " " + m.label)); return chip;
+  }
+  function viewProgress() {
+    var root = el("div");
+    root.appendChild(crumbs([{ label: "Home", href: "#/" }, { label: "Progress report" }]));
+    root.appendChild(el("div", { class: "hero" }, [
+      el("h1", { text: "📊 Progress Report" }),
+      el("p", { text: "What's been mastered, what's in progress, and what's next — across every subject and grade." })
+    ]));
+    root.appendChild(el("div", { class: "btn-row" }, el("button", { class: "btn ghost", text: "🖨️ Print / Save as PDF", onclick: function () { window.print(); } })));
+    var C = masteryCounts(Object.keys(KM.kps)), learned = C.mastered + C.due;
+    root.appendChild(el("div", { class: "panel", style: "margin-top:14px" }, [
+      el("div", { class: "progress-row" }, [
+        ringWrap(C.total ? Math.round(learned / C.total * 100) : 0),
+        el("div", {}, [
+          el("div", { html: "<b>" + learned + "</b> of <b>" + C.total + "</b> concepts mastered" + (C.due ? " · " + C.due + " due for review" : "") + "." }),
+          el("div", { class: "pill-count", text: C.learning + " in progress · " + C.keepgoing + " to shore up · " + C.notstarted + " not started" })
+        ])
+      ])
+    ]));
+    KM.subjects.forEach(function (s) {
+      if (!["7", "8", "9"].some(function (g) { return (s.grades[g] || []).length; })) return;
+      root.appendChild(el("div", { class: "section-title" }, [el("span", { text: s.emoji + " " + s.name }), el("span", { class: "line" })]));
+      ["7", "8", "9"].forEach(function (g) {
+        var units = (s.grades[g] || []).map(function (id) { return KM.units[id]; }).filter(Boolean);
+        if (!units.length) return;
+        var ids = []; units.forEach(function (u) { (u.knowledgePoints || []).forEach(function (id) { ids.push(id); }); });
+        var gc = masteryCounts(ids), gl = gc.mastered + gc.due;
+        var panel = el("div", { class: "panel report-grade" });
+        panel.appendChild(el("div", { class: "rg-head" }, [
+          el("div", { style: "font-weight:900", text: "Grade " + g }),
+          el("a", { class: "pill-count", href: "#/map/" + s.key, style: "text-decoration:underline", text: "open map →" })
+        ]));
+        panel.appendChild(progressRow(gc.total ? Math.round(gl / gc.total * 100) : 0, gl + " / " + gc.total + " mastered"));
+        panel.appendChild(el("div", { class: "report-tally" }, [
+          tallyChip("mastered", gc.mastered + gc.due), tallyChip("learning", gc.learning),
+          tallyChip("keepgoing", gc.keepgoing), tallyChip("not-started", gc.notstarted)
+        ]));
+        var ul = el("div", { class: "report-units" });
+        units.forEach(function (u) {
+          var uc = masteryCounts(u.knowledgePoints || []), ulrn = uc.mastered + uc.due;
+          ul.appendChild(el("a", { class: "report-unit", href: "#/unit/" + u.id }, [
+            el("span", { class: "ru-title", text: (u.emoji || "📘") + " " + u.title }),
+            el("span", { class: "ru-count", text: ulrn + "/" + uc.total })
+          ]));
+        });
+        panel.appendChild(ul);
+        root.appendChild(panel);
+      });
+    });
     root.appendChild(footer());
     mount(root);
   }
@@ -828,7 +1019,10 @@
     var idx = (u.knowledgePoints || []).indexOf(kpId);
     var row = el("div", { class: "btn-row", style: "margin-top:12px" });
     if (idx > 0) row.appendChild(el("a", { class: "btn ghost", href: "#/kp/" + u.knowledgePoints[idx - 1], text: "← Previous" }));
-    if (idx > -1 && idx < u.knowledgePoints.length - 1) row.appendChild(el("a", { class: "btn", href: "#/kp/" + u.knowledgePoints[idx + 1], text: "Next idea →" }));
+    if (idx > -1 && idx < u.knowledgePoints.length - 1) row.appendChild(el("a", { class: "btn ghost", href: "#/kp/" + u.knowledgePoints[idx + 1], text: "Next in unit →" }));
+    // Keep going — the uncapped sprint: jump straight to the next concept you're ready for, anywhere in the map
+    var nextUp = nextActions(1).filter(function (a) { return a.kp.id !== kpId; })[0];
+    if (nextUp) row.appendChild(el("a", { class: "btn", href: "#/kp/" + nextUp.kp.id, text: "Keep going →" }));
     else row.appendChild(el("a", { class: "btn", href: "#/unit/" + kp.unitId, text: "Back to unit ↩" }));
     nav.appendChild(row);
     root.appendChild(nav);
@@ -1566,7 +1760,7 @@
       info.innerHTML = "";
       var left = el("div", {}, [
         el("div", { class: "mi-title", text: kp.title }),
-        el("div", { class: "mi-sub", text: (s.name) + " · Grade " + kp.grade + " · " + u.title + (done(kp.id) ? " · ✓ done" : ready(kp) ? " · ⭐ ready now" : "") }),
+        el("div", { class: "mi-sub", text: (s.name) + " · Grade " + kp.grade + " · " + u.title + " · " + MASTERY[masteryLevel(kp)].label }),
         rel.length ? el("div", { class: "mi-pre", html: "Builds on: " + rel.map(function (r) { return "<a href='#/kp/" + r.id + "'>" + esc(r.title) + "</a>"; }).join(", ") }) : el("div", { class: "mi-pre", text: "A starting-point concept — no prerequisites." })
       ]);
       info.appendChild(left);
@@ -1574,14 +1768,16 @@
     }
     cols.forEach(function (c) {
       c.kps.forEach(function (kp, ri) {
-        var p = pos[kp.id], stt = conceptState(kp);
-        var isDone = stt === "mastered", isShaky = stt === "shaky", isReady = stt === "ready", isLocked = stt === "locked";
-        var nodeColor = isShaky ? "var(--warn)" : color;
+        var p = pos[kp.id], lvl = masteryLevel(kp), m = MASTERY[lvl];
+        var isReady = !!m.ready;
+        var nodeColor = m.dot;
+        // Every node is fully visible and clickable — the map SUGGESTS a path (the glow marks
+        // what you're ready for), it never locks anything. A kid can open any concept to take a look.
         var g = svgEl("g", { class: "map-node" + (isReady ? " ready" : ""), style: "cursor:pointer" });
-        var ring = svgEl("circle", { cx: p.x, cy: p.y, r: nodeR, fill: isDone ? color : (isShaky ? "var(--warn)" : "var(--surface)"), stroke: nodeColor, "stroke-width": 2, opacity: isLocked ? 0.5 : 1 });
-        if (isReady) g.appendChild(svgEl("circle", { cx: p.x, cy: p.y, r: nodeR + 5, fill: "none", stroke: color, "stroke-width": 2, class: "ready-pulse" }));
+        var ring = svgEl("circle", { cx: p.x, cy: p.y, r: nodeR, fill: m.fill ? m.dot : "var(--surface)", stroke: nodeColor, "stroke-width": 2 });
+        if (isReady) g.appendChild(svgEl("circle", { cx: p.x, cy: p.y, r: nodeR + 5, fill: "none", stroke: nodeColor, "stroke-width": 2, class: "ready-pulse" }));
         g.appendChild(ring);
-        var label = svgEl("text", { x: p.x, y: p.y + 4, "text-anchor": "middle", "font-size": 12, "font-weight": 800, fill: (isDone || isShaky) ? "#fff" : nodeColor }); label.textContent = isDone ? "✓" : isShaky ? "!" : (ri + 1);
+        var label = svgEl("text", { x: p.x, y: p.y + 4, "text-anchor": "middle", "font-size": 12, "font-weight": 800, fill: m.fill ? "#fff" : nodeColor }); label.textContent = m.glyph || (ri + 1);
         g.appendChild(label);
         g.addEventListener("click", function () { select(kp); });
         svg.appendChild(g);
@@ -1590,9 +1786,9 @@
     });
 
     root.appendChild(el("div", { class: "map-legend" }, [
-      legendDot(color, true, "Completed"), legendDot(color, false, "Not yet"),
-      el("span", { class: "map-legend-item" }, [el("span", { class: "legend-ready" }), document.createTextNode("Ready now")]),
-      el("span", { class: "map-legend-item" }, [(function () { var d = el("span", { class: "legend-dot" }); d.style.background = "var(--warn)"; d.style.borderColor = "var(--warn)"; return d; })(), document.createTextNode("Needs review")]),
+      masteryLegendDot("not-started"), masteryLegendDot("learning"), masteryLegendDot("keepgoing"),
+      masteryLegendDot("mastered"), masteryLegendDot("due"),
+      el("span", { class: "map-legend-item" }, [el("span", { class: "legend-ready" }), document.createTextNode("Ready now (glowing)")]),
       el("span", { class: "map-legend-item", text: "→ lines = prerequisites" })
     ]));
     root.appendChild(footer());
@@ -1602,6 +1798,12 @@
     var d = el("span", { class: "map-legend-item" });
     var dot = el("span", { class: "legend-dot" }); dot.style.background = filled ? color : "var(--surface)"; dot.style.borderColor = color;
     d.appendChild(dot); d.appendChild(document.createTextNode(text)); return d;
+  }
+  function masteryLegendDot(lvl) {
+    var m = MASTERY[lvl];
+    var d = el("span", { class: "map-legend-item" });
+    var dot = el("span", { class: "legend-dot" }); dot.style.background = m.fill ? m.dot : "var(--surface)"; dot.style.borderColor = m.dot;
+    d.appendChild(dot); d.appendChild(document.createTextNode(m.label)); return d;
   }
 
   /* ---- Cross-subject connection map (dashed lines between subjects) -------*/
@@ -1786,6 +1988,8 @@
       case "problemset": return viewProblemSet(parts[1]);
       case "challenge": return viewChallengeSet(parts[1]);
       case "review": return viewReview();
+      case "next": return viewNext();
+      case "progress": return viewProgress();
       case "final": return viewFinal(parts[1], parts[2] || "7");
       case "practicetest": return viewPracticeTest(parts[1]);
       case "print": return viewPrint(parts[1]);
