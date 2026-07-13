@@ -878,7 +878,7 @@
         g.appendChild(S("line", { x1: 30, y1: row[0], x2: 410, y2: row[0], stroke: row[3], "stroke-width": 2 }));
         for (let i = 0; i <= 5; i++) { const x = 30 + i / 5 * 380;
           g.appendChild(S("line", { x1: x, y1: row[0] - 5, x2: x, y2: row[0] + 5, stroke: row[3], "stroke-width": 2 }));
-          const t = S("text", { x: x, y: row[0] - 10, "text-anchor": "middle", "font-size": 11, fill: C.ink }); t.textContent = (i * row[2]); s.appendChild(t); }
+          const t = S("text", { x: x, y: row[0] - 10, "text-anchor": "middle", "font-size": 11, fill: C.ink }); t.textContent = (i * row[2]); g.appendChild(t); }
         const lab = S("text", { x: 30, y: row[0] + 24, "font-size": 12, fill: row[3], "font-weight": 700 }); lab.textContent = row[1]; g.appendChild(lab);
       });
       readout.innerHTML = "Speed = <b>" + k + " miles per hour</b>. Both lines scale together — that's a proportional relationship.";
