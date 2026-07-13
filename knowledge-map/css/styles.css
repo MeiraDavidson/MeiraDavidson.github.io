@@ -572,3 +572,9 @@ textarea.answer-input.open-response { min-height: 150px; }
 .report-unit:hover { border-color: var(--brand, #4f6ef7); }
 .report-unit .ru-title { font-size: .9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .report-unit .ru-count { font-weight: 800; font-size: .85rem; color: var(--ink-soft); white-space: nowrap; }
+
+/* knowledge-map / curriculum toggle */
+.map-toggle { display: inline-flex; gap: 6px; background: var(--surface-2, #eceff6); padding: 4px; border-radius: 999px; margin: 2px 0 12px; }
+.map-tab { border: none; background: transparent; padding: 7px 15px; border-radius: 999px; font-weight: 800; font-size: .85rem; cursor: pointer; color: var(--ink-soft); }
+.map-tab.active { background: var(--brand, #4f6ef7); color: #fff; }
+.mi-g { color: var(--ink-faint); font-weight: 700; font-size: .82em; }

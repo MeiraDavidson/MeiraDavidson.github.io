@@ -1675,122 +1675,161 @@
     var s = subjectByKey(subjKey);
     if (!s) return notFound();
     var color = SUBJ_COLOR[subjKey] || "#4f6ef7";
-    function done(id) { return !!(P.kps && P.kps[id] && P.kps[id].done); }
-    function ready(kp) { if (done(kp.id)) return false; var rel = kp.related || []; return !rel.length || rel.every(function (r) { return done(r.id); }); }
+    var mode = sessionGet("mapmode") || "graph"; // "graph" = dependency layout | "curriculum" = unit columns
+    var GRADE_COL = { "7": "#6b8cf0", "8": "#3f57c4", "9": "#26307a" }; // light → dark = grade 7 → 9
+    // Real prerequisite edges when curated (kp.prereqs), else the auto vocabulary links (kp.related).
+    function edgesFor(kp) { return (kp && kp.prereqs && kp.prereqs.length !== undefined) ? kp.prereqs : ((kp && kp.related) || []); }
 
-    // columns = units in learning order (grade 7 → 9)
-    var cols = [];
+    var nodes = [];
     ["7", "8", "9"].forEach(function (g) {
       (s.grades[g] || []).forEach(function (uid) {
-        var u = KM.units[uid];
-        cols.push({ uid: uid, unit: u, grade: g, kps: (u.knowledgePoints || []).map(function (id) { return KM.kps[id]; }).filter(Boolean) });
+        (((KM.units[uid] || {}).knowledgePoints) || []).forEach(function (id) { var kp = KM.kps[id]; if (kp) nodes.push(kp); });
       });
     });
-    var colGap = 98, rowGap = 56, nodeR = 16, topBand = 74, pad = 34;
-    var maxRows = cols.reduce(function (m, c) { return Math.max(m, c.kps.length); }, 1);
-    var W = pad * 2 + cols.length * colGap, H = topBand + maxRows * rowGap + 30;
-    var pos = {};
-    cols.forEach(function (c, ci) {
-      c.cx = pad + ci * colGap + colGap / 2;
-      c.kps.forEach(function (kp, ri) { pos[kp.id] = { x: c.cx, y: topBand + ri * rowGap + rowGap / 2, kp: kp, unit: c.unit }; });
-    });
+
+    var colGap = 108, rowGap = 54, nodeR = 15, topBand = mode === "graph" ? 52 : 74, pad = 34;
+    var pos = {}, W, H, cols = null;
+
+    if (mode === "graph") {
+      // dependency layout: a concept's column = its longest chain of prerequisites (foundations at left)
+      var depthMemo = {};
+      function depthOf(id) {
+        if (depthMemo[id] != null) return depthMemo[id];
+        depthMemo[id] = 0; // break any accidental cycle
+        var d = 0; edgesFor(KM.kps[id]).forEach(function (p) { if (KM.kps[p.id]) d = Math.max(d, 1 + depthOf(p.id)); });
+        return (depthMemo[id] = d);
+      }
+      var byDepth = {};
+      nodes.forEach(function (kp) { var d = depthOf(kp.id); (byDepth[d] = byDepth[d] || []).push(kp); });
+      var depths = Object.keys(byDepth).map(Number).sort(function (a, b) { return a - b; });
+      var maxRows = 1;
+      depths.forEach(function (d) {
+        byDepth[d].sort(function (a, b) { return rankOf(a) - rankOf(b); });
+        maxRows = Math.max(maxRows, byDepth[d].length);
+        var cx = pad + d * colGap + colGap / 2;
+        byDepth[d].forEach(function (kp, ri) { pos[kp.id] = { x: cx, y: topBand + ri * rowGap + rowGap / 2, kp: kp }; });
+      });
+      W = pad * 2 + (depths[depths.length - 1] + 1) * colGap; H = topBand + maxRows * rowGap + 30;
+    } else {
+      cols = [];
+      ["7", "8", "9"].forEach(function (g) {
+        (s.grades[g] || []).forEach(function (uid) {
+          var u = KM.units[uid];
+          cols.push({ uid: uid, unit: u, grade: g, kps: (u.knowledgePoints || []).map(function (id) { return KM.kps[id]; }).filter(Boolean) });
+        });
+      });
+      var maxRows2 = cols.reduce(function (m, c) { return Math.max(m, c.kps.length); }, 1);
+      W = pad * 2 + cols.length * colGap; H = topBand + maxRows2 * rowGap + 30;
+      cols.forEach(function (c, ci) {
+        c.cx = pad + ci * colGap + colGap / 2;
+        c.kps.forEach(function (kp, ri) { pos[kp.id] = { x: c.cx, y: topBand + ri * rowGap + rowGap / 2, kp: kp, unit: c.unit }; });
+      });
+    }
 
     var st = subjectConceptStats(subjKey);
     var root = el("div", { class: TCLASS[subjKey] || "" });
     root.appendChild(crumbs([{ label: "Home", href: "#/" }, { label: "Knowledge Map", href: "#/map" }, { label: s.name }]));
     root.appendChild(el("div", { class: "hero" }, [
       el("h1", { text: s.emoji + " " + s.name + " — Knowledge Map" }),
-      el("p", { html: "<b>" + st.done + "</b> of <b>" + st.total + "</b> concepts complete" + (st.ready ? " · <b>" + st.ready + "</b> ready to learn now (glowing)" : "") + ". Tap any dot to see it and what it builds on." })
+      el("p", { html: mode === "graph"
+        ? "How every idea <b>depends on earlier ones</b> — left to right, foundations → advanced. Grades interleave, because understanding doesn't stop at grade lines. Tap any concept."
+        : "<b>" + st.done + "</b> of <b>" + st.total + "</b> concepts complete" + (st.ready ? " · <b>" + st.ready + "</b> ready now (glowing)" : "") + ". Tap any concept." })
     ]));
 
-    // info panel (updates on select)
+    var toggle = el("div", { class: "map-toggle" });
+    [["graph", "🕸️ Knowledge map"], ["curriculum", "📋 Curriculum order"]].forEach(function (mm) {
+      toggle.appendChild(el("button", { class: "map-tab" + (mode === mm[0] ? " active" : ""), text: mm[1],
+        onclick: function () { sessionSet("mapmode", mm[0]); render(); } }));
+    });
+    root.appendChild(toggle);
+
     var info = el("div", { class: "map-info" });
-    info.innerHTML = "<span class='map-info-hint'>Tap a concept dot to explore it.</span>";
+    info.innerHTML = "<span class='map-info-hint'>Tap a concept to see it and what it builds on.</span>";
     root.appendChild(info);
 
-    // scrollable svg
     var scroller = el("div", { class: "map-scroller" });
     var svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, class: "map-svg", width: W, height: H });
     scroller.appendChild(svg);
     root.appendChild(scroller);
 
-    // grade bands
-    var gStart = {}, gEnd = {};
-    cols.forEach(function (c, ci) { if (gStart[c.grade] == null) gStart[c.grade] = ci; gEnd[c.grade] = ci; });
-    ["7", "8", "9"].forEach(function (g, gi) {
-      if (gStart[g] == null) return;
-      var x0 = pad + gStart[g] * colGap, x1 = pad + (gEnd[g] + 1) * colGap;
-      svg.appendChild(svgEl("rect", { x: x0, y: 40, width: x1 - x0, height: H - 46, rx: 12, fill: gi % 2 ? "var(--surface-2)" : "transparent", opacity: 0.6 }));
-      var gl = svgEl("text", { x: (x0 + x1) / 2, y: 24, "text-anchor": "middle", "font-size": 13, "font-weight": 800, fill: "var(--ink-faint)" }); gl.textContent = "Grade " + g; svg.appendChild(gl);
-    });
-    // unit headers
-    cols.forEach(function (c) {
-      var t = svgEl("text", { x: c.cx, y: 58, "text-anchor": "middle", "font-size": 15 }); t.textContent = c.unit.emoji || "📘"; svg.appendChild(t);
-    });
+    if (mode === "curriculum") {
+      var gStart = {}, gEnd = {};
+      cols.forEach(function (c, ci) { if (gStart[c.grade] == null) gStart[c.grade] = ci; gEnd[c.grade] = ci; });
+      ["7", "8", "9"].forEach(function (g, gi) {
+        if (gStart[g] == null) return;
+        var x0 = pad + gStart[g] * colGap, x1 = pad + (gEnd[g] + 1) * colGap;
+        svg.appendChild(svgEl("rect", { x: x0, y: 40, width: x1 - x0, height: H - 46, rx: 12, fill: gi % 2 ? "var(--surface-2)" : "transparent", opacity: 0.6 }));
+        var gl = svgEl("text", { x: (x0 + x1) / 2, y: 24, "text-anchor": "middle", "font-size": 13, "font-weight": 800, fill: "var(--ink-faint)" }); gl.textContent = "Grade " + g; svg.appendChild(gl);
+      });
+      cols.forEach(function (c) { var t = svgEl("text", { x: c.cx, y: 58, "text-anchor": "middle", "font-size": 15 }); t.textContent = c.unit.emoji || "📘"; svg.appendChild(t); });
+    }
 
-    // edges (prerequisite → concept)
+    // edges (prerequisite → concept), from the curated prereq graph where available
     var edgeEls = [];
-    cols.forEach(function (c) {
-      c.kps.forEach(function (kp) {
-        (kp.related || []).forEach(function (r) {
-          var a = pos[r.id], b = pos[kp.id];
-          if (!a || !b) return;
-          var dx = (b.x - a.x) / 2;
-          var path = svgEl("path", { d: "M" + a.x + " " + a.y + " C" + (a.x + dx) + " " + a.y + "," + (b.x - dx) + " " + b.y + "," + b.x + " " + b.y,
-            fill: "none", stroke: "var(--line)", "stroke-width": 1.5, opacity: 0.7 });
-          path._from = r.id; path._to = kp.id; svg.appendChild(path); edgeEls.push(path);
-        });
+    nodes.forEach(function (kp) {
+      edgesFor(kp).forEach(function (r) {
+        var a = pos[r.id], b = pos[kp.id];
+        if (!a || !b) return;
+        var dx = (b.x - a.x) / 2;
+        var path = svgEl("path", { d: "M" + a.x + " " + a.y + " C" + (a.x + dx) + " " + a.y + "," + (b.x - dx) + " " + b.y + "," + b.x + " " + b.y,
+          fill: "none", stroke: "var(--line)", "stroke-width": 1.5, opacity: 0.55 });
+        path._from = r.id; path._to = kp.id; svg.appendChild(path); edgeEls.push(path);
       });
     });
 
-    // nodes
     var nodeEls = {};
     function select(kp) {
-      // reset
       Object.keys(nodeEls).forEach(function (id) { nodeEls[id].ring.setAttribute("stroke-width", nodeEls[id].baseSW); nodeEls[id].ring.setAttribute("stroke", nodeEls[id].baseStroke); });
-      edgeEls.forEach(function (e) { e.setAttribute("stroke", "var(--line)"); e.setAttribute("stroke-width", 1.5); e.setAttribute("opacity", 0.5); });
-      var n = nodeEls[kp.id]; if (n) { n.ring.setAttribute("stroke", color); n.ring.setAttribute("stroke-width", 4); }
-      // highlight prereq edges + prereq nodes
-      (kp.related || []).forEach(function (r) {
+      edgeEls.forEach(function (e) { e.setAttribute("stroke", "var(--line)"); e.setAttribute("stroke-width", 1.5); e.setAttribute("opacity", 0.3); });
+      var n = nodeEls[kp.id]; if (n) { n.ring.setAttribute("stroke", "var(--ink)"); n.ring.setAttribute("stroke-width", 4); }
+      edgesFor(kp).forEach(function (r) {
         edgeEls.forEach(function (e) { if (e._to === kp.id && e._from === r.id) { e.setAttribute("stroke", color); e.setAttribute("stroke-width", 3); e.setAttribute("opacity", 1); } });
-        var pn = nodeEls[r.id]; if (pn) pn.ring.setAttribute("stroke", color);
+        var pn = nodeEls[r.id]; if (pn) { pn.ring.setAttribute("stroke", "var(--ink)"); pn.ring.setAttribute("stroke-width", 3); }
       });
-      var u = pos[kp.id].unit;
-      var rel = (kp.related || []);
+      var pre = edgesFor(kp);
       info.innerHTML = "";
       var left = el("div", {}, [
         el("div", { class: "mi-title", text: kp.title }),
-        el("div", { class: "mi-sub", text: (s.name) + " · Grade " + kp.grade + " · " + u.title + " · " + MASTERY[masteryLevel(kp)].label }),
-        rel.length ? el("div", { class: "mi-pre", html: "Builds on: " + rel.map(function (r) { return "<a href='#/kp/" + r.id + "'>" + esc(r.title) + "</a>"; }).join(", ") }) : el("div", { class: "mi-pre", text: "A starting-point concept — no prerequisites." })
+        el("div", { class: "mi-sub", text: (s.name) + " · Grade " + kp.grade + " · " + ((KM.units[kp.unitId] || {}).title || "") + " · " + MASTERY[masteryLevel(kp)].label }),
+        pre.length ? el("div", { class: "mi-pre", html: "Builds on: " + pre.map(function (r) { return "<a href='#/kp/" + r.id + "'>" + esc(r.title) + "</a>" + (String(r.grade) !== String(kp.grade) ? " <span class='mi-g'>(G" + r.grade + ")</span>" : ""); }).join(", ") }) : el("div", { class: "mi-pre", text: "A starting-point concept — no prerequisites here." })
       ]);
+      if (kp.crossSubject && kp.crossSubject.length) {
+        left.appendChild(el("div", { class: "mi-pre", html: "↔ Connects to: " + kp.crossSubject.map(function (c) { return "<a href='#/kp/" + c.id + "'>" + esc(c.subjectName) + ": " + esc(c.title) + "</a>"; }).join(", ") }));
+      }
       info.appendChild(left);
       info.appendChild(el("a", { class: "btn", href: "#/kp/" + kp.id, text: "Open idea →" }));
     }
-    cols.forEach(function (c) {
-      c.kps.forEach(function (kp, ri) {
-        var p = pos[kp.id], lvl = masteryLevel(kp), m = MASTERY[lvl];
-        var isReady = !!m.ready;
-        var nodeColor = m.dot;
-        // Every node is fully visible and clickable — the map SUGGESTS a path (the glow marks
-        // what you're ready for), it never locks anything. A kid can open any concept to take a look.
-        var g = svgEl("g", { class: "map-node" + (isReady ? " ready" : ""), style: "cursor:pointer" });
-        var ring = svgEl("circle", { cx: p.x, cy: p.y, r: nodeR, fill: m.fill ? m.dot : "var(--surface)", stroke: nodeColor, "stroke-width": 2 });
-        if (isReady) g.appendChild(svgEl("circle", { cx: p.x, cy: p.y, r: nodeR + 5, fill: "none", stroke: nodeColor, "stroke-width": 2, class: "ready-pulse" }));
-        g.appendChild(ring);
-        var label = svgEl("text", { x: p.x, y: p.y + 4, "text-anchor": "middle", "font-size": 12, "font-weight": 800, fill: m.fill ? "#fff" : nodeColor }); label.textContent = m.glyph || (ri + 1);
-        g.appendChild(label);
-        g.addEventListener("click", function () { select(kp); });
-        svg.appendChild(g);
-        nodeEls[kp.id] = { ring: ring, baseSW: 2, baseStroke: nodeColor };
-      });
+
+    nodes.forEach(function (kp) {
+      var p = pos[kp.id]; if (!p) return;
+      var lvl = masteryLevel(kp), m = MASTERY[lvl], isReady = !!m.ready;
+      var fill = mode === "graph" ? (GRADE_COL[String(kp.grade)] || color) : (m.fill ? m.dot : "var(--surface)");
+      var stroke = mode === "graph" ? (GRADE_COL[String(kp.grade)] || color) : m.dot;
+      var g = svgEl("g", { class: "map-node" + (isReady ? " ready" : ""), style: "cursor:pointer" });
+      var ring = svgEl("circle", { cx: p.x, cy: p.y, r: nodeR, fill: fill, stroke: stroke, "stroke-width": 2 });
+      if (isReady) g.appendChild(svgEl("circle", { cx: p.x, cy: p.y, r: nodeR + 5, fill: "none", stroke: stroke, "stroke-width": 2, class: "ready-pulse" }));
+      g.appendChild(ring);
+      var glyph = m.glyph || "";
+      if (glyph) g.appendChild((function () { var t = svgEl("text", { x: p.x, y: p.y + 4, "text-anchor": "middle", "font-size": 12, "font-weight": 800, fill: "#fff" }); t.textContent = glyph; return t; })());
+      g.addEventListener("click", function () { select(kp); });
+      svg.appendChild(g);
+      nodeEls[kp.id] = { ring: ring, baseSW: 2, baseStroke: stroke };
     });
 
-    root.appendChild(el("div", { class: "map-legend" }, [
-      masteryLegendDot("not-started"), masteryLegendDot("learning"), masteryLegendDot("keepgoing"),
-      masteryLegendDot("mastered"), masteryLegendDot("due"),
-      el("span", { class: "map-legend-item" }, [el("span", { class: "legend-ready" }), document.createTextNode("Ready now (glowing)")]),
-      el("span", { class: "map-legend-item", text: "→ lines = prerequisites" })
-    ]));
+    var legend = el("div", { class: "map-legend" });
+    if (mode === "graph") {
+      ["7", "8", "9"].forEach(function (g) {
+        var it = el("span", { class: "map-legend-item" }); var d = el("span", { class: "legend-dot" }); d.style.background = GRADE_COL[g]; d.style.borderColor = GRADE_COL[g];
+        it.appendChild(d); it.appendChild(document.createTextNode("Grade " + g)); legend.appendChild(it);
+      });
+      legend.appendChild(el("span", { class: "map-legend-item", text: "→ lines = prerequisites" }));
+      legend.appendChild(el("span", { class: "map-legend-item", text: "left → right: foundations → advanced" }));
+    } else {
+      [masteryLegendDot("not-started"), masteryLegendDot("learning"), masteryLegendDot("keepgoing"), masteryLegendDot("mastered"), masteryLegendDot("due")].forEach(function (x) { legend.appendChild(x); });
+      legend.appendChild(el("span", { class: "map-legend-item" }, [el("span", { class: "legend-ready" }), document.createTextNode("Ready now (glowing)")]));
+      legend.appendChild(el("span", { class: "map-legend-item", text: "→ lines = prerequisites" }));
+    }
+    root.appendChild(legend);
     root.appendChild(footer());
     mount(root);
   }
