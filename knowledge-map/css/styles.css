@@ -541,3 +541,13 @@ textarea.answer-input { min-height: 90px; resize: vertical; }
 .timing-note { display: flex; gap: 10px; align-items: flex-start; background: var(--science-soft, #e6f7f1); border: 1px solid #7fd3b4; border-radius: 12px; padding: 11px 14px; margin: 0 0 14px; font-size: .95rem; }
 .timing-note .tn-emoji { font-size: 1.2rem; line-height: 1.35; }
 :root[data-theme="dark"] .timing-note { background: #13291f; border-color: #1d9e75; }
+
+/* open-response challenges (ELA / Social Studies) */
+.source-doc { background: var(--bg2, #f6f2ea); border: 1px solid var(--line); border-left: 4px solid #b8a888; border-radius: 12px; padding: 12px 16px; margin: 12px 0; font-size: .98rem; }
+.source-doc .src-attr { font-size: .72rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 6px; }
+.source-doc p { margin: .45em 0; }
+textarea.answer-input.open-response { min-height: 150px; }
+.solution.model p { margin: .5em 0; }
+.rubric { margin-top: 14px; border-top: 1px dashed var(--line); padding-top: 12px; }
+.rubric-item { display: flex; gap: 10px; align-items: flex-start; padding: 7px 0; cursor: pointer; font-size: .97rem; }
+.rubric-item input { margin-top: 3px; width: 18px; height: 18px; flex: 0 0 18px; accent-color: #17b890; cursor: pointer; }

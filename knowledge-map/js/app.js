@@ -906,6 +906,7 @@
 
   /* ---------- stretch challenge renderer (struggle-first, staged hints) ---*/
   function renderChallenge(prob, opts) {
+    if (prob.type === "open-response") return renderOpenResponse(prob, opts);
     opts = opts || {};
     var t0 = Date.now();
     var attempts = 0, hintsShown = 0, solved = false, solutionShown = false, solBtnShown = false;
@@ -1013,6 +1014,87 @@
     wrap.appendChild(feedback);
     wrap.appendChild(hintWrap);
     wrap.appendChild(solWrap);
+    return wrap;
+  }
+
+  /* ---------- open-response renderer (ELA / Social Studies) ---------------
+     No single right answer: the student writes first, then unlocks a model
+     response + a self-check rubric and scores their own work against it. */
+  function renderOpenResponse(prob, opts) {
+    opts = opts || {};
+    var t0 = Date.now();
+    var hintsShown = 0, revealed = false, scored = false;
+    var wrap = el("div", { class: "exercise challenge open" });
+    wrap.appendChild(el("div", { class: "qhead" }, [
+      el("div", { class: "prompt", html: inlineMath(prob.prompt) }),
+      el("span", { class: "diff amc8", text: prob.band || "Constructed response" })
+    ]));
+    if (prob.source) {
+      var src = el("div", { class: "source-doc" });
+      if (prob.sourceAttribution) src.appendChild(el("div", { class: "src-attr", text: prob.sourceAttribution }));
+      (Array.isArray(prob.source) ? prob.source : [prob.source]).forEach(function (p) { src.appendChild(el("p", { html: inlineMath(p) })); });
+      wrap.appendChild(src);
+    }
+    var ta = el("textarea", { class: "answer-input open-response", placeholder: "Write your response here — take a real swing before you reveal the model. Putting it in your own words first is where the learning happens." });
+    wrap.appendChild(ta);
+
+    var feedback = el("div", { class: "feedback" });
+    var hintWrap = el("div", { class: "hintwrap" });
+    var hintList = el("div", { class: "hints" });
+    var revealWrap = el("div", { class: "revealwrap" });
+
+    var hintBtn = el("button", { class: "btn ghost hint-btn", text: "💡 Need a nudge?", onclick: function () {
+      var hints = prob.hints || [];
+      if (hintsShown >= hints.length) return;
+      hintList.appendChild(el("div", { class: "hint" }, [el("span", { class: "hint-n", text: "Hint " + (hintsShown + 1) }), el("div", { html: inlineMath(hints[hintsShown]) })]));
+      hintsShown++;
+      if (hintsShown >= hints.length) { hintBtn.textContent = "That's every hint — trust your thinking"; hintBtn.disabled = true; hintBtn.classList.add("spent"); }
+      else hintBtn.textContent = "💡 Another hint (" + (hints.length - hintsShown) + " left)";
+    } });
+    hintWrap.appendChild(hintBtn); hintWrap.appendChild(hintList);
+
+    var revealBtn = el("button", { class: "btn", text: "I've written my answer — reveal the model & rubric", onclick: function () {
+      if (revealed) return;
+      if ((ta.value || "").trim().length < 40) {
+        feedback.className = "feedback show no";
+        feedback.innerHTML = "✋ Write a real attempt first — a few sentences at least. Comparing your own words to the model is the whole point.";
+        return;
+      }
+      revealed = true;
+      (prob.kpIds || []).forEach(function (id) { enqueueReview(id); }); // engaged → schedule a spaced return
+      clear(revealWrap);
+      var model = el("div", { class: "solution model" });
+      model.appendChild(el("div", { class: "eyebrow", text: "A strong model response" }));
+      (Array.isArray(prob.model) ? prob.model : [prob.model]).forEach(function (p) { model.appendChild(el("p", { html: inlineMath(p) })); });
+      revealWrap.appendChild(model);
+
+      var rub = el("div", { class: "rubric" });
+      rub.appendChild(el("div", { class: "eyebrow", text: "Score yourself — honestly, did YOUR response do each of these?" }));
+      var checks = [];
+      (prob.rubric || []).forEach(function (item, i) {
+        var cid = "rub_" + prob.id + "_" + i;
+        var cb = el("input", { type: "checkbox", id: cid });
+        checks.push(cb);
+        rub.appendChild(el("label", { class: "rubric-item", "for": cid }, [cb, el("span", { html: inlineMath(item) })]));
+      });
+      rub.appendChild(el("button", { class: "btn good", text: "Score my response", onclick: function () {
+        if (scored) return; scored = true;
+        var hit = checks.filter(function (c) { return c.checked; }).length, total = checks.length || 1;
+        var met = hit / total >= 0.6;
+        recordStretch(prob, met, hintsShown, Date.now() - t0);
+        feedback.className = "feedback show " + (met ? "ok" : "no");
+        feedback.innerHTML = met
+          ? ("🎯 <b>Strong work — " + hit + "/" + total + ".</b><div class='struggle-note'>You built the response yourself, then held it to a real standard. In a few days, write a fresh one from memory — that's what locks it in.</div>")
+          : ("💪 <b>" + hit + "/" + total + " — good start.</b><div class='struggle-note'>Now you can see what a full response needs. Revise yours, and come back in a few days to write a new one from scratch.</div>");
+        if (met) confetti();
+      } }));
+      revealWrap.appendChild(rub);
+    } });
+
+    wrap.appendChild(el("div", { class: "btn-row" }, revealBtn));
+    wrap.appendChild(feedback);
+    wrap.appendChild(hintWrap);
+    wrap.appendChild(revealWrap);
     return wrap;
   }
 
