@@ -6,7 +6,7 @@
   var KM = window.KNOWLEDGE_MAP || { subjects: [], units: {}, kps: {}, quizzes: {}, problemSets: {}, challenges: {} };
   var view = document.getElementById("view");
   var TCLASS = { "math": "t-math", "science": "t-science", "ela": "t-ela", "social-studies": "t-social" };
-  var GRADES = ["7", "8", "9"];
+  var GRADES = ["6", "7", "8", "9", "10", "11", "12"];
 
   /* ---------- tiny DOM helper --------------------------------------------*/
   function el(tag, props, kids) {
@@ -251,7 +251,7 @@
     var root = el("div");
     root.appendChild(el("div", { class: "hero" }, [
       el("h1", { html: 'Learn anything, one idea at a time <span class="wave">🚀</span>' }),
-      el("p", { text: "Your grades 7–9 map for Math, Science, ELA and Social Studies — built to the New York State standards used in Westchester County. Tap a subject, follow the path, and light up every idea." })
+      el("p", { text: "Your grades 6–12 map for Math, Science, ELA and Social Studies — built to the New York State standards used in Westchester County. Tap a subject, follow the path, and light up every idea." })
     ]));
 
     // signature knowledge-map banner
@@ -790,9 +790,9 @@
       ])
     ]));
     KM.subjects.forEach(function (s) {
-      if (!["7", "8", "9"].some(function (g) { return (s.grades[g] || []).length; })) return;
+      if (!GRADES.some(function (g) { return (s.grades[g] || []).length; })) return;
       root.appendChild(el("div", { class: "section-title" }, [el("span", { text: s.emoji + " " + s.name }), el("span", { class: "line" })]));
-      ["7", "8", "9"].forEach(function (g) {
+      GRADES.forEach(function (g) {
         var units = (s.grades[g] || []).map(function (id) { return KM.units[id]; }).filter(Boolean);
         if (!units.length) return;
         var ids = []; units.forEach(function (u) { (u.knowledgePoints || []).forEach(function (id) { ids.push(id); }); });
@@ -1280,7 +1280,7 @@
         feedback.innerHTML = met
           ? ("🎯 <b>Strong work — " + hit + "/" + total + ".</b><div class='struggle-note'>You built the response yourself, then held it to a real standard. In a few days, write a fresh one from memory — that's what locks it in.</div>")
           : ("💪 <b>" + hit + "/" + total + " — good start.</b><div class='struggle-note'>Now you can see what a full response needs. Revise yours, and come back in a few days to write a new one from scratch.</div>");
-        if (met) confetti();
+        if (met) { confetti(); if (opts.onSolved) opts.onSolved(prob); }
       } }));
       revealWrap.appendChild(rub);
     } });
@@ -1623,7 +1623,7 @@
 
   function subjectConceptStats(sKey) {
     var s = subjectByKey(sKey), total = 0, dn = 0, ready = 0;
-    ["7", "8", "9"].forEach(function (g) {
+    GRADES.forEach(function (g) {
       (s.grades[g] || []).forEach(function (uid) {
         ((KM.units[uid] || {}).knowledgePoints || []).forEach(function (id) {
           total++; var kp = KM.kps[id];
@@ -1676,12 +1676,12 @@
     if (!s) return notFound();
     var color = SUBJ_COLOR[subjKey] || "#4f6ef7";
     var mode = sessionGet("mapmode") || "graph"; // "graph" = dependency layout | "curriculum" = unit columns
-    var GRADE_COL = { "7": "#6b8cf0", "8": "#3f57c4", "9": "#26307a" }; // light → dark = grade 7 → 9
+    var GRADE_COL = { "6": "#9db8f7", "7": "#6b8cf0", "8": "#4f6ad6", "9": "#3f57c4", "10": "#334aa6", "11": "#2b3a86", "12": "#26307a" }; // light → dark = grade 6 → 12
     // Real prerequisite edges when curated (kp.prereqs), else the auto vocabulary links (kp.related).
     function edgesFor(kp) { return (kp && kp.prereqs && kp.prereqs.length !== undefined) ? kp.prereqs : ((kp && kp.related) || []); }
 
     var nodes = [];
-    ["7", "8", "9"].forEach(function (g) {
+    GRADES.forEach(function (g) {
       (s.grades[g] || []).forEach(function (uid) {
         (((KM.units[uid] || {}).knowledgePoints) || []).forEach(function (id) { var kp = KM.kps[id]; if (kp) nodes.push(kp); });
       });
@@ -1712,7 +1712,7 @@
       W = pad * 2 + (depths[depths.length - 1] + 1) * colGap; H = topBand + maxRows * rowGap + 30;
     } else {
       cols = [];
-      ["7", "8", "9"].forEach(function (g) {
+      GRADES.forEach(function (g) {
         (s.grades[g] || []).forEach(function (uid) {
           var u = KM.units[uid];
           cols.push({ uid: uid, unit: u, grade: g, kps: (u.knowledgePoints || []).map(function (id) { return KM.kps[id]; }).filter(Boolean) });
@@ -1741,6 +1741,10 @@
       toggle.appendChild(el("button", { class: "map-tab" + (mode === mm[0] ? " active" : ""), text: mm[1],
         onclick: function () { sessionSet("mapmode", mm[0]); render(); } }));
     });
+    if ((KM.concepts || {})[subjKey]) {
+      toggle.appendChild(el("button", { class: "map-tab", html: "🧵 Concept threads <span class='cbeta'>beta</span>",
+        onclick: function () { location.hash = "#/concepts/" + subjKey; } }));
+    }
     root.appendChild(toggle);
 
     var info = el("div", { class: "map-info" });
@@ -1755,7 +1759,7 @@
     if (mode === "curriculum") {
       var gStart = {}, gEnd = {};
       cols.forEach(function (c, ci) { if (gStart[c.grade] == null) gStart[c.grade] = ci; gEnd[c.grade] = ci; });
-      ["7", "8", "9"].forEach(function (g, gi) {
+      GRADES.forEach(function (g, gi) {
         if (gStart[g] == null) return;
         var x0 = pad + gStart[g] * colGap, x1 = pad + (gEnd[g] + 1) * colGap;
         svg.appendChild(svgEl("rect", { x: x0, y: 40, width: x1 - x0, height: H - 46, rx: 12, fill: gi % 2 ? "var(--surface-2)" : "transparent", opacity: 0.6 }));
@@ -1818,7 +1822,7 @@
 
     var legend = el("div", { class: "map-legend" });
     if (mode === "graph") {
-      ["7", "8", "9"].forEach(function (g) {
+      GRADES.filter(function (g) { return (s.grades[g] || []).length; }).forEach(function (g) {
         var it = el("span", { class: "map-legend-item" }); var d = el("span", { class: "legend-dot" }); d.style.background = GRADE_COL[g]; d.style.borderColor = GRADE_COL[g];
         it.appendChild(d); it.appendChild(document.createTextNode("Grade " + g)); legend.appendChild(it);
       });
@@ -1843,6 +1847,416 @@
     var d = el("span", { class: "map-legend-item" });
     var dot = el("span", { class: "legend-dot" }); dot.style.background = m.fill ? m.dot : "var(--surface)"; dot.style.borderColor = m.dot;
     d.appendChild(dot); d.appendChild(document.createTextNode(m.label)); return d;
+  }
+
+  /* ========================================================================
+     VIEW: CONCEPT MAP — the evolving, grade-anchored chart (math slice, beta)
+     A *concept* is a thread of grade-stamped rungs (existing KPs). The chart is
+     a function of (grade + real mastery): each thread shows its deepest rung ≤
+     the chosen grade, mastered threads collapse (fold, not hide), and the ready
+     frontier glows. This turns the spiral's repetition into visible deepening
+     and replaces the 199-node hairball with ~42 threads you can actually read.
+     ====================================================================== */
+  var GRADE_COL_C = { "6": "#9db8f7", "7": "#6b8cf0", "8": "#4f6ad6", "9": "#3f57c4", "10": "#334aa6", "11": "#2b3a86", "12": "#26307a" };
+  function conceptDefaultGrade(data) {
+    // meet the student where they are: the highest grade at which they've learned a rung, else 6
+    var g = 6;
+    data.concepts.forEach(function (c) { c.rungs.forEach(function (r) { if (P.kps && P.kps[r.kpId] && P.kps[r.kpId].done) g = Math.max(g, r.grade); }); });
+    return String(g);
+  }
+  function viewConceptMap(subjKey) {
+    subjKey = subjKey || "math";
+    var s = subjectByKey(subjKey);
+    var data = (KM.concepts || {})[subjKey];
+    var root = el("div", { class: TCLASS[subjKey] || "" });
+    root.appendChild(crumbs([{ label: "Home", href: "#/" }, { label: "Knowledge Map", href: "#/map" }, { label: (s ? s.name : subjKey) + " · Concepts" }]));
+    if (!data) {
+      root.appendChild(el("div", { class: "hero" }, [el("h1", { html: "🧵 Concept threads <span class='cbeta'>beta</span>" })]));
+      root.appendChild(emptyBox("The evolving concept chart is a math-only beta for now. Open it from the Math map."));
+      root.appendChild(el("a", { class: "btn", href: "#/concepts/math", text: "Go to the Math concept chart →" }));
+      root.appendChild(footer()); return mount(root);
+    }
+    var color = SUBJ_COLOR[subjKey] || "#4f6ef7";
+    var grade = Number(sessionGet("conceptGrade") || conceptDefaultGrade(data));
+    var allConcepts = data.concepts, byId = {}; allConcepts.forEach(function (c) { byId[c.id] = c; });
+    var strandName = {}; (data.strands || []).forEach(function (x) { strandName[x.key] = x.name; });
+    // discipline lens: focus on one strand (crosscutting threads always show through)
+    var strandKeys = (data.strands || []).filter(function (x) { return allConcepts.some(function (c) { return c.strand === x.key; }); });
+    var focusKeyName = "conceptFocus-" + subjKey, focus = sessionGet(focusKeyName) || "all";
+    if (focus !== "all" && !strandKeys.some(function (x) { return x.key === focus; })) focus = "all";
+    var concepts = focus === "all" ? allConcepts : allConcepts.filter(function (c) { return c.strand === focus || c.crosscutting; });
+    var strandsAvailable = allConcepts.some(function (c) { return c.transfer && c.transfer.length; });
+
+    // ---- per-concept state at the chosen grade ----
+    // Normally from REAL progress. "Preview mode" instead SIMULATES mastery of every
+    // rung below the chosen grade (never touches P) so the evolving/folding behaviour
+    // is visible on a fresh, empty account — the way to actually evaluate the idea.
+    var sim = sessionGet("conceptSim") === "1";
+    function rungLearned(r) { return sim ? r.grade < grade : !!(P.kps && P.kps[r.kpId] && P.kps[r.kpId].done); }
+    function rungDeep(r) { return sim ? r.grade < grade : isMastered(r.kpId); }
+    function visRungs(c) { return c.rungs.filter(function (r) { return r.grade <= grade; }); }
+    var stateMemo = {};
+    allConcepts.forEach(function (c) {
+      var vis = visRungs(c);
+      if (!vis.length) { stateMemo[c.id] = { code: "upcoming", vis: vis, cur: null, learned: 0, deep: 0 }; return; }
+      var learned = vis.filter(rungLearned).length;
+      var deep = vis.filter(rungDeep).length;
+      var attempted = sim ? learned > 0 : vis.some(function (r) { var st = conceptState(KM.kps[r.kpId]); return st !== "ready" && st !== "locked"; });
+      var code = learned === vis.length ? "mastered" : (learned > 0 || attempted ? "learning" : "notstarted");
+      stateMemo[c.id] = { code: code, vis: vis, cur: vis[vis.length - 1], learned: learned, deep: deep };
+    });
+    function conceptMasteredAt(id) { var m = stateMemo[id]; return !!(m && m.code === "mastered"); }
+    function isFrontier(c) { var m = stateMemo[c.id]; if (!m.cur || m.code === "mastered") return false; return c.prereqConcepts.every(conceptMasteredAt); }
+
+    // ---- layout: column = longest prereq chain (x); stacked within column (y) ----
+    var maxCol = concepts.reduce(function (mx, c) { return Math.max(mx, c.col); }, 0);
+    var colLists = {};
+    concepts.slice().sort(function (a, b) { return ((a.entryGrade || 0) - (b.entryGrade || 0)) || a.title.localeCompare(b.title); })
+      .forEach(function (c) { (colLists[c.col] = colLists[c.col] || []).push(c); });
+    var NODE_W = 176, colGap = 212, rowGap = 118, padX = 18, padTop = 14;
+    var maxRows = 1; Object.keys(colLists).forEach(function (k) { maxRows = Math.max(maxRows, colLists[k].length); });
+    var innerH = maxRows * rowGap, W = padX * 2 + (maxCol + 1) * colGap, H = padTop * 2 + innerH;
+    var pos = {};
+    Object.keys(colLists).forEach(function (col) {
+      var list = colLists[col], n = list.length;
+      list.forEach(function (c, i) { pos[c.id] = { x: padX + Number(col) * colGap + colGap / 2, y: padTop + innerH * (i + 1) / (n + 1) }; });
+    });
+
+    // ---- header + grade rail + consolidation checkpoint ----
+    var masteredN = concepts.filter(function (c) { return stateMemo[c.id].code === "mastered"; }).length;
+    var frontierN = concepts.filter(isFrontier).length;
+    var activeN = concepts.filter(function (c) { return stateMemo[c.id].code !== "upcoming"; }).length;
+    root.appendChild(el("div", { class: "hero" }, [
+      el("h1", { html: s.emoji + " " + esc(s.name) + " — Concept threads <span class='cbeta'>beta</span>" }),
+      el("p", { html: "The same ideas, organized by <b>concept</b> instead of grade. Each card is one thread that <b>deepens as you climb the grades</b>; the chart redraws itself for the grade you pick. Master a thread and it folds away — so you always see your <b>frontier</b>, not a tangled hairball of every topic at once." })
+    ]));
+    // toggle back to the KP knowledge map
+    var toggle = el("div", { class: "map-toggle" });
+    toggle.appendChild(el("button", { class: "map-tab active", text: "🧵 Concept threads" }));
+    toggle.appendChild(el("button", { class: "map-tab", text: "🕸️ Knowledge map", onclick: function () { location.hash = "#/map/" + subjKey; } }));
+    root.appendChild(toggle);
+
+    // discipline lens — focus the chart on one strand (e.g. science's Biology / Chemistry / …)
+    if (strandKeys.length > 2) {
+      var flt = el("div", { class: "cfocus" });
+      flt.appendChild(el("span", { class: "cfocus-label", text: "Focus:" }));
+      flt.appendChild(el("button", { class: "cgbtn" + (focus === "all" ? " on" : ""), text: "All",
+        onclick: function () { sessionSet(focusKeyName, "all"); render(); } }));
+      strandKeys.forEach(function (x) {
+        flt.appendChild(el("button", { class: "cgbtn" + (focus === x.key ? " on" : ""), text: x.name,
+          onclick: function () { sessionSet(focusKeyName, x.key); render(); } }));
+      });
+      root.appendChild(flt);
+      if (focus !== "all") {
+        var xcNames = allConcepts.filter(function (c) { return c.crosscutting && c.strand !== focus; }).map(function (c) { return c.title; });
+        root.appendChild(el("div", { class: "crail-hint", html: "Showing <b>" + esc(strandName[focus] || focus) + "</b> threads" + (xcNames.length ? " plus the <b>✦ crosscutting</b> " + (xcNames.length === 1 ? "thread" : "threads") + " (" + xcNames.map(esc).join(", ") + ") that run through it" : "") + ". Tap <b>All</b> to see every strand at once." }));
+      }
+    }
+
+    var rail = el("div", { class: "crail" });
+    GRADES.forEach(function (g) {
+      rail.appendChild(el("button", { class: "cgbtn" + (Number(g) === grade ? " on" : ""), text: "Grade " + g,
+        onclick: function () { sessionSet("conceptGrade", g); render(); } }));
+    });
+    // Preview-mode toggle: simulate mastery through the chosen grade (no writes to real progress)
+    rail.appendChild(el("button", { class: "cgbtn csim" + (sim ? " on" : ""), html: (sim ? "● " : "○ ") + "Preview mode",
+      title: "Simulate mastery of everything below the chosen grade, so you can see the chart fold and evolve without any real progress. Doesn't change your data.",
+      onclick: function () {
+        var on = !(sessionGet("conceptSim") === "1");
+        sessionSet("conceptSim", on ? "1" : "0");
+        if (on && Number(sessionGet("conceptGrade") || grade) <= 6) sessionSet("conceptGrade", "9"); // jump somewhere with folds to show
+        render();
+      } }));
+    root.appendChild(rail);
+    root.appendChild(el("div", { class: "crail-hint", html: sim
+      ? "<b>Preview mode is on</b> — the chart is simulating mastery of every rung below Grade " + grade + " so you can watch threads fold and the frontier advance. Your real progress is untouched; slide the grades to see it evolve."
+      : "Slide along the grades to watch the chart evolve. On a fresh account nothing is mastered yet — tap <b>Preview mode</b> to simulate progress and see threads fold." }));
+
+    root.appendChild(el("div", { class: "ccheckpoint" }, [
+      el("div", { class: "ck-emoji", text: masteredN ? "🗂️" : "🧭" }),
+      el("div", {}, [
+        el("div", { html: "<b>Grade " + grade + " checkpoint.</b> " + activeN + " of " + concepts.length + " threads are in play — <b>" + masteredN + "</b> folded away as mastered" + (frontierN ? ", <b>" + frontierN + "</b> ready now" : "") + "." }),
+        el("div", { class: "ck-sub", text: "Each grade is a chance to consolidate: fold what you know into a cleaner, deeper chart, then push the frontier one thread further." })
+      ])
+    ]));
+
+    // ---- the chart (SVG edges under absolutely-positioned concept cards) ----
+    var scroll = el("div", { class: "cmap-scroll" });
+    var chart = el("div", { class: "cchart" }); chart.style.width = W + "px"; chart.style.height = H + "px";
+    var svg = svgEl("svg", { class: "cedges", viewBox: "0 0 " + W + " " + H, width: W, height: H });
+    chart.appendChild(svg);
+    var edgeEls = [];
+    concepts.forEach(function (c) {
+      var b = pos[c.id]; if (!b) return;
+      c.prereqConcepts.forEach(function (pid) {
+        var a = pos[pid]; if (!a) return;
+        var x1 = a.x + NODE_W / 2 - 8, x2 = b.x - NODE_W / 2 + 8, dx = (x2 - x1) / 2;
+        var on = conceptMasteredAt(pid);
+        var path = svgEl("path", { d: "M" + x1 + " " + a.y + " C" + (x1 + dx) + " " + a.y + "," + (x2 - dx) + " " + b.y + "," + x2 + " " + b.y,
+          fill: "none", stroke: on ? "#17b890" : "var(--line)", "stroke-width": on ? 2.5 : 1.5, opacity: on ? 0.9 : 0.5 });
+        path._from = pid; path._to = c.id; svg.appendChild(path); edgeEls.push(path);
+      });
+    });
+
+    var nodeEls = {};
+    concepts.forEach(function (c) {
+      var p = pos[c.id]; if (!p) return;
+      var m = stateMemo[c.id], up = m.code === "upcoming", front = isFrontier(c);
+      var xc = c.crosscutting ? "✦ " : "";
+      var node = el("div", { class: "cnode " + m.code + (front ? " frontier" : "") + (c.crosscutting ? " xc" : "") });
+      node.style.left = p.x + "px"; node.style.top = p.y + "px";
+      if (up) {
+        node.appendChild(el("div", { class: "cn-t", html: xc + esc(c.title) }));
+        node.appendChild(el("div", { class: "cn-g", text: "▸ introduced Grade " + (c.entryGrade || "?") }));
+      } else if (m.code === "mastered") {
+        node.appendChild(el("div", { class: "cn-t", html: "✓ " + xc + esc(c.title) }));
+        node.appendChild(el("div", { class: "cn-g", text: "mastered · folded" }));
+      } else {
+        var idx = m.vis.length, tot = c.rungs.length, dotcls = m.learned > 0 ? "learning" : "";
+        var t = el("div", { class: "cn-t" }, [el("span", { html: xc + esc(c.title) })]);
+        if (front) t.appendChild(el("span", { class: "cn-badge", text: "READY" }));
+        t.appendChild(el("span", { class: "cn-dot " + dotcls }));
+        node.appendChild(t);
+        node.appendChild(el("div", { class: "cn-g", text: "Grade " + m.cur.grade + " · rung " + idx + " of " + tot }));
+        node.appendChild(el("div", { class: "cn-r", html: inlineMath(esc(m.cur.title)) }));
+        var bar = el("div", { class: "cn-bar" }, el("i"));
+        bar.firstChild.style.width = Math.round(m.learned / m.vis.length * 100) + "%";
+        node.appendChild(bar);
+      }
+      node.addEventListener("click", function () { selectConcept(c.id); });
+      chart.appendChild(node); nodeEls[c.id] = node;
+    });
+    scroll.appendChild(chart); root.appendChild(scroll);
+
+    // legend
+    var legend = el("div", { class: "map-legend" });
+    legend.appendChild(el("span", { class: "map-legend-item" }, [el("span", { class: "legend-ready" }), document.createTextNode("Ready now (glowing)")]));
+    [["#e8a400", "Learning"], ["#17b890", "Mastered (folds)"], ["var(--line)", "Upcoming (later grade)"]].forEach(function (x) {
+      var it = el("span", { class: "map-legend-item" }); var d = el("span", { class: "legend-dot" }); d.style.background = x[0]; d.style.borderColor = x[0];
+      it.appendChild(d); it.appendChild(document.createTextNode(x[1])); legend.appendChild(it);
+    });
+    legend.appendChild(el("span", { class: "map-legend-item", text: "→ lines = prerequisite concepts" }));
+    root.appendChild(legend);
+
+    // ---- entry to the synthesis / tool-choice layer ----
+    if (strandsAvailable) {
+      root.appendChild(el("div", { class: "map-banner", style: "background:linear-gradient(120deg,#f4813f,#ef5f6b 55%,#9b5de5)", onclick: function () { location.hash = "#/mixed/" + subjKey; } }, [
+        el("div", { class: "mb-emoji", text: "🎲" }),
+        el("div", { class: "mb-body" }, [
+          el("div", { class: "mb-title", text: "Mixed challenge — diagnose the tool" }),
+          el("div", { class: "mb-sub", text: "Transfer problems from a whole strand, interleaved and unlabelled. The hard part is knowing which idea each one needs." })
+        ]),
+        el("div", { class: "mb-go", text: "Open →" })
+      ]));
+    }
+
+    // ---- detail panel (rung ladder + mastery gate), filled on select ----
+    var detail = el("div", { class: "panel cdetail", id: "cdetail", style: "display:none" });
+    root.appendChild(detail);
+    root.appendChild(footer());
+    mount(root);
+
+    function selectConcept(id) {
+      sessionSet("conceptSel", id);
+      Object.keys(nodeEls).forEach(function (k) { nodeEls[k].classList.toggle("sel", k === id); });
+      edgeEls.forEach(function (e) {
+        var lit = e._to === id;
+        e.setAttribute("stroke", lit ? color : (conceptMasteredAt(e._from) ? "#17b890" : "var(--line)"));
+        e.setAttribute("stroke-width", lit ? 3 : (conceptMasteredAt(e._from) ? 2.5 : 1.5));
+        e.setAttribute("opacity", lit ? 1 : (conceptMasteredAt(e._from) ? 0.9 : 0.28));
+      });
+      renderDetail(id);
+      detail.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+    function renderDetail(id) {
+      var c = byId[id], m = stateMemo[id]; clear(detail); detail.style.display = "block";
+      detail.appendChild(el("div", { class: "cd-strand", text: (strandName[c.strand] || c.strand) }));
+      detail.appendChild(el("h2", { style: "margin:.15em 0 .1em", html: esc(c.title) }));
+      detail.appendChild(el("p", { style: "color:var(--ink-soft);margin:0 0 6px", html: inlineMath(esc(c.gist)) }));
+      if (c.prereqConcepts.length) {
+        var pre = el("div", { class: "cd-pre" }, [el("span", { text: "Builds on: " })]);
+        c.prereqConcepts.forEach(function (pid) {
+          if (!byId[pid]) return;
+          pre.appendChild(el("span", { class: "cd-chip" + (conceptMasteredAt(pid) ? "" : ""), text: (conceptMasteredAt(pid) ? "✓ " : "") + byId[pid].title, onclick: function () { selectConcept(pid); } }));
+        });
+        detail.appendChild(pre);
+      }
+      // the deepening ladder — every rung, real mastery, links to the real KP page
+      detail.appendChild(el("div", { class: "eyebrow", style: "margin-top:12px", text: "How it deepens across the grades" }));
+      var ladder = el("div", { class: "cladder" });
+      c.rungs.forEach(function (r) {
+        var future = r.grade > grade, learned = rungLearned(r), deep = rungDeep(r), cur = m.cur && r.kpId === m.cur.kpId;
+        var row = el("div", { class: "crung" + (future ? " future" : "") + (cur ? " cur" : "") });
+        var gb = el("div", { class: "cr-grade", text: "G" + r.grade }); if (!future) gb.style.setProperty("--gcol", GRADE_COL_C[String(r.grade)] || color);
+        row.appendChild(gb);
+        var body = el("div", { class: "cr-body", style: "flex:1" }, [
+          el("a", { href: "#/kp/" + r.kpId, html: inlineMath(esc(r.title)) }),
+          future ? el("span", { class: "mi-g", text: "  · not yet on your chart" }) : null
+        ]);
+        if (r.note) body.appendChild(el("div", { class: "cr-note", text: r.note }));
+        row.appendChild(body);
+        row.appendChild(el("div", { class: "cr-mdot" + (deep ? " deep" : learned ? " done" : ""), title: deep ? "Mastered (survived spaced review / stretch)" : learned ? "Learned" : "Not done yet" }));
+        ladder.appendChild(row);
+      });
+      detail.appendChild(ladder);
+      // mastery gate (real progress) + the attemptable Transfer tier
+      renderGate(c, m);
+    }
+    function tierCard(label, meta, coming) {
+      return el("div", { class: "ctier" + (coming ? " coming" : "") }, [el("h4", { text: label }), el("div", { class: "ct-meta", html: meta })]);
+    }
+    function renderGate(c, m) {
+      var tot = m.vis.length;
+      var gateHost = el("div"); detail.appendChild(gateHost); // tiers + gate; repainted when a transfer problem is solved
+      function realSolved() { return (c.transfer || []).filter(function (p) { return P.stretch && P.stretch[p.id] && P.stretch[p.id].solved; }).length; }
+      function paint() {
+        clear(gateHost);
+        if (!tot) {
+          gateHost.appendChild(el("div", { class: "cgate" }, [el("div", { class: "cg-big", text: "🔭" }),
+            el("div", {}, [el("b", { text: "Not on your chart yet." }), el("div", { class: "cg-sub", text: "This thread is introduced in Grade " + (c.entryGrade || "?") + ". Reach that grade and its first rung appears." })])]));
+          return;
+        }
+        var hasT = (c.transfer || []).length, target = c.transferTarget || 0;
+        var rs = realSolved(), solved = (sim && m.code === "mastered") ? target : rs;
+        var transferCleared = hasT ? solved >= target : true;
+        var gateOpen = m.learned === tot && m.deep === tot && transferCleared;
+        gateHost.appendChild(el("div", { class: "ctiers" }, [
+          tierCard("🟢 Fluency & Application", "<b>" + m.learned + "</b> / " + tot + " rungs practiced", false),
+          tierCard("🔁 Retention", "<b>" + m.deep + "</b> / " + tot + " survived spaced review", false),
+          hasT ? tierCard("🟠 Transfer", "<b>" + solved + "</b> / " + target + " transfer problems cleared", false)
+               : tierCard("🟠 Transfer", "the hard set — authored next", true)
+        ]));
+        var gate = el("div", { class: "cgate" + (gateOpen ? " open" : "") });
+        if (gateOpen) {
+          gate.appendChild(el("div", { class: "cg-big", text: "★" }));
+          gate.appendChild(el("div", {}, [el("b", { text: "Thread mastered through Grade " + grade + "." }),
+            el("div", { class: "cg-sub", html: "Learned, survived spaced retrieval" + (hasT ? ", <b>and</b> cleared the transfer set" : "") + " — so the card folds away. Mastery = it <i>sticks</i>, not that you finished it." })]));
+        } else {
+          var needLearn = tot - m.learned, needDeep = m.learned - m.deep, needT = hasT ? Math.max(0, target - solved) : 0;
+          gate.appendChild(el("div", { class: "cg-big", text: "🔒" }));
+          gate.appendChild(el("div", {}, [el("b", { text: "The ★ is earned, not given." }),
+            el("div", { class: "cg-sub", html: (needLearn > 0 ? "<b>" + needLearn + "</b> rung" + (needLearn === 1 ? "" : "s") + " still to learn. " : "") + (needDeep > 0 ? "<b>" + needDeep + "</b> waiting on a spaced-review pass (come back in a few days). " : "") + (hasT ? (needT > 0 ? "<b>" + needT + "</b> more transfer problem" + (needT === 1 ? "" : "s") + " to clear — the real bar." : "Transfer cleared. ✓") : "The <b>Transfer</b> tier — the hard, mixed problems that are the real bar — is authored next.") })]));
+        }
+        gateHost.appendChild(gate);
+      }
+      paint();
+      // the attemptable transfer set (built once; solving one repaints the gate in place)
+      if ((c.transfer || []).length) {
+        var toggle = el("button", { class: "btn ghost", style: "margin-top:12px", text: "🟠 Attempt the transfer set (" + realSolved() + "/" + c.transfer.length + " solved) →" });
+        var box = el("div", { style: "display:none;margin-top:10px" });
+        toggle.addEventListener("click", function () {
+          if (!box._built) {
+            box.appendChild(stretchTimingNote());
+            c.transfer.forEach(function (p) { box.appendChild(renderChallenge(p, { onSolved: function () { paint(); toggle.textContent = "🟠 Transfer set (" + realSolved() + "/" + c.transfer.length + " solved) — keep going →"; } })); });
+            box._built = true;
+          }
+          var open = box.style.display === "none";
+          box.style.display = open ? "block" : "none";
+          if (!open) toggle.textContent = "🟠 Attempt the transfer set (" + realSolved() + "/" + c.transfer.length + " solved) →";
+        });
+        detail.appendChild(toggle); detail.appendChild(box);
+      }
+    }
+
+    // restore a prior selection (survives grade changes)
+    var savedSel = sessionGet("conceptSel");
+    if (savedSel && byId[savedSel]) selectConcept(savedSel);
+  }
+
+  /* ========================================================================
+     VIEW: MIXED CHALLENGE — synthesis / tool-choice (concept NOT named)
+     Interleaves the Transfer-tier problems across a whole strand and presents
+     them UNLABELLED, so the student must DIAGNOSE which tool each one needs —
+     the judgment per-concept practice can't train. Same problem ids, so a solve
+     here also advances that concept's transfer tier + spaced-review queue.
+     ====================================================================== */
+  function strandsWithTransfer(data) {
+    var byStrand = {};
+    data.concepts.forEach(function (c) { if (c.transfer && c.transfer.length) (byStrand[c.strand] = byStrand[c.strand] || []).push(c); });
+    return byStrand;
+  }
+  function viewMixedChallenge(subjKey, strandKey) {
+    subjKey = subjKey || "math";
+    var data = (KM.concepts || {})[subjKey], s = subjectByKey(subjKey);
+    if (!data || !s) return notFound();
+    var byStrand = strandsWithTransfer(data);
+    var strandName = {}; (data.strands || []).forEach(function (x) { strandName[x.key] = x.name; });
+
+    function solvedCount(list) { return list.filter(function (p) { return P.stretch && P.stretch[p.id] && P.stretch[p.id].solved; }).length; }
+    if (!strandKey || !byStrand[strandKey]) {
+      // picker: choose a strand to mix
+      var root0 = el("div", { class: TCLASS[subjKey] || "" });
+      root0.appendChild(crumbs([{ label: "Home", href: "#/" }, { label: "Knowledge Map", href: "#/map" }, { label: s.name + " · Concepts", href: "#/concepts/" + subjKey }, { label: "Mixed challenge" }]));
+      root0.appendChild(el("div", { class: "hero" }, [
+        el("h1", { html: "🎲 Mixed challenge <span class='cbeta'>beta</span>" }),
+        el("p", { html: "Per-concept practice quietly tells you which tool to use. <b>This doesn't.</b> Your transfer problems come back <b>interleaved and unlabelled</b> — so the real work is diagnosing <i>which idea each one needs</i> before you can solve it. That judgment is the thing a real test actually measures." })
+      ]));
+      var grid = el("div", { class: "grid subjects" });
+      (data.strands || []).forEach(function (st) {
+        var cs = byStrand[st.key]; if (!cs) return;
+        var all = cs.reduce(function (a, c) { return a.concat(c.transfer); }, []);
+        var synN = (((KM.synthesis || {})[subjKey] || {})[st.key] || []).length;
+        var card = el("div", { class: "card subject-card " + (TCLASS[subjKey] || ""), onclick: function () { location.hash = "#/mixed/" + subjKey + "/" + st.key; } });
+        card.appendChild(el("div", { class: "accent-bar" }));
+        card.appendChild(el("h3", { text: st.name }));
+        card.appendChild(el("div", { class: "meta" }, [el("span", { class: "chip", text: cs.length + " concepts" }), el("span", { class: "chip", text: all.length + " problems" }), synN ? el("span", { class: "chip accent", text: "🧬 " + synN + " synthesis" }) : null]));
+        card.appendChild(progressRow(Math.round(solvedCount(all) / (all.length || 1) * 100), solvedCount(all) + " / " + all.length + " solved"));
+        grid.appendChild(card);
+      });
+      root0.appendChild(grid);
+      root0.appendChild(footer()); return mount(root0);
+    }
+
+    // interleave: round-robin across the strand's concepts (adjacent items = different tools)
+    var cs = byStrand[strandKey].slice().sort(function (a, b) { return a.col - b.col || a.title.localeCompare(b.title); });
+    var pool = [], i = 0, added = true, MAX = 12;
+    while (added && pool.length < MAX) { added = false; cs.forEach(function (c) { if (c.transfer[i]) { pool.push({ prob: c.transfer[i], concept: c }); added = true; } }); i++; }
+    pool = pool.slice(0, MAX);
+
+    var root = el("div", { class: TCLASS[subjKey] || "" });
+    root.appendChild(crumbs([{ label: "Home", href: "#/" }, { label: s.name + " · Concepts", href: "#/concepts/" + subjKey }, { label: "Mixed challenge", href: "#/mixed/" + subjKey }, { label: strandName[strandKey] || strandKey }]));
+    root.appendChild(el("div", { class: "hero" }, [
+      el("h1", { html: "🎲 Mixed: " + esc(strandName[strandKey] || strandKey) }),
+      el("p", { html: "Problems from <b>" + cs.length + " different concepts</b> in this strand, shuffled together and <b>not labelled</b>. For each: first ask <i>which idea does this need?</i>, then solve. The concept is revealed only once you crack it (or tap “Which idea is this?” if you're stuck)." })
+    ]));
+    root.appendChild(stretchTimingNote());
+    var solvedN = pool.filter(function (x) { return P.stretch && P.stretch[x.prob.id] && P.stretch[x.prob.id].solved; }).length;
+    root.appendChild(el("div", { class: "panel", style: "margin-bottom:16px" }, progressRow(Math.round(solvedN / (pool.length || 1) * 100), solvedN + " of " + pool.length + " diagnosed & solved")));
+    var host = el("div", { class: "panel" });
+    host.appendChild(el("div", { class: "eyebrow", text: "Interleaved — diagnose the tool, then solve" }));
+    pool.forEach(function (x) {
+      var wrap = el("div", { class: "mixed-item" });
+      var reveal = el("div", { class: "mixed-reveal" });
+      function showConcept() { clear(reveal); reveal.appendChild(el("div", { class: "mixed-tag", html: "🧭 This one drew on <b>" + esc(x.concept.title) + "</b> · <a href='#/concepts/" + subjKey + "'>see the thread</a>" })); }
+      wrap.appendChild(renderChallenge(x.prob, { onSolved: function () { showConcept(); } }));
+      var peek = el("button", { class: "btn ghost mixed-peek", text: "🧭 Which idea is this?", onclick: showConcept });
+      reveal.appendChild(peek);
+      wrap.appendChild(reveal);
+      host.appendChild(wrap);
+    });
+    root.appendChild(host);
+
+    // ---- SYNTHESIS: problems that need MORE THAN ONE idea at once (the hardest tier) ----
+    var synth = ((KM.synthesis || {})[subjKey] || {})[strandKey] || [];
+    if (synth.length) {
+      var sSolved = synth.filter(function (p) { return P.stretch && P.stretch[p.id] && P.stretch[p.id].solved; }).length;
+      root.appendChild(el("div", { class: "section-title", style: "margin-top:24px" }, [el("span", { text: "🧬 Synthesis — combine more than one idea" }), el("span", { class: "line" }), el("span", { class: "pill-count", text: sSolved + " / " + synth.length })]));
+      root.appendChild(el("p", { class: "crail-hint", style: "margin-top:0", html: "The hardest tier. Each of these needs <b>two or three ideas working together at once</b> — and, as always, won't tell you which. Diagnose the <i>combination</i>, then solve." }));
+      var shost = el("div", { class: "panel" });
+      synth.forEach(function (p) {
+        var wrap = el("div", { class: "mixed-item" });
+        var reveal = el("div", { class: "mixed-reveal" });
+        function showConcepts() { clear(reveal); reveal.appendChild(el("div", { class: "mixed-tag synth", html: "🧬 This combined <b>" + (p.concepts || []).map(function (c) { return esc(c.title); }).join("</b> + <b>") + "</b> · <a href='#/concepts/" + subjKey + "'>see the threads</a>" })); }
+        wrap.appendChild(renderChallenge(p, { onSolved: function () { showConcepts(); } }));
+        var peek = el("button", { class: "btn ghost mixed-peek", text: "🧬 Which ideas does this need?", onclick: showConcepts });
+        reveal.appendChild(peek);
+        wrap.appendChild(reveal);
+        shost.appendChild(wrap);
+      });
+      root.appendChild(shost);
+    }
+
+    root.appendChild(footer()); mount(root);
   }
 
   /* ---- Cross-subject connection map (dashed lines between subjects) -------*/
@@ -1989,7 +2403,7 @@
     return el("div", { class: "footer" }, [
       el("div", { html: '<a href="../">↩ Part of <b>The Curious Family Library</b></a>' }),
       el("div", { style: "margin-top:6px", html: 'Knowledge Map · aligned to NYS Next Generation Learning Standards · <a href="gallery.html">🔬 Visual Library</a>' }),
-      el("div", { style: "margin-top:4px", text: "Built for curious minds in grades 7–9" })
+      el("div", { style: "margin-top:4px", text: "Built for curious minds in grades 6–12" })
     ]);
   }
   function emptyBox(msg) { return el("div", { class: "empty" }, [el("div", { class: "big", text: "🌱" }), el("p", { text: msg })]); }
@@ -2033,6 +2447,8 @@
       case "practicetest": return viewPracticeTest(parts[1]);
       case "print": return viewPrint(parts[1]);
       case "map": return parts[1] === "connections" ? viewConnections() : viewMap(parts[1]);
+      case "concepts": return viewConceptMap(parts[1]);
+      case "mixed": return viewMixedChallenge(parts[1], parts[2]);
       case "regents": return viewRegents(parts[1]);
       default: return viewHome();
     }
