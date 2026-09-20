@@ -258,6 +258,7 @@
     <nav class="nav-links">
       <a href="#meditation">Meditation</a>
       <a href="#foundations">Foundations</a>
+      <a href="math/">7th Grade Math</a>
       <a href="knowledge-map/">Knowledge Map</a>
       <a href="#library">The Library</a>
     </nav>
@@ -437,6 +438,16 @@ const SERIES = [
     ]
   },
   {
+    key:"math7",
+    name:"7th Grade Math",
+    intro:`<p>A practice site for two seventh-grade courses — the accelerated sequence and the traditional Math&nbsp;7 one. Every unit opens with a worked lesson, then a problem set, then drills that generate fresh questions on whatever skill is shaky. Wrong answers are kept with a note about what went wrong, so they can be retried later. Free, works offline, and nothing a student types leaves their device.</p>`,
+    modules:[
+      { label:"Grades 7", title:"Open the practice site", status:"live", app:"math/",
+        count:"27 units · 696 problems", appLabel:"open the practice site",
+        desc:"Two courses in one: 7th Grade Accelerated and Math 7, sharing the units they have in common. Worked examples that explain every step, unlimited generated practice on any single skill, a mistake log you can drill from, spaced mixed review across everything studied, and printable worksheets with the answer key as a separate document. Several people can share one computer and keep their own progress." }
+    ]
+  },
+  {
     key:"knowledgemap",
     name:"The Grades 7–9 Knowledge Map",
     intro:`<p>Not a book this time, but an interactive tool. A standards-aligned map of everything a student meets in grades 7–9 — Mathematics, Science, English, and Social Studies, built to the New York (Westchester) standards. Every idea is a node you can open: interactive science and math animations you can actually poke at, self-checking practice, quizzes and timed tests, and a prerequisite graph that shows what each concept builds on — and, when you slip, traces it back to the foundation to review first. Free, works offline, and a student's answers never leave their device.</p>`,
@@ -537,7 +548,7 @@ function moduleRow(m){
   const link = live && m.repo
     ? `<a class="fdn-link" href="${m.repo}" target="_blank" rel="noopener">${m.count} · open in Colab on GitHub →</a>`
     : (live && m.app
-      ? `<a class="fdn-link" href="${m.app}">${m.count ? m.count + ' · ' : ''}open the interactive map →</a>`
+      ? `<a class="fdn-link" href="${m.app}">${m.count ? m.count + ' · ' : ''}${m.appLabel || 'open the interactive map'} →</a>`
       : '');
   const dl = (m.download ? dlLink(m.download, m.title, true, 'PDF') : '')
            + (m.downloadEpub ? dlLink(m.downloadEpub, m.title, true, 'EPUB') : '')
