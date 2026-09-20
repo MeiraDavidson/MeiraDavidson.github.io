@@ -4,13 +4,13 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Curious Family Library</title>
-<meta name="description" content="A kid's guide to meditation, vivid science explainers (chips, the immune system, the electric grid, a cancer drug), and build-it-yourself foundations in math and computing &amp; ML — with free downloads and interactive Colab notebooks." />
+<meta name="description" content="A kid's guide to meditation, vivid science explainers (chips, the immune system, the electric grid, a cancer drug), and build-it-yourself foundations in math, computing &amp; ML, and the science of aging — with free downloads and interactive Colab notebooks." />
 <link rel="canonical" href="https://meiradavidson.github.io/" />
 <!-- social link preview (Open Graph + Twitter Card) -->
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="The Curious Family Library" />
 <meta property="og:title" content="The Curious Family Library — meditation, science &amp; foundations" />
-<meta property="og:description" content="Books that explain the world to curious minds — a kid's guide to meditation, vivid science explainers, and build-it-yourself foundations in math and computing &amp; ML. Free downloads + interactive notebooks." />
+<meta property="og:description" content="Books that explain the world to curious minds — a kid's guide to meditation, vivid science explainers, and build-it-yourself foundations in math, computing &amp; ML, and the science of aging. Free downloads + interactive notebooks." />
 <meta property="og:url" content="https://meiradavidson.github.io/" />
 <meta property="og:image" content="https://meiradavidson.github.io/assets/og-image.jpg" />
 <meta property="og:image:width" content="1200" />
@@ -124,6 +124,11 @@
   .book .sub{font-size:.82rem;color:var(--gold);font-weight:600;margin:0 0 9px}
   .book p.desc{font-size:.92rem;color:var(--ink-soft);margin:0 0 12px}
   .book .links{display:flex;flex-wrap:wrap;gap:8px 18px}
+  /* featured downloads — .book .links doesn't reach here */
+  #feat-downloads{display:flex;flex-wrap:wrap;gap:10px 22px;margin:20px 0 22px}
+  #feat-downloads a{font-size:.95rem;font-weight:600;text-decoration:none;color:var(--sage-dark)}
+  #feat-downloads a:hover{text-decoration:underline}
+  @media(max-width:760px){#feat-downloads{justify-content:center}}
   .book .links a{font-size:.86rem;font-weight:600;text-decoration:none}
   .book .links a.amz{color:var(--ink-soft)}
   .book .links a.amz:hover{color:var(--sage-dark);text-decoration:underline}
@@ -263,7 +268,7 @@
   <div class="wrap">
     <div class="eyebrow">The Curious Family Library</div>
     <h1>Be curious. Stay open.<br/>Be kind.</h1>
-    <p class="lead">A gentle guide to meditation, vivid explainers on how the world really works, and two build-it-yourself foundations: <a class="fdn-jump" href="#f-math">Mathematics</a> and <a class="fdn-jump" href="#f-compute">Computing &amp; Machine Learning</a>.</p>
+    <p class="lead">A gentle guide to meditation, vivid explainers on how the world really works, and three build-it-yourself foundations: <a class="fdn-jump" href="#f-math">Mathematics</a>, <a class="fdn-jump" href="#f-compute">Computing &amp; Machine Learning</a>, and <a class="fdn-jump" href="#f-aging">The Hundred-and-Twenty Question</a>.</p>
     <div class="cta">
       <a class="btn btn-primary" href="#foundations">Explore the foundations →</a>
       <a class="btn btn-ghost" href="#library">Browse the books</a>
@@ -296,7 +301,7 @@
     <div class="section-head">
       <div class="eyebrow">Three Foundations</div>
       <h2>A fast, ordered path through the basics</h2>
-      <p>Beyond the standalone books, there are ground-up guides in <a class="fdn-jump" href="#f-math">Mathematics</a> and <a class="fdn-jump" href="#f-compute">Computing &amp; Machine Learning</a>. The idea is simple: you shouldn't need a thousand-page textbook to learn the basics of something. Once you really understand a subject, its backbone often fits on a page or two — so these start small and get you there, without cutting corners on what actually matters.</p>
+      <p>Beyond the standalone books, there are ground-up guides in <a class="fdn-jump" href="#f-math">Mathematics</a>, <a class="fdn-jump" href="#f-compute">Computing &amp; Machine Learning</a>, and <a class="fdn-jump" href="#f-aging">The Hundred-and-Twenty Question</a>. The idea is simple: you shouldn't need a thousand-page textbook to learn the basics of something. Once you really understand a subject, its backbone often fits on a page or two — so these start small and get you there, without cutting corners on what actually matters.</p>
     </div>
     <div class="run-note">
       <p><strong>How the notebooks work.</strong> Every interactive notebook opens in Google&nbsp;Colab — all you need is a free Google&nbsp;(Gmail) sign-in. Nothing to install, nothing to set up.</p>
