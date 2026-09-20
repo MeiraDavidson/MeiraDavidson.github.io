@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>The Curious Family Library — Meira Davidson</title>
-<meta name="description" content="Books by Meira Davidson — a kid's guide to meditation, vivid science explainers (chips, the immune system, the electric grid, a cancer drug), and build-it-yourself foundations in math, computing &amp; ML, and biology — with free downloads and interactive Colab notebooks." />
+<title>The Curious Family Library</title>
+<meta name="description" content="A kid's guide to meditation, vivid science explainers (chips, the immune system, the electric grid, a cancer drug), and build-it-yourself foundations in math and computing &amp; ML — with free downloads and interactive Colab notebooks." />
 <link rel="canonical" href="https://meiradavidson.github.io/" />
 <!-- social link preview (Open Graph + Twitter Card) -->
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="The Curious Family Library" />
 <meta property="og:title" content="The Curious Family Library — meditation, science &amp; foundations" />
-<meta property="og:description" content="Books that explain the world to curious minds — a kid's guide to meditation, vivid science explainers, and build-it-yourself foundations in math, computing &amp; ML, and biology. Free downloads + interactive notebooks." />
+<meta property="og:description" content="Books that explain the world to curious minds — a kid's guide to meditation, vivid science explainers, and build-it-yourself foundations in math and computing &amp; ML. Free downloads + interactive notebooks." />
 <meta property="og:url" content="https://meiradavidson.github.io/" />
 <meta property="og:image" content="https://meiradavidson.github.io/assets/og-image.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="Meira Davidson — The Curious Family Library: a row of book covers" />
+<meta property="og:image:alt" content="The Curious Family Library: a row of book covers" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="The Curious Family Library — meditation, science &amp; foundations" />
 <meta name="twitter:description" content="Books that explain the world to curious minds — meditation, science explainers, and build-it-yourself foundations. Free downloads + interactive notebooks." />
@@ -106,13 +106,10 @@
   .cover .c-title{font-family:'Fraunces',serif;font-size:1.45rem;line-height:1.12;font-weight:600}
   .cover .c-author{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;opacity:.9}
 
-  /* sample chips (featured) */
-  .samples{display:flex;flex-direction:column;gap:8px;margin:22px 0 26px}
   .chip{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-size:.92rem;font-weight:500;color:var(--ink);
     background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 16px;transition:.16s;max-width:max-content}
   .chip:hover{border-color:var(--sage);color:var(--sage-dark);transform:translateX(3px)}
   .chip .n{font-family:'Inter';font-size:.66rem;font-weight:700;letter-spacing:.06em;color:#fff;background:var(--sage);border-radius:999px;padding:3px 9px;text-transform:uppercase}
-  @media(max-width:760px){.samples{align-items:center}}
 
   /* grid */
   .books{display:grid;grid-template-columns:repeat(2,1fr);gap:42px 44px}
@@ -128,8 +125,6 @@
   .book p.desc{font-size:.92rem;color:var(--ink-soft);margin:0 0 12px}
   .book .links{display:flex;flex-wrap:wrap;gap:8px 18px}
   .book .links a{font-size:.86rem;font-weight:600;text-decoration:none}
-  .book .links a.sample{color:var(--sage-dark)}
-  .book .links a.sample:hover{text-decoration:underline}
   .book .links a.amz{color:var(--ink-soft)}
   .book .links a.amz:hover{color:var(--sage-dark);text-decoration:underline}
   .book .links a.dl{color:var(--sage-dark)}
@@ -249,13 +244,9 @@
 </head>
 <body>
 
-<div class="notice">
-  <span><strong>Free to download now</strong> — the foundation books and <em>The Invisible Trillion</em>. The rest of the library opens for free download on <strong>August&nbsp;30</strong>.</span>
-</div>
-
 <header class="nav">
   <div class="wrap nav-in">
-    <div class="brand">Meira Davidson<small>Author</small></div>
+    <div class="brand">The Curious Family<small>Library</small></div>
     <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
@@ -264,7 +255,6 @@
       <a href="#foundations">Foundations</a>
       <a href="knowledge-map/">Knowledge Map</a>
       <a href="#library">The Library</a>
-      <a href="#about">About</a>
     </nav>
   </div>
 </header>
@@ -273,7 +263,7 @@
   <div class="wrap">
     <div class="eyebrow">The Curious Family Library</div>
     <h1>Be curious. Stay open.<br/>Be kind.</h1>
-    <p class="lead">The work of Meira Davidson — a gentle guide to meditation, vivid explainers on how the world really works, and three build-it-yourself foundations: <a class="fdn-jump" href="#f-math">Mathematics</a>, <a class="fdn-jump" href="#f-compute">Computing &amp; Machine Learning</a>, and <a class="fdn-jump" href="#f-biology">Biology &amp; Drug Discovery</a>.</p>
+    <p class="lead">A gentle guide to meditation, vivid explainers on how the world really works, and two build-it-yourself foundations: <a class="fdn-jump" href="#f-math">Mathematics</a> and <a class="fdn-jump" href="#f-compute">Computing &amp; Machine Learning</a>.</p>
     <div class="cta">
       <a class="btn btn-primary" href="#foundations">Explore the foundations →</a>
       <a class="btn btn-ghost" href="#library">Browse the books</a>
@@ -293,9 +283,7 @@
       <div class="eyebrow">Featured · A Kid's Guide to Meditation</div>
       <h2 id="feat-title" style="font-size:clamp(1.9rem,4vw,2.7rem);margin:.2em 0 .35em"></h2>
       <p id="feat-summary" style="font-size:1.1rem;color:var(--ink-soft);max-width:52ch"></p>
-      <div style="font-family:'Inter';font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:6px 0 4px">Read a sample chapter</div>
-      <div class="samples" id="feat-samples"></div>
-      <a class="btn btn-primary" id="feat-amazon" href="#" target="_blank" rel="noopener">Get it on Amazon</a>
+      <div class="links" id="feat-downloads"></div>
       <a class="feat-share" href="#meditation" data-share="meditation" data-title="The Light That Stays">Share this book</a>
       <div id="feat-toc"></div>
     </div>
@@ -308,7 +296,7 @@
     <div class="section-head">
       <div class="eyebrow">Three Foundations</div>
       <h2>A fast, ordered path through the basics</h2>
-      <p>Beyond the standalone books, Meira is building ground-up guides in <a class="fdn-jump" href="#f-math">Mathematics</a>, <a class="fdn-jump" href="#f-compute">Computing &amp; Machine Learning</a>, and <a class="fdn-jump" href="#f-biology">Biology &amp; Drug Discovery</a>. The idea is simple: you shouldn't need a thousand-page textbook to learn the basics of something. Once you really understand a subject, its backbone often fits on a page or two — so these start small and get you there, without cutting corners on what actually matters.</p>
+      <p>Beyond the standalone books, there are ground-up guides in <a class="fdn-jump" href="#f-math">Mathematics</a> and <a class="fdn-jump" href="#f-compute">Computing &amp; Machine Learning</a>. The idea is simple: you shouldn't need a thousand-page textbook to learn the basics of something. Once you really understand a subject, its backbone often fits on a page or two — so these start small and get you there, without cutting corners on what actually matters.</p>
     </div>
     <div class="run-note">
       <p><strong>How the notebooks work.</strong> Every interactive notebook opens in Google&nbsp;Colab — all you need is a free Google&nbsp;(Gmail) sign-in. Nothing to install, nothing to set up.</p>
@@ -324,33 +312,16 @@
     <div class="section-head">
       <div class="eyebrow">The Collection</div>
       <h2>The Curious Family Library</h2>
-      <p>Short, vivid books that take one big idea — a cancer drug, the power grid, your immune system — and make it clear enough to fall in love with. Each opens with a free sample chapter.</p>
+      <p>Short, vivid books that take one big idea — a cancer drug, the power grid, your immune system — and make it clear enough to fall in love with. Each one is a free download, in PDF and EPUB.</p>
     </div>
     <div class="books" id="books-grid"></div>
   </div>
 </section>
 
-<!-- ABOUT -->
-<section class="section" id="about" style="border-top:1px solid var(--line)">
-  <div class="wrap about-grid">
-    <div>
-      <div class="eyebrow">About</div>
-      <h2 style="font-size:clamp(1.8rem,4vw,2.4rem);margin:.2em 0 0">Meira Davidson</h2>
-    </div>
-    <div class="about">
-      <p>Meira Davidson writes about the basics — finding the backbone of a subject, the few ideas everything else is built on, and explaining them from the ground up.</p>
-      <p>The hope is simple: that a reader feels the quiet pleasure of figuring something out, and sees how little it takes to understand what matters.</p>
-      <p style="margin-top:22px"><a class="btn btn-primary" href="mailto:meira.davidson.author@gmail.com?subject=Hello%20Meira">Write to Meira →</a></p>
-    </div>
-  </div>
-</section>
-
 <footer>
   <div class="wrap f-in">
-    <div>© <span id="yr"></span> Meira Davidson · The Curious Family Library</div>
+    <div>© <span id="yr"></span> The Curious Family Library</div>
     <div>
-      <a href="mailto:meira.davidson.author@gmail.com">Email</a> ·
-      <a href="https://www.amazon.com/s?k=Meira+Davidson" target="_blank" rel="noopener">Amazon</a> ·
       <a href="https://github.com/MeiraDavidson" target="_blank" rel="noopener">GitHub</a>
     </div>
   </div>
@@ -361,8 +332,8 @@
 const FEATURED = {
   title:"The Light That Stays",
   cover:"assets/covers/light-that-stays.jpg",
+  download:"downloads/the-light-that-stays.pdf", downloadEpub:"downloads/the-light-that-stays.epub",
   summary:"A warm, practical guide to meditation for young readers — and the grown-ups beside them. It begins with one promise: there's a quiet, steady light inside you that doesn't go out. From there it teaches how to sit, how to breathe, how to picture and steady the mind, and how kindness and an unforced inner joy grow out of the practice — in fifteen short chapters, with practices small enough to actually keep.",
-  amazon:"https://www.amazon.com/Light-That-Stays-Meditation-Curious/dp/B0H3NRZP6M",
   toc:[
     "There's a Light in You, and It Doesn't Go Out","The Boy Who Got Lost","My Own Long Walk Inward",
     "Once You See It, You Can't Unsee It","How to Sit — Your Body Is the Foundation",
@@ -371,11 +342,6 @@ const FEATURED = {
     "Mindfulness — The View from the Eagle","Mantra — A Sound to Come Home To",
     "Five Ways to Stay Out of Trouble","The Traps","Kindness Without Keeping Score",
     "Inner Joy, and the Days That Are Hard"
-  ],
-  samples:[
-    {n:"Ch 2",  title:"The Boy Who Got Lost", href:"samples/light-that-stays-ch2.html"},
-    {n:"Ch 10", title:"Mindfulness — The View from the Eagle", href:"samples/light-that-stays-ch10.html"},
-    {n:"Ch 14", title:"Kindness Without Keeping Score", href:"samples/light-that-stays-ch14.html"}
   ]
 };
 
@@ -383,38 +349,36 @@ const BOOKS = [
   { title:"The Invisible Trillion", sub:"Chips, data centers & the things you can't see",
     desc:"How a grain of sand becomes a microchip in the world's most precise factories, what a data center actually is, and the honest costs of it all — energy, water, mining, e-waste, and attention — ending with what actually matters and what you can do.",
     cover:"assets/covers/invisible-trillion.jpg",
-    amazon:"https://www.amazon.com/Invisible-Trillion-centers-Curious-Library/dp/B0H3M7F27C", sample:"samples/invisible-trillion-sample.html",
     download:"downloads/the-invisible-trillion.pdf", downloadEpub:"downloads/the-invisible-trillion.epub",
     toc:["Sand, Light & the World's Most Precise Factories","What Chips Actually Do","Data Centers: The Cathedrals Nobody Visits","The Energy Question, Honestly","The Water Question, Honestly","The Mining & E-Waste Question, Honestly","The Highway in the Bronx","The Legal Weapons","How a Neighborhood Dies","No Going Back","How Much Do We Actually Need?","The Architecture That Works","The Bill","The Other Ledger","The Attention Chapter","Who Decides","What You Can Do That Actually Matters"] },
   { title:"How the World Got Wired", sub:"A Brief History of the Internet",
     desc:"The whole arc of the internet in twenty-two short chapters — from a 1945 “memex” and the first packet, through the web given away, the dot-com crash, search and the smartphone, to the cloud and the two AI internets now taking shape.",
     cover:"assets/covers/world-got-wired.jpg",
-    amazon:"https://www.amazon.com/How-World-Got-Wired-Internet-ebook/dp/B0H3GN8SSK", sample:"samples/world-got-wired-sample.html",
+    downloadEpub:"downloads/how-the-world-got-wired.epub",
     toc:["Prologue · A Sunset in Da Nang","A Memex and a Satellite","Licklider's Dream","Packets","The First Message","The Constitution","The Web, Given Away","Ships and Sharks","Routers and the People Who Built Them","Mosaic, the Pivot","The Day Everything Tipped","Sock Puppets and Pet Food","Three Ships and a Fire Sale","What Survived","Search","The Phone in Your Pocket","The Social Graph","The Other Internet","The Cloud","A Naval Office in Arlington","Why Hinton Went North","2012 and After","Two AI Internets","Epilogue · One Last Thing"] },
   { title:"Self & Other", sub:"A Field Guide to Your Immune System",
     desc:"A field guide to the body's defenses — the first responders and specialists, how it remembers and learns tolerance, and what goes wrong in inflammation, allergies, autoimmune disease, and cancer — plus an honest look at what truly strengthens it and what only sounds like it does.",
     cover:"assets/covers/self-and-other.jpg",
-    amazon:"https://www.amazon.com/Self-Other-Immune-Curious-Library-ebook/dp/B0H3MMXBQQ", sample:"samples/self-and-other-sample.html",
+    download:"downloads/self-and-other.pdf", downloadEpub:"downloads/self-and-other.epub",
     toc:["Self and Other","The First Responders","The Specialists","The Memory Library","The Border Towns","The ID Check","The Schools of Tolerance","Inflammation: The Double-Edged Sword","Allergies: When the Guards Panic","Autoimmune Disease: Friendly Fire","When the System Is Quiet","Cancer and the Immune System","The Things That Actually Help","The Things That Sound Like They Help (But Mostly Don't)","Stress, Loneliness & the Vagus Nerve","The Honest Chapter","mRNA, and What COVID Taught Us"] },
   { title:"The Pill That Could", sub:"The first targeted cancer drug",
     desc:"The decades-long story of Gleevec — from the Philadelphia chromosome and a single rogue gene to the first pill that turned a fatal leukemia into a manageable disease — including the long argument to make it, the resistance that followed, and what “cure” really means.",
     cover:"assets/covers/pill-that-could.jpg",
-    amazon:"https://www.amazon.com/Pill-That-Could-improbable-targeted-ebook/dp/B0H3NXMC52", sample:"samples/pill-that-could-sample.html",
     toc:["Prologue · A Patient in Portland","Philadelphia, 1960","The Translocation","BCR-ABL","The Compound","The Long Argument","First in Human","Approval","A Different Cancer","Resistance","What Cure Means","The Generalization Problem","The Patients Who Waited"] },
   { title:"A Year on a Dairy Farm", sub:"Twelve Months on a Finger Lakes Dairy",
     desc:"Twelve months on a working Finger Lakes dairy, told month by month — a February barn before dawn, a March calving, the milk check that has to add up, the migrant crew who do the haying, and the hard November decision. An honest, unsentimental year on the land.",
     cover:"assets/covers/dairy-farm.jpg",
-    amazon:"https://www.amazon.com/Year-Dairy-Farm-Curious-Library-ebook/dp/B0H3N4MC8P", sample:"samples/dairy-farm-sample.html",
+    download:"downloads/a-year-on-a-dairy-farm.pdf", downloadEpub:"downloads/a-year-on-a-dairy-farm.epub",
     toc:["February: Inside the Barn","The Cow Herself","March: A Calf Is Born","April: Out to Pasture","The Morning","June: The Milk Check","August: Haying & the People Who Do It","Goats, Sheep & the Cheese Across the Ocean","October: Breeding Back","November: The Decision","December: The Year, Counted","Could You Do This?"] },
   { title:"How Cars Work", sub:"For Curious Passengers",
     desc:"How a car works across three eras — the purely mechanical car of the 1960s (suck, squeeze, bang, blow), the computerized car of the 1990s that learned to think and brake itself, and today's electric car — engine to motor, battery to brain, in clear hands-on steps.",
     cover:"assets/covers/how-cars-work.jpg",
-    amazon:"https://www.amazon.com/How-Cars-Work-curious-passengers-ebook/dp/B0H3LWMHHS", sample:"samples/how-cars-work-sample.html",
+    download:"downloads/how-cars-work.pdf", downloadEpub:"downloads/how-cars-work.epub",
     toc:["Opening the Box","— The 1960s car —","How an Old Car Works","Suck, Squeeze, Bang, Blow","The Mix","The Spark","From Bang to Wheels","Stopping and Steering","— The 1990s car —","How Cars Got Smart","The Brain","Crash Prevention","On the Same Wire","— The electric car —","How an Electric Car Works","The Big Battery","The Motor","Energy Back","By the Time You Drive"] },
   { title:"How the Lights Stay On", sub:"How the Electric Grid Really Works",
     desc:"Why the electric grid is the most astonishing machine you never think about — power made and used in the very same instant, the blackouts that taught us how it works (Ohio 2003, Texas 2021), the rise of solar, wind, batteries and nuclear, and the hard trilemma of keeping the lights cheap, clean, and always on.",
     cover:"assets/covers/lights-stay-on.jpg",
-    amazon:"https://www.amazon.com/How-Lights-Stay-electricity-everything-ebook/dp/B0H3MT8WX2", sample:"samples/lights-stay-on-sample.html",
+    download:"downloads/how-the-lights-stay-on.pdf", downloadEpub:"downloads/how-the-lights-stay-on.epub",
     toc:["The Blink","The Juggling Act","The Long Road","Seven Minutes in Ohio","The Last Hundred Feet","The Sun Doesn't Ask Permission","Catching Lightning in a Bottle","The Frozen Texan","The Bare Roof","The Atom Comes Back","The Grid That Has to Grow","The Grid Grows a Brain","The Order of Operations","The Trilemma","The Lights in Shanghai","The People Who Watch the Grid","The Grid You'll Build"] }
 ];
 
@@ -456,22 +420,11 @@ const SERIES = [
     ]
   },
   {
-    key:"biology",
-    name:"Biology, Drug Discovery &amp; the Science of How Living Things Break Down",
-    intro:`<p>A growing collection of books for readers who want to <em>genuinely understand</em> this — the curious teenager who might one day work in a lab like the ones in these pages, the adult who wants to make sense of the headlines and the choices, the reader who needs to evaluate claims rather than absorb conclusions. The books don't assume prior biology, and they don't condescend either. Where there's real mechanism, you get the real mechanism; where an equation genuinely illuminates, it's on the page and explained in plain sight.</p>
-      <p>Across the library, two commitments hold:</p>
-      <ul class="fdn-commit">
-        <li><strong>The contested-material discipline.</strong> Where a field's dominant frameworks are partly right and partly wrong, we teach both halves honestly rather than presenting marketing-grade consensus — the amyloid hypothesis in Alzheimer's, the AI-native pharma thesis, the genetics-to-drugs paradigm in cardiology, the rate-of-living theory of aging. We walk through what's settled and what isn't, because knowing the difference is more useful than pretending.</li>
-        <li><strong>The mouse-and-human discipline.</strong> Most of the astonishing results in biology are in animals; some survive the jump to humans, and many quietly don't. Across every book we keep asking: does this result actually transfer? And is this a real lever on the underlying biology, or just a marker someone has learned to move?</li>
-      </ul>`,
+    key:"aging",
+    name:"The Hundred-and-Twenty Question",
+    intro:`<p>One book on the science of living longer — and on telling the real levers from the hype. It works through the claims you actually hear, asks what the evidence supports, and shows the mathematics where it earns its keep.</p>`,
     listLabel:"Currently in the library",
     modules:[
-      { group:"A Field Guide to Drug Discovery", groupNote:"two books" },
-      { label:"Book One", title:"The Biology", status:"soon",
-        desc:"The cellular and methodological foundations — proteins, drugs, targets, pipelines, and the evidence behind the claims." },
-      { label:"Book Two", title:"The Modern Stack", status:"soon",
-        desc:"The field in 2026 — AlphaFold and the structural revolution, immuno-oncology, the data-scale shift in genetics and cell biology, and an honest read on which of the new computational methods are working and which are oversold." },
-      { group:"The Hundred-and-Twenty Question", groupNote:"the book of aging · seven chapters" },
       { label:"Seven chapters", title:"Will you live to 120?", status:"live", repo:"https://github.com/MeiraDavidson/biology_aging", count:"6 notebooks",
         download:"downloads/the-hundred-and-twenty-question.pdf", downloadEpub:"downloads/the-hundred-and-twenty-question.epub",
         desc:"Seven chapters on the science of living longer — and how to tell it from the hype. It names and works through the things you actually hear on longevity podcasts: telomeres; the epigenetic “clocks” that claim to read your biological age; the senescent “zombie” cells and the senolytics meant to clear them; the nutrient-and-hunger switches behind fasting, rapamycin, and metformin; the free-radical theory (a beautiful wrong idea) and the antioxidants it inspired; protein aggregation; and cellular reprogramming. For each one it asks the only question that counts: is this a real lever on aging, or just a number someone has learned to move? More mathematical than the rest — the equations are right there on the page, where they earn their keep." }
@@ -495,7 +448,6 @@ function coverInner(b){
   }
   const g = b.grad || ["#5b8a72","#33564a"];
   return `<div class="cover grad" style="background:linear-gradient(150deg,${g[0]},${g[1]})">
-      <div class="c-kicker">Meira Davidson</div>
       <div class="c-title">${b.title}</div>
       <div class="c-author">The Curious Family Library</div>
     </div>`;
@@ -519,7 +471,7 @@ function dlLink(href, title, dark, label){
   const ext = (file.match(/\.(pdf|epub)$/) || [,'pdf'])[1];
   const base = file.replace(/\.(pdf|epub)$/,'');
   const cls = dark ? 'fdn-dl' : 'dl';
-  const lbl = label || 'Free&nbsp;PDF';
+  const lbl = label || 'PDF';
   return `<a class="${cls}" href="${href}" download
     data-goatcounter-click="download-${base}-${ext}"
     data-goatcounter-title="Download (${ext.toUpperCase()}) — ${title}">↓&nbsp;${lbl}</a>`;
@@ -536,33 +488,28 @@ function shareLink(id, cls, title){
 // featured
 document.getElementById('feat-cover').src = FEATURED.cover;
 document.getElementById('feat-cover').alt = FEATURED.title + " cover";
-document.getElementById('feat-cover-link').href = FEATURED.amazon;
+document.getElementById('feat-cover-link').href = FEATURED.download || FEATURED.downloadEpub;
 document.getElementById('feat-title').textContent = FEATURED.title;
 document.getElementById('feat-summary').textContent = FEATURED.summary;
-document.getElementById('feat-amazon').href = FEATURED.amazon;
-document.getElementById('feat-samples').innerHTML = FEATURED.samples.map(s =>
-  `<a class="chip" href="${s.href}" target="_blank" rel="noopener"><span class="n">${s.n}</span>${s.title}</a>`
-).join('');
+document.getElementById('feat-downloads').innerHTML =
+  (FEATURED.download ? dlLink(FEATURED.download, FEATURED.title, false, 'PDF') : '') +
+  (FEATURED.downloadEpub ? dlLink(FEATURED.downloadEpub, FEATURED.title, false, 'EPUB') : '');
 document.getElementById('feat-toc').innerHTML = renderToc(FEATURED.toc);
 
 // library grid
 document.getElementById('books-grid').innerHTML = BOOKS.map(b => {
-  const coverHref = b.noAmazon ? b.sample : b.amazon;
-  const amzLink = b.noAmazon ? '' :
-    `<a class="amz" href="${b.amazon}" target="_blank" rel="noopener">Amazon →</a>`;
+  const coverHref = b.download || b.downloadEpub || null;
   const id = 'book-' + slug(b.title);
   return `
   <div class="book" id="${id}">
     <div class="book-cover-wrap">
-      <a class="cover-link" href="${coverHref}" target="_blank" rel="noopener">${coverInner(b)}</a>
+      ${coverHref ? `<a class="cover-link" href="${coverHref}" target="_blank" rel="noopener">${coverInner(b)}</a>` : coverInner(b)}
       <div style="display:flex;flex-direction:column">
         <h3>${b.title}</h3>
         <div class="sub">${b.sub}</div>
         <p class="desc">${b.desc}</p>
         <div class="links">
-          <a class="sample" href="${b.sample}" target="_blank" rel="noopener">Read sample →</a>
-          ${amzLink}
-          ${b.download ? dlLink(b.download, b.title, false, 'Free&nbsp;PDF') : ''}
+          ${b.download ? dlLink(b.download, b.title, false, 'PDF') : ''}
           ${b.downloadEpub ? dlLink(b.downloadEpub, b.title, false, 'EPUB') : ''}
           ${shareLink(id, null, b.title)}
         </div>
@@ -586,7 +533,7 @@ function moduleRow(m){
     : (live && m.app
       ? `<a class="fdn-link" href="${m.app}">${m.count ? m.count + ' · ' : ''}open the interactive map →</a>`
       : '');
-  const dl = (m.download ? dlLink(m.download, m.title, true, 'Free&nbsp;PDF') : '')
+  const dl = (m.download ? dlLink(m.download, m.title, true, 'PDF') : '')
            + (m.downloadEpub ? dlLink(m.downloadEpub, m.title, true, 'EPUB') : '')
            + (m.solutions ? `<a class="fdn-dl" href="${m.solutions}" target="_blank" rel="noopener">Solutions&nbsp;(PDF)&nbsp;→</a>` : '');
   const id = 'fbook-' + slug(m.title);
@@ -631,14 +578,14 @@ document.addEventListener('click', function(e){
   if(!s) return;
   e.preventDefault();
   const id = s.getAttribute('data-share');
-  const title = (s.getAttribute('data-title') || '').trim() || 'Meira Davidson';
+  const title = (s.getAttribute('data-title') || '').trim() || 'The Curious Family Library';
   gcEvent('share-' + id, 'Share — ' + title);   // per-book share-click count
   const url = location.origin + location.pathname + '#' + id;
   if(navigator.share){
-    navigator.share({ title: title, text: title + ' — The Curious Family Library by Meira Davidson', url: url }).catch(()=>{});
+    navigator.share({ title: title, text: title + ' — The Curious Family Library', url: url }).catch(()=>{});
     return;
   }
-  const msg = title + ' — Meira Davidson\n' + url;
+  const msg = title + ' — The Curious Family Library\n' + url;
   const show = () => {
     if(!s.dataset.label) s.dataset.label = s.textContent;
     s.textContent = '✓ Copied'; s.classList.add('copied');
