@@ -1069,7 +1069,7 @@ function activityChart(days) {
 /* ---------------- tiny DOM helpers ---------------- */
 const $ = s => document.querySelector(s);
 const el = (t, c, h) => { const e = document.createElement(t); if (c) e.className = c; if (h != null) e.innerHTML = h; return e; };
-const go = h => { location.hash = h; };
+const go = h => { closeOverlays(); if (location.hash === h) { if (S) render(); } else location.hash = h; };
 /** Colour by order of sign-up, so people sharing a computer never collide. */
 function avClass(n) {
   const i = users().map(u => u.toLowerCase()).indexOf(String(n || '').toLowerCase());
@@ -1185,7 +1185,7 @@ function buildRail() {
       <button class="navbtn" data-nav="#/print">⎙ <span>Print centre</span></button>
       <button class="navbtn" data-nav="#/settings">⚙ <span>Course &amp; pace</span></button>
     </div>`;
-  $('#home').onclick = () => go('#/');
+  $('#home').onclick = () => go('#/');          // go() closes the drawer
   $('#rail').querySelectorAll('[data-u]').forEach(b => b.onclick = () => { go('#/u/' + b.dataset.u + '/learn'); closeNav(); });
   $('#rail').querySelectorAll('[data-nav]').forEach(b => b.onclick = () => { go(b.dataset.nav); closeNav(); });
   refreshCounts();
@@ -1215,6 +1215,13 @@ function cyclePace() {
   persist(); buildWho(); render();
 }
 function closeNav() { document.body.classList.remove('nav'); }
+/* The drawer, the search sheet and the print view all sit above the top bar, so a tap
+   on Home lands on them instead. Any navigation dismisses all three first. */
+function closeOverlays() {
+  closeNav();
+  if (!$('#finder').hidden) closeFinder();
+  if (!$('#printview').hidden) closePrint();
+}
 
 /* ---------------- views ---------------- */
 function render() {
@@ -2942,7 +2949,7 @@ document.addEventListener('keydown', e => {
   if (S && $('#finder').hidden && $('#printview').hidden) { e.preventDefault(); openFinder(); }
 });
 document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('[data-find]'); if (b) openFinder(); });
-window.addEventListener('hashchange', () => { if (!$('#printview').hidden) closePrint(); if (S) render(); });
+window.addEventListener('hashchange', () => { closeOverlays(); if (S) render(); });
 const last = LS.get('m3z:last', null);
 /* On a shared computer, skipping the picker would silently drop the next person
    into whoever used it last. Only auto-resume when this browser has one profile. */
