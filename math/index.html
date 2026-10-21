@@ -98,6 +98,11 @@ a{color:var(--accent)}
 .homebtn{display:inline-flex; align-items:center; gap:6px; background:var(--paper); border:1px solid var(--rule);
   border-radius:99px; padding:5px 13px 5px 11px; font-size:.82rem; font-weight:600; color:var(--ink2)}
 .homebtn:hover{border-color:var(--accent); color:var(--accent)}
+.site-back{display:inline-flex; align-items:center; gap:6px; flex:none; white-space:nowrap;
+  background:var(--paper); border:1px solid var(--rule); border-radius:99px;
+  padding:5px 13px 5px 11px; font-size:.82rem; font-weight:600; color:var(--ink2);
+  text-decoration:none}
+.site-back:hover{border-color:var(--accent); color:var(--accent)}
 .homebtn i{font-style:normal; font-size:1.05rem; line-height:1}
 .topbar .sp{flex:1}
 .who{display:flex; align-items:center; gap:var(--s2); background:var(--paper); border:1px solid var(--rule);
@@ -631,7 +636,7 @@ input.cfind{display:block; width:100%; max-width:440px; font-family:var(--sans);
 @media (max-width:560px){
   .who #paceBtn, .who #outBtn{display:none}
   .who b{max-width:7ch; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
-  .homebtn span{display:none}
+  .homebtn span{display:none} .site-back span{display:none}
   .homebtn{padding:5px 10px}
   select.sw{max-width:11ch}
 }
@@ -695,7 +700,7 @@ input.cfind{display:block; width:100%; max-width:440px; font-family:var(--sans);
   <div class="scrim" id="scrim"></div>
   <nav class="rail" id="rail" aria-label="Units"></nav>
   <div class="main">
-    <header class="topbar">
+    <header class="topbar"><a class="site-back" href="../" title="Back to The Curious Family Library">←<span>The&nbsp;Curious&nbsp;Family&nbsp;Library</span></a>
       <button class="menubtn" id="menubtn" aria-label="Open unit menu">☰</button>
       <button class="homebtn" id="homebtn"><i aria-hidden="true">⌂</i> <span>Home</span></button>
       <button class="homebtn" id="findbtn" aria-label="Search" title="Search (press /)"><i aria-hidden="true">⌕</i> <span>Search</span></button>

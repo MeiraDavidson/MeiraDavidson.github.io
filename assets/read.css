@@ -86,6 +86,13 @@ h3{font-family:var(--sans);font-weight:600;font-size:1.06rem;margin:1.6rem 0 .5r
 .wrap-wide > article{background:none;border:0;box-shadow:none;padding:0;border-radius:0}
 .wrap-wide article > :not(.books){max-width:46rem}
 .books{gap:42px 44px}
-.book-cover-wrap{grid-template-columns:170px 1fr;gap:28px}
+.book-cover-wrap{grid-template-columns:140px 1fr;gap:24px}
 @media (max-width:52rem){ .books{grid-template-columns:1fr;gap:34px} }
 @media (max-width:24rem){ .book-cover-wrap{grid-template-columns:110px 1fr;gap:16px} }
+
+/* The front page's links row, so a download never needs a trip back there. */
+.bk .links{display:flex;flex-wrap:wrap;gap:8px 18px;margin:.1rem 0 .15rem}
+.bk .links a{font-size:.86rem;font-weight:600;text-decoration:none}
+.bk .links a.dl{color:var(--accent-2)}
+.bk .links a.rd{color:var(--accent-2);font-weight:700}
+.bk .links a:hover{text-decoration:underline}
