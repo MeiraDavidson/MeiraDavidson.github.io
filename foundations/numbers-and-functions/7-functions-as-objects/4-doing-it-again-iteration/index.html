@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7.4 Doing it again: iteration — 7 Functions as Objects, Numbers &amp; Functions | The Curious Family Library</title>
+<meta name="description" content="There’s one special kind of composition so important it deserves its own name. What if you chain a machine to itself — feed its output straight back into…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/numbers-and-functions/7-functions-as-objects/4-doing-it-again-iteration/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/numbers-and-functions/7-functions-as-objects/2-symmetry-even-and-odd-properly-this-time/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/numbers-and-functions/7-functions-as-objects/5-the-proof-that-works-like-iteration-induction/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7.4 Doing it again: iteration — 7 Functions as Objects, Numbers &amp; Functions | The Curious Family Library">
+<meta property="og:description" content="There’s one special kind of composition so important it deserves its own name. What if you chain a machine to itself — feed its output straight back into…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/numbers-and-functions/7-functions-as-objects/4-doing-it-again-iteration/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/numbers-and-functions/">Numbers &amp; Functions</a><span class="sep">›</span><a href="/foundations/numbers-and-functions/7-functions-as-objects/">7 Functions as Objects</a><span class="sep">›</span><span aria-current="page">7.4 Doing it again: iteration</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Numbers &amp; Functions · 7 Functions as Objects</p>
+  <h1>7.4 Doing it again: iteration</h1>
+  
+<p>There’s one special kind of composition so important it deserves its own name. What if you chain a machine to itself — feed its output straight back into its own funnel, and repeat?</p>
+<p>x →f(x) →f(f(x)) →f(f(f(x))) →· · · This is iteration, and it is one of the most powerful ideas in all of computation — half of what computers do is iterate. When a machine is defined in terms of itself this way, programmers call it recursion.</p>
+<p>f input output feeds back 0 2 4 6 step 0 10 20 30 value attractor: 0 iterating f(x) = x/2 from 32 Figure 7.5. Iteration is a feedback loop: the machine’s output curves back into its own funnel. Iterating f(x) = x/2 from 32 marches steadily toward 0 — the attractor.</p>
+<p>Let’s iterate a few machines by hand and watch the long-run behavior, because the long run is the whole point: • Halve it, f(x) = x 2, from 16: 16, 8, 4, 2, 1, 1 2, . . . — marches toward 0 and never quite arrives. We call 0 an attractor.</p>
+<p>• Multiply by 2, from 1: 1, 2, 4, 8, . . . — runs off to infinity. The behavior flipped just by changing the machine.</p>
+<p>• Average x with 2 x, from any positive number: it homes in, startlingly fast, on √ 2. From x = 1: 1.5, then 1.4166 . . . , then 1.41421 . . . — the irrational number from Chapter 2, appearing as the destination of an iteration. 0 1 2 3 4 step 1.30 1.35 1.40 1.45 1.50 1.55 value 1.5 1.41667 1.41422 1.41421 p 2 = 1.41421 the p 2-finder homes in after just a few steps Figure 7.6. The √ 2-finder converging. Iterating f(x) = 1 2 (x + 2 x ) lands on √ 2 in just a few steps — the ancestor of Newton’s method and gradient descent.</p>
+<p>Iteration is how you solve things you can’t solve directly. You can’t write √ 2 as a fraction — but you can write a simple machine whose repeated application converges to it, as close as you like.</p>
+<p>In the calculus book you’ll meet Newton’s method, which iterates a clever machine to hunt down the roots of any equation. In the machine-learning book you’ll meet gradient descent — the algorithm that actually trains every neural network — and it, too, is pure iteration: take a step downhill, look again, repeat a few million times. The training of every AI you’ve ever used is one machine, iterated. Hold that thread tightly.</p>
+<p>Functions as Objects ▶Run it yourself — type any number and watch it find √ 2. (notebook 7.1 in Colab) Type any positive starting number and predict where the √ 2-finder ends up before you run it — it always lands on √ 2, no matter where you start.</p>
+<p>Then swap the 2 for any other number and discover you’ve built a machine that finds square roots. This is the seed of how every AI is trained.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/numbers-and-functions/7-functions-as-objects/2-symmetry-even-and-odd-properly-this-time/"><span>Previous</span>7.2 Symmetry: even and odd, properly this time</a>
+    <a class="n" href="/foundations/numbers-and-functions/7-functions-as-objects/5-the-proof-that-works-like-iteration-induction/"><span>Next</span>7.5 The proof that works like iteration: induction</a>
+  </nav>
+  <p class="backto"><a href="/foundations/numbers-and-functions/">All 8 chapters of Numbers &amp; Functions</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Numbers & Functions","item":"https://meiradavidson.github.io/foundations/numbers-and-functions/"},{"@type":"ListItem","position":4,"name":"7 Functions as Objects","item":"https://meiradavidson.github.io/foundations/numbers-and-functions/7-functions-as-objects/"},{"@type":"ListItem","position":5,"name":"7.4 Doing it again: iteration"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/numbers-and-functions/7-functions-as-objects/4-doing-it-again-iteration/","url":"https://meiradavidson.github.io/foundations/numbers-and-functions/7-functions-as-objects/4-doing-it-again-iteration/","headline":"7.4 Doing it again: iteration","articleSection":"7 Functions as Objects","inLanguage":"en","isAccessibleForFree":true,"wordCount":513,"isPartOf":{"@type":"Book","name":"Numbers & Functions","url":"https://meiradavidson.github.io/foundations/numbers-and-functions/"}}]}</script>
+</body>
+</html>

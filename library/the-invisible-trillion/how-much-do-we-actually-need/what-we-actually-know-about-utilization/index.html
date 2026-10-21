@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What We Actually Know About Utilization — How Much Do We Actually Need?, The Invisible Trillion | The Curious Family Library</title>
+<meta name="description" content="The single most useful piece of information you can have when evaluating any infrastructure buildout is its utilization rate. Utilization is the fraction…">
+<link rel="canonical" href="https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/what-we-actually-know-about-utilization/">
+<link rel="prev" href="https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/">
+<link rel="next" href="https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/the-stack-a-tour-of-what-compute-is-actually-for/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="What We Actually Know About Utilization — How Much Do We Actually Need?, The Invisible Trillion | The Curious Family Library">
+<meta property="og:description" content="The single most useful piece of information you can have when evaluating any infrastructure buildout is its utilization rate. Utilization is the fraction…">
+<meta property="og:url" content="https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/what-we-actually-know-about-utilization/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/library/">Library</a><span class="sep">›</span><a href="/library/the-invisible-trillion/">The Invisible Trillion</a><span class="sep">›</span><a href="/library/the-invisible-trillion/how-much-do-we-actually-need/">How Much Do We Actually Need?</a><span class="sep">›</span><span aria-current="page">What We Actually Know About Utilization</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">The Invisible Trillion · How Much Do We Actually Need?</p>
+  <h1>What We Actually Know About Utilization</h1>
+  
+<p>The single most useful piece of information you can have when evaluating any infrastructure buildout is its utilization rate. Utilization is the fraction of installed capacity that is actually being used at any given time. If you build a power plant capable of producing 1,000 megawatts and it is producing 100 megawatts on average, your utilization is 10%. The other 90% of your capacity is sitting idle, costing you money, providing no value to anyone.</p>
+<p>A well-run infrastructure investment, in any industry, targets a utilization rate that balances reliability against efficiency. Power plants typically target 50–90% depending on type. Highways are designed for peak rather than average traffic; their average utilization is lower than their design capacity, but the design is sized to handle the peak. Hospitals target 80–85% occupancy. Airlines, when healthy, fly at 75–85% load factor.</p>
+<p>When utilization rates are very low — below 20% on average — it tells you something is wrong. Either the infrastructure was overbuilt for the actual demand, or the operator is doing something inefficient, or both.</p>
+<p>Here is what we now know about utilization in the AI data center buildout.</p>
+
+<h3>The Enterprise Numbers</h3>
+<p>VentureBeat’s Q1 2026 AI Infrastructure &amp; Compute Market Tracker, surveying IT decision-makers across mid-sized and large enterprises, found that enterprise-deployed GPU infrastructure for AI workloads is running at <em>approximately 5% utilization on average</em>. This is not a typo. The infrastructure that companies have spent — collectively, hundreds of billions of dollars buying — is, on average, idle 95% of the time. The publication headlined the finding as “the $401 billion AI infrastructure problem enterprises can’t keep ignoring.”</p>
+<p>The reasons for this are not mysterious. During 2023 and 2024, enterprises bought GPUs out of fear. The narrative was that capable AI required massive compute, that compute was scarce, and that any organization not in possession of substantial GPU capacity would be left behind. Boards approved capital expenditure. CIOs placed orders. The orders, when they arrived, sat in racks waiting for the AI applications that were going to use them. Most of those applications, when they were built, turned out to need much less compute than the procurement assumed — because, as we will see below, most enterprise AI workloads do not actually require frontier-scale infrastructure. The GPUs sit. The depreciation runs. The CFOs notice.</p>
+<p>A 5% utilization rate, in any traditional infrastructure context, would be considered catastrophic. In the AI infrastructure context, it is currently considered normal, because everyone has roughly the same problem and nobody wants to be the first to admit it publicly. The admission is starting to leak out anyway, through earnings calls, through industry research, and through the kind of strategic shifts I will describe in the next section.</p>
+
+<h3>The Hyperscaler Numbers</h3>
+<p>Hyperscalers — the very large cloud providers that operate the biggest data centers — have historically had better utilization than enterprise on-premises, because they share capacity across many customers and can shift load between them. Even so, the utilization rates at hyperscale AI data centers in 2025 and 2026 are nothing like the rates you would expect from a well-designed infrastructure investment.</p>
+<p>The most public data point comes from a place few people would have expected: xAI’s Colossus 1 data center in Memphis, the one whose 35 unpermitted gas turbines we met in the neighborhood chapters. Colossus 1 is one of the largest AI training facilities ever built — more than 220,000 NVIDIA GPUs (a mix of H100, H200, and Blackwell-class), drawing roughly 300 megawatts of power, built in nineteen days from concept to construction, valued at approximately $40 billion in capital expenditure.</p>
+<p>The facility was built to train Grok, xAI’s large language model. As of early 2026, before xAI publicly disclosed what it was about to do, the facility’s <em>Model FLOPs Utilization</em> (MFU) — the standard metric for how efficiently a training cluster is using its theoretical peak compute — was reported, by xAI’s own engineers in industry coverage, as approximately 11%. The phrase used in the technical press to describe this number was “embarrassingly low.”</p>
+<p>MFU is a training metric. It does not perfectly translate to overall facility utilization. But 11% MFU on a facility built specifically for training is a damning number. It means that, on average, 89% of the theoretical computing capacity the facility was designed to deliver was <em>not being used</em>, even by the company that built it for its own training run. The facility was overbuilt for the actual workload, or the workload was inefficiently structured, or the demand for training runs of that size was not actually present, or some combination. Whatever the explanation, the asset was sitting mostly idle, depreciating, while the gas turbines polluted Boxtown and the cooling system hummed.</p>
+<p>In May 2026, xAI announced what it had quietly been planning for months: it leased the <em>entire</em> Colossus 1 facility to Anthropic, at $1.25 billion per month, on a three-year contract worth more than $40 billion. xAI characterized the deal, in its parent company SpaceX’s S-1 filing with the SEC, as a way to “monetize unused compute capacity in our infrastructure.” That phrase, “unused compute capacity,” is doing significant work. It is a confession, written in financial-disclosure prose, that the facility had been built ahead of demand and that the company that built it was now in the business of being a landlord rather than a frontier AI lab.</p>
+<p>Weeks later, xAI signed a second large deal: Google would pay $920 million per month for additional Colossus capacity, through 2028, after the first $1.25 billion was already committed to Anthropic. The combined annual revenue from these two contracts is approximately $26 billion, against a facility build cost estimated at $40 billion, recovering the build within roughly eighteen months.</p>
+<p>The strategic shift is consequential. Colossus 1 was, until May 2026, xAI’s identity — the proof that Elon Musk could build a frontier AI lab faster than the incumbents. After May 2026, xAI is something else: it is, in effect, a real estate trust for GPUs, leasing capacity it built for itself to competitors who actually have customer demand to fill it. The technical press that covered the deal noted, accurately, that you do not rent out the asset you used to define your strategic identity unless your strategic identity has changed.</p>
+<p>The Colossus story tells you several things at once. Even the most aggressive builders are building ahead of their own demand — the facility ran at 11% MFU before the rental. The demand to lease that idle capacity is real and large — Anthropic is committing roughly half its annualized revenue to a single compute contract. The bottleneck has shifted from training to inference, with the lab that built a training facility handing it to labs that have the product demand to fill it. And the unit economics of running a frontier lab on your own hardware are bad enough that an aggressive builder will lease out the asset it used to define itself by.</p>
+<p>There is one more thing the Colossus story tells us, which is the inversion of everything the industry has been saying publicly. The public narrative has been: <em>we are GPU-constrained, we cannot get enough compute, the demand vastly exceeds supply</em>. The Colossus story tells us: <em>at least one of the biggest facilities in the world was running at 11% utilization, and the company that built it leased it out because it could not fill its own capacity with its own workloads</em>. Both things cannot be true simultaneously. One of them is, at minimum, exaggerated.</p>
+
+<h3>What the Numbers Mean</h3>
+<p>Put the enterprise number (5%) next to the hyperscaler number (11% at one of the most aggressive builders, before the rental, with other facilities undisclosed but unlikely to be dramatically higher) and you get an industry that built well ahead of demand and is now scrambling to use what it has already constructed.</p>
+<p>That is not how a demand-constrained market behaves. When American chip foundries are demand-constrained they run above 90% and customers wait months for delivery; when oil refineries are, they run above 85% and crack spreads widen; even ordinary cloud data centers, when demand-constrained, run at 60–80% and add capacity carefully, in stages, against confirmed orders.</p>
+<p>The AI buildout behaves like a supply-side speculative one instead: capacity added on the bet that demand will appear once supply is ready. It is a familiar pattern — railroads in the 1870s, telecom in the 1990s, commercial real estate many times over. The buildouts that work still usually pass through a phase of overcapacity, write-downs, and consolidation first. The ones that don’t end with the assets sold for cents on the dollar and the neighborhoods that hosted them never recovering. We do not yet know which kind this is, and anyone who tells you with confidence is selling something.</p>
+<hr>
+  
+  <nav class="pager">
+    <a class="p" href="/library/the-invisible-trillion/how-much-do-we-actually-need/"><span>Previous</span>How Much Do We Actually Need?</a>
+    <a class="n" href="/library/the-invisible-trillion/how-much-do-we-actually-need/the-stack-a-tour-of-what-compute-is-actually-for/"><span>Next</span>The Stack: A Tour of What Compute Is Actually For</a>
+  </nav>
+  <p class="backto"><a href="/library/the-invisible-trillion/">All 19 chapters of The Invisible Trillion</a> · <a href="/library/">Library</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Library","item":"https://meiradavidson.github.io/library/"},{"@type":"ListItem","position":3,"name":"The Invisible Trillion","item":"https://meiradavidson.github.io/library/the-invisible-trillion/"},{"@type":"ListItem","position":4,"name":"How Much Do We Actually Need?","item":"https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/"},{"@type":"ListItem","position":5,"name":"What We Actually Know About Utilization"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/what-we-actually-know-about-utilization/","url":"https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/what-we-actually-know-about-utilization/","headline":"What We Actually Know About Utilization","articleSection":"How Much Do We Actually Need?","inLanguage":"en","isAccessibleForFree":true,"wordCount":1472,"isPartOf":{"@type":"Book","name":"The Invisible Trillion","url":"https://meiradavidson.github.io/library/the-invisible-trillion/"}}]}</script>
+</body>
+</html>

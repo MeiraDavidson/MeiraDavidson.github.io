@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>knobs: a score for each (previous letter -&gt; next letter) pair — Lab 9: The Engine, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="W = [[Value(random.gauss(0, 0.1)) for _ in range(V)] for _ in range(V)]">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/knobs-a-score-for-each-previous-letter-next-letter-pair/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/more-operations-tested-against-reality/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/hold-out-15-of-names-as-a-test-set-the-model-never-trains/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="knobs: a score for each (previous letter -&gt; next letter) pair — Lab 9: The Engine, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="W = [[Value(random.gauss(0, 0.1)) for _ in range(V)] for _ in range(V)]">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/knobs-a-score-for-each-previous-letter-next-letter-pair/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/lab-9-the-engine/">Lab 9: The Engine</a><span class="sep">›</span><span aria-current="page">knobs: a score for each (previous letter -&gt; next letter) pair</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Lab 9: The Engine</p>
+  <h1>knobs: a score for each (previous letter -&gt; next letter) pair</h1>
+  
+<p>✦ ✦ ✦</p>
+<p>W = [[Value(random.gauss(0, 0.1)) for _ in range(V)] for _ in range(V)]</p>
+<p>data = []
+for name in names:
+    cs = [“.”] + list(name) + [“.”]
+    for prev, nxt in zip(cs, cs[1:]):
+        data.append((stoi[prev], stoi[nxt]))</p>
+<p>for step in range(40):
+    loss = Value(0.0)
+    for prev, nxt in data:
+        scores = W[prev]
+        m = max(s.data for s in scores)              # for numerical stability
+        exps = [(s - m).exp() for s in scores]
+        Z = exps[0]
+        for e in exps[1:]:
+            Z = Z + e
+        p = exps[nxt] / Z
+        loss = loss + (-(p.log()))                   # cross-entropy, Chapter 8
+    loss = loss * (1.0 / len(data))</p>
+<pre><code>for row in W:
+    for w in row:
+        w.grad = 0.0                             # reset blame each step
+loss.backward()                                  # YOUR sweep prices every knob
+for row in W:
+    for w in row:
+        w.data = w.data - 1.0 * w.grad           # gradient step, Chapter 8
+
+if step % 10 == 0:
+    print("step", step, " loss", round(loss.data, 3))
+</code></pre>
+<p>```</p>
+<p>The loss falls — and every gradient driving it down came from the sweep <em>you wrote</em>, firing each operation’s blame-rule across a graph the computation built itself. This is the entire chapter, working, in pure Python. (Why reset <code>w.grad = 0.0</code> each step? Predict what the <code>+=</code> in every blame-rule does across steps if you don’t — then hold it for Break-it 1.)</p>
+<h2>5. NumPy, and a model that can speak</h2>
+<p>Pure Value is for understanding; <strong>numpy</strong> is for scale — arrays of numbers operated on all at once, the same mathematics a thousand times faster. The full name model (a 3-letter-context network) is provided as one block; read it for the shape you already know — embedding, hidden layer with <code>tanh</code>, scores, softmax, cross-entropy — and run it:</p>
+<p>```python
+import numpy as np
+rng = np.random.default_rng(1)</p>
+<p>names = “”“ada gauss euler noether hilbert euclid fermat cantor godel turing lovelace ramanujan
+poincare riemann hardy erdos klein hopper church kolmogorov galois abel jacobi lagrange laplace
+fourier cauchy leibniz newton pascal bernoulli dirichlet weierstrass dedekind peano banach markov
+bayes nash hamilton cayley boole russell minkowski hausdorff lebesgue hermite chebyshev legendre
+maxwell dirac feynman fermi bohr planck einstein pauli wiener shannon hamming huffman dijkstra
+hoare knuth karp cook tarski kleene curry milner tarjan floyd kruskal dantzig weyl cartan
+grothendieck serre deligne tate wiles taylor mazur selberg renyi turan lovasz tao gowers”“”.split()
+names = list(dict.fromkeys(names))</p>
+<p>chars = sorted(set(“”.join(names))) + [“.”]
+stoi = {c: i for i, c in enumerate(chars)}; itos = {i: c for c, i in stoi.items()}
+V = len(chars); CONTEXT = 3</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/lab-9-the-engine/more-operations-tested-against-reality/"><span>Previous</span>3. More operations, tested against reality</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/lab-9-the-engine/hold-out-15-of-names-as-a-test-set-the-model-never-trains/"><span>Next</span>hold out 15% of names as a test set the model never trains on</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Lab 9: The Engine","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/"},{"@type":"ListItem","position":5,"name":"knobs: a score for each (previous letter -> next letter) pair"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/knobs-a-score-for-each-previous-letter-next-letter-pair/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/knobs-a-score-for-each-previous-letter-next-letter-pair/","headline":"knobs: a score for each (previous letter -> next letter) pair","articleSection":"Lab 9: The Engine","inLanguage":"en","isAccessibleForFree":true,"wordCount":432,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

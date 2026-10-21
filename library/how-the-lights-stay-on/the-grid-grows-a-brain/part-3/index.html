@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Grid Grows a Brain, part 3 — The Grid Grows a Brain, How the Lights Stay On | The Curious Family Library</title>
+<meta name="description" content="The catch is that until recently, you could not coordinate them. Each Powerwall belonged to a different homeowner, on a different street, with different…">
+<link rel="canonical" href="https://meiradavidson.github.io/library/how-the-lights-stay-on/the-grid-grows-a-brain/part-3/">
+<link rel="prev" href="https://meiradavidson.github.io/library/how-the-lights-stay-on/the-grid-grows-a-brain/part-2/">
+<link rel="next" href="https://meiradavidson.github.io/library/how-the-lights-stay-on/the-order-of-operations/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Grid Grows a Brain, part 3 — The Grid Grows a Brain, How the Lights Stay On | The Curious Family Library">
+<meta property="og:description" content="The catch is that until recently, you could not coordinate them. Each Powerwall belonged to a different homeowner, on a different street, with different…">
+<meta property="og:url" content="https://meiradavidson.github.io/library/how-the-lights-stay-on/the-grid-grows-a-brain/part-3/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/library/">Library</a><span class="sep">›</span><a href="/library/how-the-lights-stay-on/">How the Lights Stay On</a><span class="sep">›</span><a href="/library/how-the-lights-stay-on/the-grid-grows-a-brain/">The Grid Grows a Brain</a><span class="sep">›</span><span aria-current="page">The Grid Grows a Brain, part 3</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">How the Lights Stay On · The Grid Grows a Brain</p>
+  <h1>The Grid Grows a Brain, part 3</h1>
+  <p>The catch is that until recently, you could not coordinate them. Each Powerwall belonged to a different homeowner, on a different street, with different settings.</p>
+<p>Now you can. Companies like Tesla, Sunrun, and Sunnova have built software systems that aggregate thousands of distributed devices and bid their combined capacity into wholesale electricity markets — exactly as if they were a single power plant. These aggregations are called <strong>virtual power plants</strong>, or VPPs.</p>
+<p>When the grid is stressed, the VPP operator sends a signal. Thousands of home batteries discharge in coordinated unison. Thousands of smart thermostats nudge their settings. Thousands of EV chargers pause. The combined effect is the equivalent of bringing a 50- or 100-megawatt power plant online — but the plant does not exist as a physical building. It exists as a contract between a software company and ten thousand homeowners.</p>
+<p>Virtual power plants are real and growing. By 2026, the United States has several gigawatts of VPP capacity operating, with much more planned. California, Texas, and Vermont have been particularly aggressive in encouraging them.</p>
+<p>This is the deepest change in the grid since alternating current. The biggest power plants in the country, ten years from now, may not be physical buildings at all. They may be aggregations of small distributed resources, coordinated in software, scattered across millions of homes.</p>
+<p>There is one more layer worth understanding.</p>
+<p>A traditional distribution network responds to a fault — say, a tree branch falling on a line — like this: the protective equipment at the substation detects the fault. The circuit breaker opens. A neighborhood goes dark. A utility crew is dispatched. Hours later, the crew finds the fallen branch, removes it, closes the breaker, and the lights come back.</p>
+<p>A smart distribution network responds differently. The same tree branch falls. The same fault is detected — but now, automated switches scattered along the distribution circuit decide, in seconds, to isolate the small section where the fault occurred and reroute power around it. Most customers see a flicker, not an outage. The crew is still dispatched to fix the branch, but the lights stay on while they work.</p>
+<p>This is called <strong>distribution automation</strong>. The most-cited American example is in Chattanooga, Tennessee. The local utility, EPB, invested heavily in smart switches and fiber-optic monitoring across its entire system starting in the late 2000s. After the investment, the average outage time in Chattanooga dropped by roughly 50 percent. During a major windstorm, the system rerouted around dozens of faults automatically, keeping most customers from ever seeing an outage.</p>
+<p>Most American utilities are still in the early stages of distribution automation. The hardware works. The economics depend on how the costs of the upgrades are recovered, which is a state-by-state regulatory question. As with much of the smart grid, the bottleneck is no longer the technology. It is investment and regulation.</p>
+<p>Now we come to the most extreme version of all of this — and it is happening right now.</p>
+<p>On April 14, 2026, a San Francisco company called Span announced a partnership with Nvidia and the homebuilder PulteGroup. The product they unveiled, called <strong>XFRA</strong>, takes the trend of distributed grid resources to a logical extreme.</p>
+<p>An XFRA unit is a small box, about the size of a large kitchen appliance, that gets mounted on the outside wall of a newly built home. Inside the box is a Dell server containing sixteen Nvidia RTX Pro 6000 Blackwell GPUs and four AMD EPYC CPUs — about three terabytes of RAM and roughly the same compute as a small data center rack. The whole thing is liquid-cooled. It draws between one and two kilowatts of continuous power, depending on workload.</p>
+<p>The XFRA unit connects to the home through a Span smart panel — the same kind of smart panel that some homeowners install to manage their solar and EV chargers. The smart panel measures the home’s electricity usage minute by minute and determines how much spare capacity is available on the home’s electrical service. The XFRA unit uses only that spare capacity. When the home needs more power — when the AC kicks on, or someone starts charging an EV — the smart panel throttles the XFRA unit down.</p>
+<p>The XFRA unit runs AI workloads. Not training the giant models — the latency from a residential internet connection is too high for that. Instead, it runs <em>inference</em> — the actual day-to-day work of answering people’s AI queries. A user somewhere on the internet types a question to an AI service. The service routes the question to the nearest available compute node. That node, increasingly, might be a box on the outside wall of a house in Phoenix or Dallas.</p>
+<p>The homeowner gets a flat fee for hosting the unit. Their electricity bill is reduced or covered. Their internet is paid for. The Span panel ensures the XFRA never interferes with the home’s own electricity needs.</p>
+<p>In May 2026, the system was deployed in exactly one home — a Pulte demonstration installation. If the pilot works, Span says they could deploy thousands of units in PulteGroup’s roughly one thousand active home communities across the United States. Their pitch is that they can roll out the equivalent of a 100-megawatt data center in distributed form at roughly one-fifth the cost and six times the speed of building a centralized facility.</p>
+<p>Whether XFRA works at scale is a real open question. The reliability of residential internet, the willingness of homeowners to host the boxes, the cybersecurity risks of putting compute hardware on the outside of strangers’ houses — none of these are settled. The pilot is real but small.</p>
+<p>What is striking, regardless of whether XFRA succeeds, is the direction it points. For a century, the home was a passive consumer of electricity. In the last fifteen years, some homes have become small generators (rooftop solar) and small batteries (Powerwalls). Now some homes are becoming small data centers, too.</p>
+<p>The same wire that brings you electricity, increasingly, can also carry away your spare electricity, your spare bandwidth, and your spare computing power, and turn them into income.</p>
+<p>The house, in the smart grid era, is no longer a destination. It is becoming a node.</p>
+<p>The smart grid is real. The smart grid is partially deployed. The smart grid is one of the most consequential technological shifts of the 21st century, even though most of it is invisible to the people benefiting from it.</p>
+<p>But it is worth saying clearly: this is not a finished story.</p>
+<p>Most American utilities have deployed only some of these technologies, and unevenly. Smart meters are widespread but not universal. Demand response programs exist but are nowhere near their potential scale. Virtual power plants are growing but small relative to the traditional grid. Distribution automation is the exception, not the rule. XFRA is in one house.</p>
+<p>There are also genuine concerns worth naming.</p>
+<p><strong>Privacy.</strong> Smart meters reveal a lot about you. The pattern of your electricity usage tells someone with access to the data when you are home, when you go to bed, what appliances you own, what your daily routine is. Most utility data is protected, but breaches happen, and the data can be subpoenaed in legal cases.</p>
+<p><strong>Cybersecurity.</strong> A digital grid has a much larger attack surface than a non-digital one. A foreign government, or a criminal organization, that takes over a virtual power plant could cause real damage. The Russian attacks on the Ukrainian grid in 2015 and 2016 showed that this is not theoretical. The American grid has so far avoided major cyber incidents — but the systems are getting more complex faster than the defenses are getting more robust.</p>
+<p><strong>Equity.</strong> Smart-grid benefits flow disproportionately to households that can afford smart thermostats, EVs, solar panels, and home batteries. Renters, lower-income households, and people in older buildings often cannot participate fully. The risk is that the smart grid becomes a luxury feature of wealthy neighborhoods, while older neighborhoods get the same old service.</p>
+<p>These are real concerns, and the people building the smart grid are taking them seriously — but not always seriously enough. They will be the subject of policy fights for the rest of this decade.</p>
+<p>Throughout this book we have described the grid as a giant synchronized machine, a juggling act, an invisible network connecting everything. All of those framings are still true.</p>
+<p>The smart grid adds one more.</p>
+<p>The grid, increasingly, has a brain.</p>
+<p>It senses itself in real time, all the way down to individual neighborhoods. It talks to thousands of small assets in millions of homes. It coordinates them automatically, without anyone explicitly telling it to. It heals around its own faults. It is starting to host new kinds of activity — compute, AI, distributed services — on its physical infrastructure.</p>
+<p>The grid of 1980 was a machine. The grid of 2030 is becoming something closer to a nervous system.</p>
+<p>If you have ever wondered why your Nest thermostat sometimes adjusts itself before you do, or why your utility offered you a credit to enroll your water heater in a program, or why a new house in Arizona has a strange-looking box on the outside wall — you are seeing pieces of this. The pieces are still being assembled. The picture is still emerging. But the shape of it is clear enough now.</p>
+<p>The grid is not just a way of delivering electricity anymore. It is a network. And like all networks, the most interesting thing about it is what people will choose to put on top.</p>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>Thousands of thermostats nudge up two degrees, twenty thousand home batteries discharge, and most people never notice. Is that a clever solution or an unsettling one?</li><li>The grid of 1980 was a machine; the grid of 2030 is becoming a nervous system. What becomes possible with a nervous system that a machine cannot do — and what becomes newly fragile?</li><li>'Like all networks, the most interesting thing about it is what people choose to put on top.' What would you put on top of a grid that could talk to every device in a house?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/library/how-the-lights-stay-on/the-grid-grows-a-brain/part-2/"><span>Previous</span>The Grid Grows a Brain, part 2</a>
+    <a class="n" href="/library/how-the-lights-stay-on/the-order-of-operations/"><span>Next</span>The Order of Operations</a>
+  </nav>
+  <p class="backto"><a href="/library/how-the-lights-stay-on/">All 18 chapters of How the Lights Stay On</a> · <a href="/library/">Library</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Library","item":"https://meiradavidson.github.io/library/"},{"@type":"ListItem","position":3,"name":"How the Lights Stay On","item":"https://meiradavidson.github.io/library/how-the-lights-stay-on/"},{"@type":"ListItem","position":4,"name":"The Grid Grows a Brain","item":"https://meiradavidson.github.io/library/how-the-lights-stay-on/the-grid-grows-a-brain/"},{"@type":"ListItem","position":5,"name":"The Grid Grows a Brain, part 3"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/library/how-the-lights-stay-on/the-grid-grows-a-brain/part-3/","url":"https://meiradavidson.github.io/library/how-the-lights-stay-on/the-grid-grows-a-brain/part-3/","headline":"The Grid Grows a Brain, part 3","articleSection":"The Grid Grows a Brain","inLanguage":"en","isAccessibleForFree":true,"wordCount":1590,"isPartOf":{"@type":"Book","name":"How the Lights Stay On","url":"https://meiradavidson.github.io/library/how-the-lights-stay-on/"}}]}</script>
+</body>
+</html>

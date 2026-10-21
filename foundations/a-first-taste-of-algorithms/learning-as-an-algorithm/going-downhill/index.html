@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Going downhill — Learning as an Algorithm, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="So minimize L(w). And immediately, every tool in this book’s first act fails at once, for one reason: w is continuous. Try-everything is dead — there is…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/going-downhill/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/a-number-called-wrong/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/the-two-valleys/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Going downhill — Learning as an Algorithm, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="So minimize L(w). And immediately, every tool in this book’s first act fails at once, for one reason: w is continuous. Try-everything is dead — there is…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/going-downhill/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/">Learning as an Algorithm</a><span class="sep">›</span><span aria-current="page">Going downhill</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Learning as an Algorithm</p>
+  <h1>Going downhill</h1>
+  
+<p>So minimize L(w). And immediately, every tool in this book’s first act fails at once, for one reason: <strong>w is continuous</strong>. Try-everything is dead — there is no “everything”; between any two candidate slopes live infinitely many more. The table method is dead with it — Chapter 4’s notebook needs <em>questions you can list</em>, and a continuum cannot be listed. Six chapters of machinery, and the doorknob comes off in your hand.</p>
+<p>What survives is <em>local</em> information. Stand at some w and ask Book 2’s question: what is the slope of L <em>here</em> — the derivative L′(w)? It points uphill; its size says how steep. You cannot see the whole landscape, but you can feel the ground under your feet — so take a small step downhill and ask again:</p>
+<p><strong>w ← w − η · L′(w)</strong></p>
+<p>— move against the slope, by a step proportional to steepness, scaled by a small number η (the <strong>learning rate</strong>, the size of your stride). Repeat. That is <strong>gradient descent</strong>, the algorithm under essentially all modern machine learning, and it fits in one line because it <em>is</em> one idea — and the idea has a name from Chapter 2. <em>At every step, take the option that looks best from where you stand, commit, and never look back.</em> Gradient descent is <strong>greedy</strong>, in continuous space, and you already know exactly what that means: sometimes provably perfect, sometimes confidently wrong, and the difference will be a property of the landscape.</p>
+<p>Run it by hand first — three steps, the bowl f(x) = x², slope f′(x) = 2x, stride η = 0.25, starting at x₀ = 2:</p>
+<ul>
+<li>x₁ = 2 − 0.25·(4) = <strong>1</strong></li>
+<li>x₂ = 1 − 0.25·(2) = <strong>0.5</strong></li>
+<li>x₃ = 0.5 − 0.25·(1) = <strong>0.25</strong></li>
+</ul>
+<p><img src="/foundations/a-first-taste-of-algorithms/img/fig_8_1_descent_bowl.png" alt="Figure 8.2 — Three steps down the bowl: each stride is proportional to the slope, so the steps shrink as the floor flattens — the walk slows itself near the answer." loading="lazy"></p>
+<p><em>Figure 8.2 — Three steps down the bowl: each stride is proportional to the slope, so the steps shrink as the floor flattens — the walk slows itself near the answer.</em></p>
+<p>Halved, every step — and notice the built-in grace: nobody told the algorithm to slow down near the bottom, but the slope <em>is</em> smaller there, so the strides shrink on their own. The walk brakes automatically as it arrives. On this bowl that’s not a happy accident but an exact law: each step multiplies the position by (1 − 2η), and the Diamond has you turn that observation into the book’s first <em>convergence proof</em> — including the full strange taxonomy of strides: η = 0.5 lands exactly at the bottom in <strong>one step</strong>; η slightly under 1 converges while <em>overshooting the bottom every single step</em>, ringing like a struck bell; η = 1 bounces between 2 and −2 forever; η beyond 1 climbs <em>out</em> of the bowl, each step worse than the last. The learning rate is not a detail. It is the difference between arriving, ringing, and exploding, and in Lab 8 you will produce all three on purpose.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/a-number-called-wrong/"><span>Previous</span>A number called wrong</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/the-two-valleys/"><span>Next</span>The two valleys</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Learning as an Algorithm","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/"},{"@type":"ListItem","position":5,"name":"Going downhill"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/going-downhill/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/going-downhill/","headline":"Going downhill","articleSection":"Learning as an Algorithm","inLanguage":"en","isAccessibleForFree":true,"wordCount":485,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

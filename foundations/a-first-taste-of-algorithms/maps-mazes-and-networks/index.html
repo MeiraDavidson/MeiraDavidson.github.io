@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maps, Mazes, and Networks — A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="In which a city’s bridges become dots and lines, and three ways of walking answer almost everything">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-4-the-notebook/the-same-table-bottom-up/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/ripples-breadth-first-search/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Maps, Mazes, and Networks — A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="In which a city’s bridges become dots and lines, and three ways of walking answer almost everything">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><span aria-current="page">Maps, Mazes, and Networks</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms</p>
+  
+  <h1>Chapter 5: Maps, Mazes, and Networks</h1>
+<p>✦ ✦ ✦</p>
+<p>In which a city’s bridges become dots and lines, and three ways of walking answer almost everything</p>
+<h2>Königsberg, 1736</h2>
+<p>The city of Königsberg sat on both banks of a river, plus two islands, the four land masses joined by seven bridges. The townspeople had a standing puzzle: can you take a walk that crosses every bridge exactly once?</p>
+<p>They asked Leonhard Euler — already the most prolific mathematician alive — and his first reaction, in a letter, was that the problem “has little connection to mathematics.” Then he solved it, and in solving it he <em>made</em> the connection, founding a field. His move is the reason this chapter exists, so watch it closely. Euler threw the city away. The size of the islands, the length of the bridges, the bends of the river — none of it matters to the question. What matters is only <em>what is connected to what</em>. Each land mass becomes a <strong>dot</strong>; each bridge a <strong>line</strong> between two dots. Four dots, seven lines, and the famous old city has become a diagram you can draw on a napkin.</p>
+<p><img src="/foundations/a-first-taste-of-algorithms/img/fig_5_1_konigsberg.png" alt="Figure 5.1 — Königsberg and Euler's napkin: the city, then the same city with everything inessential burned away." loading="lazy"></p>
+<p><em>Figure 5.1 — Königsberg and Euler’s napkin: the city, then the same city with everything inessential burned away.</em></p>
+<p>The diagram is called a <strong>graph</strong>: dots (call them <em>vertices</em>) and connecting lines (<em>edges</em>). And Euler’s answer came straight out of the napkin: such a walk is impossible — every one of the four vertices has an <em>odd</em> number of bridge-ends touching it, and (you will prove this yourself in Practice 2.1, with a counting argument worthy of the name) a walk that crosses every edge once can tolerate at most two odd vertices: its start and its end. Anyone passing <em>through</em> a place must arrive and leave in pairs. The townspeople had been searching for years for something a parity check kills in a minute. Throwing away detail is not laziness; done right, it is the most powerful act in mathematics.</p>
+<h2>The same picture, everywhere</h2>
+<p>Once you own the abstraction, you see it daily, because “things, connected to things” is most of the world’s structure:</p>
+<ul>
+<li>your school: rooms as vertices, hallways as edges;</li>
+<li>the subway map (which already <em>is</em> Euler’s napkin — the designers threw away geography for you);</li>
+<li>friendships: people as vertices, an edge per friendship;</li>
+<li>the web: pages as vertices, links as edges — note these edges have a <em>direction</em>;</li>
+<li>and Chapter 4’s closing promise: every dynamic programming table you built was secretly a graph — entries as vertices, an edge from each entry to the entries it consulted. best(14) pointed at best(13), best(7), best(4). You have been drawing graphs since last chapter without the name.</li>
+</ul>
+<p>A graph enters Python the way Chapter 4 taught things to enter Python — as a dictionary. One entry per vertex; next to it, the list of its neighbors:</p>
+<pre><code>hallways = {
+    "gym":     ["lobby"],
+    "lobby":   ["gym", "library", "cafeteria"],
+    "library": ["lobby", "lab"],
+    "cafeteria": ["lobby", "lab"],
+    "lab":     ["library", "cafeteria"],
+}
+</code></pre>
+<p>That is the entire data structure. The questions, though, are many: <em>can</em> you get from here to there? what is the <em>fewest</em> hallways? the <em>quickest</em> route when hallways have lengths? Remarkably, three walking disciplines — two of them one word apart — answer nearly all of it.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/lab-4-the-notebook/the-same-table-bottom-up/"><span>Previous</span>5. The same table, bottom-up</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/ripples-breadth-first-search/"><span>Next</span>Ripples: breadth-first search</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Maps, Mazes, and Networks"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/","headline":"Maps, Mazes, and Networks","articleSection":"Maps, Mazes, and Networks","inLanguage":"en","isAccessibleForFree":true,"wordCount":543,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

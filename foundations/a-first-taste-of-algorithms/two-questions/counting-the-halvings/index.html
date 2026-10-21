@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Counting the halvings — Two Questions, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="So binary search costs “however many times you can halve the list before nothing is left.” Give that a name and a table. Start with n items; each…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/two-questions/counting-the-halvings/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/two-questions/structure-buys-speed/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/two-questions/what-a-step-is-a-confession/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Counting the halvings — Two Questions, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="So binary search costs “however many times you can halve the list before nothing is left.” Give that a name and a table. Start with n items; each…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/two-questions/counting-the-halvings/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/two-questions/">Two Questions</a><span class="sep">›</span><span aria-current="page">Counting the halvings</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Two Questions</p>
+  <h1>Counting the halvings</h1>
+  
+<p>So binary search costs “however many times you can halve the list before nothing is left.” Give that a name and a table. Start with n items; each comparison cuts the living region at least in half:</p>
+<table>
+<thead>
+<tr>
+<th>items n</th>
+<th>comparisons needed (worst case)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8</td>
+<td>4</td>
+</tr>
+<tr>
+<td>100</td>
+<td>7</td>
+</tr>
+<tr>
+<td>1,000</td>
+<td>10</td>
+</tr>
+<tr>
+<td>1,000,000</td>
+<td>20</td>
+</tr>
+<tr>
+<td>1,000,000,000,000</td>
+<td>40</td>
+</tr>
+</tbody>
+</table>
+<p>Read the table the way you read the race in Lab 1: the left column is <em>multiplying</em> — by 10, by 1000 — and the right column is <em>adding</em> a handful each row. A thousand times more items costs ten more comparisons. You met the function that behaves this way in Book 2: the <strong>logarithm</strong>, the function that turns multiplication into addition. The number of halvings from n down to 1 is log₂ n, give or take a rounding we’ll pin down in the deep water — and that is why a <em>trillion</em>-item phone book for the whole galaxy would surrender any name in forty questions. Forty. You could do it at a kitchen table before the tea cools.</p>
+<p>When the cost of a procedure grows like n, we call it <strong>linear</strong>; like log n, <strong>logarithmic</strong>. For now these are just names for shapes you have seen in your own tables — the steady ramp and the nearly-flat curve. We will not dress them in formal notation until Chapter 6, when we’ll have enough tables behind us that the notation arrives as bookkeeping instead of vocabulary.</p>
+<p><img src="/foundations/a-first-taste-of-algorithms/img/fig_1_2_growth.png" alt="Figure 1.2 — The steady ramp and the nearly-flat curve: worst-case comparisons as the list grows." loading="lazy"></p>
+<p><em>Figure 1.2 — The steady ramp and the nearly-flat curve: worst-case comparisons as the list grows.</em></p>
+<p>One more honest note, because this book does not hide its bills. Binary search demands a sorted list, and lists are not born sorted. <em>Sorting costs something.</em> How much, exactly — and whether anything could ever sort faster — is Chapter 6’s story, and it ends with the most surprising kind of theorem in this book: a proof that something is <em>impossible</em>. Whether the toll is worth paying depends on how many searches you’ll run afterward, which is the kind of answer cost questions usually have: not “yes” or “no” but “it depends, and here is precisely on what.”</p>
+<blockquote>
+<h3>Deeper water: the invariant</h3>
+<p>Here is the correctness argument for binary search, done properly. Through the entire procedure, maintain this sentence:</p>
+<p><strong>If the target is in the list at all, it lies between the two fingers.</strong></p>
+<p>A sentence kept true through every step of a procedure is called a <strong>loop invariant</strong>, and proving one is always the same three moves — the same three moves, you’ll notice, as induction in Book 2, because it <em>is</em> induction, marching over steps of a procedure instead of whole numbers:</p>
+<ol>
+<li><em>It starts true.</em> Before any comparison, the fingers bracket the whole list. If the target is anywhere, it’s in there. ✓</li>
+<li><em>Each step keeps it true.</em> Suppose it’s true going into a comparison, and the middle item is too small. Sortedness says everything from the middle leftward is also too small, so the target — if present — was already in the right portion. Moving the left finger past the middle discards only dead territory. The sentence survives. (The too-big case is the mirror image.) ✓</li>
+<li><em>It’s true at the end, and that finishes the job.</em> The procedure stops in one of two ways. If it finds the target — correct, trivially. If the fingers cross, the invariant says: the target, if present, lies in a region that no longer exists. So it isn’t present, and saying so is correct. ✓</li>
+</ol>
+<p>Notice what step 3 bought: the proof of <em>absence</em>. The invariant is why binary search’s “not here” is a theorem, not a shrug. Hold the method itself, too — start true, stays true, finishes the job — because every correctness proof in this book is this argument wearing different clothes.</p>
+<h3>Deeper water: the exact count</h3>
+<p>“About log₂ n” can be made exact. With k yes/no questions, the answers form a sequence like <em>yes, no, no, yes…</em> — and there are exactly 2ᵏ such sequences. Each possible position of the target must lead to a different answer-sequence (if two positions produced identical answers, the procedure couldn’t tell them apart — it would answer at least one of them wrongly). A list of n items has n + 1 distinguishable situations: “it’s at position 1,” …, “it’s at position n,” and “it’s absent.” So we need 2ᵏ ≥ n + 1, that is,</p>
+<p><strong>k ≥ log₂(n + 1), so k = ⌈log₂(n + 1)⌉ questions suffice and are required</strong></p>
+<p>(the brackets mean “round up”). Check it against the table: n = 1,000,000 gives log₂(1,000,001) ≈ 19.93, round up to 20. ✓</p>
+<p>Read the argument once more, because something remarkable just happened: it doesn’t mention binary search. It says <em>no</em> questioning strategy whatsoever — however clever, however different from halving — can beat ⌈log₂(n+1)⌉ in the worst case. You have just seen your first <strong>lower bound</strong>: a fence around what is possible, proved by counting answer-sequences rather than by trying strategies. Chapter 6 builds its great impossibility theorem with exactly this kind of fence.</p>
+<h3>A human moment</h3>
+<p>Binary search was first published in 1946, in the earliest days of electronic computers. Here is the astonishing part, reported by Jon Bentley and documented by Donald Knuth: the first published version that worked correctly <em>for every list length</em> did not appear until <strong>1962</strong>. For sixteen years, the cleverest people alive wrote this twelve-line procedure with small bugs at the edges — fingers crossing wrongly, regions of size one mishandled. And the story isn’t over: in 2006 an engineer at Google discovered that the binary search shipped inside Java, used by millions of programmers for two decades, broke on sufficiently huge lists — the innocent line computing the middle could overflow the machine’s fixed-size numbers. (Python’s numbers grow as needed, so your Lab 1 version is safe; the lesson isn’t.) Hold both facts next to the deep water above. The invariant proof is short, and it is the <em>only</em> reliable defense humanity has found against sixteen years of off-by-one — which is why Break-it 1 in the lab, where you sabotage <code>+ 1</code> and watch, is not a toy exercise but a reenactment.</p>
+</blockquote>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/two-questions/structure-buys-speed/"><span>Previous</span>Structure buys speed</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/two-questions/what-a-step-is-a-confession/"><span>Next</span>What a “step” is — a confession</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Two Questions","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/two-questions/"},{"@type":"ListItem","position":5,"name":"Counting the halvings"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/two-questions/counting-the-halvings/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/two-questions/counting-the-halvings/","headline":"Counting the halvings","articleSection":"Two Questions","inLanguage":"en","isAccessibleForFree":true,"wordCount":1031,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

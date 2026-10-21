@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The strategy, named — The Greedy Idea, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="The instinct — build the answer one piece at a time, and at each step grab whatever looks best right now, and never reconsider — is called greedy. It is…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-greedy-idea/the-strategy-named/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-greedy-idea/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-greedy-idea/but-does-it-always-work/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The strategy, named — The Greedy Idea, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="The instinct — build the answer one piece at a time, and at each step grab whatever looks best right now, and never reconsider — is called greedy. It is…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-greedy-idea/the-strategy-named/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/the-greedy-idea/">The Greedy Idea</a><span class="sep">›</span><span aria-current="page">The strategy, named</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · The Greedy Idea</p>
+  <h1>The strategy, named</h1>
+  
+<p>The instinct — <em>build the answer one piece at a time, and at each step grab whatever looks best right now, and never reconsider</em> — is called <strong>greedy</strong>. It is not a single algorithm; it is a <em>strategy for designing algorithms</em>, a template. Point it at a problem and it proposes a procedure instantly: decide what “looks best” means, then grab repeatedly.</p>
+<p>Chapter 1 gave you one clever algorithm, fitted to one problem by hand. Greedy is more ambitious — a <em>machine for generating algorithms</em> — and it generates them cheaply: one pass through your options, one decision per step, no memory of roads not taken, no agonizing. Of the two questions this book asks of everything, greedy aces <em>what does it cost?</em> before you’ve even checked whether it works. That cheapness is the seduction.</p>
+<p>But “grab whatever looks best” is only a strategy once you say what <em>best</em> means — and the Saturday just taught you that the choice of “best” is the whole game. “Earliest-starting” is one definition of best, and it failed. So the real question of greedy is never <em>whether</em> to be greedy; it is <strong>greedy about what?</strong> Get that right and the strategy is perfect. Get it wrong and it misses half your Saturday with a straight face.</p>
+<p>So let’s hunt for the right definition of best — the honest way, by trying the plausible ones and watching them fail until one survives.</p>
+<h2>Three definitions of “best,” two of them wrong</h2>
+<p><strong>Best = starts earliest.</strong> Already dead. The robotics build starts as early as the run but holds you hostage for four hours. Starting early tells you nothing about when you’re <em>free</em> again, and being free again is what lets you do the next thing.</p>
+<p><strong>Best = shortest.</strong> A sharper idea — short things block less of your day, so grab the shortest available thing each time, then the shortest of what’s left. This <em>feels</em> right. It is wrong, and here is the smallest possible proof, just three events:</p>
+<blockquote>
+<p>A runs 1:00–5:00. B runs 4:00–6:00. C runs 5:00–9:00.</p>
+</blockquote>
+<p><img src="/foundations/a-first-taste-of-algorithms/img/fig_2_2_shortest_fails.png" alt="Figure 2.2 — Shortest-first's defeat: the short event B touches both A and C; grabbing it yields one where skipping it yields two." loading="lazy"></p>
+<p><em>Figure 2.2 — Shortest-first’s defeat: the short event B touches both A and C; grabbing it yields one where skipping it yields two.</em></p>
+<p>B is the shortest (two hours). Grab it greedily and you’ve knocked out <em>both</em> A and C — B overlaps the tail of A and the head of C — so you attend <strong>one</strong> thing. But skip the tempting short one and take A and C, which don’t overlap each other, and you attend <strong>two</strong>. Shortest-first measured the event itself and ignored what the event <em>touches</em>. A short thing wedged between two others can be more destructive than a long thing off in the corner.</p>
+<p><strong>Best = finishes earliest.</strong> Now think about what actually went wrong in both failures. The robotics build was bad because it kept you busy <em>late</em>. B was bad because it straddled two slots. In both cases the damage was about when you become <em>available again</em>. So make availability the whole criterion: <strong>always do the thing that finishes soonest among the things you can still attend.</strong> Finishing early keeps the most future open — of everything you could do next, the earliest-finisher leaves the largest runway for everything after.</p>
+<p>Run it on the Saturday. The run finishes first (10:00) — take it. Among things starting at 10:00 or later, setup finishes first (11:00) — take it. Then the match (12:00), the lunch shift (1:00), study group (2:00), the party (4:00), the movie (5:00). <strong>Seven things.</strong> The pencil’s answer, produced by a rule.</p>
+<p><img src="/foundations/a-first-taste-of-algorithms/img/fig_2_1_saturday.png" alt="Figure 2.1 — The overbooked Saturday three ways: the eight events; earliest-start grabbing the all-morning build and salvaging four; earliest-finish fitting seven." loading="lazy"></p>
+<p><em>Figure 2.1 — The overbooked Saturday three ways: the eight events; earliest-start grabbing the all-morning build and salvaging four; earliest-finish fitting seven.</em></p>
+<p><strong>Earliest-finish-first.</strong> It is not what anyone reaches for — it feels almost backward, choosing by when things <em>end</em> rather than when they start or how long they take — and that is exactly why it had to be discovered rather than assumed. The obvious rule was obvious and wrong. The right rule is strange and right. That is the texture of greedy: the strategy is simple, but <em>which</em> greedy is the entire problem, and the answer is often counterintuitive.</p>
+<p>(One more plausible rule deserves a mention because it’s so tempting: <em>best = fewest conflicts</em>, grab the thing that bumps into the fewest others, avoid the troublemakers. It also fails — Problem 3.3 has a verified case where it gets 2 where earliest-finish gets 4 — and for the same reason: “how many things you conflict with” still isn’t “when you free up.”)</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/the-greedy-idea/"><span>Previous</span>The Greedy Idea</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/the-greedy-idea/but-does-it-always-work/"><span>Next</span>But does it always work?</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"The Greedy Idea","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-greedy-idea/"},{"@type":"ListItem","position":5,"name":"The strategy, named"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-greedy-idea/the-strategy-named/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-greedy-idea/the-strategy-named/","headline":"The strategy, named","articleSection":"The Greedy Idea","inLanguage":"en","isAccessibleForFree":true,"wordCount":759,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

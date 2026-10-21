@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>When You Can’t Solve It, Chase It — Calculus I | The Curious Family Library</title>
+<meta name="description" content="Or: How to find an answer by taking smarter and smarter guesses">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/calculus-i/when-you-cant-solve-it-chase-it/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/calculus-i/maxima-minima-and-the-shape-of-a-function/where-this-is-heading/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/calculus-i/when-you-cant-solve-it-chase-it/newtons-method-replace-the-curve-with-its-tangent-and/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="When You Can’t Solve It, Chase It — Calculus I | The Curious Family Library">
+<meta property="og:description" content="Or: How to find an answer by taking smarter and smarter guesses">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/calculus-i/when-you-cant-solve-it-chase-it/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/calculus-i/">Calculus I</a><span class="sep">›</span><span aria-current="page">When You Can’t Solve It, Chase It</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Calculus I</p>
+  
+  <h1>When You Can’t Solve It, Chase It</h1>
+<p><em>Or: How to find an answer by taking smarter and smarter guesses</em></p>
+<blockquote>
+<p><strong>Companion notebook.</strong> Play with this chapter’s ideas — sliders, animations, and drills — in <a href="https://github.com/MeiraDavidson/math_module2/blob/main/notebooks/ch9_newton_gradient_descent.ipynb"><code>notebooks/ch9_newton_gradient_descent.ipynb</code></a>.</p>
+</blockquote>
+<p>By the end of this chapter you will be able to do three things, and the third one is, more or less, how every modern AI system is trained.</p>
+<p>You will be able to find where a function crosses zero even when no formula on Earth can do it for you — by starting with a guess and improving it. This is <strong>Newton’s method</strong>, and you will <em>derive</em> it yourself out of the one idea from Chapter 6 that we said would keep paying off: near any point, a curve looks like its tangent line.</p>
+<p>You will be able to find where a function is <em>smallest</em> by repeatedly stepping downhill. This is <strong>gradient descent</strong>, and you will understand exactly why it sometimes glides smoothly to the bottom, sometimes bounces around, and sometimes flies off the edge of the world — all controlled by a single dial called the learning rate.</p>
+<p>And you will see that these two methods, which look like they are doing different jobs, are secretly the same idea pointed at two different targets. Understanding <em>how</em> they differ is the difference between knowing what a neural network does when it learns and just believing that it does.</p>
+<p>Here is the mindset for the whole chapter. Up to now, “solving” a problem has meant finding a formula for the exact answer. But most equations worth caring about have no such formula. The honest move, the move that runs the real world, is to stop demanding the exact answer in one shot and instead build a <em>guess that gets better every time you repeat a step.</em> That repeated step is called <strong>iteration</strong>, and it is one of the most powerful ideas you will learn in this book.</p>
+<hr>
+
+<h2>The wall: equations you can’t solve</h2>
+<p>In Chapter 7 we learned that to minimize a function <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>, we look for where its slope is zero — we solve <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">f&#39;(x) = 0</annotation></semantics></math>. That is the right idea. The trouble is that “solve” usually fails.</p>
+<p>Try to find where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>x</mi><mo>−</mo><mrow><mi mathvariant="normal">cos</mi><mo>&#8289;</mo></mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">f(x) = x - \cos x</annotation></semantics></math> equals zero. Set <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mrow><mi mathvariant="normal">cos</mi><mo>&#8289;</mo></mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x = \cos x</annotation></semantics></math> and… there is no algebra that isolates <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>. The answer exists — it is about <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0.739</mn><annotation encoding="application/x-tex">0.739</annotation></semantics></math> — but no rearranging, factoring, or formula will hand it to you. Equations mixing polynomials with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">cos</mi><annotation encoding="application/x-tex">\cos</annotation></semantics></math>, or with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>e</mi><mi>x</mi></msup><annotation encoding="application/x-tex">e^x</annotation></semantics></math>, or with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="normal">ln</mi><annotation encoding="application/x-tex">\ln</annotation></semantics></math>, are the <em>normal</em> case, not the exotic one. The clean solvable equations you met in algebra are the rare, lucky exceptions.</p>
+<p>So we need a method that finds the answer without a formula for it. Watch how the tangent line — the star of Chapter 6 — turns out to be exactly the tool.</p>
+<hr>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/calculus-i/maxima-minima-and-the-shape-of-a-function/where-this-is-heading/"><span>Previous</span>Where this is heading</a>
+    <a class="n" href="/foundations/calculus-i/when-you-cant-solve-it-chase-it/newtons-method-replace-the-curve-with-its-tangent-and/"><span>Next</span>Newton’s method: replace the curve with its tangent, and repeat</a>
+  </nav>
+  <p class="backto"><a href="/foundations/calculus-i/">All 13 chapters of Calculus I</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Calculus I","item":"https://meiradavidson.github.io/foundations/calculus-i/"},{"@type":"ListItem","position":4,"name":"When You Can’t Solve It, Chase It"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/calculus-i/when-you-cant-solve-it-chase-it/","url":"https://meiradavidson.github.io/foundations/calculus-i/when-you-cant-solve-it-chase-it/","headline":"When You Can’t Solve It, Chase It","articleSection":"When You Can’t Solve It, Chase It","inLanguage":"en","isAccessibleForFree":true,"wordCount":474,"isPartOf":{"@type":"Book","name":"Calculus I","url":"https://meiradavidson.github.io/foundations/calculus-i/"}}]}</script>
+</body>
+</html>

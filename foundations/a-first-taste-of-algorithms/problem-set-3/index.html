@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Problem Set 3 — A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Lab 3 (The Visible Staircase) is the Computational Lab tier. The Diamond wants the lab’s counting program as a check on part (a).">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-3/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-procedure-that-calls-itself/two-halves-are-better-than-one-smaller/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-3/concept-and-counterexample/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Problem Set 3 — A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Lab 3 (The Visible Staircase) is the Computational Lab tier. The Diamond wants the lab’s counting program as a check on part (a).">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-3/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><span aria-current="page">Problem Set 3</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms</p>
+  
+  <h1>Problem Set 3</h1>
+<p>✦ ✦ ✦</p>
+<p><em>Lab 3 (The Visible Staircase) is the Computational Lab tier. The Diamond wants the lab’s counting program as a check on part (a).</em></p>
+<h2>Fluency</h2>
+<p><strong>1.1</strong> With three coins, perform the 7-move solution for three disks, writing each move as “disk d: peg → peg.” Then, without playing, use the three-line plan to <em>write out</em> all 15 moves for four disks. Check your list’s move count against the table.</p>
+<p><strong>1.2</strong> Extend the M(n) table to n = 12 using the recurrence (not the formula). Then verify M(12) against 2¹² − 1.</p>
+<p><strong>1.3</strong> Prove M(n) = 2ⁿ − 1 by induction from the recurrence M(n) = 2M(n−1) + 1, M(1) = 1. Two lines suffice; write them.</p>
+<p><strong>1.4</strong> Merge these two sorted piles by hand, recording every comparison: [2, 9, 11, 30] and [4, 5, 12, 28]. How many comparisons did you make? What is the <em>most</em> comparisons merging two piles of four could ever take — and design the two piles that achieve it.</p>
+<p><strong>1.5</strong> Draw the full merge sort tree for the 8-item list [7, 3, 9, 1, 8, 2, 6, 4]: every box, every split, and the sorted contents flowing back up. Verify that each level’s merge work totals 8.</p>
+<p><strong>1.6</strong> Evaluate, by drawing the level sums of the tree: T(n) = 3·T(n/3) + n. Which of the deep water’s three stories is it?</p>
+<h2>Practice</h2>
+<p><strong>2.1</strong> Rewrite Chapter 1’s binary search as a recursion in words: “to search a region: if empty, absent; check the middle; otherwise search the ___ half.” What is the floor? What does the recursion’s cost recurrence look like, and which master-theorem story does it tell?</p>
+<p><strong>2.2</strong> You have 2 parents, 4 grandparents, 8 great-grandparents. (a) How many ancestors n generations back does the doubling rule predict? (b) Thirty generations is roughly 800 years; compute the rule’s prediction and compare it with the entire population of medieval Earth (~400 million). (c) The rule’s conclusion is absurd, so a hypothesis fails. Find it — what does the failure tell you about your family tree’s actual shape? (Recursions, like all arguments, are only as true as their assumptions about the smaller case.)</p>
+<p><strong>2.3</strong> A sheet of paper is 0.1 mm thick; folding doubles the thickness. The Moon is 384,400 km away. How many folds reach it? Solve using the M(n)-table style first (make the doubling table), then with one logarithm. Why does the answer feel impossible, and what (physically) actually stops it?</p>
+<p><strong>2.4</strong> A tournament: 64 players, single elimination. How many <em>matches</em> are played in total? Find the answer two ways: by the recurrence/tree, and by a one-sentence counting argument with no recursion at all. (The second way is the kind of argument that makes mathematicians grin.)</p>
+<p><strong>2.5</strong> Phone chain: news must reach 1,000 people; each person who knows it calls one person per minute. Model the spread as a recurrence for K(t), the number who know after t minutes, and find how many minutes are needed. Then the variant: each informed person makes only <em>three calls total</em>, then stops. Does the news still reach everyone? What changed in the tree?</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/the-procedure-that-calls-itself/two-halves-are-better-than-one-smaller/"><span>Previous</span>Two halves are better than one smaller</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/problem-set-3/concept-and-counterexample/"><span>Next</span>Concept &amp; Counterexample</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Problem Set 3"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-3/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-3/","headline":"Problem Set 3","articleSection":"Problem Set 3","inLanguage":"en","isAccessibleForFree":true,"wordCount":520,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

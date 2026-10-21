@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Structure buys speed — Two Questions, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Suppose the list is sorted: arranged in order, smallest to largest, A to Z. What did that arrangement buy?">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/two-questions/structure-buys-speed/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/two-questions/why-always-is-the-hard-part/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/two-questions/counting-the-halvings/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Structure buys speed — Two Questions, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Suppose the list is sorted: arranged in order, smallest to largest, A to Z. What did that arrangement buy?">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/two-questions/structure-buys-speed/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/two-questions/">Two Questions</a><span class="sep">›</span><span aria-current="page">Structure buys speed</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Two Questions</p>
+  <h1>Structure buys speed</h1>
+  
+<p>Suppose the list is <strong>sorted</strong>: arranged in order, smallest to largest, A to Z. What did that arrangement buy?</p>
+<p>Everything. A sorted list answers the guessing game’s magic question. Check the <em>middle</em> item. If it equals the target, done. If the target is bigger, then — because the list is sorted — the target cannot live anywhere in the left half. Discard half the list <em>without looking at it</em>. If smaller, discard the right half. Repeat on whatever survives.</p>
+<p>This is <strong>binary search</strong>, and the phrase to underline is <em>without looking at it</em>. Linear search pays one step per item examined and learns about one item. Binary search learns about ten thousand items by examining one, because the sortedness lets a single comparison speak for an entire half. The information was purchased in advance, when the list was sorted, and binary search is how you collect.</p>
+<p>Do one by hand, slowly. The sorted list:</p>
+<blockquote>
+<p>2, 5, 8, 13, 21, 34, 55, 89</p>
+</blockquote>
+<p>Target: 21. Keep two fingers on the list — one at each end — marking the region where the target could still be.</p>
+<ul>
+<li>The region is the whole list. The middle (with eight items, take the fourth) is <strong>13</strong>. The target 21 is bigger, so everything from 13 leftward is dead. The region is now 21, 34, 55, 89.</li>
+<li>Middle of the region: <strong>34</strong>. Too big; 34 and everything rightward is dead. The region is just 21.</li>
+<li>Check <strong>21</strong>. Found, three comparisons.</li>
+</ul>
+<p><img src="/foundations/a-first-taste-of-algorithms/img/fig_1_1_binary_search.png" alt="Figure 1.1 — Binary search for 21: the region between the fingers halves at every comparison." loading="lazy"></p>
+<p><em>Figure 1.1 — Binary search for 21: the region between the fingers halves at every comparison.</em></p>
+<p>Now the same list, target <strong>20</strong> — a number that <em>isn’t there</em>. Run the same procedure: 13 (too small, go right), 34 (too big, go left), 21 (too big, go left) — and now the two fingers have crossed. The region where 20 could hide has shrunk to nothing. The procedure doesn’t just fail to find 20; it <em>proves</em> 20 absent, in three comparisons, where linear search would have needed eight. The expensive thing — certainty of absence — got cheap. That is what structure is for.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/two-questions/why-always-is-the-hard-part/"><span>Previous</span>Why “always” is the hard part</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/two-questions/counting-the-halvings/"><span>Next</span>Counting the halvings</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Two Questions","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/two-questions/"},{"@type":"ListItem","position":5,"name":"Structure buys speed"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/two-questions/structure-buys-speed/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/two-questions/structure-buys-speed/","headline":"Structure buys speed","articleSection":"Two Questions","inLanguage":"en","isAccessibleForFree":true,"wordCount":350,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

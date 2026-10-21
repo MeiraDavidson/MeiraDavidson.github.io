@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lab 9: The Engine — A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="The capstone. You build backpropagation from nothing — sixty lines — verify it against the calculus by hand and against finite differences by machine,…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-9/diamond/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/more-operations-tested-against-reality/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lab 9: The Engine — A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="The capstone. You build backpropagation from nothing — sixty lines — verify it against the calculus by hand and against finite differences by machine,…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><span aria-current="page">Lab 9: The Engine</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms</p>
+  
+  <h1>Lab 9: The Engine</h1>
+<p>✦ ✦ ✦</p>
+<p><em>The capstone. You build backpropagation from nothing — sixty lines — verify it against the calculus by hand and against finite differences by machine, then train a tiny model end to end with your own engine to prove it is real. Then numpy arrives as the scale instrument, the name model trains until it speaks, and the parrot exam from Chapter 8 returns with teeth: you watch the training loss fall while the held-out loss begins to climb, and you name the moment they part. Everything in nine chapters has been parts on a workbench. This is the build.</em></p>
+<h2>1. The number that remembers</h2>
+<p>A plain number forgets its history. Build one that doesn’t — the <code>Value</code>, learned in pieces. Start with the skeleton and the two core operations:</p>
+<pre><code>import math, random
+
+class Value:
+    def __init__(self, data, parents=()):
+        self.data = data
+        self.grad = 0.0
+        self._parents = set(parents)
+        self._backward = lambda: None
+
+    def __add__(self, other):
+        other = other if isinstance(other, Value) else Value(other)
+        out = Value(self.data + other.data, (self, other))
+        def _backward():
+            self.grad += out.grad
+            other.grad += out.grad
+        out._backward = _backward
+        return out
+
+    def __mul__(self, other):
+        other = other if isinstance(other, Value) else Value(other)
+        out = Value(self.data * other.data, (self, other))
+        def _backward():
+            self.grad += other.data * out.grad
+            other.grad += self.data * out.grad
+        out._backward = _backward
+        return out
+
+a = Value(2.0)
+b = Value(-3.0)
+c = a * b
+print(c.data, c._parents)
+</code></pre>
+<p><code>Value(2.0)</code> builds a number-that-remembers; <code>c = a * b</code> builds a <em>new</em> one that remembers a and b as parents. The <code>isinstance</code> guard lets you write <code>a + 1</code> (it wraps the bare <code>1</code> into a Value). Each operation’s <code>_backward</code> is a tiny function holding that operation’s <em>derivative</em> — addition passes blame whole, multiplication scales it by the other factor. Confirm <code>c</code> knows its parents before moving on.</p>
+<h2>2. The backward sweep</h2>
+<p>History recorded forward; now price it backward. The sweep is Chapter 5’s depth-first traversal, walked in reverse:</p>
+<pre><code>    def backward(self):
+        order = []
+        visited = set()
+        def build(v):
+            if v not in visited:
+                visited.add(v)
+                for parent in v._parents:
+                    build(parent)
+                order.append(v)
+        build(self)
+        self.grad = 1.0
+        for v in reversed(order):
+            v._backward()
+</code></pre>
+<p>Add this method inside the <code>Value</code> class (same indentation as <code>__add__</code>). Then the moment of truth — build a small expression, sweep, and check against calculus you can do by hand:</p>
+<pre><code>a = Value(2.0)
+b = Value(-3.0)
+c = Value(7.0)
+L = (a * b + c) * (a * b + c)        # L = (ab + c)^2
+L.backward()
+print("L    =", L.data, "  (expect 1)")
+print("a.grad =", a.grad, "  (expect -6)")
+print("b.grad =", b.grad, "  (expect  4)")
+print("c.grad =", c.grad, "  (expect  2)")
+</code></pre>
+<p>By hand: ab + c = 1, so L = 1; the outer square contributes 2·(ab+c) = 2; then ∂L/∂a = 2·b = −6, ∂L/∂b = 2·a = 4, ∂L/∂c = 2. The engine should agree exactly. It does — and you have just watched blame flow from one number out to three, through a graph the computation recorded itself.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/problem-set-9/diamond/"><span>Previous</span>Diamond</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/lab-9-the-engine/more-operations-tested-against-reality/"><span>Next</span>3. More operations, tested against reality</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Lab 9: The Engine"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/","headline":"Lab 9: The Engine","articleSection":"Lab 9: The Engine","inLanguage":"en","isAccessibleForFree":true,"wordCount":501,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

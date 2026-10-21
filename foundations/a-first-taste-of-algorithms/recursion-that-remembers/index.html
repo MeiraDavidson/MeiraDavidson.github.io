@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recursion That Remembers — A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="In which an honest procedure is caught wasting its life, and a wound from Chapter 2 is healed">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-3-the-visible-staircase/the-bill-audited/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/write-it-down/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Recursion That Remembers — A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="In which an honest procedure is caught wasting its life, and a wound from Chapter 2 is healed">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><span aria-current="page">Recursion That Remembers</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms</p>
+  
+  <h1>Chapter 4: Recursion That Remembers</h1>
+<p>✦ ✦ ✦</p>
+<p>In which an honest procedure is caught wasting its life, and a wound from Chapter 2 is healed</p>
+<h2>The staircase</h2>
+<p>A staircase has n steps. You climb it in hops of one step or two, as you please. Question: how many <em>different</em> ways are there to climb it? (Two ways are different if the sequence of hops differs: 1-then-2 is not the same as 2-then-1.)</p>
+<p>Small cases by hand. One step: one way. Two steps: two ways (1+1, or 2). Three steps: 1+1+1, 1+2, 2+1 — three ways. Four steps: enumerate carefully — five ways.</p>
+<p>1, 2, 3, 5… Before conjecturing from the pattern, <em>derive</em> the law, Chapter 3 style. Stand at the bottom of n steps and look at your first decision. It is a hop of 1 or a hop of 2 — there is no third kind — and the two choices lead to different futures that can never produce the same climb. Hop 1, and what remains is the staircase problem for n − 1. Hop 2, and it is the problem for n − 2. So:</p>
+<p><strong>ways(n) = ways(n − 1) + ways(n − 2)</strong>, with the floor ways(1) = 1, ways(2) = 2.</p>
+<p>A recursion that calls itself twice, on two different smaller cases. Chapter 3’s two rescue conditions hold — strictly downward, solid floor — so the procedure is <em>correct</em>, by the staircase of induction (on an actual staircase, for once). The sequence it generates — 1, 2, 3, 5, 8, 13, 21, 34 — is one of the most famous in mathematics: the <strong>Fibonacci numbers</strong>, which have a habit of appearing wherever something grows by combining its two most recent pasts. You met some of its members in Chapter 1’s sorted list; now you know what they were doing there.</p>
+<p>Correctness settled. Now the second question, and this time the answer is a scandal.</p>
+<h2>The procedure that forgets</h2>
+<p>Run the recursion in your head for ways(6) and <em>draw the tree</em> of calls, Chapter 3 style. The top box, ways(6), opens into ways(5) and ways(4). The ways(5) box opens into ways(4) and ways(3). Stop right there — <strong>ways(4) appears twice</strong>. Keep drawing and count appearances: ways(3) is computed three times, ways(2) five times, ways(1) three times. The full tree for ways(6) contains fifteen boxes to answer what is really six questions.</p>
+<p><img src="/foundations/a-first-taste-of-algorithms/img/fig_4_1_amnesiac_tree.png" alt="Figure 4.1 — The amnesiac call tree for ways(6): same shade, same question — fifteen boxes for six questions." loading="lazy"></p>
+<p><em>Figure 4.1 — The amnesiac call tree for ways(6): same shade, same question — fifteen boxes for six questions.</em></p>
+<p>Nothing is <em>wrong</em>. Every box computes a true answer by a valid method. But the procedure has no memory: each time it needs ways(4), it rebuilds the entire ways(4) sub-tree from nothing, like a scholar who burns each page upon finishing it and re-derives the page whenever it’s cited. And the waste compounds on itself: the tree for n contains the <em>whole tree</em> for n − 1 and the <em>whole tree</em> for n − 2, so the call count grows by the staircase’s own law — the cost of computing Fibonacci numbers is itself Fibonacci, which grows like the exponential wall of Chapter 3. In Lab 4 you will count the calls: ways(30), a number you could extend with a pencil in a minute, costs the amnesiac recursion about <strong>1.7 million</strong> calls. At n = 50 the pencil still needs its minute; the recursion needs twenty-five <em>billion</em> calls — an hour or more of a modern laptop’s full attention, spent re-answering fifty questions.</p>
+<p>Here is the diagnosis to hold on to, because it locates the exponential’s weak point. Hanoi’s 2ⁿ − 1 was a wall of <em>necessary work</em> — the Diamond of Chapter 3 proved every move unavoidable. The staircase’s exponential is a wall of <strong>repetition</strong>: only n distinct questions exist, asked exponentially many times. A wall made of the same brick photocopied is a wall made of paper.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/lab-3-the-visible-staircase/the-bill-audited/"><span>Previous</span>5. The bill, audited</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/recursion-that-remembers/write-it-down/"><span>Next</span>Write it down</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Recursion That Remembers"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/","headline":"Recursion That Remembers","articleSection":"Recursion That Remembers","inLanguage":"en","isAccessibleForFree":true,"wordCount":644,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

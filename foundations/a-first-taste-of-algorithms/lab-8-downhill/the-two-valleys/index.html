@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4. The two valleys — Lab 8: Downhill, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="The chapter’s tilted world, f(x) = x⁴ − 3x² + x, slope 4x³ − 6x + 1:">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-8-downhill/the-two-valleys/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-8-downhill/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-8-downhill/the-parrot-exam/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4. The two valleys — Lab 8: Downhill, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="The chapter’s tilted world, f(x) = x⁴ − 3x² + x, slope 4x³ − 6x + 1:">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-8-downhill/the-two-valleys/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/lab-8-downhill/">Lab 8: Downhill</a><span class="sep">›</span><span aria-current="page">4. The two valleys</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Lab 8: Downhill</p>
+  <h1>4. The two valleys</h1>
+  
+<p>The chapter’s tilted world, f(x) = x⁴ − 3x² + x, slope 4x³ − 6x + 1:</p>
+<pre><code>def hills_slope(x):
+    return 4 * x**3 - 6 * x + 1
+
+def hills(x):
+    return x**4 - 3 * x**2 + x
+
+for start in [-2.0, -0.5, 0.5, 2.0]:
+    path = descend(hills_slope, start, 0.02, 500)
+    end = path[500]
+    print("start", start, " -&gt;  settles at", round(end, 4),
+          "  floor value", round(hills(end), 4))
+</code></pre>
+<p>Predict the four destinies first (Fluency 1.5 did the two middle ones by sign alone). Then read the results: two walkers in the deep valley at −1.3008 (floor −3.514, the 7+7 valley), two in the shallow one at 1.1309 (floor −1.070, the grab-the-10 valley) — and the border between fates runs along the hilltop near 0.17, not at zero. Each walker, asked, would report complete success: slope zero, every direction uphill, work done. Print <code>hills_slope(path[500])</code> for a shallow-valley walker and see its honest, useless certificate.</p>
+<p>Now the chapter’s managed retreat, dice against valleys — many random birthplaces, keep the best:</p>
+<pre><code>import random
+random.seed(8)
+
+best_end = None
+for _ in range(10):
+    start = random.uniform(-2, 2)
+    end = descend(hills_slope, start, 0.02, 500)[500]
+    if best_end is None or hills(end) &lt; hills(best_end):
+        best_end = end
+print("best of 10 random starts:", round(best_end, 4), " floor:", round(hills(best_end), 4))
+</code></pre>
+<p>Ten dice throws against a landscape the walker cannot see. Compute (Problem 2.4) what each throw’s chance of the deep valley is, and how rarely all ten can miss.</p>
+<h2>5. Learning a line</h2>
+<p>Now the real thing: descent applied to a <em>loss</em>. Hours studied and test scores, six students:</p>
+<pre><code>hours  = [1, 2, 3, 4, 5, 6]
+scores = [16, 31, 47, 60, 78, 89]
+
+def loss(w):
+    total = 0
+    for x, y in zip(hours, scores):        # zip: walk two lists in step
+        total = total + (w * x - y) ** 2
+    return total / len(hours)
+
+def loss_slope(w):                         # the gradient from Problem 1.3
+    total = 0
+    for x, y in zip(hours, scores):
+        total = total + 2 * (w * x - y) * x
+    return total / len(hours)
+
+path = descend(loss_slope, 0.0, 0.01, 60)
+print("learned slope:", round(path[60], 3))
+
+plt.plot([loss(w) for w in path])
+plt.xlabel("step")
+plt.ylabel("loss")
+plt.show()
+</code></pre>
+<p>The loss curve — the signature picture of this entire field; every training run you will ever see reported is this plot, grown up — falls steeply, then levels as the strides self-brake near the floor. The learned slope says each hour of study buys about 15 points; check it crudely against the data by eye. Then two experiments of your own: re-run with η = 0.05 and watch the curve ring (you know its name now), and add one student who studied 2 hours and scored 95 — a prodigy or a typo — and report what one outlier does to the learned line (Problem 3.4 predicted this; here is the measurement).</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/lab-8-downhill/"><span>Previous</span>Lab 8: Downhill</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/lab-8-downhill/the-parrot-exam/"><span>Next</span>6. The parrot exam</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Lab 8: Downhill","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-8-downhill/"},{"@type":"ListItem","position":5,"name":"4. The two valleys"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-8-downhill/the-two-valleys/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-8-downhill/the-two-valleys/","headline":"4. The two valleys","articleSection":"Lab 8: Downhill","inLanguage":"en","isAccessibleForFree":true,"wordCount":477,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

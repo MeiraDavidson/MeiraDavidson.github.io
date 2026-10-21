@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Patterns That Go Somewhere — Calculus I | The Curious Family Library</title>
+<meta name="description" content="Or: What does a list of numbers want to become?">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/calculus-i/patterns-that-go-somewhere/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/calculus-i/single-variable-calculus/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/calculus-i/patterns-that-go-somewhere/sequences-lists-that-follow-a-rule/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Patterns That Go Somewhere — Calculus I | The Curious Family Library">
+<meta property="og:description" content="Or: What does a list of numbers want to become?">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/calculus-i/patterns-that-go-somewhere/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/calculus-i/">Calculus I</a><span class="sep">›</span><span aria-current="page">Patterns That Go Somewhere</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Calculus I</p>
+  
+  <h1>Patterns That Go Somewhere</h1>
+<p><em>Or: What does a list of numbers want to become?</em></p>
+<blockquote>
+<p><strong>Companion notebook.</strong> Play with this chapter’s ideas — sliders, animations, and drills — in <a href="https://github.com/MeiraDavidson/math_module2/blob/main/notebooks/ch1_sequences.ipynb"><code>notebooks/ch1_sequences.ipynb</code></a>.</p>
+</blockquote>
+<p>By the end of this chapter you will be able to look at a never-ending list of numbers and answer a question that turns out to be the seed of all of calculus: <em>what number, if any, is this list sneaking up on?</em></p>
+<p>You will recognize the two great families of sequences — the ones that grow by <strong>adding</strong> the same amount each step, and the ones that grow by <strong>multiplying</strong> by the same amount — and you will have formulas for both. That part is mostly a sharpening of patterns you already met in Book 1.</p>
+<p>Then comes the genuinely new idea, the one this whole book is built on. Some lists settle down. The list <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>,</mo><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mo>,</mo><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>3</mn></mfrac></mstyle><mo>,</mo><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>4</mn></mfrac></mstyle><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">1, \tfrac12, \tfrac13, \tfrac14, \ldots</annotation></semantics></math> is creeping toward <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math> without ever arriving. The list <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>,</mo><mspace width="0.222em"></mspace><mn>2.25</mn><mo>,</mo><mspace width="0.222em"></mspace><mn>2.37</mn><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">2,\ 2.25,\ 2.37,\ldots</annotation></semantics></math> is creeping toward a strange number near <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2.718</mn><annotation encoding="application/x-tex">2.718</annotation></semantics></math>. Pinning down what “creeping toward” <em>means</em> — precisely enough that we can prove it rather than just squint at it — is the idea of a <strong>limit</strong>, and once you have it, derivatives and integrals are within reach.</p>
+<p>And you will learn the part that separates people who <em>know</em> about limits from people who can actually <em>use</em> them: what to do when the obvious move fails. By the end you’ll be able to evaluate limits where naive substitution gives nonsense like “<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>∞</mi><annotation encoding="application/x-tex">\infty</annotation></semantics></math> times <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>” — where the answer is decided by a hidden race between two parts of the expression — and you’ll meet a stubborn <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>∞</mi><mo>⋅</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\infty\cdot 0</annotation></semantics></math>, the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>-th root of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>, and the whole family of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>, each of which looks impossible until you know the trick.</p>
+
+<h3>A note on the two layers (please read this once)</h3>
+<p>Starting in this book, every chapter runs on two layers, and you should know which one you are walking.</p>
+<p><strong>Layer 1 is the main road.</strong> It is the ideas, the pictures, and how to actually compute things. Everyone walks the main road, start to finish. If you read only Layer 1 you will understand what is going on and be able to do the work.</p>
+<p><strong>Layer 2 is the set of marked detours</strong> — the boxes labeled with a diamond, ◆. This is where we stop pointing at a picture and <em>prove</em> the thing is really true, using exact definitions. On your first pass through a chapter you are welcome to glance at these and keep walking. On your second pass — or right now, if you are hungry — the climbs are the best part, and they are where you stop taking my word for anything.</p>
+<p>Why the proofs start <em>here</em>, in Chapter 1, when Book 1 mostly let you trust your eyes? Because a limit is the first idea in this series that is genuinely slippery — your intuition about “getting close” is good enough to get started and <em>not</em> good enough to keep you safe later. So this is exactly where proof begins to earn its place. Let’s go.</p>
+<hr>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/calculus-i/single-variable-calculus/"><span>Previous</span>Single-Variable Calculus</a>
+    <a class="n" href="/foundations/calculus-i/patterns-that-go-somewhere/sequences-lists-that-follow-a-rule/"><span>Next</span>Sequences: lists that follow a rule</a>
+  </nav>
+  <p class="backto"><a href="/foundations/calculus-i/">All 13 chapters of Calculus I</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Calculus I","item":"https://meiradavidson.github.io/foundations/calculus-i/"},{"@type":"ListItem","position":4,"name":"Patterns That Go Somewhere"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/calculus-i/patterns-that-go-somewhere/","url":"https://meiradavidson.github.io/foundations/calculus-i/patterns-that-go-somewhere/","headline":"Patterns That Go Somewhere","articleSection":"Patterns That Go Somewhere","inLanguage":"en","isAccessibleForFree":true,"wordCount":522,"isPartOf":{"@type":"Book","name":"Calculus I","url":"https://meiradavidson.github.io/foundations/calculus-i/"}}]}</script>
+</body>
+</html>

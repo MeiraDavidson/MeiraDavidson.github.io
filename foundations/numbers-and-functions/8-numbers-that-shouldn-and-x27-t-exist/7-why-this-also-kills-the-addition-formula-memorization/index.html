@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8.7 Why this also kills the addition-formula memorization — 8 Numbers That Shouldn&#x27;t Exist, Numbers &amp; Functions | The Curious Family Library</title>
+<meta name="description" content="Remember the fearsome addition formulas from Chapter 6, proved the hard way with stacked triangles? They fall out of Euler’s formula in three lines. (This…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/numbers-and-functions/8-numbers-that-shouldn-and-x27-t-exist/7-why-this-also-kills-the-addition-formula-memorization/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/numbers-and-functions/8-numbers-that-shouldn-and-x27-t-exist/6-the-harvest-why-e-knows-about-circles/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/numbers-and-functions/8-numbers-that-shouldn-and-x27-t-exist/9-the-harvest-every-polynomial-gets-all-its-roots/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="8.7 Why this also kills the addition-formula memorization — 8 Numbers That Shouldn&#x27;t Exist, Numbers &amp; Functions | The Curious Family Library">
+<meta property="og:description" content="Remember the fearsome addition formulas from Chapter 6, proved the hard way with stacked triangles? They fall out of Euler’s formula in three lines. (This…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/numbers-and-functions/8-numbers-that-shouldn-and-x27-t-exist/7-why-this-also-kills-the-addition-formula-memorization/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/numbers-and-functions/">Numbers &amp; Functions</a><span class="sep">›</span><a href="/foundations/numbers-and-functions/8-numbers-that-shouldn-and-x27-t-exist/">8 Numbers That Shouldn&#x27;t Exist</a><span class="sep">›</span><span aria-current="page">8.7 Why this also kills the addition-formula memorization</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Numbers &amp; Functions · 8 Numbers That Shouldn&#x27;t Exist</p>
+  <h1>8.7 Why this also kills the addition-formula memorization</h1>
+  
+<p>Remember the fearsome addition formulas from Chapter 6, proved the hard way with stacked triangles? They fall out of Euler’s formula in three lines. (This is why we proved them independently first — so the reasoning doesn’t circle.) ♦Why it’s true — skip on a first read, but the real brain-training Multiplying two “growth” expressions adds their exponents: eiα · eiβ = ei(α+β). Write each side using Euler’s formula. The right side is cos(α + β) + i sin(α + β). The left side is the product of two walkers, multiplied out: (cos α + i sin α)(cos β + i sin β) = (cos α cos β −sin α sin β) + i(sin α cos β + cos α sin β).</p>
+<p>Two complex numbers are equal only when their real parts match and their imaginary parts match: Numbers That Shouldn’t Exist • Real parts: cos(α + β) = cos α cos β −sin α sin β.</p>
+<p>• Imaginary parts: sin(α + β) = sin α cos β + cos α sin β.</p>
+<p>Both addition formulas, at once, from one multiplication.</p>
+<p>The thing that took a page of triangle-drawing in Chapter 6 now drops out in three lines — and you never have to memorize them again, because you can regenerate them from eiα · eiβ = ei(α+β). It was i all along.</p>
+<h2>8.8 A power tool: De Moivre, and the roots of unity made real</h2>
+<p>Euler’s formula is also a workhorse. What is (cos θ + i sin θ)n? Through Euler’s formula it’s (eiθ)n = ei(nθ), so: (cos θ + i sin θ)n = cos(nθ) + i sin(nθ).</p>
+<p>This is De Moivre’s theorem: raising a unit-circle point to the power n multiplies its angle by n. A computation that would be a nightmare by repeated multiplication becomes one step — just multiply the angle.</p>
+<p>Now let’s compute, with our own hands, the roots of unity — the solutions of xn = 1 that Chapter 4 only described. Take n = 3: the three numbers with x3 = 1. Write x = cos θ + i sin θ (it must sit on the unit circle). By De Moivre, x3 = cos(3θ) + i sin(3θ). We need this to equal 1 — the point at angle 0, or any full turn: 3θ = 0, 2π, 4π =⇒ θ = 0, 2π 3 , 4π 3 .</p>
+<p>Three angles, equally spaced a third of the way around. So the three cube roots of 1 sit at 0◦, 120◦, 240◦: the corners of a perfect equilateral triangle. One is the ordinary real root x = 1; the other two are genuinely complex. ▶Run it yourself — watch multiplication rotate, and the roots snap into a polygon. (notebook 8.1 in Colab) Multiply complex numbers and watch the arrows turn (distances multiply, angles add — the thing you just proved). Then set n and watch the nth roots of unity fall into the corners of a perfect n-gon. Predict the shape for n = 6 before you run it.</p>
+<p>x = 1 cube roots (n=3) x = 1 fourth roots (n=4) x = 1 sixth roots (n=6) The nth roots of unity = corners of a regular n-gon on the unit circle Figure 8.7. The roots of unity, computed. The nth roots of 1 are the n corners of a regular n-gon on the unit circle — Chapter 4’s promise, now derived from De Moivre. One corner is always the ordinary real root x = 1.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/numbers-and-functions/8-numbers-that-shouldn-and-x27-t-exist/6-the-harvest-why-e-knows-about-circles/"><span>Previous</span>8.6 The harvest: why e knows about circles</a>
+    <a class="n" href="/foundations/numbers-and-functions/8-numbers-that-shouldn-and-x27-t-exist/9-the-harvest-every-polynomial-gets-all-its-roots/"><span>Next</span>8.9 The harvest: every polynomial gets all its roots</a>
+  </nav>
+  <p class="backto"><a href="/foundations/numbers-and-functions/">All 8 chapters of Numbers &amp; Functions</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Numbers & Functions","item":"https://meiradavidson.github.io/foundations/numbers-and-functions/"},{"@type":"ListItem","position":4,"name":"8 Numbers That Shouldn&#x27;t Exist","item":"https://meiradavidson.github.io/foundations/numbers-and-functions/8-numbers-that-shouldn-and-x27-t-exist/"},{"@type":"ListItem","position":5,"name":"8.7 Why this also kills the addition-formula memorization"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/numbers-and-functions/8-numbers-that-shouldn-and-x27-t-exist/7-why-this-also-kills-the-addition-formula-memorization/","url":"https://meiradavidson.github.io/foundations/numbers-and-functions/8-numbers-that-shouldn-and-x27-t-exist/7-why-this-also-kills-the-addition-formula-memorization/","headline":"8.7 Why this also kills the addition-formula memorization","articleSection":"8 Numbers That Shouldn&#x27;t Exist","inLanguage":"en","isAccessibleForFree":true,"wordCount":589,"isPartOf":{"@type":"Book","name":"Numbers & Functions","url":"https://meiradavidson.github.io/foundations/numbers-and-functions/"}}]}</script>
+</body>
+</html>

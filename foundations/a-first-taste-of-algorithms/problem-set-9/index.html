@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Problem Set 9 — A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Lab 9 (The Engine) is the Computational Lab tier — the chapter’s claims are not real until the engine trains in your hands. The Diamond’s derivation is…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-9/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/weighted-looking-back/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-9/concept-and-counterexample/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Problem Set 9 — A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Lab 9 (The Engine) is the Computational Lab tier — the chapter’s claims are not real until the engine trains in your hands. The Diamond’s derivation is…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-9/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><span aria-current="page">Problem Set 9</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms</p>
+  
+  <h1>Problem Set 9</h1>
+<p>✦ ✦ ✦</p>
+<p><em>Lab 9 (The Engine) is the Computational Lab tier — the chapter’s claims are not real until the engine trains in your hands. The Diamond’s derivation is checked against your own engine’s output.</em></p>
+<h2>Fluency</h2>
+<p><strong>1.1</strong> By hand, build the Value graph for L = (a + b)·c with a = 2, b = 3, c = 4: draw each node, its value, and its parents. Then run backprop on paper — seed the output with grad 1, apply each operation’s blame-rule — and find ∂L/∂a, ∂L/∂b, ∂L/∂c. (Check: ∂L/∂c should be a + b = 5.)</p>
+<p><strong>1.2</strong> For the addition rule, explain in one sentence why blame passes to both parents <em>unchanged</em>; for the multiplication rule, why blame is scaled by the <em>other</em> factor. Tie each to a derivative from Book 2.</p>
+<p><strong>1.3</strong> Trace the <code>backward</code> method’s depth-first build on the graph of 1.1: in what order are the nodes appended, and why must the output node be processed <em>first</em> in the reversed walk? Connect to Chapter 5’s claim that this traversal <em>is</em> Chapter 3’s recursion.</p>
+<p><strong>1.4</strong> A single neuron with two inputs has how many knobs? A layer of 4 such neurons? A two-layer network, 2 inputs → 4 hidden → 1 output? (Count weights and biases separately, then total — this is the skill Lab 9 uses to size the real model.)</p>
+<p><strong>1.5</strong> Softmax by hand: scores [1, 2, 0] → probabilities (use e¹, e², e⁰; normalize). Then compute the cross-entropy loss if the true class is the middle one, and—using the deep water’s formula—the gradient on all three scores. Confirm they sum to zero, and say in one sentence why they must.</p>
+<p><strong>1.6</strong> “The model feeds its own output back as input to generate.” Walk through generating a 4-letter name by hand given a model that always predicts the most likely next letter from a tiny table you invent — show the context sliding forward one letter at a time, including the start and stop markers.</p>
+<h2>Practice</h2>
+<p><strong>2.1</strong> Extend the Value class with a subtraction rule (<code>__sub__</code>) and state its blame-rule, deriving it from addition and negation. Then a division rule — harder; use a·b⁻¹ and the power rule, and write the blame-rule for b⁻¹ explicitly. (Lab 9 has you test both against finite differences.)</p>
+<p><strong>2.2</strong> A model’s training loss after each epoch: 3.1, 1.9, 1.3, 1.1, 1.05, 1.02. Its held-out loss: 3.0, 2.0, 1.8, 2.1, 2.6, 3.2. Plot both by hand (rough axes), mark the epoch where you would <em>stop training</em>, and explain in the chapter’s language what is happening to the model after that point. What is it learning instead of the pattern?</p>
+<p><strong>2.3</strong> Temperature in generation: sampling divides scores by a temperature T before softmax. Predict, with reasoning, what the generated names look like as T → 0 (very small) and as T → large. (Lab 9 measures both; commit to predictions first.) Connect T to a knob you have already met — what does dividing all scores by a constant do to their softmax spread?</p>
+<p><strong>2.4</strong> Attention as weighted looking-back: a model guessing the letter after “albe—” has learned attention weights over the five prior letters. Invent plausible weights (summing to 1) that would help predict “r”, and explain which letters earn the weight and why. Then change the stem to “albea—” and argue how the weights should shift. (You are reasoning about what the figure’s arcs encode.)</p>
+<p><strong>2.5</strong> Parameter counting at scale: your name model has ~Q knobs (use your 1.4 method on Lab 9’s actual dimensions — you should land near eight thousand). A frontier model has ~10¹². Compute the ratio as a power of ten, and then a humbling comparison: if your knobs were seconds, how long is your model’s training; if theirs were seconds, how long is theirs? (The gap between “an afternoon” and “an age” is the gap the last deep water is about.)</p>
+<p><strong>2.6</strong> <em>Query, key, value by hand.</em> A single attention head has <em>d</em> = 4, and at some position the query is q = (1, 0, 1, 0). Three earlier positions have keys k₁ = (1, 0, 0, 0), k₂ = (1, 0, 1, 0), k₃ = (0, 1, 0, 0). Compute the three dot products q·kₛ, divide by √d, and apply softmax to get the attention weights. Which position does this query attend to most, and why does the <em>direction</em> of the key vectors — not their labels — decide it?</p>
+<p><strong>2.7</strong> <em>The mask, concretely.</em> Write the 4×4 matrix of raw scores for a length-4 sequence as a general grid, then show exactly which entries the causal mask sets to −∞ and what the matrix looks like after. After softmax, why is the resulting attention matrix lower-triangular, and what would a model that <em>skipped</em> the mask be able to do that makes its low training loss worthless? (Lab 9 Break-it 5 is this problem, executed.)</p>
+<p><strong>2.8</strong> <em>Dimensions audit.</em> For the lab’s head (<em>d</em> = 32, <em>d_k</em> = 32, vocabulary V, sequence length T), give the shape of every matrix in the five equations: X, Q, K, V, QKᵀ, A, the context AV, and the logits. Confirm the chain of shapes is consistent (each product’s inner dimensions match), and identify which single matrix’s row-count is “one per possible character” rather than “one per position.” (This shape-checking is most of what catches bugs in real model code.)</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/building-the-learner/weighted-looking-back/"><span>Previous</span>Weighted looking-back</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/problem-set-9/concept-and-counterexample/"><span>Next</span>Concept &amp; Counterexample</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Problem Set 9"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-9/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-9/","headline":"Problem Set 9","articleSection":"Problem Set 9","inLanguage":"en","isAccessibleForFree":true,"wordCount":897,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

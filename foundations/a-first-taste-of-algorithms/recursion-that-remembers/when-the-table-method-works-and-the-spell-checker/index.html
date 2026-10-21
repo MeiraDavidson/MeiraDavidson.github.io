@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>When the table method works — and the spell-checker — Recursion That Remembers, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Two ingredients made all of this go, and they are worth naming because together they are a diagnostic you can run on new problems:">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/when-the-table-method-works-and-the-spell-checker/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/sevenia-healed/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-4/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="When the table method works — and the spell-checker — Recursion That Remembers, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Two ingredients made all of this go, and they are worth naming because together they are a diagnostic you can run on new problems:">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/when-the-table-method-works-and-the-spell-checker/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/recursion-that-remembers/">Recursion That Remembers</a><span class="sep">›</span><span aria-current="page">When the table method works — and the spell-checker</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Recursion That Remembers</p>
+  <h1>When the table method works — and the spell-checker</h1>
+  
+<p>Two ingredients made all of this go, and they are worth naming because together they are a <em>diagnostic</em> you can run on new problems:</p>
+<ol>
+<li><strong>Optimal substructure:</strong> the best answer to the whole is assembled from best answers to subproblems. (The first hop of an optimal climb leaves an optimal climb; the first coin of an optimal payment leaves an optimal payment. The Diamond makes this precise — there is a cut-and-paste argument hiding in “leaves.”)</li>
+<li><strong>Overlapping subproblems:</strong> the recursion meets the <em>same</em> subproblem many times — otherwise the notebook records answers nobody asks for twice. Merge sort has perfect substructure and <em>zero</em> overlap (its two halves are different lists); memoizing it buys nothing. The notebook pays exactly where the tree repeats.</li>
+</ol>
+<p>The diagnostic passes on a problem that runs, today, inside every phone you have ever typed on. How does a spell-checker know that when you typed “graet” you meant “great”? It measures the <strong>edit distance</strong> between words: the fewest one-letter edits — insert a letter, delete a letter, or replace a letter — turning one word into the other. Both questions of the book apply: a correct procedure, at what cost? — and the table method answers, because the problem has the grammar of the staircase. Look at the <em>last letters</em> of the two words. If they match, they cost nothing: the distance is whatever the rest costs. If they differ, your last edit was one of exactly three kinds — replace one with the other, delete one, or insert one — and each choice leaves a smaller two-word problem. Three branches, a min, a floor (the distance from any word to the empty word is its length: delete everything). Subproblems — “first part of word one versus first part of word two” — overlap massively, so the notebook is a two-dimensional table, one row per prefix of the first word, one column per prefix of the second.</p>
+<p>Small enough to do at a desk: “cap” to “tape” has distance 2 (replace c→t, then insert the e), and the 4 × 5 table verifying it is Fluency 1.5. Big enough to matter: the same table, grown, compares DNA sequences, suggests your search-bar corrections, and shows lawyers what changed between contract drafts. One grammar — <em>last decision, three branches, min, floor, notebook</em> — and you should feel the chapter consolidating into a method you could point at a problem neither of us has seen.</p>
+<blockquote>
+<h3>Deeper water: the craft is the state</h3>
+<p>The table method’s honest limitation: ingredient 1 can <em>fail</em>, and when it fails it fails quietly. Try planning the best two-week trip as “the best first week, then the best second week from wherever it ended” — and watch the assembly break: the two weeks <em>interact</em> (one budget, one energy, can’t see the same city twice), so the best whole is not built from the best parts. Subproblems that share a resource are not really sub-problems; they are one coupled problem wearing two name tags.</p>
+<p>The professional response is not to abandon the method but to <strong>enrich the state</strong>: don’t tabulate best(week), tabulate best(week, <em>money remaining</em>) — fold the shared resource into the question itself, and substructure is restored, at the price of a bigger table. Choosing <em>what the table’s questions are</em> — the state — is the actual craft of dynamic programming; the recurrences write themselves once the state is right. The staircase’s state was one number; the coins’, one number; edit distance needed two. Problem 3.4 hands you a coupled problem and asks you to design the state that uncouples it. And a forward pointer: in Chapter 9, a famous algorithm will silently memoize <em>shared subexpressions in the chain rule</em> — the notebook idea, working inside calculus — so file this chapter somewhere permanent.</p>
+</blockquote>
+<h2>Where this leaves us</h2>
+<p>The exponential wall, it turns out, comes in two materials. Hanoi’s was stone — every move proved necessary. The staircase’s was paper: few questions, asked absurdly often, and one notebook tore it down. Dynamic programming is the systematic tearing: find the grammar (<em>last decision, few branches, min or sum, floor</em>), name the state, fill the table — top-down with a memo or bottom-up with a loop, same table either way. Greedy commits before pricing; the table prices before committing; Sevenia’s 14 costs two coins forever now, and you can prove it.</p>
+<p>The tables themselves are trying to tell you something, if you look at them sideways. Entry 14 depended on entries 13, 7, and 4; those depended on others; the whole computation is a web of <em>questions pointing at the questions they need</em> — dots and arrows, a territory with a map. Chapter 5 stops solving problems long enough to study the maps themselves: things connected to things, the shape behind staircases, subway lines, friendships, and the web — and the two or three ways of walking such a territory that answer almost every question about it.</p>
+<hr>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>Derive the staircase law from the first decision rather than guessing from 1, 2, 3, 5. Why does the book insist on deriving before conjecturing?</li><li>'An honest procedure is caught wasting its life.' What exactly was it wasting, and why did it not know?</li><li>The whole fix is one idea: write the answers down. Where else would writing answers down turn something hopeless into something fast?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/recursion-that-remembers/sevenia-healed/"><span>Previous</span>Sevenia, healed</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/problem-set-4/"><span>Next</span>Problem Set 4</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Recursion That Remembers","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/"},{"@type":"ListItem","position":5,"name":"When the table method works — and the spell-checker"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/when-the-table-method-works-and-the-spell-checker/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/when-the-table-method-works-and-the-spell-checker/","headline":"When the table method works — and the spell-checker","articleSection":"Recursion That Remembers","inLanguage":"en","isAccessibleForFree":true,"wordCount":827,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

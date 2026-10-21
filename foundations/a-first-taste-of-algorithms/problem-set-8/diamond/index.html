@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diamond — Problem Set 8, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="4.1 The first convergence proof. Gradient descent on f(x) = x², update x_{k+1} = x_k − η·2x_k. (a) Show x_{k+1} = (1 − 2η)·x_k exactly, and unroll: x_k =…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-8/diamond/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-8/concept-and-counterexample/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-8-downhill/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Diamond — Problem Set 8, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="4.1 The first convergence proof. Gradient descent on f(x) = x², update x_{k+1} = x_k − η·2x_k. (a) Show x_{k+1} = (1 − 2η)·x_k exactly, and unroll: x_k =…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-8/diamond/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/problem-set-8/">Problem Set 8</a><span class="sep">›</span><span aria-current="page">Diamond</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Problem Set 8</p>
+  <h1>Diamond</h1>
+  
+<p><strong>4.1</strong> <em>The first convergence proof.</em> Gradient descent on f(x) = x², update x_{k+1} = x_k − η·2x_k.
+(a) Show x_{k+1} = (1 − 2η)·x_k exactly, and unroll: x_k = (1 − 2η)ᵏ·x₀.
+(b) Prove: if 0 &lt; η &lt; 1 then |1 − 2η| &lt; 1 and x_k → 0 — convergence, geometric, from <em>every</em> starting point. (Where in this argument does Chapter 7’s “geometric series ruled by its ratio” — Chapter 3’s, originally — make its return?)
+(c) Classify the boundary and beyond: η = 0.5, η = 1, η &gt; 1 — state each fate and prove it from the unrolled formula.
+(d) Reconcile with your lab: match each η you ran to its predicted fate, and identify the run whose loss curve “rang.” What sign pattern in x_k is the ringing?
+(e) The honest perimeter: every step above leaned on f′(x) = 2x being <em>exactly linear</em>. Point to the precise line of (a) that fails for a general bowl like f(x) = x² + x⁴ — then state, without proof, which conclusion you’d still bet on and which (the magic of η = 0.5) you’d abandon. Knowing what survives generalization is the skill this part grades.</p>
+<h2>Computational Lab</h2>
+<p><strong>5.1</strong> Lab 8 in full, predictions before runs. Export three artifacts for the problem set: your η-fate table (Diamond d), your two-valley endpoints (2.4), and your train/test gap before and after the poisoned label (3.3).</p>
+<h2>Teach It</h2>
+<p><strong>6.1</strong> Blindfold someone (or have them close their eyes) on a gentle slope — a yard, a wheelchair ramp, a hallway with a tilted board — and ask them to find the lowest point using only the feeling under their feet, narrating their rule aloud. Then tell them that’s the algorithm training every AI they’ve heard of, and let them object. Their best objection is the chapter’s content; write down which one they found (valleys? stride size? “what if the ground is flat”?) and how far they got unprompted.</p>
+<p><strong>6.2</strong> Explain the parrot exam to a younger student using actual flashcards: train them on ten cards, test on the same ten, then on five new ones, and discuss the two scores. Then the reveal: every AI benchmark they’ve seen a headline about is the five new cards — and the entire trustworthiness of the field hangs on those cards being genuinely new. Report their reaction, and your own honest answer to the question they will ask: “how does anyone <em>know</em> the test cards weren’t in the training pile?” (Welcome to a real and current controversy.)</p>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>Never grade a learner on questions it has memorised. Why is that the field's one honest exam?</li><li>Where, outside computing, do people accidentally grade something on questions it has memorised?</li><li>What would you need to see before believing a claim that a learner 'works'?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/problem-set-8/concept-and-counterexample/"><span>Previous</span>Concept &amp; Counterexample</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/lab-8-downhill/"><span>Next</span>Lab 8: Downhill</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Problem Set 8","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-8/"},{"@type":"ListItem","position":5,"name":"Diamond"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-8/diamond/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-8/diamond/","headline":"Diamond","articleSection":"Problem Set 8","inLanguage":"en","isAccessibleForFree":true,"wordCount":424,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

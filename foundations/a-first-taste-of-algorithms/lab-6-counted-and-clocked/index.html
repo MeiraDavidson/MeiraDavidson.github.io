@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lab 6: Counted and Clocked — A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Accompanies Chapter 6. Until now this book has counted and refused to clock. Today both instruments run side by side: the count predicts the shapes, the…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-6-counted-and-clocked/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-6/concept-and-counterexample/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-6-counted-and-clocked/the-clock-arrives-with-a-protocol/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lab 6: Counted and Clocked — A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Accompanies Chapter 6. Until now this book has counted and refused to clock. Today both instruments run side by side: the count predicts the shapes, the…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-6-counted-and-clocked/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><span aria-current="page">Lab 6: Counted and Clocked</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms</p>
+  
+  <h1>Lab 6: Counted and Clocked</h1>
+<p>✦ ✦ ✦</p>
+<p><em>Accompanies Chapter 6. Until now this book has counted and refused to clock. Today both instruments run side by side: the count predicts the shapes, the clock reveals the constants, and a plot — your first — shows the two sorts diverging exactly as the chapter promised. Two instruments arrive, each with its debt: the clock because constants are real, the plot because six chapters of tables have earned a picture.</em></p>
+<h2>1. The plodder, counted</h2>
+<p>Insertion sort, exactly as hands do it — each arrival walks left past everything bigger:</p>
+<pre><code>def insertion_sort_count(a):
+    comparisons = 0
+    for i in range(1, len(a)):
+        arriving = a[i]
+        j = i - 1
+        while j &gt;= 0 and a[j] &gt; arriving:
+            comparisons = comparisons + 1
+            a[j + 1] = a[j]          # shift the bigger card right
+            j = j - 1
+        if j &gt;= 0:
+            comparisons = comparisons + 1   # the comparison that said "stop"
+        a[j + 1] = arriving
+    return comparisons
+
+hand = [7, 3, 9, 1, 8]
+print(insertion_sort_count(hand), hand)
+</code></pre>
+<p>One behavior to notice and remember: this sorter works <strong>in place</strong> — it rearranges the very list you hand it, the way your hands rearrange the actual cards (print <code>hand</code> after the call: it changed). Merge sort, by contrast, built a <em>new</em> sorted list and left its input alone. The difference seems cosmetic today; in §3 it becomes load-bearing. Check the count against your paper run from Fluency 1.1. Then the gait audit, worst case (reverse-sorted), in the house style:</p>
+<pre><code>for n in [8, 32, 128, 512, 2048]:
+    print(n, insertion_sort_count(list(range(n, 0, -1))))
+</code></pre>
+<p>Verify each row equals n(n − 1)/2 exactly, and read the gait: n quadruples each row — the count multiplies by <em>sixteen</em>. The n² signature, measured.</p>
+<h2>2. The race, counted</h2>
+<p>Retype merge sort and its step counter from Lab 3 (<code>merge</code>, <code>merge_sort_count</code>) — retyping is review — then race the two on the same worst-case inputs:</p>
+<pre><code>for n in [8, 32, 128, 512, 2048]:
+    ins = insertion_sort_count(list(range(n, 0, -1)))     # fresh worst case each —
+    mrg = merge_sort_count(list(range(n, 0, -1)))[1]      # remember: insertion mutates
+    print(n, "  insertion:", ins, "  merge:", mrg, "  ratio:", round(ins / mrg, 1))
+</code></pre>
+<p>Read the ratio column: about 1 at the top, about 90 at the bottom, roughly doubling with each doubling of n. In the counted currency the halver wins at <em>every</em> size on this table — even n = 8 — and the gap only opens. Hold that fact; the clock is about to complicate it.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/problem-set-6/concept-and-counterexample/"><span>Previous</span>Concept &amp; Counterexample</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/lab-6-counted-and-clocked/the-clock-arrives-with-a-protocol/"><span>Next</span>3. The clock arrives — with a protocol</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Lab 6: Counted and Clocked"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-6-counted-and-clocked/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-6-counted-and-clocked/","headline":"Lab 6: Counted and Clocked","articleSection":"Lab 6: Counted and Clocked","inLanguage":"en","isAccessibleForFree":true,"wordCount":420,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

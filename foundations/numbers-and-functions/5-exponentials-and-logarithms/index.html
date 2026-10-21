@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5 Exponentials and Logarithms — Numbers &amp; Functions | The Curious Family Library</title>
+<meta name="description" content="CHAPTER 5 Exponentials and Logarithms Back in Chapter 2 I wrote down the most natural list of numbers in the world: 1, 2, 4, 8, 16, 32, . . .">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/numbers-and-functions/5-exponentials-and-logarithms/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/numbers-and-functions/4-polynomials-factoring-and-the-quadratic-formula/10-the-shape-of-a-polynomial/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/numbers-and-functions/5-exponentials-and-logarithms/3-the-laws-of-exponents-and-why-every-one-is-true/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5 Exponentials and Logarithms — Numbers &amp; Functions | The Curious Family Library">
+<meta property="og:description" content="CHAPTER 5 Exponentials and Logarithms Back in Chapter 2 I wrote down the most natural list of numbers in the world: 1, 2, 4, 8, 16, 32, . . .">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/numbers-and-functions/5-exponentials-and-logarithms/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/numbers-and-functions/">Numbers &amp; Functions</a><span class="sep">›</span><span aria-current="page">5 Exponentials and Logarithms</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Numbers &amp; Functions</p>
+  
+  <h1>5 Exponentials and Logarithms</h1>
+<p>CHAPTER 5 Exponentials and Logarithms Back in Chapter 2 I wrote down the most natural list of numbers in the world: 1, 2, 4, 8, 16, 32, . . .</p>
+<p>Each one is double the one before. A folded sheet of paper, a splitting cell, a rumor passed to two new people each day — doubling is everywhere. In Chapter 4 we met the polynomial machines, where x sits in the base and a fixed number rides on top: x2, x3. This chapter is about what happens when you swap those roles — nail the base down to a fixed number and let x climb up into the exponent instead. That one swap produces a completely different machine, and it governs almost everything that grows or fades in the real world: money, populations, radioactivity, epidemics, the cooling of your coffee. These are the exponential machines, and their mirror-image undo buttons, the logarithms.</p>
+<h2>5.1 From doubling to a machine</h2>
+<p>Label each number in the doubling list by how many doublings it took to reach it, starting from 1: doublings value 0 1 1 2 2 4 3 8 4 16 The right column is just powers of 2: 20, 21, 22, 23, 24. So “the number after x doublings” is a machine: feed in x, get out 2x. We write it f(x) = 2x and call it an exponential function with base 2.</p>
+<p>doublings value 0 1 1 2 2 4 3 8 4 16 x 2x the discrete doublings fill in to a smooth curve Figure 5.1. The discrete doubling sequence fills in to a continuous curve. The dots are the whole-number doublings; the smooth curve 2x joins them up for every real input in between.</p>
+<p>Notice how different this is from the polynomials. In x2, the input is the base. In 2x, the input has moved up into the exponent. That’s the defining feature of an exponential: the variable is in the exponent.</p>
+<h2>5.2 What does 2x mean when x isn&#x27;t a whole number?</h2>
+<p>A sharp reader should be uneasy here. 23 means “multiply three 2s together.” But our machine is supposed to accept any real number. So what does 21/2 mean? Or 2−3? You can’t multiply “half a 2 together.”</p>
+<p>The answer is that we extend the meaning — the same move we’ve made since Chapter 1. We decide what these should mean by insisting the machine keep behaving consistently. The rule powers must obey is 2a · 2b = 2a+b. If we demand this keep holding for all exponents, the meanings are forced: • Zero exponent: 20 = 1 (because 2x · 20 must equal 2x).</p>
+<p>• Negative exponent: 2−3 = 1 23 = 1 8 — a negative exponent means divide.</p>
+<p>• Fractional exponent: 21/2 = √ 2 (because 21/2 · 21/2 = 21 = 2, so it’s the number that squares to 2).</p>
+<p>So a fractional exponent is secretly a root, and a negative exponent is secretly a reciprocal. The upshot: 2x makes sense for every real number x, and its graph is one smooth, unbroken curve.</p>
+<p>Exponentials and Logarithms</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/numbers-and-functions/4-polynomials-factoring-and-the-quadratic-formula/10-the-shape-of-a-polynomial/"><span>Previous</span>4.10 The shape of a polynomial</a>
+    <a class="n" href="/foundations/numbers-and-functions/5-exponentials-and-logarithms/3-the-laws-of-exponents-and-why-every-one-is-true/"><span>Next</span>5.3 The laws of exponents (and why every one is true)</a>
+  </nav>
+  <p class="backto"><a href="/foundations/numbers-and-functions/">All 8 chapters of Numbers &amp; Functions</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Numbers & Functions","item":"https://meiradavidson.github.io/foundations/numbers-and-functions/"},{"@type":"ListItem","position":4,"name":"5 Exponentials and Logarithms"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/numbers-and-functions/5-exponentials-and-logarithms/","url":"https://meiradavidson.github.io/foundations/numbers-and-functions/5-exponentials-and-logarithms/","headline":"5 Exponentials and Logarithms","articleSection":"5 Exponentials and Logarithms","inLanguage":"en","isAccessibleForFree":true,"wordCount":519,"isPartOf":{"@type":"Book","name":"Numbers & Functions","url":"https://meiradavidson.github.io/foundations/numbers-and-functions/"}}]}</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Silicon and Chip Footprint, For Completeness — The Mining and E-Waste Question, Honestly, The Invisible Trillion | The Curious Family Library</title>
+<meta name="description" content="Given that this book is nominally about chips, let me actually cover the chip-specific material story, which is — genuinely, thankfully — not terrible.">
+<link rel="canonical" href="https://meiradavidson.github.io/library/the-invisible-trillion/the-mining-and-e-waste-question-honestly/the-silicon-and-chip-footprint-for-completeness/">
+<link rel="prev" href="https://meiradavidson.github.io/library/the-invisible-trillion/the-mining-and-e-waste-question-honestly/the-e-waste-story/">
+<link rel="next" href="https://meiradavidson.github.io/library/the-invisible-trillion/the-mining-and-e-waste-question-honestly/what-actually-helps/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Silicon and Chip Footprint, For Completeness — The Mining and E-Waste Question, Honestly, The Invisible Trillion | The Curious Family Library">
+<meta property="og:description" content="Given that this book is nominally about chips, let me actually cover the chip-specific material story, which is — genuinely, thankfully — not terrible.">
+<meta property="og:url" content="https://meiradavidson.github.io/library/the-invisible-trillion/the-mining-and-e-waste-question-honestly/the-silicon-and-chip-footprint-for-completeness/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/library/">Library</a><span class="sep">›</span><a href="/library/the-invisible-trillion/">The Invisible Trillion</a><span class="sep">›</span><a href="/library/the-invisible-trillion/the-mining-and-e-waste-question-honestly/">The Mining and E-Waste Question, Honestly</a><span class="sep">›</span><span aria-current="page">The Silicon and Chip Footprint, For Completeness</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">The Invisible Trillion · The Mining and E-Waste Question, Honestly</p>
+  <h1>The Silicon and Chip Footprint, For Completeness</h1>
+  
+<p>Given that this book is nominally about chips, let me actually cover the chip-specific material story, which is — genuinely, thankfully — not terrible.</p>
+<p><strong>Silicon.</strong> The silicon in chips is refined from quartz sand, which is one of the most abundant materials on Earth. The refining is energy-intensive, but not particularly environmentally damaging in any other way. Sand mining, in general, has environmental issues — coastal erosion, illegal sand extraction for concrete — but the quantities used for chips are vanishingly small compared to those used for construction. A year of global chip production uses maybe 25,000 tons of silicon. A year of global concrete production uses 30 billion tons of sand. These are different orders of magnitude.</p>
+<p><strong>Chemicals and gases.</strong> Chip fabrication uses an enormous variety of highly toxic and/or environmentally persistent chemicals — perfluorinated compounds, arsine, phosphine, hydrogen fluoride, nitrogen trifluoride, and so on. Fabs are tightly regulated in the US, EU, Japan, Korea, and Taiwan, and emissions are low. Fabs in less-regulated places are more variable. Some of the gases — particularly nitrogen trifluoride, used in cleaning — are very potent greenhouse gases, and industry emissions are non-trivial but well under 0.1% of the global total.</p>
+<p><strong>The fab’s total footprint.</strong> Depends on the fab and the assessment, but the <em>material</em> footprint of a chip is small compared to almost anything else in the device it ends up in. Most of the environmental cost of making a phone is in the mining and assembly, not in the chip itself.</p>
+<p>This doesn’t mean chip manufacturing is zero-impact. It means that, of the things to worry about in the device stack, the chip itself is probably not the biggest one.</p>
+<hr>
+
+<h2>The Data Center’s Own Hardware</h2>
+<p>So far this chapter has mostly been about the device in your pocket — its battery, its eventual disposal. That is where the worst of it is, in human terms. But this book is about data centers specifically, and a data center has a hardware life of its own, which is worth looking at directly, because it is large, it is growing fast, and it is the part of the mining-and-waste story that is actually about AI rather than about phones.</p>
+<p>Start with how fast the hardware turns over. A traditional server was expected to last five to seven years. AI servers have compressed that to something between eighteen months and three years. Part of the reason is that each new generation of GPU is dramatically faster, which makes the previous generation economically inefficient to keep running at scale. But part of it is physical. The training GPUs run at sixty to seventy percent utilization, around the clock, each one drawing more than seven hundred watts and turning nearly all of it into heat. Run that hot, that constantly, and the hardware wears out. An anonymous senior engineer at one of the major labs put the real working life of a heavily loaded training GPU at one to three years.</p>
+<p>There is an accounting wrinkle here worth knowing, because it connects to the financial story later in the book. On their books, the hyperscalers depreciate this hardware over <em>six</em> years — a schedule they all moved to in 2023 and 2024, and one that conveniently raises their reported operating income by billions of dollars, because the cost of the hardware is spread across more years. Several careful observers — the investor Michael Burry most loudly — have argued that this overstates how long the hardware actually lasts, and that the real figure is closer to two or three years. If they are right, the buildout is not only consuming more capital than it appears to; it is also generating retired hardware faster than the official schedules imply.</p>
+<p>Either way, the volume is large and rising. A single facility like Colossus holds more than two hundred thousand GPUs; cycle that every few years and you have an enormous, recurring stream of retired hardware — not just the GPUs but the CPUs, the memory, the circuit boards, the networking gear, and the backup batteries. A study in <em>Nature Computational Science</em> estimated that, under aggressive adoption, large language models alone could generate something like two and a half million tonnes of electronic waste a year by 2030 — up from almost nothing in 2023. That is a new waste stream, created in roughly a decade, specifically by the AI buildout.</p>
+<p>Here, though, is the honest other half, and it is genuinely better news than the phone story. Data center hardware is, so far, handled far better than the phone-in-a-drawer-to-Agbogbloshie pipeline. There is a real and active secondary market: a retired training GPU is not garbage, it is a slightly older but still valuable inference chip, and it gets resold rather than smashed. The “value cascade” in the industry runs a GPU from front-line training in years one and two, to inference in years three and four, to cheap batch work after that — one company, CoreWeave, has rebooked H100s coming off expired contracts at ninety-five percent of their original price. The large operators run formal asset-disposition programs with documented chain of custody; Microsoft reported reusing or recycling more than ninety percent of its decommissioned server components in 2024. So the data center’s hardware footprint, unlike the consumer one, is for now mostly captured rather than dumped.</p>
+<p>The open question is whether that holds. The secondary market and the recycling programs work well for the big, reputation-conscious, regulator-watched operators. They work less well, or not at all, for the long tail of smaller data centers and the newer “neocloud” companies racing to deploy hardware as fast as they can, who have weaker incentives and thinner processes. And the volumes are about to get much larger. A waste stream that is well-managed at two and a half million tonnes by the disciplined players is not necessarily well-managed once the undisciplined ones are added in. The data center hardware story is, for now, a relatively good one. Whether it stays good is a question of whether the management scales as fast as the buildout does.</p>
+<p>One last thing, to close the loop with the cobalt and lithium stories above. I said earlier that a data center full of GPUs involves very little cobalt, and that is true of the GPUs. It is not quite true of the building. Data centers need backup power — banks of batteries that hold the servers up for the seconds it takes the diesel generators to start during an outage — and those battery banks, increasingly lithium-based, are a genuine, data-center-specific piece of the battery supply chain. It is far smaller than the electric-vehicle fleet or the phone fleet, and it doesn’t change the basic picture that the worst battery horrors are about cars and phones rather than compute. But it is not zero, and a book being honest about the buildout should say so.</p>
+<hr>
+  
+  <nav class="pager">
+    <a class="p" href="/library/the-invisible-trillion/the-mining-and-e-waste-question-honestly/the-e-waste-story/"><span>Previous</span>The E-Waste Story</a>
+    <a class="n" href="/library/the-invisible-trillion/the-mining-and-e-waste-question-honestly/what-actually-helps/"><span>Next</span>What Actually Helps</a>
+  </nav>
+  <p class="backto"><a href="/library/the-invisible-trillion/">All 19 chapters of The Invisible Trillion</a> · <a href="/library/">Library</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Library","item":"https://meiradavidson.github.io/library/"},{"@type":"ListItem","position":3,"name":"The Invisible Trillion","item":"https://meiradavidson.github.io/library/the-invisible-trillion/"},{"@type":"ListItem","position":4,"name":"The Mining and E-Waste Question, Honestly","item":"https://meiradavidson.github.io/library/the-invisible-trillion/the-mining-and-e-waste-question-honestly/"},{"@type":"ListItem","position":5,"name":"The Silicon and Chip Footprint, For Completeness"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/library/the-invisible-trillion/the-mining-and-e-waste-question-honestly/the-silicon-and-chip-footprint-for-completeness/","url":"https://meiradavidson.github.io/library/the-invisible-trillion/the-mining-and-e-waste-question-honestly/the-silicon-and-chip-footprint-for-completeness/","headline":"The Silicon and Chip Footprint, For Completeness","articleSection":"The Mining and E-Waste Question, Honestly","inLanguage":"en","isAccessibleForFree":true,"wordCount":1156,"isPartOf":{"@type":"Book","name":"The Invisible Trillion","url":"https://meiradavidson.github.io/library/the-invisible-trillion/"}}]}</script>
+</body>
+</html>

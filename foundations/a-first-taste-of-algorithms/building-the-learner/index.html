@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building the Learner — A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="In which eight chapters return as parts on a workbench, and the machine is assembled, and it speaks">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-8-downhill/the-parrot-exam/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/the-sweep-that-prices-everything/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Building the Learner — A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="In which eight chapters return as parts on a workbench, and the machine is assembled, and it speaks">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><span aria-current="page">Building the Learner</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms</p>
+  
+  <h1>Chapter 9: Building the Learner</h1>
+<p>✦ ✦ ✦</p>
+<p>In which eight chapters return as parts on a workbench, and the machine is assembled, and it speaks</p>
+<h2>The one missing piece</h2>
+<p>Chapter 8 left you holding the whole idea of learning and one unpaid bill. A model is a formula with knobs; training steps every knob downhill on the loss; the step direction is the gradient, a slope per knob. On the bowl, one knob, you computed that slope by hand — f′(x) = 2x. But a real model has not one knob but thousands, even billions, wired through layers of multiplication and squashing, and the loss is a single number sitting at the far end of that wiring. The bill: <em>how do you get the slope with respect to every knob at once, when the knobs are buried a dozen operations deep?</em></p>
+<p>Computing each slope separately is hopeless — billions of knobs, each needing its own derivative through the whole tangle. There has to be a way to get them all in one sweep. There is, and it is the most important algorithm in this book that you have not yet met: <strong>backpropagation</strong>. By the end of this chapter you will not have read about it. You will have <em>built</em> it — sixty lines, from nothing — and then used it to assemble a working learner that generates names of mathematicians who never existed but plausibly could have. The parts are all already on your workbench, made in earlier chapters. This chapter is assembly.</p>
+<p>And the first part requires the one Python tool this book has deliberately withheld for nine chapters.</p>
+<h2>A number that remembers how it was made</h2>
+<p>Here is the problem that forces the new tool. To push blame backward through the wiring, each number in the computation must remember three things: its <em>value</em>, the <em>other numbers it was built from</em>, and <em>how to pass blame to them</em>. A plain Python number — <code>3.0</code> — remembers only its value. It has forgotten its parents and its history. We need a number that doesn’t forget.</p>
+<p>A thing that bundles data together with behavior — a value, its parents, and a rule — is an <strong>object</strong>, and the tool for minting objects is <code>class</code>. This is why classes waited: not because they are advanced, but because nothing earlier <em>needed</em> them, and a tool introduced before its need is a tool half-understood. Backpropagation needs them. Here is the whole tool, learned on the smallest possible example:</p>
+<pre><code>class Value:
+    def __init__(self, data, parents=()):
+        self.data = data          # the number itself
+        self.grad = 0.0           # blame, filled in later by backprop
+        self._parents = set(parents)
+        self._backward = lambda: None   # how to pass blame to parents
+
+    def __add__(self, other):     # teaches Python what  a + b  means for Values
+        out = Value(self.data + other.data, (self, other))
+        def _backward():
+            self.grad += out.grad     # addition passes blame through unchanged
+            other.grad += out.grad
+        out._backward = _backward
+        return out
+</code></pre>
+<p>Read <code>class</code> as a <em>factory</em>. <code>Value(3.0)</code> builds one number-that-remembers; <code>self</code> is the object being built, and <code>self.data</code>, <code>self.grad</code>, <code>self._parents</code> are the three things it carries. The strange-looking <code>__add__</code> is Python’s hook for the <code>+</code> symbol: define it, and <code>a + b</code> for two Values produces a <em>new</em> Value that remembers its two parents — so the act of computing silently records its own history. (You met this idea of a process recording its history once before: Chapter 3’s call stack, the machine remembering paused work. Here the computation remembers its <em>construction</em>.)</p>
+<p>The line that matters most is inside <code>_backward</code>: when addition’s output receives blame (<code>out.grad</code>), it passes that blame to <em>both</em> parents unchanged. Why unchanged? Because if a + b nudges up by a hair, both a and b contributed exactly that hair — Book 2’s derivative of a sum. <strong>Every operation knows its own blame-rule</strong>, and the rule is just its derivative. Multiplication’s rule:</p>
+<pre><code>    def __mul__(self, other):
+        out = Value(self.data * other.data, (self, other))
+        def _backward():
+            self.grad += other.data * out.grad   # blame scaled by the OTHER factor
+            other.grad += self.data * out.grad
+        out._backward = _backward
+        return out
+</code></pre>
+<p>Multiplication passes blame <em>scaled by the other factor</em> — because if a·b and you wiggle a, the output moves by b times the wiggle (Book 2 again: the derivative of a·b with respect to a is b). That is the entire secret of backpropagation, hiding in plain sight: each operation, when built, tucks away a tiny function that knows how to pass blame to its parents, and that function is nothing but the operation’s derivative. Add a few more operations the same way — powers, <code>tanh</code> for squashing, <code>exp</code> and <code>log</code> for probabilities — each three lines, each just its derivative, and the engine is nearly done.</p>
+<p><img src="/foundations/a-first-taste-of-algorithms/img/fig_9_1_computation_graph.png" alt="Figure 9.1 — A number that remembers how it was made: the graph of L = (a·b + c)², each node carrying its forward value and, after the backward sweep, its share of the blame. Chapter 5's graph, now the substrate of calculus." loading="lazy"></p>
+<p><em>Figure 9.1 — A number that remembers how it was made: the graph of L = (a·b + c)², each node carrying its forward value and, after the backward sweep, its share of the blame. Chapter 5’s graph, now the substrate of calculus.</em></p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/lab-8-downhill/the-parrot-exam/"><span>Previous</span>6. The parrot exam</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/building-the-learner/the-sweep-that-prices-everything/"><span>Next</span>The sweep that prices everything</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Building the Learner"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/","headline":"Building the Learner","articleSection":"Building the Learner","inLanguage":"en","isAccessibleForFree":true,"wordCount":830,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scientific Computing — How Much Do We Actually Need?, The Invisible Trillion | The Curious Family Library</title>
+<meta name="description" content="The world-model camp also has an honest version of its own demand picture. The training compute for world models is different from the training compute…">
+<link rel="canonical" href="https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/scientific-computing/">
+<link rel="prev" href="https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/the-world-model-question/">
+<link rel="next" href="https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/the-ceiling-the-models-leave-out/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scientific Computing — How Much Do We Actually Need?, The Invisible Trillion | The Curious Family Library">
+<meta property="og:description" content="The world-model camp also has an honest version of its own demand picture. The training compute for world models is different from the training compute…">
+<meta property="og:url" content="https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/scientific-computing/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/library/">Library</a><span class="sep">›</span><a href="/library/the-invisible-trillion/">The Invisible Trillion</a><span class="sep">›</span><a href="/library/the-invisible-trillion/how-much-do-we-actually-need/">How Much Do We Actually Need?</a><span class="sep">›</span><span aria-current="page">Scientific Computing</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">The Invisible Trillion · How Much Do We Actually Need?</p>
+  <h1>Scientific Computing</h1>
+  <p>The world-model camp also has an honest version of its own demand picture. The training compute for world models is different from the training compute for language models — it requires more multimodal data, more simulation, more physics, more 3D structure. Some of this compute can run on existing hyperscale infrastructure; some of it requires different architectures. The world-model camp’s inference is mostly <em>edge</em> in the same way self-driving inference is edge — physical-world AI runs on the device that operates in the world, not in a remote data center. The total hyperscale demand from world-model AI, if that camp is right, is probably smaller than the demand the LLM-everything thesis projects.</p>
+<p>There are, then, three coexisting bets. The <em>LLM-extension bet</em> — that scaling language models, with multimodal extensions, will be enough — is what most of the current hyperscale buildout is sized for, and the major language labs (OpenAI, Anthropic, the language sides of Google and Meta) are operating on it. The <em>world-model bet</em> — that the next phase needs different architectures, data, and infrastructure — is World Labs, AMI Labs, Project Prometheus, NVIDIA’s Cosmos, the embodied-AI startups, and much of Google DeepMind. The <em>hybrid bet</em> — that the eventual buildout is a mixture sized for both — is where the large integrated players (Google, Meta, NVIDIA, Microsoft) are hedging.</p>
+<p>Honest assessment, in mid-2026: language-centered systems have, for most of the practical purposes ordinary users and most enterprises actually want, reached a state of capability that is hard to materially improve. Language tasks — writing, summarization, translation, most coding, most reasoning at human-tutorable difficulty levels — work well at the current frontier and are unlikely to dramatically improve through pure scaling. The remaining hard problems in language-centered AI are mostly <em>agentic</em> — getting models to take multi-step actions in complex environments — and <em>factual</em> — keeping the models honest about what they know versus what they’re confabulating. Substantial engineering effort is going into both, and progress is real but incremental.</p>
+<p>The harder, less-solved problems are in the world-model domain. Embodied common sense, robust physical reasoning, sample-efficient learning from real-world interaction, durable transfer between tasks in unstructured environments — these are domains where current systems still perform substantially worse than humans, and where the world-model camp’s argument that fundamentally different approaches are needed has the most traction.</p>
+<p>For the buildout, the implication is the one computing history keeps repeating: each era builds infrastructure for the workloads of its moment — mainframe, minicomputer, PC, internet, cloud — and the next era is rarely the one the last anticipated. The current hyperscale buildout is well-matched to a language-paradigm phase that, by most accounts, is approaching its useful ceiling. None of it is wasted; the language work will remain useful for much of what’s being built. But the demand projections justifying it assume the continued centrality of a paradigm that some of the field’s most credible people are betting tens of billions against — a bet far less settled than the buildout’s defenders imply.</p>
+
+<h3>Scientific Computing</h3>
+<p>Scientific applications are the most defensible category of hyperscale AI compute demand, and they are also the category that is least overhyped. The work being done is real, the compute requirements are genuine, and the value delivered is substantial.</p>
+<p>Protein structure prediction (AlphaFold and successors) requires substantial GPU compute, has produced demonstrably valuable scientific results, and continues to scale as it is applied to broader biological problems. Climate modeling, particularly AI-enhanced climate modeling that combines traditional physical simulation with learned components, is a genuine and growing user of compute. Materials science simulations using AI for property prediction and inverse design have shown real capability in discovering new compounds, alloys, and structures. Particle physics analysis at CERN and elsewhere uses AI to filter and interpret experimental data. Genomics, transcriptomics, and broader bioinformatics workloads use AI for pattern recognition, function prediction, and disease association.</p>
+<p>The aggregate footprint, however, is small — perhaps 1–3% of the compute deployed for general-purpose AI. AlphaFold’s costs, dramatic for the research groups running them, are dwarfed by the inference traffic of any one consumer AI product; the entire National Science Foundation AI-relevant computing budget is a fraction of what a hyperscaler spends on expansion in a single quarter. “Scientific applications” gets deployed rhetorically to justify the whole buildout, but it justifies a small slice and would be served just as well if the rest never happened.</p>
+
+<h3>Drug Discovery and Biotech</h3>
+<p>Closely related but worth treating separately. Drug discovery uses AI for a growing set of tasks: target identification, molecule generation, ADMET (absorption, distribution, metabolism, excretion, toxicity) prediction, protein-ligand binding affinity estimation, clinical trial optimization, and others. Major pharmaceutical companies (Pfizer, Merck, Novartis, AstraZeneca) and AI-first biotech companies (Recursion, Insitro, Generate, Insilico Medicine) have built substantial AI capabilities.</p>
+<p>The footprint is bounded, though: a major pharma’s AI spend runs in the tens to low hundreds of millions a year, and global pharmaceutical R&amp;D compute totals a few billion at most — against the hundreds of billions being deployed for general-purpose infrastructure, and increasingly run on providers’ specialized scientific offerings rather than consumer-facing AI hardware. It is a genuine positive, a small piece of the total, and routinely invoked in ways that overstate its share of the buildout.</p>
+
+<h3>Healthcare</h3>
+<p>Beyond drug discovery, healthcare AI covers diagnostic imaging analysis, electronic health record summarization, clinical decision support, patient communication automation, billing and coding automation, and a growing set of patient-facing applications.</p>
+<p>Three properties push most of it away from general-purpose hyperscale, though. Patient data under HIPAA is legally awkward to route through general cloud APIs; diagnostic support in clinical settings often can’t tolerate a cloud round-trip; and the expensive frontier-API model is mostly unaffordable for routine use. So healthcare AI, where it works, runs mostly on hospital data centers, regulated healthcare-specific clouds, or edge devices. The growth is real and substantial; the share that flows into the hyperscale buildout is small, even though healthcare is frequently invoked in the marketing.</p>
+
+<h3>Education</h3>
+<p>Personal tutoring, content generation, assessment automation, accessibility tools — education has been one of the most-discussed applications of AI, with major investments by Khan Academy (Khanmigo), Duolingo, Pearson, and many others.</p>
+<p>The footprint, done well, is modest. A tutoring app on a phone, laptop, or school-issued Chromebook can run a 4–8 billion-parameter model and deliver genuinely good outcomes; the compute per student is small. Even at the limit — every student in America tutored by AI daily — the total would be a small fraction of what’s currently being built. The promise is real, the scale required to deliver it is small, and the marketing that invokes it to justify large buildouts is overselling.</p>
+
+<h3>Finance</h3>
+<p>Financial services use AI for many things: fraud detection, risk modeling, trading signal generation, customer service, document processing, regulatory compliance, anti-money-laundering monitoring. The total compute spend is meaningful — financial services is a major customer of cloud AI services — but the bulk of it is batch processing and modest-scale inference rather than frontier-scale workloads.</p>
+<p>Algorithmic trading, which gets associated with AI in public coverage, is mostly <em>not</em> AI in the modern frontier-model sense. HFT infrastructure is dedicated and architecturally distinct — FPGAs, custom ASICs, low-latency networking, not the GPU clusters being built for AI. The trading firms (Citadel, Two Sigma, Renaissance, Jane Street, DE Shaw) run substantial AI research, but their revenue-generating infrastructure is not what the buildout is for. Finance is a moderate contributor to general-purpose demand, not a driver of it.</p>
+
+<h3>Gaming and Entertainment</h3>
+<p>Gaming AI has historically been local — NPC behavior, pathfinding, decision-making — and there is no strong technical reason for that to change. Generative AI for game content (procedurally generated levels, AI-generated character dialogue, dynamic narrative) is a real area but is mostly being implemented with local inference, because the latency and cost economics of cloud-based generative AI inside a fast-paced game do not work.</p>
+<p>Streaming entertainment — Netflix, Spotify, YouTube — uses AI extensively for recommendations and content moderation, but these workloads are batch and modest in compute. They are not driving the buildout.</p>
+<p>The most compute-intensive gaming and entertainment workload is <em>generative video and image creation</em>, used by content creators rather than embedded in games. Tools like Sora, Runway, Pika, Kling, Veo, and their successors use very substantial inference compute per minute of generated content. The user base for these tools is currently small but growing fast. If generative video becomes a major content category, the inference footprint could become significant. As of mid-2026, it is one of the legitimate sources of compute demand growth, though its scale is small relative to text inference.</p>
+
+<h3>Government and Defense</h3>
+<p>Government and defense AI workloads cover surveillance, intelligence analysis, autonomous systems, cybersecurity, logistics, citizen services, and policy analysis. The compute footprint is substantial, and much of it is run on dedicated government and defense facilities rather than commercial hyperscale infrastructure, for security reasons. The classified portion is large but largely opaque. The unclassified portion is meaningful but not dominant.</p>
+<p>The U.S. government’s spending on commercial AI cloud services is large in absolute terms but small relative to the hyperscale buildout. The Department of Defense’s AI compute spending, including its arrangements with the major hyperscalers (Microsoft, Google, Amazon, Oracle), is meaningful. None of this comes close to justifying the buildout being described as “necessary for AI.”</p>
+
+<h3>Media and Content Creation</h3>
+<p>I have saved this for last, because it is the category where the inflation hypothesis is most directly visible and where the question of <em>what we are actually getting for this compute</em> becomes hardest to answer in the affirmative.</p>
+<p>The major identifiable use case for AI in media and content creation, by inference volume, is <em>the generation of content for distribution online</em>. Articles for SEO ranking. Marketing copy. Social media posts. Email newsletters. Product descriptions. Reviews. Listicles. Blog posts. Images for thumbnails, ads, and stock photography. Videos for short-form social media. Voice narration for low-budget audio content. The vast majority of this content is generated in volumes far exceeding what humans would have produced, distributed through algorithmic platforms whose engagement metrics increasingly reward volume over quality, and consumed — to the extent it is consumed at all — by audiences whose engagement with it is shallow, brief, and often involuntary.</p>
+<hr>
+  
+  <nav class="pager">
+    <a class="p" href="/library/the-invisible-trillion/how-much-do-we-actually-need/the-world-model-question/"><span>Previous</span>The World Model Question</a>
+    <a class="n" href="/library/the-invisible-trillion/how-much-do-we-actually-need/the-ceiling-the-models-leave-out/"><span>Next</span>The Ceiling the Models Leave Out</a>
+  </nav>
+  <p class="backto"><a href="/library/the-invisible-trillion/">All 19 chapters of The Invisible Trillion</a> · <a href="/library/">Library</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Library","item":"https://meiradavidson.github.io/library/"},{"@type":"ListItem","position":3,"name":"The Invisible Trillion","item":"https://meiradavidson.github.io/library/the-invisible-trillion/"},{"@type":"ListItem","position":4,"name":"How Much Do We Actually Need?","item":"https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/"},{"@type":"ListItem","position":5,"name":"Scientific Computing"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/scientific-computing/","url":"https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/scientific-computing/","headline":"Scientific Computing","articleSection":"How Much Do We Actually Need?","inLanguage":"en","isAccessibleForFree":true,"wordCount":1703,"isPartOf":{"@type":"Book","name":"The Invisible Trillion","url":"https://meiradavidson.github.io/library/the-invisible-trillion/"}}]}</script>
+</body>
+</html>

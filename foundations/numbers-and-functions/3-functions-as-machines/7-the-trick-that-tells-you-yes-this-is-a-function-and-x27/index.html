@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.7 The trick that tells you ``yes, this is a function&#x27;&#x27; — 3 Functions as Machines, Numbers &amp; Functions | The Curious Family Library</title>
+<meta name="description" content="Remember the one unbreakable law? Same input, same output — one input can never give two different outputs. On a graph, the horizontal direction is the…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/numbers-and-functions/3-functions-as-machines/7-the-trick-that-tells-you-yes-this-is-a-function-and-x27/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/numbers-and-functions/3-functions-as-machines/5-writing-it-down-properly-sets-and-intervals/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/numbers-and-functions/3-functions-as-machines/9-running-the-machine-backwards-inverses/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3.7 The trick that tells you ``yes, this is a function&#x27;&#x27; — 3 Functions as Machines, Numbers &amp; Functions | The Curious Family Library">
+<meta property="og:description" content="Remember the one unbreakable law? Same input, same output — one input can never give two different outputs. On a graph, the horizontal direction is the…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/numbers-and-functions/3-functions-as-machines/7-the-trick-that-tells-you-yes-this-is-a-function-and-x27/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/numbers-and-functions/">Numbers &amp; Functions</a><span class="sep">›</span><a href="/foundations/numbers-and-functions/3-functions-as-machines/">3 Functions as Machines</a><span class="sep">›</span><span aria-current="page">3.7 The trick that tells you ``yes, this is a function&#x27;&#x27;</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Numbers &amp; Functions · 3 Functions as Machines</p>
+  <h1>3.7 The trick that tells you ``yes, this is a function&#x27;&#x27;</h1>
+  
+<p>Remember the one unbreakable law? Same input, same output — one input can never give two different outputs. On a graph, the horizontal direction is the input and the vertical is the output. So “one input gives two different outputs” would look like a single spot on the horizontal axis having two dots stacked above it. Which gives us a dead-simple test: The vertical line test. Sweep a vertical line across the graph. If it ever touches the graph in two places at once, it’s not a function — that single input is trying to produce two outputs.</p>
+<p>x y a function one hit x y not a function two hits × The vertical line test = same input, same output, seen sideways Figure 3.4. The vertical line test is just the “same input, same output” law seen sideways. The parabola passes (every vertical line hits once); the sideways parabola fails (a vertical line hits twice).</p>
+<p>It isn’t a separate rule to memorize. It’s the “same input, same output” law seen sideways. That’s the payoff of understanding why the law exists — the test stops being mysterious and becomes something you could have invented yourself.</p>
+<h2>3.8 Chaining machines together (composition)</h2>
+<p>Here’s where functions start to feel powerful. What if you took the output of one machine and fed it straight into another? Bolt the spout of the first onto the funnel of the second. Now you’ve built a bigger machine out of two smaller ones. Say machine one adds 1: g(x) = x + 1. And machine two squares: f(x) = x2. Drop in 3. The first machine makes it 4. The second squares that into 16. We write this chaining as f(g(x)) — read “f of g of x” — and you read it from the inside out, just like the order the number actually travels. This is called composition, and it is, quietly, one of the biggest ideas you’ll ever meet. Why so big? Because everything complicated is made of simple things chained together. A long, intimidating formula is almost always just a handful of tiny, boring machines bolted end to end. And when an artificial intelligence “thinks,” Functions as Machines x px domain x ≥0 machine jams g(x) = px x 1/x jams: divide by 0 h(x) = 1/x Figure 3.5. Two classic domain jams: √x refuses negative inputs (it jams for x &lt; 0), and 1/x jams at x = 0 where you’d divide by zero. The domain is exactly the set of inputs that don’t jam the machine.</p>
+<p>3 ADD 1 4 SQUARE 16 Figure 3.6. Composition: two machines in series. The intermediate value 4 travels from one spout to the next funnel. We write this f(g(x)) and read it inside-out. (This is the future neural-network motif — keep the visual in mind.)</p>
+<p>what it is really doing is passing a number through a staggeringly long chain of simple machines, one feeding the next, thousands deep.</p>
+<p>One warning: order matters. Squaring-then-adding-1 is a different machine from adding-1-then-squaring. Try 3 the other way: square first to get 9, then add 1 to get 10 — not 16. Exactly like putting on socks-then-shoes is not the same as shoes-then-socks.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/numbers-and-functions/3-functions-as-machines/5-writing-it-down-properly-sets-and-intervals/"><span>Previous</span>3.5 Writing it down properly: sets and intervals</a>
+    <a class="n" href="/foundations/numbers-and-functions/3-functions-as-machines/9-running-the-machine-backwards-inverses/"><span>Next</span>3.9 Running the machine backwards (inverses)</a>
+  </nav>
+  <p class="backto"><a href="/foundations/numbers-and-functions/">All 8 chapters of Numbers &amp; Functions</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Numbers & Functions","item":"https://meiradavidson.github.io/foundations/numbers-and-functions/"},{"@type":"ListItem","position":4,"name":"3 Functions as Machines","item":"https://meiradavidson.github.io/foundations/numbers-and-functions/3-functions-as-machines/"},{"@type":"ListItem","position":5,"name":"3.7 The trick that tells you ``yes, this is a function&#x27;&#x27;"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/numbers-and-functions/3-functions-as-machines/7-the-trick-that-tells-you-yes-this-is-a-function-and-x27/","url":"https://meiradavidson.github.io/foundations/numbers-and-functions/3-functions-as-machines/7-the-trick-that-tells-you-yes-this-is-a-function-and-x27/","headline":"3.7 The trick that tells you ``yes, this is a function&#x27;&#x27;","articleSection":"3 Functions as Machines","inLanguage":"en","isAccessibleForFree":true,"wordCount":543,"isPartOf":{"@type":"Book","name":"Numbers & Functions","url":"https://meiradavidson.github.io/foundations/numbers-and-functions/"}}]}</script>
+</body>
+</html>

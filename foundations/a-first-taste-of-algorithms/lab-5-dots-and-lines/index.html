@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lab 5: Dots and Lines — A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Accompanies Chapter 5. The chapter walked graphs three ways with coins and napkins; here the same three walks run on the machine. Two small tools arrive —…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-5-dots-and-lines/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-5/concept-and-counterexample/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-5-dots-and-lines/a-maze-is-a-graph-wearing-a-costume/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lab 5: Dots and Lines — A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Accompanies Chapter 5. The chapter walked graphs three ways with coins and napkins; here the same three walks run on the machine. Two small tools arrive —…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-5-dots-and-lines/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><span aria-current="page">Lab 5: Dots and Lines</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms</p>
+  
+  <h1>Lab 5: Dots and Lines</h1>
+<p>✦ ✦ ✦</p>
+<p><em>Accompanies Chapter 5. The chapter walked graphs three ways with coins and napkins; here the same three walks run on the machine. Two small tools arrive — each because the graph demands it — and a maze of your own design gets solved by ripple, by thread, and then, with one word changed, by each pretending to be the other.</em></p>
+<h2>1. A graph in the machine</h2>
+<p>The chapter’s school, verbatim — a dictionary with one entry per vertex, holding its list of neighbors:</p>
+<pre><code>hallways = {
+    "gym":       ["lobby"],
+    "lobby":     ["gym", "library", "cafeteria"],
+    "library":   ["lobby", "lab"],
+    "cafeteria": ["lobby", "lab"],
+    "lab":       ["library", "cafeteria"],
+}
+
+print(hallways["lobby"])
+</code></pre>
+<p>Notice the convention: every edge appears <em>twice</em> (gym lists lobby, lobby lists gym), because a hallway can be walked both ways. Check the dictionary against a drawing of the school — then deliberately desynchronize it (delete <code>"gym"</code> from lobby’s list but keep lobby in gym’s) and hold that thought for Break-it 1.</p>
+<h2>2. The ripple</h2>
+<p>BFS, with the queue kept honest in plain sight: the waiting line is a list, and a marker <code>head</code> points at who gets served next. Serving means moving the marker; joining means appending. Nothing is ever deleted — the line keeps its history, which will turn out to be a gift.</p>
+<p>One new tool, arriving with its debt: the <strong>set</strong>. The visited-check must be fast and duplicate-proof; a set is a bag that holds each thing at most once and answers <code>in</code> instantly. Three moves: <code>seen = set()</code>, <code>seen.add(x)</code>, <code>x in seen</code>.</p>
+<pre><code>def bfs(graph, start):
+    queue = [start]
+    head = 0
+    seen = {start}                      # a set with one thing in it
+    dist = {start: 0}                   # the notebook: vertex -&gt; hops
+    while head &lt; len(queue):
+        here = queue[head]
+        head = head + 1                 # serve the front of the line
+        for neighbor in graph[here]:
+            if neighbor not in seen:
+                seen.add(neighbor)
+                dist[neighbor] = dist[here] + 1
+                queue.append(neighbor)  # join the back of the line
+    return dist
+
+print(bfs(hallways, "gym"))
+</code></pre>
+<p>Run it and check every distance against your drawing. Then print <code>queue</code> itself after the run (add a print, or return it too): the line’s history <em>is</em> the rings, in order — read it aloud as “ring 0, ring 1, ring 2” and confirm the bureaucracy did what the chapter promised.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/problem-set-5/concept-and-counterexample/"><span>Previous</span>Concept &amp; Counterexample</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/lab-5-dots-and-lines/a-maze-is-a-graph-wearing-a-costume/"><span>Next</span>3. A maze is a graph wearing a costume</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Lab 5: Dots and Lines"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-5-dots-and-lines/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-5-dots-and-lines/","headline":"Lab 5: Dots and Lines","articleSection":"Lab 5: Dots and Lines","inLanguage":"en","isAccessibleForFree":true,"wordCount":385,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

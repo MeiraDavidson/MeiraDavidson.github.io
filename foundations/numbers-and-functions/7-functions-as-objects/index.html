@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7 Functions as Objects — Numbers &amp; Functions | The Curious Family Library</title>
+<meta name="description" content="CHAPTER 7 Functions as Objects We’ve now met every family of machine this book set out to introduce: the polynomials, the exponentials and their logarithm…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/numbers-and-functions/7-functions-as-objects/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/numbers-and-functions/6-trigonometric-functions/10-the-surprise-armed-but-not-yet-sprung/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/numbers-and-functions/7-functions-as-objects/2-symmetry-even-and-odd-properly-this-time/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7 Functions as Objects — Numbers &amp; Functions | The Curious Family Library">
+<meta property="og:description" content="CHAPTER 7 Functions as Objects We’ve now met every family of machine this book set out to introduce: the polynomials, the exponentials and their logarithm…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/numbers-and-functions/7-functions-as-objects/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/numbers-and-functions/">Numbers &amp; Functions</a><span class="sep">›</span><span aria-current="page">7 Functions as Objects</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Numbers &amp; Functions</p>
+  
+  <h1>7 Functions as Objects</h1>
+<p>CHAPTER 7 Functions as Objects We’ve now met every family of machine this book set out to introduce: the polynomials, the exponentials and their logarithm twins, and the trigonometric machines that go around. You could stop here and already know more about functions than most people ever learn.</p>
+<p>But there’s one more idea, and it’s the one that turns a collection of functions into a way of thinking — the idea that quietly powers everything in the later books, from calculus to neural networks: A function isn’t only something you use. It’s something you can hold, reshape, and build with — an object in its own right.</p>
+<p>Up to now we’ve fed numbers into machines and watched numbers come out. In this chapter we stop feeding the machines and instead pick them up, turn them over, and operate on the machines themselves. The machine becomes the raw material.</p>
+<h2>7.1 Four things you can do to any function</h2>
+<p>Take any machine f(x) — say the parabola f(x) = x2 — and watch what four simple changes do to its graph. These four moves work identically on every family. 1. Shift it up or down. Add to the output: f(x) + 3 lifts the whole graph up by 3. (You’re tampering with what comes out.)</p>
+<p>2. Shift it left or right. Add to the input: f(x + 3) shifts the graph left by 3 — not right. The machine reaches its old behavior earlier: what f used to do at x = 3 now happens at x = 0, since f(0 + 3) = f(3).</p>
+<p>3. Stretch or squash it. 2f(x) doubles every height (vertical stretch); f(2x) makes the machine race through its behavior twice as fast (horizontal squash). 4. Flip it. −f(x) reflects across the horizontal axis (upside down); f(−x) reflects across the vertical axis (mirror left-to-right).</p>
+<p>x f(x) + 3 (shifts up) x f(x + 3) (shifts LEFT surprise) x 2f(x) f(2x) outside = taller inside = narrower 2f(x) vs f(2x) x −f(x) flips down f(−x) invisible (even: same curve) −f(x) and f(−x) Outside = vertical &amp; expected Inside = horizontal &amp; opposite Figure 7.1. The four transformations on the base parabola (gray). Outside the function acts vertically and as expected; inside acts horizontally and in the opposite direction. (In panel D the parabola is even, so f(−x) is invisible.)</p>
+<p>Functions as Objects Outside the function (acting on the output) changes the graph vertically, and does what you’d expect. Inside the function (acting on the input) changes the graph horizontally, and does the opposite of what you’d expect.</p>
+<p>x slides LEFT by 3 f(x + 3) = (x + 3)2 f(x) = x2 the machine reaches its old behavior earlier Figure 7.2. The left-shift surprise, explained. f(x + 3) moves the vertex from x = 0 to x = −3 — the machine reaches its old behavior earlier, so the graph slides left.</p>
+<p>Master those two sentences and you can reshape any machine in the book. Want a sine wave twice as tall, repeating twice as fast, shifted up by one? That’s 2 sin(2x) + 1, and you can read off exactly what each piece does.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/numbers-and-functions/6-trigonometric-functions/10-the-surprise-armed-but-not-yet-sprung/"><span>Previous</span>6.10 The surprise, armed (but not yet sprung)</a>
+    <a class="n" href="/foundations/numbers-and-functions/7-functions-as-objects/2-symmetry-even-and-odd-properly-this-time/"><span>Next</span>7.2 Symmetry: even and odd, properly this time</a>
+  </nav>
+  <p class="backto"><a href="/foundations/numbers-and-functions/">All 8 chapters of Numbers &amp; Functions</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Numbers & Functions","item":"https://meiradavidson.github.io/foundations/numbers-and-functions/"},{"@type":"ListItem","position":4,"name":"7 Functions as Objects"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/numbers-and-functions/7-functions-as-objects/","url":"https://meiradavidson.github.io/foundations/numbers-and-functions/7-functions-as-objects/","headline":"7 Functions as Objects","articleSection":"7 Functions as Objects","inLanguage":"en","isAccessibleForFree":true,"wordCount":530,"isPartOf":{"@type":"Book","name":"Numbers & Functions","url":"https://meiradavidson.github.io/foundations/numbers-and-functions/"}}]}</script>
+</body>
+</html>

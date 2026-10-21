@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Function That Is Its Own Slope — Calculus I | The Curious Family Library</title>
+<meta name="description" content="Or: Why one strange number between 2 and 3 refuses to change">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/calculus-i/the-function-that-is-its-own-slope/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/calculus-i/a-toolkit-for-slopes/where-this-is-heading/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/calculus-i/the-function-that-is-its-own-slope/every-exponential-is-already-proportional-to-itself/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Function That Is Its Own Slope — Calculus I | The Curious Family Library">
+<meta property="og:description" content="Or: Why one strange number between 2 and 3 refuses to change">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/calculus-i/the-function-that-is-its-own-slope/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/calculus-i/">Calculus I</a><span class="sep">›</span><span aria-current="page">The Function That Is Its Own Slope</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Calculus I</p>
+  
+  <h1>The Function That Is Its Own Slope</h1>
+<p><em>Or: Why one strange number between 2 and 3 refuses to change</em></p>
+<blockquote>
+<p><strong>Companion notebook.</strong> Play with this chapter’s ideas — sliders, animations, and drills — in <a href="https://github.com/MeiraDavidson/math_module2/blob/main/notebooks/ch5_exponentials.ipynb"><code>notebooks/ch5_exponentials.ipynb</code></a>.</p>
+</blockquote>
+<p>By the end of this chapter you will be able to do four things.</p>
+<p>You will know what <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>e</mi><mi>x</mi></msup><annotation encoding="application/x-tex">e^x</annotation></semantics></math> is, and — more importantly — <em>why</em> the number <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>≈</mo><mn>2.718</mn></mrow><annotation encoding="application/x-tex">e \approx 2.718</annotation></semantics></math> is the natural base for an exponential, and not some friendlier-looking number like <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math> or <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>10</mn><annotation encoding="application/x-tex">10</annotation></semantics></math>.</p>
+<p>You will know that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>e</mi><mi>x</mi></msup><annotation encoding="application/x-tex">e^x</annotation></semantics></math> is its own derivative, and you will know this is not a magic trick or a coincidence to memorize. It is the <em>reason we picked <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math> in the first place</em>. We are going to go looking for a function that is its own slope, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math> is what we find.</p>
+<p>You will know how logarithms undo exponentials, and you will be able to prove — not assert, prove — that the slope of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">ln</mi><mo>&#8289;</mo></mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">\ln x</annotation></semantics></math> is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">1/x</annotation></semantics></math>.</p>
+<p>And you will be able to point all of this at the real world: money that grows, populations that explode, atoms that decay, and a drug leaving the bloodstream. By the end, “half-life” will be something you can <em>derive</em>, not something you look up.</p>
+<p>One honest warning before we start. This chapter takes a small loan. We are going to use a fact about <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math> before we have fully earned it, and I am going to tell you exactly where the loan is and exactly when we pay it back (Chapter 10, once we have integrals). Borrowing a result you are confident in, using it, and settling the debt later is not cheating. It is how working mathematicians actually move. I want you to see it done in the open instead of pretended away.</p>
+<hr>
+
+<h2>The question nobody asks first</h2>
+<p>Most books hand you <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>e</mi><mi>x</mi></msup><annotation encoding="application/x-tex">e^x</annotation></semantics></math> on a plate. Here is the function, here is its graph, here is the rule, memorize it. We are going to do the opposite. We are going to ask a question, and the number <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math> is going to be the <em>answer</em>.</p>
+<p>Here is the question. <strong>Is there a function whose rate of change is equal to itself?</strong></p>
+<p>That sounds abstract, so look at where it comes from. Three completely different situations from the real world:</p>
+<ul>
+<li><strong>Money in an account</strong> earning interest. The more money you have, the more interest you earn each year — so the rate at which the money grows is proportional to how much money is there.</li>
+<li><strong>A population</strong> of rabbits, or bacteria, with plenty of food. The more rabbits there are, the more baby rabbits appear each month — the growth rate is proportional to the current number.</li>
+<li><strong>A radioactive lump</strong>, or a drug in your blood. The more atoms (or drug molecules) are present, the more of them break down or get cleared each second — the rate of <em>decrease</em> is proportional to how much is left.</li>
+</ul>
+<p>Strip the stories away and they are all the same sentence:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">rate of change of the amount</mtext><mspace width="0.278em"></mspace><mo>=</mo><mspace width="0.278em"></mspace><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">a constant</mtext><mo stretchy="false" form="postfix">)</mo><mo>×</mo><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">the amount</mtext><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\text{rate of change of the amount} \;=\; (\text{a constant}) \times (\text{the amount}).</annotation></semantics></math></p>
+<p>In the language we have been building, if <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">N(t)</annotation></semantics></math> is the amount at time <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>, this says</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>d</mi><mi>N</mi></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo>=</mo><mi>k</mi><mspace width="0.167em"></mspace><mi>N</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{dN}{dt} = k\,N.</annotation></semantics></math></p>
+<p>This little equation is one of the most important sentences in all of science, and we will meet it again. For now, notice what it is <em>asking</em> of us. We want a function <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo stretchy="false" form="prefix">(</mo><mi>t</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">N(t)</annotation></semantics></math> whose derivative is a constant times itself. So before we can solve any of those three problems, we have to answer the bare question: what kind of function is proportional to its own slope?</p>
+<p>That is the whole chapter. Let us go find the function.</p>
+<hr>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/calculus-i/a-toolkit-for-slopes/where-this-is-heading/"><span>Previous</span>Where this is heading</a>
+    <a class="n" href="/foundations/calculus-i/the-function-that-is-its-own-slope/every-exponential-is-already-proportional-to-itself/"><span>Next</span>Every exponential is already proportional to itself</a>
+  </nav>
+  <p class="backto"><a href="/foundations/calculus-i/">All 13 chapters of Calculus I</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Calculus I","item":"https://meiradavidson.github.io/foundations/calculus-i/"},{"@type":"ListItem","position":4,"name":"The Function That Is Its Own Slope"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/calculus-i/the-function-that-is-its-own-slope/","url":"https://meiradavidson.github.io/foundations/calculus-i/the-function-that-is-its-own-slope/","headline":"The Function That Is Its Own Slope","articleSection":"The Function That Is Its Own Slope","inLanguage":"en","isAccessibleForFree":true,"wordCount":618,"isPartOf":{"@type":"Book","name":"Calculus I","url":"https://meiradavidson.github.io/foundations/calculus-i/"}}]}</script>
+</body>
+</html>

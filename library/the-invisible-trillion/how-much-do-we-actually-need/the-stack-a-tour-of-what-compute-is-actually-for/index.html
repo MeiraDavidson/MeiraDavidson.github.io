@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Stack: A Tour of What Compute Is Actually For — How Much Do We Actually Need?, The Invisible Trillion | The Curious Family Library</title>
+<meta name="description" content="Before we can ask which workloads genuinely need hyperscale data centers, we have to be clear about what the different kinds of AI compute actually do —…">
+<link rel="canonical" href="https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/the-stack-a-tour-of-what-compute-is-actually-for/">
+<link rel="prev" href="https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/what-we-actually-know-about-utilization/">
+<link rel="next" href="https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/where-the-inference-should-run/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Stack: A Tour of What Compute Is Actually For — How Much Do We Actually Need?, The Invisible Trillion | The Curious Family Library">
+<meta property="og:description" content="Before we can ask which workloads genuinely need hyperscale data centers, we have to be clear about what the different kinds of AI compute actually do —…">
+<meta property="og:url" content="https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/the-stack-a-tour-of-what-compute-is-actually-for/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/library/">Library</a><span class="sep">›</span><a href="/library/the-invisible-trillion/">The Invisible Trillion</a><span class="sep">›</span><a href="/library/the-invisible-trillion/how-much-do-we-actually-need/">How Much Do We Actually Need?</a><span class="sep">›</span><span aria-current="page">The Stack: A Tour of What Compute Is Actually For</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">The Invisible Trillion · How Much Do We Actually Need?</p>
+  <h1>The Stack: A Tour of What Compute Is Actually For</h1>
+  
+<p>Before we can ask which workloads genuinely need hyperscale data centers, we have to be clear about what the different kinds of AI compute actually do — because the jargon obscures more than it illuminates. There are three fundamentally different kinds, with very different costs and infrastructure needs.</p>
+
+<h3>Kind One: Training</h3>
+<p><em>Training</em> is the process of building a model in the first place. You take a very large amount of data — most or all of the text on the internet, or millions of images, or thousands of hours of video — and you run it through a neural network architecture many times, adjusting the network’s internal parameters at each step to improve its performance at predicting the data. Training a modern frontier model (GPT-4 class, Claude-class, Gemini-class) takes weeks to months on tens of thousands of high-end GPUs, costs tens to hundreds of millions of dollars in compute alone, and consumes a comparable amount of electricity to running a small town for the duration.</p>
+<p>Here are the actual sizes, in the unit that matters for a book about data centers, which is compute rather than money. GPT-4, trained across 2022 and 2023, took roughly 2 × 10^25 floating-point operations. The 2026 frontier — the GPT-5, Claude, and Gemini-class models being trained as I write this — sits between 10^26 and 10^27 operations, ten to fifty times larger.</p>
+<p>Put that in physical terms. Take a top-end GPU of the period, an H100 or one of its successors, which does on the order of 10^15 operations a second and realizes maybe a third of that on a real training workload. A 10^26-operation run is then something like a hundred million GPU-hours: tens of thousands of those GPUs running flat out for one to three months. xAI’s Colossus in Memphis is exactly this kind of machine — 220,000 GPUs drawing about 300 megawatts. A single frontier training run occupies a cluster on that scale, on the order of 100 to 300 megawatts for the duration, and burns through a few hundred gigawatt-hours of electricity getting there — comparable to a small city’s consumption for a year.</p>
+<p>In dollars, for anyone keeping score, that final run is a few hundred million — closer to a billion once the failed runs and research compute are counted. But the megawatts are the number that shows up in a neighborhood.</p>
+<p>Training is genuinely compute-intensive. It is the workload that justifies the existence of hyperscale GPU clusters in their current form. There is no practical way to train a frontier large language model on consumer hardware, on edge devices, or even on small enterprise clusters. The compute requirements are real, and the infrastructure required to meet them is real.</p>
+<p>But training is also <em>rare</em>. A frontier model is trained once. After it is trained, it is used — for inference — for the rest of its useful life, which is typically a year or two before it is replaced by a successor. The training compute is a fixed cost, amortized over the model’s deployment. The dominant compute cost over time is not training but inference.</p>
+<p>How rare is training? In 2026, the major AI labs each train perhaps a handful of frontier models per year. There are perhaps ten labs in the world that do frontier training (OpenAI, Anthropic, Google, Meta, xAI, DeepSeek, Mistral, a few Chinese labs, a small number of others). Each of them might do one to four major training runs per year. That’s perhaps fifty to a hundred major frontier training runs per year, globally, across all labs.</p>
+<p>Each of those runs is enormously compute-intensive, but the number of runs is small. The total compute consumed by frontier training, even across all labs, is meaningful but not the bulk of total AI compute. The IEA estimates that inference accounts for <em>80–90% of total AI computing</em> in 2026, with training representing the minority share even though it gets most of the press attention.</p>
+<p>The rarity has a physical size, too. Add up every major frontier run in a year — generously, with the big ones at the top of the range — and the world’s entire training load comes to a few gigawatts of sustained-equivalent power. That is a real number, and it is a small slice of the <em>tens</em> of gigawatts the buildout is adding: Loudoun County alone is on its way from four gigawatts to twelve. The genuinely compute-heavy part of AI is the part you do once, and globally it would fit in a corner of what is being built.</p>
+<p>There is also a category of <em>fine-tuning</em> — taking an existing trained model and adapting it to a specific task or domain. Fine-tuning is much less compute-intensive than full training, often achievable on much smaller clusters or even on individual high-end GPUs, and is the way most organizations adapt frontier models to their specific needs. Fine-tuning is increasingly being done on the edge, or on modest cloud capacity, rather than requiring hyperscale clusters.</p>
+
+<h3>Kind Two: Inference</h3>
+<p><em>Inference</em> is the process of using a trained model to do something useful. You give the model an input (a question, an image, a document) and it produces an output (an answer, a description, a summary). Each individual inference call is much smaller than a training run — milliseconds to seconds of compute, on one or a small number of GPUs.</p>
+<p>But there are billions of inference calls happening every day, and the volume is growing fast. ChatGPT alone is estimated to handle hundreds of millions of queries per day, with Claude, Gemini, and other systems contributing substantial additional volume. Inference embedded in productivity software (Microsoft Copilot, Google Workspace AI features), inference embedded in consumer apps (autocomplete, photo organization, voice assistants), inference embedded in enterprise software (customer service bots, document analysis, code completion) — all of this adds up to a vastly larger compute footprint than training.</p>
+<p>This is where the demand picture gets interesting, and where the analysis has to get specific. Because <em>not all inference is the same</em>. The compute required for inference depends critically on two things: the size of the model you’re using, and the complexity of the query you’re sending it. A small model answering a simple question is many orders of magnitude cheaper than a frontier model answering a complex one. The same task, depending on how it is architected, can require anywhere from a fraction of a milliwatt to several watts of compute on the inference side.</p>
+<p>The industry, for reasons we will examine, has substantial incentives to route inference toward the frontier-model end of this spectrum. Each frontier-model inference call generates more revenue for the company providing it. Each frontier-model inference call also consumes more compute, justifies more infrastructure buildout, and supports the narrative that compute demand is exploding. The same task done on a small local model would generate no revenue for the cloud provider and would not justify any infrastructure buildout. The route the task actually takes is, in many cases, not the route that makes economic or technical sense for the task; it is the route that makes economic sense for the <em>provider</em>. We’ll come back to this.</p>
+
+<h3>Kind Three: Specialized Compute</h3>
+<p>There is a third category that is sometimes lumped with general AI compute but is genuinely different. <em>Specialized compute</em> covers things like protein structure prediction (AlphaFold and successors), climate modeling, materials science simulations, particle physics analysis, drug discovery pipelines, and a handful of other scientific and industrial applications that require very large compute clusters but are doing something other than training or running general-purpose language models.</p>
+<p>This category has real, durable demand. The compute needs are large. The applications are valuable. The infrastructure required is genuinely similar in form to AI data centers — large numbers of GPUs, high-bandwidth interconnects, substantial power and cooling. The buildout for <em>this</em> category is justified by the science it enables, and the science is enabling real things: better drugs, better climate predictions, better understanding of how proteins fold, better materials.</p>
+<p>But this category is a small fraction of total AI infrastructure spending — a few percent, in dollar terms. AlphaFold’s footprint, dramatic as it is for what it accomplishes, is a rounding error against any one major consumer AI product. When the industry says compute demand is exploding, it is not talking about protein folding or climate models. It is talking about training and inference for general-purpose language and multimodal models, deployed against consumer and enterprise applications and monetized through subscriptions and API calls. The specialized scientific compute is real, valuable, and small. The general-purpose compute is large, mostly inference, and is what the buildout is actually for.</p>
+<hr>
+  
+  <nav class="pager">
+    <a class="p" href="/library/the-invisible-trillion/how-much-do-we-actually-need/what-we-actually-know-about-utilization/"><span>Previous</span>What We Actually Know About Utilization</a>
+    <a class="n" href="/library/the-invisible-trillion/how-much-do-we-actually-need/where-the-inference-should-run/"><span>Next</span>Where The Inference Should Run</a>
+  </nav>
+  <p class="backto"><a href="/library/the-invisible-trillion/">All 19 chapters of The Invisible Trillion</a> · <a href="/library/">Library</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Library","item":"https://meiradavidson.github.io/library/"},{"@type":"ListItem","position":3,"name":"The Invisible Trillion","item":"https://meiradavidson.github.io/library/the-invisible-trillion/"},{"@type":"ListItem","position":4,"name":"How Much Do We Actually Need?","item":"https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/"},{"@type":"ListItem","position":5,"name":"The Stack: A Tour of What Compute Is Actually For"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/the-stack-a-tour-of-what-compute-is-actually-for/","url":"https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/the-stack-a-tour-of-what-compute-is-actually-for/","headline":"The Stack: A Tour of What Compute Is Actually For","articleSection":"How Much Do We Actually Need?","inLanguage":"en","isAccessibleForFree":true,"wordCount":1452,"isPartOf":{"@type":"Book","name":"The Invisible Trillion","url":"https://meiradavidson.github.io/library/the-invisible-trillion/"}}]}</script>
+</body>
+</html>

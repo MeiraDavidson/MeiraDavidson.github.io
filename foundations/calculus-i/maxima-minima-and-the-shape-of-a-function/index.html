@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maxima, Minima, and the Shape of a Function — Calculus I | The Curious Family Library</title>
+<meta name="description" content="Or: where a curve peaks, where it bottoms out, and why some bowls have no false floors">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/calculus-i/maxima-minima-and-the-shape-of-a-function/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/calculus-i/building-a-function-from-its-derivatives/where-this-is-heading/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/calculus-i/maxima-minima-and-the-shape-of-a-function/where-extrema-hide-critical-points/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Maxima, Minima, and the Shape of a Function — Calculus I | The Curious Family Library">
+<meta property="og:description" content="Or: where a curve peaks, where it bottoms out, and why some bowls have no false floors">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/calculus-i/maxima-minima-and-the-shape-of-a-function/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/calculus-i/">Calculus I</a><span class="sep">›</span><span aria-current="page">Maxima, Minima, and the Shape of a Function</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Calculus I</p>
+  
+  <h1>Maxima, Minima, and the Shape of a Function</h1>
+<p><em>Or: where a curve peaks, where it bottoms out, and why some bowls have no false floors</em></p>
+<blockquote>
+<p><strong>Companion notebook.</strong> Play with this chapter’s ideas — sliders, animations, and drills — in <a href="https://github.com/MeiraDavidson/math_module2/blob/main/notebooks/ch8_convexity.ipynb"><code>notebooks/ch8_convexity.ipynb</code></a>.</p>
+</blockquote>
+<p>By the end of this chapter you will be able to find the highest and lowest points of a function — the single most useful thing calculus does in the real world — and you will know <em>why</em> the methods work, because you built their foundations in the last two chapters.</p>
+<p>You will locate the candidates with <strong>Fermat’s theorem</strong> (extrema hide where the slope is zero), sort them with the <strong>first-</strong> and <strong>second-derivative tests</strong>, and read a function’s curving from its <strong>second derivative</strong>. Every one of these is a consequence of the Mean Value Theorem (Chapter 6) or of Taylor’s quadratic (Chapter 7) — you are not learning new magic, you are spending what you already own.</p>
+<p>Then you will meet <strong>convex functions</strong> — the ones shaped like a single clean bowl — and prove the property that makes them the most important functions in optimization: <em>a convex function has no false floors.</em> Every place where its slope is zero is the true global minimum; there is nowhere to get stuck. That one fact is the dividing line between optimization problems that are guaranteed to work and the ones — like training a neural network — where you cross your fingers. The two-valley landscape from Chapter 9’s gradient-descent lab, where the ball settled into the wrong valley, was exactly a <em>non-convex</em> function. This chapter names the condition that rules that out.</p>
+<p>Here is the through-line. Finding a maximum or minimum is asking “where does this function turn around?” — and turning around is a statement about <em>slope</em>. So the whole subject is the derivative, read carefully. That’s why we needed the theorems first.</p>
+<hr>
+
+<h2>The problem, and why it is the whole game</h2>
+<p>A <strong>maximum</strong> is a high point of a function; a <strong>minimum</strong> is a low point. We split each into two kinds, and the difference matters enormously:</p>
+<ul>
+<li>A <strong>local</strong> maximum is a point higher than everything <em>nearby</em> — a hilltop, even if taller hills exist elsewhere.</li>
+<li>A <strong>global</strong> (or absolute) maximum is the single highest point <em>anywhere</em> on the function’s domain — the tallest hill of all.</li>
+</ul>
+<p>(Same for minima, swapping high for low.) The reason this is <em>the</em> application of calculus: almost every practical question is secretly “make this as big or as small as possible.” An engineer minimizes the material in a can. A pharmacologist finds the dose at which a drug’s effect peaks. And — the thread we’ve followed all book — a machine-learning system minimizes a <strong>loss</strong>, a single number measuring how wrong its predictions are. Learning <em>is</em> minimizing. So learning to find minima is learning, in miniature, how a model is trained. <em>(Figure 8.1: a wavy curve with two local maxima of different heights, one global maximum, two local minima, and the global minimum marked — so the local/global distinction is unmistakable.)</em></p>
+<figure>
+<img src="/foundations/calculus-i/img/file42.png" alt="Figure 8.1" loading="lazy">
+<figcaption>Figure 8.1</figcaption>
+</figure>
+<hr>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/calculus-i/building-a-function-from-its-derivatives/where-this-is-heading/"><span>Previous</span>Where this is heading</a>
+    <a class="n" href="/foundations/calculus-i/maxima-minima-and-the-shape-of-a-function/where-extrema-hide-critical-points/"><span>Next</span>Where extrema hide: critical points</a>
+  </nav>
+  <p class="backto"><a href="/foundations/calculus-i/">All 13 chapters of Calculus I</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Calculus I","item":"https://meiradavidson.github.io/foundations/calculus-i/"},{"@type":"ListItem","position":4,"name":"Maxima, Minima, and the Shape of a Function"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/calculus-i/maxima-minima-and-the-shape-of-a-function/","url":"https://meiradavidson.github.io/foundations/calculus-i/maxima-minima-and-the-shape-of-a-function/","headline":"Maxima, Minima, and the Shape of a Function","articleSection":"Maxima, Minima, and the Shape of a Function","inLanguage":"en","isAccessibleForFree":true,"wordCount":510,"isPartOf":{"@type":"Book","name":"Calculus I","url":"https://meiradavidson.github.io/foundations/calculus-i/"}}]}</script>
+</body>
+</html>

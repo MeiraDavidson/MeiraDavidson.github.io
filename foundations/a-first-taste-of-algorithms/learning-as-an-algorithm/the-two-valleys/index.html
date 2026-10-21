@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The two valleys — Learning as an Algorithm, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="On a bowl, greedy-in-continuous-space is provably perfect: one valley, every downhill road leads there. Now tilt the world. The lab’s landscape f(x) = x⁴…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/the-two-valleys/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/going-downhill/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/the-whole-loop-honestly/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The two valleys — Learning as an Algorithm, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="On a bowl, greedy-in-continuous-space is provably perfect: one valley, every downhill road leads there. Now tilt the world. The lab’s landscape f(x) = x⁴…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/the-two-valleys/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/">Learning as an Algorithm</a><span class="sep">›</span><span aria-current="page">The two valleys</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Learning as an Algorithm</p>
+  <h1>The two valleys</h1>
+  
+<p>On a bowl, greedy-in-continuous-space is provably perfect: one valley, every downhill road leads there. Now tilt the world. The lab’s landscape f(x) = x⁴ − 3x² + x has <strong>two valleys</strong> — a deep one near x = −1.30 (floor at −3.51) and a shallow one near x = 1.13 (floor at −1.07) — separated by a hilltop near x = 0.17.</p>
+<p>Start the descent at x₀ = −0.5: it walks left, settles at −1.30, the true bottom. Start at x₀ = +0.5 — a coin’s width across the hilltop — and it walks right, settles into the shallow valley, and <em>stays there at −1.07, forever</em>, reporting success. Every local test the algorithm can perform says it is finished: the ground is flat, every direction is uphill. It cannot see the better valley two units to the left, because it has never had anything but the ground under its feet.</p>
+<p><img src="/foundations/a-first-taste-of-algorithms/img/fig_8_2_two_valleys.png" alt="Figure 8.3 — Two valleys, two destinies: from −0.5 the walk finds the deep floor; from +0.5 it commits into the shallow valley and pronounces itself done. Start decides everything; the walker never knows." loading="lazy"></p>
+<p><em>Figure 8.3 — Two valleys, two destinies: from −0.5 the walk finds the deep floor; from +0.5 it commits into the shallow valley and pronounces itself done. Start decides everything; the walker never knows.</em></p>
+<p>You have seen this exact failure before, and the recognition is the point of the whole book’s architecture. The shallow valley is <strong>the grab-the-10 valley</strong>. The deep one is <strong>the 7 + 7 valley</strong>. Gradient descent at +0.5 is Sevenia’s cashier: the locally best move, committed, mortgaging a better future it never priced. Chapter 2 diagnosed the disease; Chapter 4 cured it — <em>price every branch, then choose</em> — and here is the bitter pill: <strong>the cure is unavailable.</strong> The table method needs listable questions, and a landscape’s points cannot be listed. The notebook that healed Sevenia cannot be opened on a continuum. So modern practice lives with greedy and manages its valleys the way you’d guess once you say it out loud: descend from <em>several random starts</em> and keep the best (Chapter 7’s move — when cleverness is unavailable, honest dice); jitter the steps with noise so shallow valleys can be stumbled out of; and lean on a strange empirical mercy — in the absurdly high-dimensional landscapes of real models, valleys seem to behave differently than our 1-D pictures suggest, in ways that are genuinely, actively, <em>not understood</em>. That last clause is not a textbook hedge. It is the honest edge of the field, and the deep water says more.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/going-downhill/"><span>Previous</span>Going downhill</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/the-whole-loop-honestly/"><span>Next</span>The whole loop, honestly</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Learning as an Algorithm","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/"},{"@type":"ListItem","position":5,"name":"The two valleys"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/the-two-valleys/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/the-two-valleys/","headline":"The two valleys","articleSection":"Learning as an Algorithm","inLanguage":"en","isAccessibleForFree":true,"wordCount":398,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

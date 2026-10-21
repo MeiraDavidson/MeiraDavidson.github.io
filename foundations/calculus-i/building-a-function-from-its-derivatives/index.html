@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building a Function From Its Derivatives — Calculus I | The Curious Family Library</title>
+<meta name="description" content="Or: a curve is a line, then a parabola, then a polynomial — and you choose how close">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/calculus-i/building-a-function-from-its-derivatives/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/calculus-i/the-mean-value-theorem/where-this-is-heading/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/calculus-i/building-a-function-from-its-derivatives/match-the-curvature-the-quadratic-approximation/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Building a Function From Its Derivatives — Calculus I | The Curious Family Library">
+<meta property="og:description" content="Or: a curve is a line, then a parabola, then a polynomial — and you choose how close">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/calculus-i/building-a-function-from-its-derivatives/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/calculus-i/">Calculus I</a><span class="sep">›</span><span aria-current="page">Building a Function From Its Derivatives</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Calculus I</p>
+  
+  <h1>Building a Function From Its Derivatives</h1>
+<p><em>Or: a curve is a line, then a parabola, then a polynomial — and you choose how close</em></p>
+<blockquote>
+<p><strong>Companion notebook.</strong> Play with this chapter’s ideas — sliders, animations, and drills — in <a href="https://github.com/MeiraDavidson/math_module2/blob/main/notebooks/ch7_taylor.ipynb"><code>notebooks/ch7_taylor.ipynb</code></a>.</p>
+</blockquote>
+<p>By the end of this chapter you will be able to take almost any smooth function and replace it, near a point, with a <strong>polynomial</strong> that matches it as closely as you like — first matching its value, then its slope, then its curvature, then bending after bending — and you will know <em>exactly how wrong</em> the replacement is.</p>
+<p>You will derive the one formula that runs the whole machine: the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-th coefficient is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mstyle displaystyle="true"><mfrac><mrow><msup><mi>f</mi><mrow><mo stretchy="false" form="prefix">(</mo><mi>k</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>k</mi><mi>!</mi></mrow></mfrac></mstyle><annotation encoding="application/x-tex">\dfrac{f^{(k)}(a)}{k!}</annotation></semantics></math>. Not memorize it — <em>derive</em> it, in two lines, and see why the factorial is forced to be there.</p>
+<p>You will build the <strong>Taylor series of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>e</mi><mi>x</mi></msup><annotation encoding="application/x-tex">e^x</annotation></semantics></math></strong> and watch it fall out as inevitable — <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><mi>x</mi><mo>+</mo><mstyle displaystyle="false"><mfrac><msup><mi>x</mi><mn>2</mn></msup><mrow><mn>2</mn><mi>!</mi></mrow></mfrac></mstyle><mo>+</mo><mstyle displaystyle="false"><mfrac><msup><mi>x</mi><mn>3</mn></msup><mrow><mn>3</mn><mi>!</mi></mrow></mfrac></mstyle><mo>+</mo><mi>⋯</mi></mrow><annotation encoding="application/x-tex">1 + x + \tfrac{x^2}{2!} + \tfrac{x^3}{3!} + \cdots</annotation></semantics></math> — precisely <em>because</em> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>e</mi><mi>x</mi></msup><annotation encoding="application/x-tex">e^x</annotation></semantics></math> is its own derivative, the property you fought for in Chapter 5. You’ll do the same for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mstyle displaystyle="false"><mfrac><mn>1</mn><mrow><mn>1</mn><mo>−</mo><mi>x</mi></mrow></mfrac></mstyle><annotation encoding="application/x-tex">\tfrac{1}{1-x}</annotation></semantics></math> (and meet an old friend, the geometric series) and for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">ln</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>+</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\ln(1+x)</annotation></semantics></math>.</p>
+<p>And you will meet the <strong>remainder</strong> — the honest accounting of the error — which turns out to be the Mean Value Theorem of Chapter 6, taken one derivative deeper. That is not a coincidence; it is the whole reason we proved the MVT first.</p>
+<p>Here is the theme, and it is the third floor of a building we’ve been climbing. Continuity (Chapter 2) forced a function’s <em>values</em> to behave. Differentiability and the MVT (Chapter 6) forced its <em>first derivative</em> to behave. Now: a function smooth enough to be differentiated again and again is pinned down, near a point, by its <strong>whole tower of derivatives</strong> at that one point. A function is — almost — nothing more than its derivatives, reassembled. “Almost” is the most interesting word in that sentence, and by the end you’ll know exactly what it’s hiding.</p>
+<hr>
+
+<h2>The tangent line was only a first draft</h2>
+<p>Back in Chapter 3 you learned that near a point <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>, a function is well approximated by its tangent line:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>≈</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>−</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">f(x) \approx f(a) + f&#39;(a)(x - a).</annotation></semantics></math></p>
+<p>Look at <em>why</em> this line, of all lines, is the right one. It agrees with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math> in two ways at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>: same height (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(a)</annotation></semantics></math>) and same slope (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f&#39;(a)</annotation></semantics></math>). Among every line you could draw through the point <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>,</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(a, f(a))</annotation></semantics></math>, the tangent is the one whose slope matches — and that makes it the one that hugs the curve most tightly right there. This is worth saying in plain words, because it is one of the central ideas of all of calculus and the bridge to everything you’ll do later:</p>
+<blockquote>
+<p><strong>The derivative is the best linear approximation.</strong> To know <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math> near <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math> to first order is to know its tangent line.</p>
+</blockquote>
+<p>But a line is straight, and almost nothing in the world is. The tangent is excellent in a tiny window around <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math> and then peels away, because it cannot <strong>bend</strong> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math> does. So the obvious move is: let our approximation bend too. <em>(Figure 7.1: a curve with its tangent line, the two hugging near <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math> and visibly separating as you move away.)</em></p>
+<figure>
+<img src="/foundations/calculus-i/img/file35.png" alt="Figure 7.1" loading="lazy">
+<figcaption>Figure 7.1</figcaption>
+</figure>
+<hr>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/calculus-i/the-mean-value-theorem/where-this-is-heading/"><span>Previous</span>Where this is heading</a>
+    <a class="n" href="/foundations/calculus-i/building-a-function-from-its-derivatives/match-the-curvature-the-quadratic-approximation/"><span>Next</span>Match the curvature: the quadratic approximation</a>
+  </nav>
+  <p class="backto"><a href="/foundations/calculus-i/">All 13 chapters of Calculus I</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Calculus I","item":"https://meiradavidson.github.io/foundations/calculus-i/"},{"@type":"ListItem","position":4,"name":"Building a Function From Its Derivatives"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/calculus-i/building-a-function-from-its-derivatives/","url":"https://meiradavidson.github.io/foundations/calculus-i/building-a-function-from-its-derivatives/","headline":"Building a Function From Its Derivatives","articleSection":"Building a Function From Its Derivatives","inLanguage":"en","isAccessibleForFree":true,"wordCount":541,"isPartOf":{"@type":"Book","name":"Calculus I","url":"https://meiradavidson.github.io/foundations/calculus-i/"}}]}</script>
+</body>
+</html>

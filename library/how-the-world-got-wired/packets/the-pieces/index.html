@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Pieces — Packets, How the World Got Wired | The Curious Family Library</title>
+<meta name="description" content="The problem with sending messages through a distributed network was that messages — especially long ones — were not really designed to find their own way.…">
+<link rel="canonical" href="https://meiradavidson.github.io/library/how-the-world-got-wired/packets/the-pieces/">
+<link rel="prev" href="https://meiradavidson.github.io/library/how-the-world-got-wired/packets/why-the-phone-system-was-fragile/">
+<link rel="next" href="https://meiradavidson.github.io/library/how-the-world-got-wired/packets/it-wont-work/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Pieces — Packets, How the World Got Wired | The Curious Family Library">
+<meta property="og:description" content="The problem with sending messages through a distributed network was that messages — especially long ones — were not really designed to find their own way.…">
+<meta property="og:url" content="https://meiradavidson.github.io/library/how-the-world-got-wired/packets/the-pieces/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/library/">Library</a><span class="sep">›</span><a href="/library/how-the-world-got-wired/">How the World Got Wired</a><span class="sep">›</span><a href="/library/how-the-world-got-wired/packets/">Packets</a><span class="sep">›</span><span aria-current="page">The Pieces</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">How the World Got Wired · Packets</p>
+  <h1>The Pieces</h1>
+  
+<figure>
+<img src="/library/how-the-world-got-wired/img/file4.png" alt="Paul Baran&#39;s three sketches (c.1964). The third — the distributed mesh — became the internet." loading="lazy">
+<figcaption>
+Paul Baran’s three sketches (c.1964). The third — the distributed mesh — became the internet.
+</figcaption>
+</figure>
+<p>The problem with sending messages through a distributed network was that messages — especially long ones — were not really designed to find their own way. A voice call was a continuous stream. You couldn’t just split it across many paths.</p>
+<p>Baran thought about this for a long time, and eventually he had a strange idea.</p>
+<p>What if you didn’t send the message as one stream? What if you chopped it into small pieces — short, fixed-size chunks — and sent each piece <em>separately</em> through the network, by whatever path was fastest at that moment? Each piece would have its own little label saying <em>I’m piece number 3 of 47, going to this address.</em> At the other end, the pieces would arrive — maybe out of order, having taken different routes — and the receiving computer would put them back together.</p>
+<p>If the network was damaged, the pieces would just go around the damage. If one piece got lost, you could ask for it to be re-sent without having to re-send the whole message. If one path was busy, the pieces would take a different path. The network would be alive and adaptive in a way that the old phone system, with its fixed circuits, could never be.</p>
+<p>Baran called these little pieces <em>message blocks</em>. The name didn’t stick. In a few years, an Englishman would come up with a better word, and we’ll get to him in a minute. But the idea — the thing the word names — was Paul Baran’s, in 1960, in an office in Santa Monica, while he was trying to figure out how to keep America talking after a nuclear war.</p>
+<p>He spent the next four years filling out the idea. He wrote an enormous report — eleven volumes long — called <em>On Distributed Communications</em>. He sent it to the Air Force. He sent it to engineers all over the country. He went to talk to the people who would actually have to build the thing.</p>
+<p>The people who would actually have to build the thing were AT&amp;T, the giant company that ran the American phone system. And AT&amp;T said no.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/library/how-the-world-got-wired/packets/why-the-phone-system-was-fragile/"><span>Previous</span>Why the Phone System Was Fragile</a>
+    <a class="n" href="/library/how-the-world-got-wired/packets/it-wont-work/"><span>Next</span>“It Won’t Work”</a>
+  </nav>
+  <p class="backto"><a href="/library/how-the-world-got-wired/">All 24 chapters of How the World Got Wired</a> · <a href="/library/">Library</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Library","item":"https://meiradavidson.github.io/library/"},{"@type":"ListItem","position":3,"name":"How the World Got Wired","item":"https://meiradavidson.github.io/library/how-the-world-got-wired/"},{"@type":"ListItem","position":4,"name":"Packets","item":"https://meiradavidson.github.io/library/how-the-world-got-wired/packets/"},{"@type":"ListItem","position":5,"name":"The Pieces"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/library/how-the-world-got-wired/packets/the-pieces/","url":"https://meiradavidson.github.io/library/how-the-world-got-wired/packets/the-pieces/","headline":"The Pieces","articleSection":"Packets","inLanguage":"en","isAccessibleForFree":true,"wordCount":374,"isPartOf":{"@type":"Book","name":"How the World Got Wired","url":"https://meiradavidson.github.io/library/how-the-world-got-wired/"}}]}</script>
+</body>
+</html>

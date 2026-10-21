@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Two halves are better than one smaller — The Procedure That Calls Itself, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Hanoi’s recursion shrank the problem by one — n hands work to n − 1 — and paid an exponential bill. Watch what happens to the bill when a recursion…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-procedure-that-calls-itself/two-halves-are-better-than-one-smaller/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-procedure-that-calls-itself/why-this-is-not-cheating/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-3/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Two halves are better than one smaller — The Procedure That Calls Itself, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Hanoi’s recursion shrank the problem by one — n hands work to n − 1 — and paid an exponential bill. Watch what happens to the bill when a recursion…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-procedure-that-calls-itself/two-halves-are-better-than-one-smaller/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/the-procedure-that-calls-itself/">The Procedure That Calls Itself</a><span class="sep">›</span><span aria-current="page">Two halves are better than one smaller</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · The Procedure That Calls Itself</p>
+  <h1>Two halves are better than one smaller</h1>
+  
+<p>Hanoi’s recursion shrank the problem by <em>one</em> — n hands work to n − 1 — and paid an exponential bill. Watch what happens to the bill when a recursion shrinks the problem by <em>half</em>.</p>
+<p>The arena is sorting, and the lab equipment is a deck of cards. Take twenty, shuffled. The recursive plan, called <strong>merge sort</strong>:</p>
+<blockquote>
+<p>split the pile into two halves;
+sort each half — <em>somehow</em> (you already know what fills in “somehow”);
+<strong>merge</strong> the two sorted halves into one sorted pile.</p>
+</blockquote>
+<p>The floor: a pile of one card is already sorted.</p>
+<p>Everything rests on the merge, so do it with your hands until it is boring. Two sorted piles face-up before you. The smallest card of all must be one of the two top cards — <em>compare just those two</em>, take the smaller, repeat. The merge never searches; it only ever looks at two cards and takes one, so combining piles of total size n costs about n cheap steps. Sortedness, once again, is purchased information — each pile’s order is exactly what lets one glance speak for the whole pile. (Chapter 1 said structure is bought in advance and collected later. Merge sort is a <em>pyramid scheme of that idea that actually works</em>: each level’s sortedness is collected from the level below, all the way down to single cards, which are sorted for free.)</p>
+<h2>Adding up the tree</h2>
+<p>Now the bill. Currency declared: element-steps, one for each time the merge touches a card. The cost C(n) of sorting n cards:</p>
+<p><strong>C(n) = 2·C(n/2) + n</strong> — two half-size sorts, plus a merge that touches everything once.</p>
+<p>Don’t solve it with algebra. <em>Draw</em> it. The full job sits at the top: one box of size n. It opens into two boxes of size n/2; each opens into two of size n/4; and so on down to single cards. Now add up the merging cost <strong>level by level</strong>:</p>
+<ul>
+<li>Top level: one merge touching n cards → <strong>n</strong>.</li>
+<li>Next: two merges, each touching n/2 → <strong>n</strong>.</li>
+<li>Next: four merges of n/4 each → <strong>n</strong>.</li>
+<li>… every level totals exactly <strong>n</strong>.</li>
+</ul>
+<p>So the whole bill is <em>n per level, times the number of levels</em> — and the number of levels is how many times n halves down to 1, which Chapter 1 taught you to name: log₂ n. Total:</p>
+<p><strong>C(n) ≈ n log₂ n.</strong></p>
+<p>A 7th grader’s arithmetic — sizes halve, level-sums stay flat, count the levels — and it tames one of the most important recurrences in computer science. Feel the number: a million cards cost about 1,000,000 × 20 = twenty million element-steps. Your laptop does that between two frames of a video. The obvious ways of sorting (Chapter 6 examines them, and people, sorting cards) cost around n² — for a million cards, a <em>trillion</em> steps, fifty thousand times more. Same problem, same answer, and the entire difference is that one procedure halves and the other plods. Hanoi shrank by one and hit the exponential wall; merge sort shrank by half and got the logarithm’s discount. <em>Where a recursion sends its work is the whole game.</em></p>
+<p><img src="/foundations/a-first-taste-of-algorithms/img/fig_3_1_mergesort_tree.png" alt="Figure 3.1 — The merge sort tree: every level's merges touch n cards, and there are log₂ n levels." loading="lazy"></p>
+<p><em>Figure 3.1 — The merge sort tree: every level’s merges touch n cards, and there are log₂ n levels.</em></p>
+<blockquote>
+<h3>Deeper water: the master theorem</h3>
+<p>The level-by-level tree settles any recurrence of the shape T(n) = a·T(n/b) + nᶜ — a subproblems, each a b-th of the size, plus nᶜ of local work — and the tree always tells one of exactly three stories. Compute the level sums: each level down, the work is multiplied by a/bᶜ.</p>
+<ul>
+<li><strong>a/bᶜ &lt; 1:</strong> level sums <em>shrink</em> geometrically; the top level dominates; T(n) ≈ nᶜ.</li>
+<li><strong>a/bᶜ = 1:</strong> level sums <em>stay flat</em> (merge sort’s case, a = b = 2, c = 1); total = work-per-level × levels; T(n) ≈ nᶜ log n.</li>
+<li><strong>a/bᶜ &gt; 1:</strong> level sums <em>grow</em>; the bottom — the swarm of tiny cases — dominates; T(n) ≈ n^(log_b a).</li>
+</ul>
+<p>That is the master theorem, minus rounding ceremony: every divide-and-conquer bill is a geometric series, and a geometric series is ruled by its ratio. (Book 2’s geometric series chapter was for this, among other things.) Test yourself: binary search is T(n) = 1·T(n/2) + 1 — which story, and does it agree with Chapter 1?</p>
+<h3>Deeper water: the stack is a physical object</h3>
+<p>When a procedure calls itself, the machine must remember every unfinished outer job while the inner one runs — Hanoi at n = 5 is paused, mid-sentence, while n = 4 works, which is paused while n = 3 works… The machine keeps these suspended jobs in a pile called the <strong>call stack</strong>: each call goes on top, finishes, comes off. (A pile where only the top is touched will get a name and a starring role in Chapter 5.) In Lab 3 you print each call indented by its depth, and the stack stops being a metaphor — you watch it breathe in and out on the screen.</p>
+<p>The stack is physical: it occupies real memory, and it is finite. Python ships with roughly a thousand levels of patience, after which it raises <code>RecursionError</code> rather than drown — you will trigger this on purpose in the lab. And the floor-and-shrink rule from this chapter has a thunderclap hiding behind it: checking that <em>your</em> recursion terminates is usually easy, but could a procedure exist that inspects <strong>any</strong> program and decides whether it terminates? Hold the question; it is the Epilogue’s, and the answer is the strangest theorem you will ever meet.</p>
+</blockquote>
+<h2>Where this leaves us</h2>
+<p>A procedure may legitimately call itself, provided it always calls <em>downward</em> and the descent has a <em>floor</em> — and its correctness proof is then induction wearing work clothes. Its cost obeys a recurrence, and the recurrence is read from a tree: Hanoi’s tree doubles forever sideways and bills 2ⁿ − 1; merge sort’s tree halves quickly downward and bills n log₂ n. Same idea, opposite fates, decided entirely by where the recursion sends its work.</p>
+<p>But there is a third fate, stranger than either, and Chapter 4 walks into it. Some recursions send their work <em>to the same place twice</em> — ask a perfectly honest question, and then, having forgotten the answer, ask it again, and again, millions of times. Such a recursion is correct, exponential, and <em>wasting almost all of its effort on repetition</em> — which means the exponential wall, for once, is made of paper. The fix is one idea: write the answers down. And the first thing the fix will do, in that chapter, is walk back into Sevenia and make change for 14 — correctly.</p>
+<hr>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>'This chapter is useless watched and easy played.' Get three coins and do three disks. At what moment did the pattern appear?</li><li>To free the big disk you must first move the tower above it — and you already know how. Why is handing a problem to a smaller version of yourself so strange and so powerful?</li><li>A correct, exponential recursion wasting almost all its effort on repetition means 'the exponential wall, for once, is made of paper.' What is the difference between a wall and a paper wall?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/the-procedure-that-calls-itself/why-this-is-not-cheating/"><span>Previous</span>Why this is not cheating</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/problem-set-3/"><span>Next</span>Problem Set 3</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"The Procedure That Calls Itself","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-procedure-that-calls-itself/"},{"@type":"ListItem","position":5,"name":"Two halves are better than one smaller"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-procedure-that-calls-itself/two-halves-are-better-than-one-smaller/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-procedure-that-calls-itself/two-halves-are-better-than-one-smaller/","headline":"Two halves are better than one smaller","articleSection":"The Procedure That Calls Itself","inLanguage":"en","isAccessibleForFree":true,"wordCount":1111,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

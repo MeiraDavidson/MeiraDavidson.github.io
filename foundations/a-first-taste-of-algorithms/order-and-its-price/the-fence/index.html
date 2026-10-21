@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The fence — Order, and Its Price, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Now the chapter’s summit. Merge sort pays about n log₂ n. Could something pay less — n, say, or n√(log n), some uninvented cleverness? For algorithms that…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/order-and-its-price/the-fence/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/order-and-its-price/the-halver-returns/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/order-and-its-price/dodging-the-fence/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The fence — Order, and Its Price, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Now the chapter’s summit. Merge sort pays about n log₂ n. Could something pay less — n, say, or n√(log n), some uninvented cleverness? For algorithms that…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/order-and-its-price/the-fence/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/order-and-its-price/">Order, and Its Price</a><span class="sep">›</span><span aria-current="page">The fence</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Order, and Its Price</p>
+  <h1>The fence</h1>
+  
+<p>Now the chapter’s summit. Merge sort pays about n log₂ n. Could something pay less — n, say, or n√(log n), some uninvented cleverness? For algorithms that sort by <strong>comparing</strong> items (asking “is a before b?” and branching on the answer — every method in this chapter, and nearly every sort ever run), the answer is <em>no</em>, and here is the proof.</p>
+<p>Watch any comparison sort run on three items a, b, c, and write down only the questions it asks and the answers it receives. The algorithm’s entire experience of the input is that sequence of yes/no answers — it never sees the items, only the comparisons. So the algorithm <em>is</em> a tree of questions: each internal node a comparison, each branch an answer, and at each leaf the algorithm must stop and announce the sorted order.</p>
+<p><img src="/foundations/a-first-taste-of-algorithms/img/fig_6_2_decision_tree.png" alt="Figure 6.3 — The decision tree for sorting three items: six orderings demand six leaves, and a tree of questions with six leaves cannot be shallower than three." loading="lazy"></p>
+<p><em>Figure 6.3 — The decision tree for sorting three items: six orderings demand six leaves, and a tree of questions with six leaves cannot be shallower than three.</em></p>
+<p>Two facts about this tree, and the theorem falls out:</p>
+<p><strong>Fact 1: the tree needs n! leaves.</strong> Three items can arrive in 3! = 6 different orderings; n items in n! = n × (n−1) × … × 1 orderings. Two <em>different</em> orderings must reach <em>different</em> leaves — because if they followed identical answer-paths to the same leaf, the algorithm would announce the same rearrangement for both, and the announcement would be wrong for at least one of them (the Diamond makes you nail this, and it is the proof’s load-bearing wall). Distinct situations, distinct leaves: where have you heard this? Chapter 1’s deep water, counting answer-sequences in the guessing game. Same architecture, larger building.</p>
+<p><strong>Fact 2: a tree of depth d has at most 2ᵈ leaves.</strong> Each question at most doubles the possibilities — count them level by level, the tree’s geometry permits no more.</p>
+<p>Therefore 2ᵈ ≥ n!, that is, <strong>d ≥ log₂(n!)</strong> — some input forces at least log₂(n!) comparisons, <em>whatever the strategy</em>. And log₂(n!) is genuinely of the n log n shape: even without fancy estimates, the first n/2 factors of n! are each at least n/2, so n! ≥ (n/2)^(n/2) and log₂(n!) ≥ (n/2)·log₂(n/2) — the n log n shape with a humble constant, by arithmetic a 7th grader does. (The deep water sharpens the constant with Stirling; for n = 1,024, log₂(n!) ≈ 8,769 against merge sort’s ≈ 10,240 — the fence and the algorithm nearly touching.)</p>
+<p>Sit with what was just proved, because it is a different <em>kind</em> of sentence than this book has mostly produced. Not “this algorithm costs n log n” but: <strong>no comparison sort, invented or uninvented, run on any machine, ever beats Θ(n log n) in the worst case.</strong> The proof never examined an algorithm. It counted <em>distinguishable situations</em> against <em>information per question</em> and fenced in every strategy at once — the move Chapter 1 made on a guessing game, now closing one of the great questions of the subject. Merge sort, the recursion from Chapter 3 you traced with playing cards, is standing essentially <em>against the fence</em>. There was almost nothing left to find, and now you know why.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/order-and-its-price/the-halver-returns/"><span>Previous</span>The halver returns</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/order-and-its-price/dodging-the-fence/"><span>Next</span>Dodging the fence</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Order, and Its Price","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/order-and-its-price/"},{"@type":"ListItem","position":5,"name":"The fence"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/order-and-its-price/the-fence/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/order-and-its-price/the-fence/","headline":"The fence","articleSection":"Order, and Its Price","inLanguage":"en","isAccessibleForFree":true,"wordCount":529,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

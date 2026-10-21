@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3. Searching for what isn’t there — Lab 1: Counting Steps, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Searching real lists, you don’t know in advance whether the target is present. Predict before running: what does the program in §2 print if you search for…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-1-counting-steps/searching-for-what-isnt-there/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-1-counting-steps/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-1-counting-steps/the-race/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3. Searching for what isn’t there — Lab 1: Counting Steps, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Searching real lists, you don’t know in advance whether the target is present. Predict before running: what does the program in §2 print if you search for…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-1-counting-steps/searching-for-what-isnt-there/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/lab-1-counting-steps/">Lab 1: Counting Steps</a><span class="sep">›</span><span aria-current="page">3. Searching for what isn’t there</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Lab 1: Counting Steps</p>
+  <h1>3. Searching for what isn’t there</h1>
+  
+<p>Searching real lists, you don’t know in advance whether the target is present. Predict before running: what does the program in §2 print if you search for <code>"Euler"</code>?</p>
+<p>It prints nothing. The loop ends, no message, silence. The program is not wrong, exactly — but silence is a poor answer to a question. Here is a version that always answers, packaged so we can reuse it:</p>
+<pre><code>def linear_search(items, target):
+    steps = 0
+    for item in items:
+        steps = steps + 1
+        if item == target:
+            return steps
+    return -steps  # negative means: not found, after this many steps
+</code></pre>
+<p>Two new things. <code>def</code> gives the procedure a name so we can call it on any list and any target without retyping it — that is all <code>def</code> means for now, though in Chapter 3 the ability to name a procedure will turn out to be more powerful than it looks. And <code>return</code> hands a value back to whoever called. Try it:</p>
+<pre><code>print(linear_search(["Ada", "Erdos", "Gauss", "Hua"], "Hua"))
+print(linear_search(["Ada", "Erdos", "Gauss", "Hua"], "Euler"))
+</code></pre>
+<p>Notice what a miss costs: the <em>full</em> n steps, every time. You cannot declare something absent until you have looked everywhere. Absence is expensive — unless the list has structure. Which brings us to the chapter’s main event.</p>
+<h2>4. Binary search, measured</h2>
+<p>Chapter 1’s claim: if the list is <em>sorted</em>, you can find any target — or certify its absence — by repeatedly checking the middle and discarding half. Here is the claim as a program:</p>
+<pre><code>def binary_search(items, target):   # items must be sorted
+    steps = 0
+    lo = 0
+    hi = len(items) - 1
+    while lo &lt;= hi:
+        steps = steps + 1
+        mid = (lo + hi) // 2        # // divides and drops the remainder
+        if items[mid] == target:
+            return steps
+        if items[mid] &lt; target:
+            lo = mid + 1            # target can only be in the right half
+        else:
+            hi = mid - 1            # ... or the left half
+    return -steps
+</code></pre>
+<p>Fifteen lines, and three small novelties: <code>items[mid]</code> picks out the entry at position <code>mid</code> (positions start at 0); <code>len(items)</code> is the length of the list; and <code>while</code> is a loop that runs as long as its condition holds — here, as long as the stretch between <code>lo</code> and <code>hi</code> hasn’t shrunk to nothing. The pair <code>lo, hi</code> marks the region where the target could still be. Every pass through the loop, one of the last two lines cuts that region roughly in half. That sentence is the entire algorithm; the code is just the sentence with its sleeves rolled up.</p>
+<p>Before running anything, do one search entirely by hand. Take the sorted list 2, 5, 8, 13, 21, 34, 55, 89 and search for 21, writing down <code>lo</code>, <code>hi</code>, and <code>mid</code> at every step. Then run the code and check that the machine agrees with your hand. If it doesn’t, one of you is wrong, and finding out which is the best exercise in this lab.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/lab-1-counting-steps/"><span>Previous</span>Lab 1: Counting Steps</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/lab-1-counting-steps/the-race/"><span>Next</span>5. The race</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Lab 1: Counting Steps","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-1-counting-steps/"},{"@type":"ListItem","position":5,"name":"3. Searching for what isn’t there"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-1-counting-steps/searching-for-what-isnt-there/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-1-counting-steps/searching-for-what-isnt-there/","headline":"3. Searching for what isn’t there","articleSection":"Lab 1: Counting Steps","inLanguage":"en","isAccessibleForFree":true,"wordCount":498,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

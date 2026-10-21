@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Clock and the Lever — Will you live to 120? | The Curious Family Library</title>
+<meta name="description" content="Epigenetic clocks are the best measure of biological aging we have — which is exactly why they are the most dangerous place to push.">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-clock-and-the-lever/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-counting-problem/what-the-mouse-wont-tell-you/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-clock-and-the-lever/how-you-build-a-clock-out-of-regression/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Clock and the Lever — Will you live to 120? | The Curious Family Library">
+<meta property="og:description" content="Epigenetic clocks are the best measure of biological aging we have — which is exactly why they are the most dangerous place to push.">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-clock-and-the-lever/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/the-hundred-and-twenty-question/">Will you live to 120?</a><span class="sep">›</span><span aria-current="page">The Clock and the Lever</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Will you live to 120?</p>
+  <h1>Chapter 2 · The Clock and the Lever</h1>
+  
+<p><em>Epigenetic clocks are the best measure of biological aging we have — which is exactly why they are the most dangerous place to push.</em></p>
+
+<p><strong>Companion notebook · Chapter 2.</strong> <em>Build Your Own Epigenetic Clock (simulated + real Hannum data)</em> — open it in Google Colab and build it yourself: <a href="https://colab.research.google.com/github/MeiraDavidson/biology_aging/blob/main/notebooks/build-your-own-epigenetic-clock.ipynb">Open in Colab →</a></p>
+
+<h3>Is there a better clock?</h3>
+<p>We left the last chapter with a complaint and a question. The complaint: telomere length is a low-resolution clock — noisy, single-tissue, weak for any one person. The question: is there a better one? A measurement that tracks how old you really are, tightly enough to be worth acting on?</p>
+<p>There is, and the way it was found is a good story about what happens when you let a machine look for a pattern instead of guessing one.</p>
+<p>For decades the assumption was that aging would look different in every tissue — that your skin and your liver and your brain were each running their own private clock, so any “biological age” measurement would have to be built tissue by tissue. In 2013 a researcher named Steve Horvath, working largely on his own and for a long time, did something almost stubborn. He gathered DNA methylation data — a kind of chemical annotation on the genome we will get to in a moment — from thousands of human samples spanning dozens of tissue types, all of known age, and asked a computer to find a single mathematical formula that would read someone’s age off that chemical pattern, in <em>any</em> tissue at once.</p>
+<p>It worked far better than it had any right to. One formula, the same few hundred sites with the same fixed weights, predicted chronological age across nearly every human tissue and cell type — blood, brain, breast, kidney, even some tumors — with a median error of only three to four years and correlations approaching 0.95 to 0.97 (performance varies somewhat by tissue and cohort). There was, it turned out, a kind of universal aging signature written in methylation, the same in your kidney and your skin, that nobody had designed and few had anticipated. The result was good enough that it was initially met with skepticism — partly because no one expected a single clock to work across so many different tissues, and on the reasonable grounds that biology is rarely that clean.</p>
+<p>That formula is the <strong>Horvath clock</strong>, and the family of measurements it launched — <em>epigenetic clocks</em> — are the most accurate biological-age estimators we have. This chapter is about how they work, because they are the clearest example in the whole book of artificial intelligence doing real biology: a clock built entirely by machine learning out of high-dimensional data. And it is about the trap that comes free with them — a trap that is the same one from the last chapter, but sharper, because this time the predictor is not weak and noisy. It is precise. And precision, as we will see, makes the temptation far worse.</p>
+
+<h3>What a methylation mark is</h3>
+<p>To read the clock you have to know what it reads. The substrate is <strong>DNA methylation</strong>, and the first thing to be precise about is the word <em>epigenetic</em>, because it is one of the most abused words in popular science.</p>
+<p>An epigenetic change is a change in how a gene is <em>used</em> — switched on, switched off, read loudly or quietly — that is passed down when a cell divides, but that does <em>not</em> alter the DNA sequence itself. Same letters, different annotation. The sequence is the text; the epigenome is the markup — the highlighting and the margin notes that tell the cell which passages to read and which to skip. This is how one genome builds two hundred different cell types: a neuron and a liver cell carry identical DNA and behave nothing alike, because different genes are annotated on and off in each. (Be careful with “inherited” here — we mean inherited from a cell to its daughter cells when it divides, which is the kind that matters for a clock. Inheritance across whole organisms, parent to child, is a separate and much more contested topic.)</p>
+<p>DNA methylation is the best-understood of these marks. Chemically, it is the addition of a small methyl group to a cytosine — the C of the four DNA letters — turning it into 5-methylcytosine. In mammals this happens overwhelmingly where a C sits directly next to a G along one strand, a spot written <strong>CpG</strong> (the “p” is the phosphate linking them). There are roughly 28 million CpG sites in the human genome, and each one, in a given cell, is either methylated or not. Methylation in a gene’s promoter or regulatory region often reduces its expression; loss of it often lets the gene speak more freely — though, as the rest of this chapter will stress, some methylation marks regulate genes directly while others may simply <em>mark</em> a broader cellular state without controlling anything themselves. Crucially, the mark is written and erased by dedicated enzymes — the DNMT family writes methylation (and copies the pattern onto new DNA when a cell divides, which is what makes it heritable through division), and the TET family removes it. So methylation is not graffiti the cell can’t control. It is a managed, reversible, enzymatically maintained layer of information sitting on top of the sequence.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/the-hundred-and-twenty-question/the-counting-problem/what-the-mouse-wont-tell-you/"><span>Previous</span>What the mouse won’t tell you</a>
+    <a class="n" href="/foundations/the-hundred-and-twenty-question/the-clock-and-the-lever/how-you-build-a-clock-out-of-regression/"><span>Next</span>How you build a clock out of regression</a>
+  </nav>
+  <p class="backto"><a href="/foundations/the-hundred-and-twenty-question/">All 10 chapters of Will you live to 120?</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Will you live to 120?","item":"https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/"},{"@type":"ListItem","position":4,"name":"The Clock and the Lever"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-clock-and-the-lever/","url":"https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-clock-and-the-lever/","headline":"The Clock and the Lever","articleSection":"The Clock and the Lever","inLanguage":"en","isAccessibleForFree":true,"wordCount":906,"isPartOf":{"@type":"Book","name":"Will you live to 120?","url":"https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/"}}]}</script>
+</body>
+</html>

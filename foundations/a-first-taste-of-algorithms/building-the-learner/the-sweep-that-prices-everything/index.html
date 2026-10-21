@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The sweep that prices everything — Building the Learner, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="The operations record history as the computation runs forward. One sweep then prices every knob backward — and the sweep is built entirely from earlier…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/the-sweep-that-prices-everything/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/from-engine-to-learner/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The sweep that prices everything — Building the Learner, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="The operations record history as the computation runs forward. One sweep then prices every knob backward — and the sweep is built entirely from earlier…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/the-sweep-that-prices-everything/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/building-the-learner/">Building the Learner</a><span class="sep">›</span><span aria-current="page">The sweep that prices everything</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Building the Learner</p>
+  <h1>The sweep that prices everything</h1>
+  
+<p>The operations record history as the computation runs forward. One sweep then prices every knob backward — and the sweep is built entirely from earlier chapters. Watch the curriculum reassemble:</p>
+<p>The recorded history is a <strong>graph</strong> — Chapter 5 — with each Value a vertex and an edge to each parent. To pass blame correctly, you must process each node only <em>after</em> everything that depends on it, which means visiting the graph in reverse of a careful ordering: a depth-first traversal — Chapter 5’s thread, which was Chapter 3’s recursion — laying the nodes in dependency order, then walked backward.</p>
+<pre><code>    def backward(self):
+        order = []
+        visited = set()
+        def build(v):                  # depth-first, Chapter 5 exactly
+            if v not in visited:
+                visited.add(v)
+                for parent in v._parents:
+                    build(parent)
+                order.append(v)
+        build(self)
+
+        self.grad = 1.0                # the loss blames itself fully
+        for v in reversed(order):      # walk backward; each node blames its parents
+            v._backward()
+</code></pre>
+<p>That is backpropagation, complete. Seed the final output with blame 1.0 (the loss is fully responsible for itself), then walk the recorded graph backward; at each node, fire the little blame-rule that operation tucked away, and watch blame flow from the single loss number out to every knob that touched it. One forward computation records the graph; one backward walk prices the entire graph. The billion-knob bill from Chapter 8 is paid in a single sweep — and the sweep is just DFS over a graph of remembered operations, every piece of it built in a chapter you have already done.</p>
+<p>There is even a ghost of Chapter 4 here, if you look: when one Value feeds <em>several</em> later operations, blame arrives from each, and the <code>+=</code> in every rule <em>accumulates</em> it — the multivariable chain rule, which says a knob’s total influence is the sum of its influences along every path it affects. Summing a quantity over all the paths that contribute to it: that is linearity, Chapter 7’s workhorse, doing the bookkeeping one final time.</p>
+<blockquote>
+<h3>A human moment</h3>
+<p>Backpropagation was discovered, forgotten, and rediscovered for two decades before the world noticed. The core idea — reverse-mode differentiation — appears in a Finnish master’s thesis by Seppo Linnainmaa in 1970, with no mention of neural networks; it surfaces in Paul Werbos’s 1974 Harvard PhD thesis as a way to train them, and is largely ignored. Only in 1986, when David Rumelhart, Geoffrey Hinton, and Ronald Williams published it with compelling experiments, did the field finally absorb that this one algorithm made training deep networks <em>practical</em> — and even then, a long winter followed before the data and the machines caught up to the idea. Hinton would share the 2018 Turing Award and, in 2024, a Nobel Prize in Physics. The pattern is Chapter 5’s Dijkstra and Chapter 2’s Borůvka once more, sharpened to a point: the algorithm that now consumes a measurable fraction of the world’s electricity sat in plain sight, in published theses, for sixteen years, because the <em>idea</em> was ready before the world that needed it. You are building, in an afternoon, the thing three fields walked past for a generation.</p>
+</blockquote>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/building-the-learner/"><span>Previous</span>Building the Learner</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/building-the-learner/from-engine-to-learner/"><span>Next</span>From engine to learner</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Building the Learner","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/"},{"@type":"ListItem","position":5,"name":"The sweep that prices everything"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/the-sweep-that-prices-everything/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/the-sweep-that-prices-everything/","headline":"The sweep that prices everything","articleSection":"Building the Learner","inLanguage":"en","isAccessibleForFree":true,"wordCount":519,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

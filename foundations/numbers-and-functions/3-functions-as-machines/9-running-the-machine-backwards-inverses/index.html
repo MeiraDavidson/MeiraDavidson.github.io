@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.9 Running the machine backwards (inverses) — 3 Functions as Machines, Numbers &amp; Functions | The Curious Family Library</title>
+<meta name="description" content="Some machines can be undone. The add-5 machine takes 3 to 8. Is there a machine that takes 8 back to 3? Of course — the subtract-5 machine. We say…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/numbers-and-functions/3-functions-as-machines/9-running-the-machine-backwards-inverses/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/numbers-and-functions/3-functions-as-machines/7-the-trick-that-tells-you-yes-this-is-a-function-and-x27/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/numbers-and-functions/4-polynomials-factoring-and-the-quadratic-formula/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3.9 Running the machine backwards (inverses) — 3 Functions as Machines, Numbers &amp; Functions | The Curious Family Library">
+<meta property="og:description" content="Some machines can be undone. The add-5 machine takes 3 to 8. Is there a machine that takes 8 back to 3? Of course — the subtract-5 machine. We say…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/numbers-and-functions/3-functions-as-machines/9-running-the-machine-backwards-inverses/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/numbers-and-functions/">Numbers &amp; Functions</a><span class="sep">›</span><a href="/foundations/numbers-and-functions/3-functions-as-machines/">3 Functions as Machines</a><span class="sep">›</span><span aria-current="page">3.9 Running the machine backwards (inverses)</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Numbers &amp; Functions · 3 Functions as Machines</p>
+  <h1>3.9 Running the machine backwards (inverses)</h1>
+  
+<p>Some machines can be undone. The add-5 machine takes 3 to 8. Is there a machine that takes 8 back to 3? Of course — the subtract-5 machine. We say subtract-5 is the inverse of add-5: the “undo” button.</p>
+<p>3 ADD 5 8 8 SUB 5 3 undo works 3 −3 SQUARE 9 which input? can’t undo Figure 3.7. An inverse is an undo button. Add-5 and subtract-5 reverse each other perfectly. But squaring sends both 3 and −3 to 9 — so running it backwards from 9 can’t decide which input to return. It threw information away.</p>
+<p>But here’s the catch. Look again at the squaring machine. It sends 3 to 9. It also sends −3 to 9. So if I tell you the output was 9 and ask you to run the machine backwards, you’re stuck. Was the original input 3, or −3? You genuinely cannot tell. The machine threw away a piece of information (the sign), and no undo button can recover what’s been thrown away.</p>
+<p>A machine can be run backwards only if it never sends two different inputs to the same output. The moment two inputs collide into one output, the machine has destroyed the information needed to reverse it.</p>
+<p>Notice that’s the opposite worry from the vertical line test. There we asked “does one input give two outputs?” (never allowed). Here we ask “do two inputs give one output?” (allowed in general, but exactly what blocks an inverse). Two different questions — and you now understand both from first principles. Functions as Machines</p>
+<h2>3.10 Where we are now</h2>
+<p>We started with a single picture — a machine with a funnel and a spout — and pulled almost everything from it: • a function is a reliable machine: same input, same output; • the domain is what it will accept, the range what it can produce — both writable in set-builder or interval notation; • the graph is the whole machine laid flat; • the vertical line test is just the one law seen sideways; • composition chains simple machines into complicated ones — the secret behind everything from long formulas to artificial intelligence; • an inverse is an undo button, which exists only when the machine hasn’t thrown information away.</p>
+<p>Everything from here on is about specific machines — polynomials, exponentials and logarithms, trig functions, and finally the strange numbers that let the squareroot machine accept negatives at last. They’re not a zoo of formulas to memorize. They’re just particular machines, and you already understand what a machine is. That’s the hard part, and you’ve done it.</p>
+<p>Things worth thinking about 1. The squaring machine sends both 3 and −3 to 9. Can you think of another machine that sends two different inputs to the same output? Now can you think of a machine that never does this — where every output comes from exactly one input?</p>
+<p>2. We said order matters in composition: add-1-then-square gave 16, but squarethen-add-1 gave 10.</p>
+<p>Find two machines where the order doesn’t matter.</p>
+<p>(They’re rarer than you’d think. What’s special about the ones you found?) 3. The graph of a full circle fails the vertical line test, so a circle isn’t a function. But the top half of a circle passes. Why? And what does that tell you about cutting a “non-function” into pieces that are functions?</p>
+<p>4. (Looking ahead.) The squaring machine can’t be undone because it can’t decide between 3 and −3. But what if we only ever allowed positive inputs — what if we narrowed the domain so the machine never sees both? Could it be undone then? (This little trick turns out to matter a lot later.) Problems to work Problem 1 — Read the machine, and write it down properly.</p>
+<p>For each machine, work out its domain and range, in interval notation. Say out loud what would make each one jam, then translate that into brackets. (a) f(x) = x + 7 (b) g(x) = 1 x−2 (c) h(x) = √ x −4 (For (b): what input jams it? Your domain will be a union of two pieces. For (c): the thing under the root can’t go negative — so how small can x be, and does that smallest value get a square bracket or a parenthesis?)</p>
+<p>Problem 2 — Chain them, both ways.</p>
+<p>Let f(x) = 2x and g(x) = x + 3. (a) Compute f(g(5)) — add 3 first, then double. (b) Compute g(f(5)) — double first, then add 3. (c) You get two different answers. Write one sentence explaining why the order changed the result. ⋆Teach it — explain it to someone Problem 3 — Teach it (the inverse idea). Find someone who hasn’t thought about this, and pose them a puzzle: “I have a machine. I put in a secret number, and out came 9. The machine squares its input. What was my secret number?” Let them sit with it until they notice the trap — that it could have been 3 or −3, with no way to be sure. Then explain why this is exactly the reason the squaring machine has no undo button. If you can make someone else feel the ambiguity, you understand inverses better than a definition could ever give you.</p>
+<p>Going further ⋆Teach it — explain it to someone Problem 4 — Teach it (domain jams). Pick the machine g(x) = 1 x−2 and explain to a family member, in plain words, why you’re allowed to put in x = 100 or x = −7 but not x = 2. Have them try x = 2 on a calculator and watch it complain. The idea to land: a domain isn’t a rule someone made up — it’s just “the inputs that don’t break the machine.” Problem 5 — Evaluate carefully.</p>
+<p>For f(x) = x2 −3x + 1, compute f(0), f(2), f(−1), and f(1 2). (Substitute, then evaluate — every time. Watch the signs on f(−1).)</p>
+<p>Functions as Machines Problem 6 — Match the graph to its rule.</p>
+<p>Without plotting carefully, decide which of these can possibly be the graph of a function of x, using the vertical line test in your head: (a) a straight vertical line; (b) a horizontal line; (c) a “V” shape; (d) a full circle; (e) the letter “S” lying on its side. For each “no,” name one input that would have two outputs. Problem 7 — [challenge] Build the inverse.</p>
+<p>The machine f(x) = 2x + 6 can be undone. Find its inverse machine f−1 — the one that takes any output back to the input that produced it. (Hint: f doubles then adds 6; undo those two steps in reverse order — subtract 6 first, then halve. Write f−1(x) as a formula, then test it: feed f(5) into f−1 and confirm you get 5 back.)</p>
+<p>Problem 8 — [challenge] When does narrowing the domain rescue an inverse?</p>
+<p>The squaring machine has no inverse because 3 and −3 collide on 9. Suppose we forbid negative inputs — restrict the domain to [0, ∞). (a) Explain why the machine now can be undone. (b) What is the undo machine? (c) Why is this exactly why √ is defined to give only the positive root? (This is a preview of a trick used constantly with trig functions later.)</p>
+<p>Problem 9 — [challenge] Compose three.</p>
+<p>Let a(x) = x + 1, b(x) = 2x, and c(x) = x2. Work out a(b(c(2))) by travelling inside-out (do c first). Then compute c(b(a(2))) and confirm it’s different. Finally, describe in words the single combined machine a(b(c(x))) as a formula in x. (This is how a three-layer “network” processes a number — you’re hand-running a tiny one.)</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/numbers-and-functions/3-functions-as-machines/7-the-trick-that-tells-you-yes-this-is-a-function-and-x27/"><span>Previous</span>3.7 The trick that tells you ``yes, this is a function&#x27;&#x27;</a>
+    <a class="n" href="/foundations/numbers-and-functions/4-polynomials-factoring-and-the-quadratic-formula/"><span>Next</span>4 Polynomials, Factoring, and the Quadratic Formula</a>
+  </nav>
+  <p class="backto"><a href="/foundations/numbers-and-functions/">All 8 chapters of Numbers &amp; Functions</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Numbers & Functions","item":"https://meiradavidson.github.io/foundations/numbers-and-functions/"},{"@type":"ListItem","position":4,"name":"3 Functions as Machines","item":"https://meiradavidson.github.io/foundations/numbers-and-functions/3-functions-as-machines/"},{"@type":"ListItem","position":5,"name":"3.9 Running the machine backwards (inverses)"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/numbers-and-functions/3-functions-as-machines/9-running-the-machine-backwards-inverses/","url":"https://meiradavidson.github.io/foundations/numbers-and-functions/3-functions-as-machines/9-running-the-machine-backwards-inverses/","headline":"3.9 Running the machine backwards (inverses)","articleSection":"3 Functions as Machines","inLanguage":"en","isAccessibleForFree":true,"wordCount":1287,"isPartOf":{"@type":"Book","name":"Numbers & Functions","url":"https://meiradavidson.github.io/foundations/numbers-and-functions/"}}]}</script>
+</body>
+</html>

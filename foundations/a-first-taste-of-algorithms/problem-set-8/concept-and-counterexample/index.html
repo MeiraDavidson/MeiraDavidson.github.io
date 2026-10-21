@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept &amp; Counterexample — Problem Set 8, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="3.1 Claim: “gradient descent finds the minimum of any function if you run it long enough.” Refute three ways with this chapter’s own objects: a landscape…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-8/concept-and-counterexample/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-8/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-8/diamond/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Concept &amp; Counterexample — Problem Set 8, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="3.1 Claim: “gradient descent finds the minimum of any function if you run it long enough.” Refute three ways with this chapter’s own objects: a landscape…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-8/concept-and-counterexample/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/problem-set-8/">Problem Set 8</a><span class="sep">›</span><span aria-current="page">Concept &amp; Counterexample</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Problem Set 8</p>
+  <h1>Concept &amp; Counterexample</h1>
+  
+<p><strong>3.1</strong> Claim: “gradient descent finds the minimum of any function if you run it long enough.” Refute three ways with this chapter’s own objects: a landscape where it provably converges to the wrong place; a starting point on the two-valley landscape where it never moves at all (find it exactly — what equation does that point satisfy, and is it a minimum?); and a stride for which it diverges on even the friendliest bowl.</p>
+<p><strong>3.2</strong> Claim: “smaller learning rates are always safer, so when in doubt, shrink η.” Half true. State the half that’s true (what catastrophe does shrinking rule out, by the Diamond’s law?) and refute the “always safer” half with a budget argument: with 100 steps allowed on the bowl from x₀ = 2, compare where η = 0.001 and η = 0.25 each end up. Safety from explosion is not safety from failure; name the failure mode the timid stride commits.</p>
+<p><strong>3.3</strong> Claim: “nearest neighbor doesn’t really learn — it just memorizes.” Defend <em>both</em> sides with one lab measurement each: the sense in which the claim is exactly right (which score is always perfect, and why is that score therefore worthless?), and the sense in which it’s wrong (which score can nonetheless be genuinely good, and what does that prove transferred?). Conclude with the sentence this chapter would write on the matter.</p>
+<p><strong>3.4</strong> Claim: “with squared loss, one wildly wrong example among a thousand barely matters — it’s just one term in an average.” Compute the refutation: examples (1, 1), (2, 2), (3, 3) plus the typo (1, 100). Find the best slope with and without the typo (use 1.3’s gradient set to zero, or argue directly), and report how far one liar dragged the line. Then connect: which of the <em>three honest reasons for squaring</em> from the chapter is also this vulnerability’s cause, and what does the trade-off teach about choosing losses?</p>
+<p><strong>3.5</strong> Claim: “the train/test split is bureaucracy — if the model fits all available data well, it has learned the pattern.” Build the counterexample in miniature: invent a learner (nearest neighbor will do) and a dataset where the training score is perfect, the test score is coin-flip, and <em>you</em> can say exactly what the learner actually “learned.” (Hint: label your points by a fair coin and see what perfect memorization of noise looks like under honest examination.)</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/problem-set-8/"><span>Previous</span>Problem Set 8</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/problem-set-8/diamond/"><span>Next</span>Diamond</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Problem Set 8","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-8/"},{"@type":"ListItem","position":5,"name":"Concept & Counterexample"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-8/concept-and-counterexample/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-8/concept-and-counterexample/","headline":"Concept & Counterexample","articleSection":"Problem Set 8","inLanguage":"en","isAccessibleForFree":true,"wordCount":396,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Search — How the World Got Wired | The Curious Family Library</title>
+<meta name="description" content="In the spring of 1995, a 21-year-old PhD student named Sergey Brin was asked to give a tour of Stanford University to a 22-year-old prospective PhD…">
+<link rel="canonical" href="https://meiradavidson.github.io/library/how-the-world-got-wired/search/">
+<link rel="prev" href="https://meiradavidson.github.io/library/how-the-world-got-wired/what-survived/google-watching/">
+<link rel="next" href="https://meiradavidson.github.io/library/how-the-world-got-wired/search/better-than-anything-else/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Search — How the World Got Wired | The Curious Family Library">
+<meta property="og:description" content="In the spring of 1995, a 21-year-old PhD student named Sergey Brin was asked to give a tour of Stanford University to a 22-year-old prospective PhD…">
+<meta property="og:url" content="https://meiradavidson.github.io/library/how-the-world-got-wired/search/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/library/">Library</a><span class="sep">›</span><a href="/library/how-the-world-got-wired/">How the World Got Wired</a><span class="sep">›</span><span aria-current="page">Search</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">How the World Got Wired</p>
+  <h1>Chapter 14 — Search</h1>
+  
+<p>In the spring of 1995, a 21-year-old PhD student named Sergey Brin was asked to give a tour of Stanford University to a 22-year-old prospective PhD student named Larry Page. Both were studying computer science. Both were unusually smart. Both were the children of professors. Both had unusually strong opinions about almost everything, including each other.</p>
+<p>The tour did not go well. They argued, all afternoon, about almost everything they saw. They disagreed about the design of buildings. They disagreed about the ranking of academic departments. They disagreed about the weather. Years later, both of them remembered the day as one of the most irritating they had ever spent.</p>
+<p>Page came to Stanford anyway. The next year, when he was looking for a research project for his dissertation, the person he kept arguing with most was, somehow, Brin. They had started, despite themselves, to become friends.</p>
+<p>The research project Page eventually chose was very strange. It had no obvious application. It involved studying, in detail, the structure of links on the World Wide Web.</p>
+<p>That research project became, in five years, the most valuable business idea since the discovery of advertising itself.</p>
+
+<h3>A Simple Idea About Importance</h3>
+<p>This is what Page was thinking about in 1996.</p>
+<p>The World Wide Web, by then, had grown from Tim Berners-Lee’s first server in 1990 to about a hundred thousand pages. (Today, it has hundreds of billions.) Every page was full of <em>links</em> — those clickable bits of underlined text that take you from one page to another. Page realized something that nobody else had taken seriously: every link on the web was, in a quiet way, a <em>vote.</em></p>
+<p>When the author of one web page chose to link to another web page, they were saying — without saying — <em>this other page is worth reading.</em> They were vouching for it. They had no reason to link to something useless. So a page that was linked to by many other pages was probably, on average, a more important page than one nobody bothered to link to.</p>
+<p>This was already a useful observation. But Page went one step further, and the next step turned out to be the magic step.</p>
+<p>Page noticed that not all votes should count the same. A link from an extremely important page — say, the home page of the <em>New York Times,</em> or a major university — should count for more than a link from some unknown blogger that nobody had ever heard of. The vote of an important page was worth more than the vote of an unimportant page.</p>
+<p>But how do you decide which pages are important? Well — by the same rule. Important pages are the ones that <em>other</em> important pages link to.</p>
+<p>This sounds, when you first read it, like nonsense. You are defining importance in terms of itself. <em>A page is important if important pages link to it.</em> It feels like you’ve made the question harder, not easier. How can you ever start? You don’t know which pages are important until you know which pages are important.</p>
+<p>The answer, beautifully, turns out to be that you can solve this problem with mathematics — specifically, with a kind of mathematics called <em>linear algebra</em> that you will probably study, if you decide to, in a few years. You can model the entire web as an enormous grid of numbers, where each row and column is a page and each cell records which pages link to which other pages. You can ask the math a question that boils down to: <em>find the set of “importance scores” for all the pages that is consistent with itself.</em> And, almost magically, the math finds you an answer. It produces a single number for every page on the web — a score of importance that fits together with all the other scores.</p>
+<p>Page called the algorithm — partly after himself, partly after the idea that it ranked <em>pages</em> — <em>PageRank.</em></p>
+<p>He and Brin built a search engine using it. Their search engine, when you typed in a question, would not just find every page that contained your words. It would find them all, and then <em>rank</em> them, putting the pages with the highest PageRank scores at the top. So the first result you saw was, mathematically, the most important page on the web that contained what you were looking for.</p>
+<p>It was a small idea, in a sense. Just counting links, with a twist. But it produced results that were dramatically better than the search engines that had existed before it.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/library/how-the-world-got-wired/what-survived/google-watching/"><span>Previous</span>Google, Watching</a>
+    <a class="n" href="/library/how-the-world-got-wired/search/better-than-anything-else/"><span>Next</span>Better Than Anything Else</a>
+  </nav>
+  <p class="backto"><a href="/library/how-the-world-got-wired/">All 24 chapters of How the World Got Wired</a> · <a href="/library/">Library</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Library","item":"https://meiradavidson.github.io/library/"},{"@type":"ListItem","position":3,"name":"How the World Got Wired","item":"https://meiradavidson.github.io/library/how-the-world-got-wired/"},{"@type":"ListItem","position":4,"name":"Search"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/library/how-the-world-got-wired/search/","url":"https://meiradavidson.github.io/library/how-the-world-got-wired/search/","headline":"Search","articleSection":"Search","inLanguage":"en","isAccessibleForFree":true,"wordCount":763,"isPartOf":{"@type":"Book","name":"How the World Got Wired","url":"https://meiradavidson.github.io/library/how-the-world-got-wired/"}}]}</script>
+</body>
+</html>

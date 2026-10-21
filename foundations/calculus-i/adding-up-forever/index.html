@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adding Up Forever — Calculus I | The Curious Family Library</title>
+<meta name="description" content="Or: when does an infinite sum settle to a number — and where do Taylor’s series really live?">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/calculus-i/adding-up-forever/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/calculus-i/the-fundamental-theorem-of-calculus/where-this-is-heading/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/calculus-i/adding-up-forever/the-one-sum-you-can-compute-exactly-the-geometric-series/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Adding Up Forever — Calculus I | The Curious Family Library">
+<meta property="og:description" content="Or: when does an infinite sum settle to a number — and where do Taylor’s series really live?">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/calculus-i/adding-up-forever/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/calculus-i/">Calculus I</a><span class="sep">›</span><span aria-current="page">Adding Up Forever</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Calculus I</p>
+  
+  <h1>Adding Up Forever</h1>
+<p><em>Or: when does an infinite sum settle to a number — and where do Taylor’s series really live?</em></p>
+<blockquote>
+<p><strong>Companion notebook.</strong> Play with this chapter’s ideas — sliders, animations, and drills — in <a href="https://github.com/MeiraDavidson/math_module2/blob/main/notebooks/ch12_series.ipynb"><code>notebooks/ch12_series.ipynb</code></a>.</p>
+</blockquote>
+<p>This is the last chapter, and it finishes a story that started in the first. In Chapter 1 you learned what it means for a <em>sequence</em> of numbers to close in on a limit. In Chapter 7 you wrote functions as infinite sums of powers — Taylor series — and used them freely, while quietly stepping over a hard question: <em>what does it even mean to add infinitely many things, and when is the answer a finite number?</em> This chapter answers it, and in doing so ties the whole book into a single knot.</p>
+<p>By the end you will know what an <strong>infinite series</strong> is (the limit of its partial sums — pure Chapter 1), which famous sums converge and which famously don’t, and <strong>two principles</strong> for telling them apart: <strong>comparison</strong> (trap your sum between sums you understand) and the <strong>integral test</strong> (weigh your sum against an area — the rectangle-and-curve picture that has run through this entire book). And you will finally pin down the thing Chapter 7 left vague: the precise interval where each Taylor series is actually allowed to equal its function — its <strong>radius of convergence</strong>.</p>
+<p>A word on spirit before we start. A typical course buries this topic under a dozen named tests to be memorized and matched to problems like keys to locks. We will not do that. There are really just two ideas here — <em>compare to something known</em>, and <em>compare to an area</em> — and almost everything else is those two ideas wearing costumes. Learn the two, and you can rederive the rest.</p>
+<hr>
+
+<h2>What it means to add infinitely many numbers</h2>
+<p>You cannot actually perform infinitely many additions. So, exactly as with every infinite process in this book, we don’t — we add <em>finitely</em> many and take a limit. Given a list <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>a</mi><mn>1</mn></msub><mo>,</mo><msub><mi>a</mi><mn>2</mn></msub><mo>,</mo><msub><mi>a</mi><mn>3</mn></msub><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">a_1, a_2, a_3, \ldots</annotation></semantics></math>, form the <strong>partial sums</strong></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mn>1</mn></msub><mo>=</mo><msub><mi>a</mi><mn>1</mn></msub><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>S</mi><mn>2</mn></msub><mo>=</mo><msub><mi>a</mi><mn>1</mn></msub><mo>+</mo><msub><mi>a</mi><mn>2</mn></msub><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>S</mi><mn>3</mn></msub><mo>=</mo><msub><mi>a</mi><mn>1</mn></msub><mo>+</mo><msub><mi>a</mi><mn>2</mn></msub><mo>+</mo><msub><mi>a</mi><mn>3</mn></msub><mo>,</mo><mspace width="1.0em"></mspace><mi>…</mi><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>S</mi><mi>N</mi></msub><mo>=</mo><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><msub><mi>a</mi><mi>n</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">S_1 = a_1,\quad S_2 = a_1 + a_2,\quad S_3 = a_1 + a_2 + a_3,\quad \ldots,\quad S_N = \sum_{n=1}^N a_n.</annotation></semantics></math></p>
+<p>These partial sums form a <em>sequence</em> — and we already know, from Chapter 1, what it means for a sequence to converge. So:</p>
+<blockquote>
+<p><strong>An infinite series</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><mi>∞</mi></msubsup><msub><mi>a</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">\displaystyle\sum_{n=1}^\infty a_n</annotation></semantics></math> <strong>converges</strong> to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math> if its sequence of partial sums <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>S</mi><mi>N</mi></msub><annotation encoding="application/x-tex">S_N</annotation></semantics></math> converges to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>. If the partial sums have no limit, the series <strong>diverges</strong>.</p>
+</blockquote>
+<p>That’s the whole definition, and notice it contains nothing new: <em>series convergence is sequence convergence of partial sums.</em> The infinite sum <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mo>+</mo><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>4</mn></mfrac></mstyle><mo>+</mo><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>8</mn></mfrac></mstyle><mo>+</mo><mi>⋯</mi></mrow><annotation encoding="application/x-tex">\tfrac12 + \tfrac14 + \tfrac18 + \cdots</annotation></semantics></math> converges to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math> because its partial sums <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="false"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mo>,</mo><mstyle displaystyle="false"><mfrac><mn>3</mn><mn>4</mn></mfrac></mstyle><mo>,</mo><mstyle displaystyle="false"><mfrac><mn>7</mn><mn>8</mn></mfrac></mstyle><mo>,</mo><mstyle displaystyle="false"><mfrac><mn>15</mn><mn>16</mn></mfrac></mstyle><mo>,</mo><mi>…</mi></mrow><annotation encoding="application/x-tex">\tfrac12, \tfrac34, \tfrac78, \tfrac{15}{16}, \ldots</annotation></semantics></math> climb toward <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math> — the staircase of Chapter 1, now built from a running total. <em>(Figure 12.1: the partial sums of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∑</mo><msup><mn>2</mn><mrow><mi>−</mi><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\sum 2^{-n}</annotation></semantics></math> plotted as a sequence of dots climbing toward the line <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">y=1</annotation></semantics></math>.)</em></p>
+<figure>
+<img src="/foundations/calculus-i/img/file64.png" alt="Figure 12.1" loading="lazy">
+<figcaption>Figure 12.1</figcaption>
+</figure>
+<hr>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/calculus-i/the-fundamental-theorem-of-calculus/where-this-is-heading/"><span>Previous</span>Where this is heading</a>
+    <a class="n" href="/foundations/calculus-i/adding-up-forever/the-one-sum-you-can-compute-exactly-the-geometric-series/"><span>Next</span>The one sum you can compute exactly: the geometric series</a>
+  </nav>
+  <p class="backto"><a href="/foundations/calculus-i/">All 13 chapters of Calculus I</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Calculus I","item":"https://meiradavidson.github.io/foundations/calculus-i/"},{"@type":"ListItem","position":4,"name":"Adding Up Forever"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/calculus-i/adding-up-forever/","url":"https://meiradavidson.github.io/foundations/calculus-i/adding-up-forever/","headline":"Adding Up Forever","articleSection":"Adding Up Forever","inLanguage":"en","isAccessibleForFree":true,"wordCount":491,"isPartOf":{"@type":"Book","name":"Calculus I","url":"https://meiradavidson.github.io/foundations/calculus-i/"}}]}</script>
+</body>
+</html>

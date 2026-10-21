@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A number called wrong — Learning as an Algorithm, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Classification copies labels; the other half of learning predicts numbers — tomorrow’s temperature, a house’s price, a test score from hours studied. Here…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/a-number-called-wrong/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/going-downhill/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A number called wrong — Learning as an Algorithm, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Classification copies labels; the other half of learning predicts numbers — tomorrow’s temperature, a house’s price, a test score from hours studied. Here…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/a-number-called-wrong/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/">Learning as an Algorithm</a><span class="sep">›</span><span aria-current="page">A number called wrong</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Learning as an Algorithm</p>
+  <h1>A number called wrong</h1>
+  
+<p>Classification copies labels; the other half of learning <strong>predicts numbers</strong> — tomorrow’s temperature, a house’s price, a test score from hours studied. Here the examples are pairs (x, y), and the learner is a formula with adjustable knobs. Take the simplest: predict y as w·x, one knob, the slope w. Which w is <em>best</em>?</p>
+<p>The move that unlocks everything: define wrongness as a <strong>number</strong>. For a candidate w, measure each example’s miss — prediction minus truth — square it, and average over all examples:</p>
+<p><strong>L(w) = average of (w·xᵢ − yᵢ)²</strong></p>
+<p>This is a <strong>loss function</strong>, and pause on what just happened, because it is the hinge of the whole subject: the fuzzy demand “fit the data well” became a single number L(w) attached to every candidate knob-setting, and <em>learning became minimization</em> — find the w making one number small. Everything after this is optimization. (Why <em>squared</em> misses, rather than absolute ones or fourth powers? Three honest reasons: squaring punishes large misses more than proportionally, which is usually what you want; it treats high and low misses symmetrically; and — decisive for the next section — the squared loss is <em>smooth</em>, a polished bowl Book 2’s calculus can get its hands on. There is also a fourth reason, which is that the choice has a track record older than electricity.)</p>
+<blockquote>
+<h3>A human moment</h3>
+<p>The loss function found a planet. On the first night of 1801, the astronomer Giuseppe Piazzi spotted a faint new object — Ceres, the first asteroid — and tracked it for six weeks before it slid behind the sun’s glare, carrying only a thin arc of noisy observations with it. The astronomers of Europe could not agree where it would re-emerge; the discovery was about to be lost. A 24-year-old named Carl Friedrich Gauss — yes, the schoolboy of Lab 0, third appearance, last one — attacked the problem with a then-private method: choose the orbit whose predictions make the <strong>sum of squared misses</strong> against the observations as small as possible, and trust the noisy data <em>collectively</em> though no single observation deserved trust alone. His predicted position was nowhere near anyone else’s. In December 1801, almost a year after its loss, Ceres was found again — essentially where Gauss’s minimization said to look — and an obscure young man became the most famous mathematician in Europe overnight. (Honesty about the credit: Legendre <em>published</em> the method of least squares first, in 1805, and the priority quarrel between them was real and bitter. The idea, as usual, was ready before either man.) Every loss function minimized in every training run today is the direct descendant of that orbit: wrongness made into one number, and the number made small.</p>
+</blockquote>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/"><span>Previous</span>Learning as an Algorithm</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/going-downhill/"><span>Next</span>Going downhill</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Learning as an Algorithm","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/"},{"@type":"ListItem","position":5,"name":"A number called wrong"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/a-number-called-wrong/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/a-number-called-wrong/","headline":"A number called wrong","articleSection":"Learning as an Algorithm","inLanguage":"en","isAccessibleForFree":true,"wordCount":453,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

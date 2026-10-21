@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Greedy Idea — A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="In which the obvious move is wrong three times before it is right">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-greedy-idea/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-1-counting-steps/the-race/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-greedy-idea/the-strategy-named/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Greedy Idea — A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="In which the obvious move is wrong three times before it is right">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-greedy-idea/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><span aria-current="page">The Greedy Idea</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms</p>
+  
+  <h1>Chapter 2: The Greedy Idea</h1>
+<p>✦ ✦ ✦</p>
+<p>In which the obvious move is wrong three times before it is right</p>
+<h2>Too much Saturday</h2>
+<p>Here is a problem you have actually had. It is Saturday. More things are happening than you can possibly do, and they overlap, so you have to choose. You want to do <em>as many as you can</em> — not the most important, not the most fun, just the largest number of things you can physically fit into the day without being in two places at once.</p>
+<p>A real Saturday:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>starts</th>
+<th>ends</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>run with Diego</td>
+<td>9:00</td>
+<td>10:00</td>
+</tr>
+<tr>
+<td>robotics open-build (doors open 8:30)</td>
+<td>8:30</td>
+<td>1:00</td>
+</tr>
+<tr>
+<td>help set up the party</td>
+<td>10:00</td>
+<td>11:00</td>
+</tr>
+<tr>
+<td>soccer match</td>
+<td>11:00</td>
+<td>12:00</td>
+</tr>
+<tr>
+<td>lunch shift</td>
+<td>12:00</td>
+<td>1:00</td>
+</tr>
+<tr>
+<td>study group</td>
+<td>1:00</td>
+<td>2:00</td>
+</tr>
+<tr>
+<td>birthday party</td>
+<td>2:00</td>
+<td>4:00</td>
+</tr>
+<tr>
+<td>movie</td>
+<td>4:00</td>
+<td>5:00</td>
+</tr>
+</tbody>
+</table>
+<p>Two things <strong>conflict</strong> if they overlap in time. (Finishing at 1:00 and starting at 1:00 is fine — you make it across town; call that back-to-back, not a conflict.) The question: what is the most things you can attend?</p>
+<p>Try it yourself before reading on. Really — get a pencil, find a combination, then try to beat it. The answer for this particular Saturday is <strong>seven</strong> (everything except the all-morning robotics build), but finding seven is not the point. The point is the <em>rule</em> you used to find it — because in a minute we are going to discover that the obvious rule is wrong, that the right rule is not obvious at all, and that the gap between those two facts is one of the most powerful ideas in this book.</p>
+<h2>The obvious rule, and its humiliation</h2>
+<p>What did you do first? Most people reach for the same instinct: <strong>do the thing that starts soonest, then the next thing that starts after that one finishes, and so on.</strong> First come, first served. It is how a day naturally feels — handle the morning, then the midday, then the afternoon.</p>
+<p>Watch it walk off a cliff. Earliest-starting thing first: the robotics build opens its doors at 8:30, earlier than anything else, so “earliest start” grabs it — and it runs until 1:00. Your whole morning is now gone, because the run, the setup, the match, and the lunch shift all conflict with the build. After it ends at 1:00 you can still catch study group, the party, and the movie. Total: <strong>four things.</strong> The obvious rule got you four. The pencil got you seven.</p>
+<p>Sit with that, because it is the chapter in one stroke. The most natural strategy in the world — the one your hands reach for without being asked — is not slightly suboptimal. It misses <em>almost half the day</em>, and it does so while feeling completely reasonable at every step. “Do the next thing that’s starting” is wrong, and wrong in a way you would never notice without counting.</p>
+<p>So the obvious rule fails. What’s the right one? Before we find it, let’s name what we’re doing, because it has a name and the name is worth more than the Saturday.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/lab-1-counting-steps/the-race/"><span>Previous</span>5. The race</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/the-greedy-idea/the-strategy-named/"><span>Next</span>The strategy, named</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"The Greedy Idea"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-greedy-idea/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-greedy-idea/","headline":"The Greedy Idea","articleSection":"The Greedy Idea","inLanguage":"en","isAccessibleForFree":true,"wordCount":508,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

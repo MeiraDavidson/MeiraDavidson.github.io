@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>hold out 15% of names as a test set the model never trains on — Lab 9: The Engine, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="perm = rng.permutation(len(names)); split = int(0.85 * len(names)) train_names = [names[i] for i in perm[:split]] test_names = [names[i] for i in…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/hold-out-15-of-names-as-a-test-set-the-model-never-trains/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/knobs-a-score-for-each-previous-letter-next-letter-pair/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/the-machine-speaks/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hold out 15% of names as a test set the model never trains on — Lab 9: The Engine, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="perm = rng.permutation(len(names)); split = int(0.85 * len(names)) train_names = [names[i] for i in perm[:split]] test_names = [names[i] for i in…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/hold-out-15-of-names-as-a-test-set-the-model-never-trains/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/lab-9-the-engine/">Lab 9: The Engine</a><span class="sep">›</span><span aria-current="page">hold out 15% of names as a test set the model never trains on</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Lab 9: The Engine</p>
+  <h1>hold out 15% of names as a test set the model never trains on</h1>
+  
+<p>✦ ✦ ✦</p>
+<p>perm = rng.permutation(len(names)); split = int(0.85 * len(names))
+train_names = [names[i] for i in perm[:split]]
+test_names  = [names[i] for i in perm[split:]]</p>
+<p>def make(nms):
+    X, Y = [], []
+    for name in nms:
+        cs = [“.”] * CONTEXT + list(name) + [“.”]
+        for i in range(len(cs) - CONTEXT):
+            X.append([stoi[c] for c in cs[i:i+CONTEXT]]); Y.append(stoi[cs[i+CONTEXT]])
+    return np.array(X), np.array(Y)
+X, Y = make(train_names); Xte, Yte = make(test_names)</p>
+<p>E, H = 12, 128
+C  = rng.standard_normal((V, E)) * 0.1
+W1 = rng.standard_normal((CONTEXT * E, H)) * 0.1; b1 = np.zeros(H)
+W2 = rng.standard_normal((H, V)) * 0.1;           b2 = np.zeros(V)</p>
+<p>def forward(Xb):
+    emb = C[Xb].reshape(len(Xb), -1)
+    h = np.tanh(emb @ W1 + b1)
+    return emb, h, h @ W2 + b2</p>
+<p>def loss_on(Xb, Yb):
+    <em>, </em>, logits = forward(Xb); n = len(Xb)
+    logits = logits - logits.max(1, keepdims=True)
+    p = np.exp(logits); p /= p.sum(1, keepdims=True)
+    return -np.log(p[np.arange(n), Yb] + 1e-9).mean()</p>
+<p>train_curve, test_curve = [], []
+for step in range(8000):
+    emb, h, logits = forward(X); n = len(X)
+    logits = logits - logits.max(1, keepdims=True)
+    p = np.exp(logits); p /= p.sum(1, keepdims=True)
+    # backprop, by hand in numpy — the same blame-rules, batched
+    dlogits = p.copy(); dlogits[np.arange(n), Y] -= 1; dlogits /= n
+    dW2 = h.T @ dlogits + 0.001 * 2 * W2; db2 = dlogits.sum(0)
+    dh = dlogits @ W2.T; dhraw = (1 - h**2) * dh
+    dW1 = emb.T @ dhraw + 0.001 * 2 * W1; db1 = dhraw.sum(0)
+    demb = (dhraw @ W1.T).reshape(n, CONTEXT, E)
+    dC = np.zeros_like(C); np.add.at(dC, X.reshape(-1), demb.reshape(-1, E))
+    for param, grad in [(C, dC), (W1, dW1), (b1, db1), (W2, dW2), (b2, db2)]:
+        param -= 0.3 * grad
+    if step % 400 == 0:
+        tr, te = loss_on(X, Y), loss_on(Xte, Yte)
+        train_curve.append(tr); test_curve.append(te)
+        print(f”step {step:4d}   train {tr:.3f}   held-out {te:.3f}”)</p>
+<pre><code>
+Watch the two columns. Early on both fall. Then they *part*: train keeps dropping while held-out bottoms out and turns upward. That divergence is the parrot exam catching the model beginning to memorize — and you are seeing, on your laptop in under a minute, the single most consequential phenomenon in modern machine learning. Plot it:
+
+```python
+import matplotlib.pyplot as plt
+steps = [400 * i for i in range(len(train_curve))]
+plt.plot(steps, train_curve, label="training loss")
+plt.plot(steps, test_curve, label="held-out loss")
+plt.xlabel("step"); plt.ylabel("loss"); plt.legend(); plt.show()
+</code></pre>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/lab-9-the-engine/knobs-a-score-for-each-previous-letter-next-letter-pair/"><span>Previous</span>knobs: a score for each (previous letter -&gt; next letter) pair</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/lab-9-the-engine/the-machine-speaks/"><span>Next</span>6. The machine speaks</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Lab 9: The Engine","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/"},{"@type":"ListItem","position":5,"name":"hold out 15% of names as a test set the model never trains on"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/hold-out-15-of-names-as-a-test-set-the-model-never-trains/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/hold-out-15-of-names-as-a-test-set-the-model-never-trains/","headline":"hold out 15% of names as a test set the model never trains on","articleSection":"Lab 9: The Engine","inLanguage":"en","isAccessibleForFree":true,"wordCount":390,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

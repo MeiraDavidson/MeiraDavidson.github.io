@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3. Catching every failure — Lab 2: The Cost of Confidence, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="One failure could be a fluke. Let’s audit Sevenia completely. For three-coin systems we can find the true best answer by sheer brute force — trying every…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-2-the-cost-of-confidence/catching-every-failure/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-2-the-cost-of-confidence/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-procedure-that-calls-itself/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3. Catching every failure — Lab 2: The Cost of Confidence, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="One failure could be a fluke. Let’s audit Sevenia completely. For three-coin systems we can find the true best answer by sheer brute force — trying every…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-2-the-cost-of-confidence/catching-every-failure/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/lab-2-the-cost-of-confidence/">Lab 2: The Cost of Confidence</a><span class="sep">›</span><span aria-current="page">3. Catching every failure</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Lab 2: The Cost of Confidence</p>
+  <h1>3. Catching every failure</h1>
+  
+<p>One failure could be a fluke. Let’s audit Sevenia completely. For three-coin systems we can find the <em>true</em> best answer by sheer brute force — trying every possible combination. This is “doing all the work,” the thing algorithms exist to avoid, and we do it here deliberately, as a measuring stick:</p>
+<pre><code>def best_change_3(c1, c2, c3, amount):    # c3 must be 1
+    best = amount                          # amount pennies always works
+    for a in range(amount // c1 + 1):
+        for b in range(amount // c2 + 1):
+            for c in range(amount // c3 + 1):
+                if a*c1 + b*c2 + c*c3 == amount:
+                    if a + b + c &lt; best:
+                        best = a + b + c
+    return best
+
+print(best_change_3(10, 7, 1, 14))
+</code></pre>
+<p>Three loops, one inside another: every count of 10s, against every count of 7s, against every count of 1s. Nothing escapes. Now the audit — every amount from 1 to 30, greedy versus truth:</p>
+<pre><code>for amount in range(1, 31):
+    g = len(greedy_change([10, 7, 1], amount))
+    b = best_change_3(10, 7, 1, amount)
+    if g != b:
+        print(amount, "greedy:", g, "best:", b)
+</code></pre>
+<p>Run it and read the list of amounts where greedy loses. Look for a pattern in them before the Break-it section asks you about it. This little audit loop — confident method versus exhaustive truth on every small case — is a tool you will use for the rest of your life, and not only on coins.</p>
+<blockquote>
+<p>A note for later: the brute force was affordable here because the kingdom was small. Watch what <code>best_change_3</code> costs as amounts grow — three nested loops multiply. Chapter 4 will find the best answer <em>without</em> trying everything, and will do it using the failure you just catalogued. The wound stays open until then.</p>
+</blockquote>
+<h2>4. Scheduling a day</h2>
+<p>The chapter’s second arena: from a pile of events that may overlap, attend as many as possible. The winning rule was <em>earliest finish first</em> — always take the event that ends soonest among those you can still attend. To build it we store each event as a two-item list <code>[finish, start]</code>, finish <em>first</em>, for one sneaky reason: Python’s <code>.sort()</code> arranges a list of pairs by their first entries, so putting the finish time first makes plain sorting line the events up exactly the way the rule wants. (<code>.sort()</code> itself is a sealed instrument for now — Chapter 6 opens the box and asks what it costs.)</p>
+<pre><code>def schedule(events):                  # each event is [finish, start]
+    events.sort()                      # earliest finish now comes first
+    chosen = []
+    free_at = 0
+    for e in events:
+        finish = e[0]
+        start = e[1]
+        if start &gt;= free_at:           # does it begin after I'm free?
+            chosen.append([start, finish])
+            free_at = finish
+    return chosen
+</code></pre>
+<p>Try it on the chapter’s example day — times are hours on a 24-hour clock, and each event is <code>[finish, start]</code>:</p>
+<pre><code>day = [[10, 9], [11, 9], [12, 11], [13, 10], [14, 12], [16, 13], [15, 14]]
+print(schedule(day))
+</code></pre>
+<p>Trace the result against a drawing of the seven events on a timeline (really draw it — the timeline is the proof’s natural habitat, and you’ll want it for the Diamond).</p>
+<p>Now the real assignment: write out <em>your own actual week</em> — classes, practices, the things you do — as <code>[finish, start]</code> pairs, and run the scheduler on it. Then deliberately overbook a fantasy Saturday with twelve overlapping events and see what the rule salvages.</p>
+<h2>Break it</h2>
+<p>Predict first. Run second. Explain any gap third.</p>
+<p><strong>1.</strong> In §1, hand <code>greedy_change</code> the coins <em>smallest first</em>: <code>greedy_change([1, 5, 10, 25], 63)</code>. Predict the exact output before running. What does the result say about the phrase “take the best-looking option” — best-looking <em>according to whom</em>?</p>
+<p><strong>2.</strong> From your §3 audit of Sevenia: extend the range to 100 and collect every amount where greedy loses. State a pattern (“greedy fails exactly when the amount looks like ___”) and then <em>test your pattern</em> by predicting the failures between 100 and 130 before running that range.</p>
+<p><strong>3.</strong> US coins minus the nickel: a country with only <code>[25, 10, 1]</code>. Predict — does greedy stay perfect, or fail somewhere? Commit to an answer and a reason, then audit amounts 1 to 100. (If it fails, find the smallest failure and explain, in the style of Sevenia’s 14, exactly which future the greedy choice destroyed.)</p>
+<p><strong>4.</strong> In <code>schedule</code>, change <code>start &gt;= free_at</code> to <code>start &gt; free_at</code> and rerun your week. Predict what kind of event pair gets wrongly rejected. One character — what real-world scheduling assumption does it encode?</p>
+<p><strong>5.</strong> Sabotage the rule itself: store events as <code>[start, finish]</code> so that <code>.sort()</code> lines them up by <em>start</em> time, adjust the two indexing lines to match, and rerun the chapter’s example day. Predict the output first. You have just built, in working code, one of the counterexamples from the chapter — say which one.</p>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>You built both outcomes with your own hands — the perfect rule and the catastrophic one. Which was more instructive to write?</li><li>The sabotage exercise asks you to change one character and predict the output first. Did predicting before running change how carefully you read the code?</li><li>'The cost of confidence.' What is the confidence, and who pays the cost?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/lab-2-the-cost-of-confidence/"><span>Previous</span>Lab 2: The Cost of Confidence</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/the-procedure-that-calls-itself/"><span>Next</span>The Procedure That Calls Itself</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Lab 2: The Cost of Confidence","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-2-the-cost-of-confidence/"},{"@type":"ListItem","position":5,"name":"3. Catching every failure"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-2-the-cost-of-confidence/catching-every-failure/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-2-the-cost-of-confidence/catching-every-failure/","headline":"3. Catching every failure","articleSection":"Lab 2: The Cost of Confidence","inLanguage":"en","isAccessibleForFree":true,"wordCount":808,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

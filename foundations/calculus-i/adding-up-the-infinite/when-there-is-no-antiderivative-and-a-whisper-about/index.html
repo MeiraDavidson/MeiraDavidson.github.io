@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>When there is no antiderivative — and a whisper about frequencies — Adding Up the Infinite, Calculus I | The Curious Family Library</title>
+<meta name="description" content="Some functions have no antiderivative you can write down. This is genuinely surprising. The function e−x2e^{-x^2} — the bell curve, whose Taylor series…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/calculus-i/adding-up-the-infinite/when-there-is-no-antiderivative-and-a-whisper-about/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/calculus-i/adding-up-the-infinite/substitution-the-chain-rule-run-backward/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/calculus-i/adding-up-the-infinite/problems/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="When there is no antiderivative — and a whisper about frequencies — Adding Up the Infinite, Calculus I | The Curious Family Library">
+<meta property="og:description" content="Some functions have no antiderivative you can write down. This is genuinely surprising. The function e−x2e^{-x^2} — the bell curve, whose Taylor series…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/calculus-i/adding-up-the-infinite/when-there-is-no-antiderivative-and-a-whisper-about/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/calculus-i/">Calculus I</a><span class="sep">›</span><a href="/foundations/calculus-i/adding-up-the-infinite/">Adding Up the Infinite</a><span class="sep">›</span><span aria-current="page">When there is no antiderivative — and a whisper about frequencies</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Calculus I · Adding Up the Infinite</p>
+  <h1>When there is no antiderivative — and a whisper about frequencies</h1>
+  
+<p>Two honest remarks before the climax.</p>
+<figure>
+<img src="/foundations/calculus-i/img/file58.png" alt="Figure 10.6" loading="lazy">
+<figcaption>Figure 10.6</figcaption>
+</figure>
+<p><strong>Some functions have no antiderivative you can write down.</strong> This is genuinely surprising. The function <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>e</mi><mrow><mi>−</mi><msup><mi>x</mi><mn>2</mn></msup></mrow></msup><annotation encoding="application/x-tex">e^{-x^2}</annotation></semantics></math> — the bell curve, whose Taylor series you found in Chapter 7 — is perfectly smooth and perfectly well-behaved, yet <em>no</em> combination of powers, roots, exponentials, logarithms, and trig functions has it as a derivative. Its antiderivative exists (it’s a real, smooth function), but it simply isn’t expressible in our elementary vocabulary; the same is true of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">sin</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msup><mi>x</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\sin(x^2)</annotation></semantics></math> and many others. When this happens, the antiderivative method of the next chapter cannot even begin, and we fall back on what never fails — Riemann sums, computed numerically. The <em>area</em> is always there to be measured; we just sometimes can’t name the antiderivative. And the most important such area, the total under the bell curve, <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mrow><mi>−</mi><mi>∞</mi></mrow><mi>∞</mi></msubsup><msup><mi>e</mi><mrow><mi>−</mi><msup><mi>x</mi><mn>2</mn></msup></mrow></msup><mspace width="0.167em"></mspace><mi>d</mi><mi>x</mi><mo>=</mo><msqrt><mi>π</mi></msqrt><mo>,</mo></mrow><annotation encoding="application/x-tex">\int_{-\infty}^{\infty} e^{-x^2}\,dx = \sqrt{\pi},</annotation></semantics></math> is one of the loveliest numbers in mathematics — central to all of probability (Book 4), and found by an ingenious trick rather than by any antiderivative.</p>
+<p><strong>Integrals can measure more than area — they can measure resonance.</strong> Here is a thread to pick up much later. If you integrate a signal <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(x)</annotation></semantics></math> against a pure wave, say <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∫</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mrow><mi mathvariant="normal">sin</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">\int f(x)\sin(nx)\,dx</annotation></semantics></math> over one period, the resulting number tells you <em>how much of that frequency</em> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math> contains — how strongly the signal “rings” at that pitch. Those numbers are the <strong>Fourier coefficients</strong> glimpsed back in Chapter 7, and they are how a sound is decomposed into tones, an image into patterns, a data stream into its essential frequencies. The integral, in this guise, is a frequency detector. The machinery belongs to Book 3; file it away beside the word <em>Fourier</em>.</p>
+<hr>
+
+<h2>Where this is heading: the two faces meet</h2>
+<p>Step back and look at what this chapter built. We now have <strong>two</strong> things, both called integration, that appear to have nothing to do with each other:</p>
+<ul>
+<li>the <strong>definite integral</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mi>a</mi><mi>b</mi></msubsup><mi>f</mi><mspace width="0.167em"></mspace><mi>d</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">\int_a^b f\,dx</annotation></semantics></math> — a <em>number</em>, the signed area under a curve, defined as a limit of sums and (as our <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mn>0</mn><mn>1</mn></msubsup><msup><mi>x</mi><mn>2</mn></msup><mspace width="0.167em"></mspace><mi>d</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">\int_0^1 x^2\,dx</annotation></semantics></math> showed) genuinely laborious to compute;</li>
+<li>the <strong>antiderivative</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∫</mo><mi>f</mi><mspace width="0.167em"></mspace><mi>d</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">\int f\,dx</annotation></semantics></math> — a <em>function</em>, the reverse of differentiation, found quickly by running the Chapter 4 rules backward.</li>
+</ul>
+<p>One is about adding up infinitely many rectangles. The other is about undoing a derivative. There is no obvious reason they should be related at all — and yet they share a symbol, which I promised was a hint.</p>
+<p>The hint is true. The <strong>Fundamental Theorem of Calculus</strong>, the summit of this entire book, says these two faces are one: <em>to find the area under a curve, you do not add up rectangles — you find an antiderivative and subtract its values at the endpoints.</em> The hard limit of sums and the easy reverse-derivative compute the same number. The area under <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>x</mi><mn>2</mn></msup><annotation encoding="application/x-tex">x^2</annotation></semantics></math> from <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math> to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math>, which cost us a page of algebra, will become a five-second calculation. Differentiation and integration, the two engines we built separately, are about to be revealed as the same engine running in opposite directions.</p>
+<p>Turn the page.</p>
+<hr>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/calculus-i/adding-up-the-infinite/substitution-the-chain-rule-run-backward/"><span>Previous</span>Substitution: the chain rule, run backward</a>
+    <a class="n" href="/foundations/calculus-i/adding-up-the-infinite/problems/"><span>Next</span>Problems</a>
+  </nav>
+  <p class="backto"><a href="/foundations/calculus-i/">All 13 chapters of Calculus I</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Calculus I","item":"https://meiradavidson.github.io/foundations/calculus-i/"},{"@type":"ListItem","position":4,"name":"Adding Up the Infinite","item":"https://meiradavidson.github.io/foundations/calculus-i/adding-up-the-infinite/"},{"@type":"ListItem","position":5,"name":"When there is no antiderivative — and a whisper about frequencies"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/calculus-i/adding-up-the-infinite/when-there-is-no-antiderivative-and-a-whisper-about/","url":"https://meiradavidson.github.io/foundations/calculus-i/adding-up-the-infinite/when-there-is-no-antiderivative-and-a-whisper-about/","headline":"When there is no antiderivative — and a whisper about frequencies","articleSection":"Adding Up the Infinite","inLanguage":"en","isAccessibleForFree":true,"wordCount":519,"isPartOf":{"@type":"Book","name":"Calculus I","url":"https://meiradavidson.github.io/foundations/calculus-i/"}}]}</script>
+</body>
+</html>

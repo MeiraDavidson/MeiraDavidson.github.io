@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5. The bill, audited — Lab 3: The Visible Staircase, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="The chapter promised C(n) ≈ n log₂ n in the currency of element-steps — one step per card the merge touches. Send the count climbing back up the recursion…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-3-the-visible-staircase/the-bill-audited/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-3-the-visible-staircase/making-the-staircase-visible/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5. The bill, audited — Lab 3: The Visible Staircase, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="The chapter promised C(n) ≈ n log₂ n in the currency of element-steps — one step per card the merge touches. Send the count climbing back up the recursion…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-3-the-visible-staircase/the-bill-audited/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/lab-3-the-visible-staircase/">Lab 3: The Visible Staircase</a><span class="sep">›</span><span aria-current="page">5. The bill, audited</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Lab 3: The Visible Staircase</p>
+  <h1>5. The bill, audited</h1>
+  
+<p>The chapter promised C(n) ≈ n log₂ n in the currency of element-steps — one step per card the merge touches. Send the count climbing back up the recursion alongside the sorted list; the function now returns a two-item list, <code>[sorted, steps]</code>:</p>
+<pre><code>def merge_sort_count(items):
+    if len(items) &lt;= 1:
+        return [items, 0]
+    mid = len(items) // 2
+    left = merge_sort_count(items[:mid])
+    right = merge_sort_count(items[mid:])
+    merged = merge(left[0], right[0])
+    steps = left[1] + right[1] + len(merged)   # this merge touches every card once
+    return [merged, steps]
+</code></pre>
+<p>Now the audit, in the style of Lab 1’s race — and watch the <em>per-item</em> column:</p>
+<pre><code>for n in [1000, 10000, 100000, 1000000]:
+    items = list(range(n, 0, -1))          # n, n-1, ..., 1: sorted backward
+    result = merge_sort_count(items)
+    steps = result[1]
+    print(n, steps, "steps;", steps / n, "per item")
+</code></pre>
+<p>The left column multiplies by 10; the per-item column climbs by a little over 3 each row. You have seen that gait before — it is the logarithm’s, from Chapter 1’s table, now appearing as the <em>per-item</em> price of sorting. Total steps ≈ n × (log₂ n-ish per item): the tree’s level-count, measured in the wild. Check one row against arithmetic: for n = 1,000,000, is steps close to 20 million?</p>
+<h2>Break it</h2>
+<p>Predict first. Run second. Explain any gap third.</p>
+<p><strong>1.</strong> Starve <code>countdown</code> of its floor: delete the <code>if n == 0:</code> block (keep the rest) and call <code>countdown(5)</code>. Predict precisely what the machine will do — forever? crash? something else? — then run it and <em>read the error to its last line</em>. The number it complains about (Python’s recursion limit, near a thousand) is the deep-water box’s claim that the stack is physical, demonstrated. How is this failure different in kind from Sevenia’s in Lab 2 — which lab’s program was <em>wrong</em>, and which was <em>exhausted</em>?</p>
+<p><strong>2.</strong> In <code>hanoi</code>, swap the two recursive calls (clear-the-way and restack trade places). Predict: will the printed moves still be <em>legal</em> — no large disk onto a small one? Then run it for n = 3 and <em>audit the move list with your coins</em>, move by move. Find the first illegal moment and describe which trust was betrayed.</p>
+<p><strong>3.</strong> In <code>merge_sort_count</code>, change <code>mid = len(items) // 2</code> to <code>mid = 1</code>: every split now peels a single card off the front instead of halving. Two predictions before running: is the output still <em>correct</em>? and what happens to the cost — per-item column flat-ish like the logarithm, or growing with n? Audit the lopsided version on sizes 200, 400, 800 (not the big sizes — you’ll discover why in a moment) and look at the <em>total</em> steps as n doubles. Doubling the input does what to the bill? Connect it to the chapter’s closing sentence: <em>where a recursion sends its work is the whole game</em>. You have just met, in your own code, the difference between n log n and n² — Chapter 6 makes it official. Then, deliberately, run size 2,000 and read the error to its last line: the lopsided tree is n calls deep where the balanced tree was log₂ n deep, and the machine’s stack — Break-it 1’s discovery — just refused the architecture, not the arithmetic.</p>
+<p><strong>4.</strong> In <code>merge</code>, change <code>&lt;=</code> to <code>&lt;</code>. Predict whether any list of <em>numbers</em> can ever come out unsorted. Run your tests; they should all pass. So the character changed nothing? To find out, sort things that can genuinely <em>tie</em>. Make each item a [score, name] pair and — one more edit — make the merge compare <strong>scores only</strong>: change the comparison line to <code>if left[i][0] &lt;= right[j][0]:</code>. Now sort <code>[[3, "Ada"], [1, "Hua"], [3, "Noether"]]</code> with the <code>&lt;=</code> version and the <code>&lt;</code> version and compare the outputs. What happened to the two score-3 students, and which version keeps tied items in their original order? (Chapter 6 names this property; you have discovered it early. And a side puzzle: why did the experiment <em>need</em> the scores-only edit — what was Python quietly doing with the pairs before it?)</p>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>The lab makes the recursion visible by printing it. What did seeing the shape add to what you had already understood?</li><li>The lopsided vine makes the machine's stack refuse. What does it mean that a correct algorithm can still be unrunnable?</li><li>What would you have to draw to explain this lab to someone with no computer?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/lab-3-the-visible-staircase/making-the-staircase-visible/"><span>Previous</span>3. Making the staircase visible</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/recursion-that-remembers/"><span>Next</span>Recursion That Remembers</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Lab 3: The Visible Staircase","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-3-the-visible-staircase/"},{"@type":"ListItem","position":5,"name":"5. The bill, audited"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-3-the-visible-staircase/the-bill-audited/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-3-the-visible-staircase/the-bill-audited/","headline":"5. The bill, audited","articleSection":"Lab 3: The Visible Staircase","inLanguage":"en","isAccessibleForFree":true,"wordCount":671,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

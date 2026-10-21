@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dodging the fence — Order, and Its Price, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="A theorem’s hypotheses, Chapter 5 taught, are where it can be killed. They are also where it can be legally dodged — and this fence has a gate marked…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/order-and-its-price/dodging-the-fence/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/order-and-its-price/the-fence/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-6/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dodging the fence — Order, and Its Price, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="A theorem’s hypotheses, Chapter 5 taught, are where it can be killed. They are also where it can be legally dodged — and this fence has a gate marked…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/order-and-its-price/dodging-the-fence/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/order-and-its-price/">Order, and Its Price</a><span class="sep">›</span><span aria-current="page">Dodging the fence</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Order, and Its Price</p>
+  <h1>Dodging the fence</h1>
+  
+<p>A theorem’s hypotheses, Chapter 5 taught, are where it can be killed. They are also where it can be <em>legally dodged</em> — and this fence has a gate marked clearly in its own wording: <em>sorts by comparing</em>.</p>
+<p>Suppose you must sort a million exam scores, each a whole number from 0 to 100. Don’t compare anything. Set out 101 labeled buckets; drop each score in its bucket (one touch per score); read the buckets out in order. Total cost about n + 101 — <strong>linear</strong>, serenely under the fence. This is <strong>counting sort</strong>, and it contradicts nothing: it never asks “is a before b?” It exploits something the comparison model deliberately ignores — that these keys are small integers whose <em>values</em> can be used as addresses. Change what you’re allowed to know, and the impossible becomes Tuesday. (The dodge has a price tag of its own: a bucket per possible value. Scores 0–100, fine; arbitrary words or unbounded decimals, no. Problem 3.4 probes exactly where the gate closes.)</p>
+<p>The toll-booth question that opened the chapter now closes with real numbers. Sorting costs Θ(n log n) once; each later search costs log n instead of n. One search? Sorting wasted your time. Many searches — and “many” means roughly <em>more than log n of them</em>, a number Problem 2.1 has you make precise — and the toll repays itself forever after. It depends, and now you know exactly on what.</p>
+<blockquote>
+<h3>Deeper water: Stirling, and the fence’s exact height</h3>
+<p>The crude bound n! ≥ (n/2)^(n/2) proved the shape. Stirling’s approximation gives the height: log₂(n!) ≈ n log₂ n − n·log₂ e ≈ n log₂ n − 1.443n. So the fence stands at n log₂ n minus a linear correction — and merge sort’s ≈ n log₂ n sits just above it. The remaining sliver (that 1.443n, and the gap between element-steps and comparisons) is real, and shaving it occupied serious people for decades; <em>merge-insertion sort</em> and its descendants chase the exact minimum comparison count, which is still not known exactly for all n. Even finished questions have unfinished decimals.</p>
+<h3>Deeper water: stability, and the sort in your pocket</h3>
+<p>Lab 3’s Break-it 4 made you discover, before it had a name, that merge’s <code>&lt;=</code> versus <code>&lt;</code> decides whether tied items keep their original order. The property is called <strong>stability</strong>, and it matters the moment items carry more than their key: sort emails by date, then stably by sender, and each sender’s mail stays date-ordered inside — two sorts composing into one organization. (Unstable sorts shred the inner order; Problem 3.5 exhibits the shredding.)</p>
+<p>And the sort actually running on your machine? Python’s built-in is <strong>Timsort</strong> — written for Python in 2002 by Tim Peters, since adopted by Java and others — and it is this chapter folded into one algorithm: merge sort’s frame, insertion sort deployed on small runs (the clocked crossover, productized), an explicit hunt for stretches that arrive already ordered (insertion’s recorded virtue, generalized), stable throughout, Θ(n log n) worst case against the fence. Lab 6’s last experiment times it against your handmade merge sort; the margin you’ll measure is the constants again — the same mathematics, engineered within an inch of its life, plus the small fact that it doesn’t run in Python at all but in C underneath. The shapes are yours now; the constants are an industry.</p>
+</blockquote>
+<h2>Where this leaves us</h2>
+<p>The toll booth’s books are open. Humans sort in n²; the halver sorts in n log n; the gap at scale is the gap between Hollerith’s drowning clerks and a census that finishes. The shapes got their professional names — O, Ω, Θ — as receipts for tables already built. And above everything stands the fence: n log n is not the record, it is the <em>law</em>, proved by counting situations against questions, binding every comparison sort that will ever be written — with a gate, clearly marked, for those willing to know more about their keys than comparisons confess.</p>
+<p>One thread was left deliberately loose. The fence is a <em>worst-case</em> fence; insertion sort’s kindness to already-sorted decks hints that other cases have other stories. Chapter 7 walks into the most useful of them: an algorithm that <em>gambles</em> — that lets a coin flip choose its pivot — and is fast not always, not in the worst case, but <em>on average</em>, in a sense that can be made precise, trusted, and measured in your own lab. The strange comfort of the average is the last big idea of the book’s first act, and the doorway to its second.</p>
+<hr>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>Chapter 1 sold a miracle on credit and this chapter presents the invoice. What was bought, and what is the bill?</li><li>The question is not 'has anyone sorted faster' but 'could anyone, ever'. Why is that a completely different kind of question?</li><li>An impossibility theorem fences in every algorithm that exists and every one that ever will, including ones nobody has thought of. How can you prove something about ideas that do not exist yet?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/order-and-its-price/the-fence/"><span>Previous</span>The fence</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/problem-set-6/"><span>Next</span>Problem Set 6</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Order, and Its Price","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/order-and-its-price/"},{"@type":"ListItem","position":5,"name":"Dodging the fence"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/order-and-its-price/dodging-the-fence/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/order-and-its-price/dodging-the-fence/","headline":"Dodging the fence","articleSection":"Order, and Its Price","inLanguage":"en","isAccessibleForFree":true,"wordCount":764,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

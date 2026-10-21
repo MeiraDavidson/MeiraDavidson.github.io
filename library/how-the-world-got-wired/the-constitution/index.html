@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Constitution — How the World Got Wired | The Curious Family Library</title>
+<meta name="description" content="In the spring of 1973, two American engineers met at a conference in San Francisco. After the conference ended, they stayed an extra day, rented a hotel…">
+<link rel="canonical" href="https://meiradavidson.github.io/library/how-the-world-got-wired/the-constitution/">
+<link rel="prev" href="https://meiradavidson.github.io/library/how-the-world-got-wired/the-first-message/what-happened-next/">
+<link rel="next" href="https://meiradavidson.github.io/library/how-the-world-got-wired/the-constitution/the-insight/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Constitution — How the World Got Wired | The Curious Family Library">
+<meta property="og:description" content="In the spring of 1973, two American engineers met at a conference in San Francisco. After the conference ended, they stayed an extra day, rented a hotel…">
+<meta property="og:url" content="https://meiradavidson.github.io/library/how-the-world-got-wired/the-constitution/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/library/">Library</a><span class="sep">›</span><a href="/library/how-the-world-got-wired/">How the World Got Wired</a><span class="sep">›</span><span aria-current="page">The Constitution</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">How the World Got Wired</p>
+  <h1>Chapter 5 — The Constitution</h1>
+  
+<figure>
+<img src="/library/how-the-world-got-wired/img/file6.png" alt="A video, chopped into numbered packets, travels around the planet on its own." loading="lazy">
+<figcaption>
+A video, chopped into numbered packets, travels around the planet on its own.
+</figcaption>
+</figure>
+<p>In the spring of 1973, two American engineers met at a conference in San Francisco. After the conference ended, they stayed an extra day, rented a hotel room at the airport, and tried to solve the hardest problem in computing.</p>
+<p>One of them was Bob Kahn, who you met in the last chapter — the engineer who had built the first IMP at BBN. He had recently left BBN and joined ARPA, where he was thinking about a new question.</p>
+<p>The other was Vint Cerf. Cerf had been one of the graduate students at UCLA on the night Charley Kline typed <em>lo</em> in 1969. He had moved on, after his PhD, to become a young professor at Stanford. He had a neat beard, a careful way of speaking, and an unusual habit of always wearing a three-piece suit, even when nobody else in computer science was wearing one. He still wears them today, in his eighties.</p>
+<p>Kahn had brought a problem to Cerf. They had been talking about it for months. Now, in this hotel room near the airport, they had a few days to actually solve it.</p>
+<p>The problem was that the ARPANET was no longer the only network in the world.</p>
+
+<h3>One Network, Three Networks, Many</h3>
+<p>In the last chapter, you saw how the ARPANET grew, in just four years, from four computers in 1969 to dozens of computers in 1973. By that point, scientists in the United States, Norway, and England were all connected to it. It worked. People loved it. They used it for email more than for anything else.</p>
+<p>But while the ARPANET was growing, the ARPA engineers had been quietly building two <em>other</em> networks for the military, and these other networks were not at all like the ARPANET.</p>
+<p>The first was called <em>packet radio</em>. Instead of running on telephone lines, it used radios. The idea was that a soldier in a jeep, or a pilot in an airplane, or a sailor on a ship, could carry a small computer and a radio antenna, and send messages through the air to other computers, without needing any wires at all. ARPA was already experimenting with this near San Francisco. They had vans with radios in them driving around the hills.</p>
+<p>The second was called <em>packet satellite</em>. It used a satellite in orbit to bounce signals between ships at sea and stations on land. A submarine in the Atlantic Ocean could, in theory, send a message up to a satellite, which would bounce it back down to a base in Virginia, faster than any cable on the seafloor could carry it.</p>
+<p>Each of these networks worked. Each one used packet switching, the technique you read about in Chapter 3. But each one was built differently. They used different equipment. They used different rules. The ARPANET’s packets had a certain shape and size. The packet radio network’s packets had a different shape and size. The satellite network’s packets had yet another shape.</p>
+<p>A computer on the ARPANET could talk to other computers on the ARPANET. But it could not talk to a packet radio computer or a satellite computer. It was like having three different languages, each one perfectly good for its own group, with no way to translate between them.</p>
+<p>Kahn had been turning this over in his mind for months. The military wanted all three networks to work together. A general in Washington should be able to send a message to a jeep in the field — through the ARPANET, then onto the packet radio network, then to the jeep — without anyone in between having to translate. But how?</p>
+<p>This was the problem he brought to Cerf in San Francisco.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/library/how-the-world-got-wired/the-first-message/what-happened-next/"><span>Previous</span>What Happened Next</a>
+    <a class="n" href="/library/how-the-world-got-wired/the-constitution/the-insight/"><span>Next</span>The Insight</a>
+  </nav>
+  <p class="backto"><a href="/library/how-the-world-got-wired/">All 24 chapters of How the World Got Wired</a> · <a href="/library/">Library</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Library","item":"https://meiradavidson.github.io/library/"},{"@type":"ListItem","position":3,"name":"How the World Got Wired","item":"https://meiradavidson.github.io/library/how-the-world-got-wired/"},{"@type":"ListItem","position":4,"name":"The Constitution"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/library/how-the-world-got-wired/the-constitution/","url":"https://meiradavidson.github.io/library/how-the-world-got-wired/the-constitution/","headline":"The Constitution","articleSection":"The Constitution","inLanguage":"en","isAccessibleForFree":true,"wordCount":633,"isPartOf":{"@type":"Book","name":"How the World Got Wired","url":"https://meiradavidson.github.io/library/how-the-world-got-wired/"}}]}</script>
+</body>
+</html>

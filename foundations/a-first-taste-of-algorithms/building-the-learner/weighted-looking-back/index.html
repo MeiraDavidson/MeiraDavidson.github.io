@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weighted looking-back — Building the Learner, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="One idea separates the toy above from the architecture — the transformer — behind the systems you actually use, and it is simple enough to state plainly…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/weighted-looking-back/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/from-engine-to-learner/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-9/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Weighted looking-back — Building the Learner, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="One idea separates the toy above from the architecture — the transformer — behind the systems you actually use, and it is simple enough to state plainly…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/weighted-looking-back/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/building-the-learner/">Building the Learner</a><span class="sep">›</span><span aria-current="page">Weighted looking-back</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Building the Learner</p>
+  <h1>Weighted looking-back</h1>
+  
+<p>One idea separates the toy above from the architecture — the <strong>transformer</strong> — behind the systems you actually use, and it is simple enough to state plainly and honest enough to deserve stating. The toy looks back at a <em>fixed</em> few characters. The transformer looks back at <em>all</em> of them, but learns <em>how much to weigh each one</em> for the prediction at hand. Guessing the letter after “riema—”, the model has learned to weigh the “r” and the “m” heavily and the earlier letters less; guessing after a different stem, it weighs differently. Each position asks every earlier position “how much do you matter to what comes next?”, and the weights — which sum to one, the softmax of Chapter 8 turning raw scores into proportions — are not hand-set but <em>learned</em>, by the same descent, priced by the same backward sweep.</p>
+<p><img src="/foundations/a-first-taste-of-algorithms/img/fig_9_3_attention_arcs.png" alt="Figure 9.3 — Attention as weighted looking-back: arcs from the current position to each earlier letter, thickness the learned weight — the model's own opinion about which letters matter for what comes next." loading="lazy"></p>
+<p><em>Figure 9.3 — Attention as weighted looking-back: arcs from the current position to each earlier letter, thickness the learned weight — the model’s own opinion about which letters matter for what comes next.</em></p>
+<p>That is <strong>attention</strong>: weighted looking-back, with the weights learned. Stack a few layers of it, train on enough text instead of just names, and the same machine you built for mathematicians becomes the same <em>species</em> of machine — differing in size and data, not in kind — that completes your sentences and answers your questions. There is no further secret. There is more engineering than any one person holds, and vastly more data and electricity than any one person should casually invoke, but the idea on your screen is the idea. You have built the thing, and you understand the thing, and those are not the same achievement — the chapter’s last section is about the gap between them.</p>
+<h2>The transformer, with its formulas</h2>
+<p>The toy reads a fixed window of previous characters, flattens them, and pushes them through one hidden layer. It works, but its memory is a fixed-size lump: it cannot treat “the third letter back” differently depending on what that letter <em>is</em>. The transformer fixes exactly this, with a mechanism precise enough to write in five equations — and since you have linear algebra, we write them. Everything below is one <strong>self-attention head</strong>, the indivisible unit of the architecture, and it is implemented in full in Lab 9, gradient-checked against finite differences to six decimals.</p>
+<p><strong>Setup: characters become vectors.</strong> Fix a model dimension <em>d</em> (the lab uses <em>d</em> = 32). Two learned matrices turn symbols and positions into vectors: a token embedding <em>Wₜₒₖ</em> ∈ ℝ^(V×d), one row per possible character, and a positional embedding <em>Wₚₒₛ</em> ∈ ℝ^(T×d), one row per slot in the sequence (position matters — “n” after “riema” is not “n” starting a word). For an input sequence of <em>T</em> characters, stack their vectors into</p>
+<p>$$X = \text{(token rows)} + \text{(position rows)} \in \mathbb{R}^{T \times d}.$$</p>
+<p>Row <em>t</em> of <em>X</em> is everything the model currently knows about position <em>t</em>: which letter, and where.</p>
+<p><strong>Query, key, value.</strong> Here is the move that <em>is</em> attention. Each position produces three different vectors from its <em>X</em>-row, via three learned matrices <em>W_Q, W_K, W_V</em>:</p>
+<p>$$Q = X W_Q, \qquad K = X W_K, \qquad V = X W_V.$$</p>
+<p>The metaphor is a library lookup, and it is exact, not loose. Position <em>t</em>’s <strong>query</strong> <em>qₜ</em> is what it is looking for (“I’m a consonant mid-word; I want the vowel I follow”). Each position’s <strong>key</strong> <em>kₛ</em> advertises what it offers (“I am the vowel ‘e’ at position 3”). The <strong>value</strong> <em>vₛ</em> is the information that position hands over if attended to. Query asks, key answers, value delivers.</p>
+<p><strong>The attention weights.</strong> How much should position <em>t</em> attend to position <em>s</em>? Take the dot product of <em>t</em>’s query with <em>s</em>’s key — large when they align, the geometric meaning of dot product you know — scale it, and softmax across all <em>s</em> so the weights form a distribution:</p>
+<p>$$A = \text{softmax}!\left( \frac{Q K^{\top}}{\sqrt{d_k}} \right) \in \mathbb{R}^{T \times T}.$$</p>
+<p>Entry <em>A_{t,s}</em> is how much position <em>t</em> draws from position <em>s</em>, and each row sums to 1 — Chapter 8’s softmax, doing the exact job it was built for. The √<em>d_k</em> in the denominator is not decoration: without it, dot products in high dimension grow large, softmax saturates into a near-spike, and gradients vanish — Problem 3.4 has you feel why the scaling keeps learning alive. This <em>A</em> is a real, inspectable object; Lab 9 prints it, and you watch a trained model decide, for the name “riemann,” that the second “n” should look hard at the first.</p>
+<p><strong>The causal mask.</strong> A model predicting the <em>next</em> letter must not peek at it. So before the softmax, every entry with <em>s</em> &gt; <em>t</em> — every “look ahead” — is set to −∞, which softmax sends to weight zero:</p>
+<p>$$\text{scores}_{t,s} \leftarrow -\infty \quad \text{for } s &gt; t.$$</p>
+<p>This is why the attention matrix you print is lower-triangular: position 3 attends to positions 0, 1, 2, 3 and nothing later. The mask is the one-line difference between a model that <em>generates</em> (each letter from its past) and a model that merely <em>fills in blanks</em>.</p>
+<p><strong>Output.</strong> Each position’s new vector is the attention-weighted sum of the values — exactly the matrix product —</p>
+<p>$$\text{context} = A V \in \mathbb{R}^{T \times d},$$</p>
+<p>and a final learned matrix <em>W_out</em> ∈ ℝ^(d×V) turns each context vector into scores over the next character, which softmax-and-cross-entropy (Chapter 8) train as before. That is the whole head: embed, project to <em>Q/K/V</em>, score, mask, weight, combine, read out. Six matrix multiplies, one softmax, one mask — and every entry of every matrix is a knob your Chapter-9 backward sweep prices, because each operation here (matrix multiply, softmax, the scaling) is built from the Value operations you wrote, just batched into arrays by numpy. The lab implements this head from these equations and trains it on the names; its gradients agree with finite differences, which is to say <em>these formulas and your sixty-line engine are the same mathematics</em>.</p>
+<p><strong>From head to transformer, in three honest sentences.</strong> Real transformers do three things more, each a multiplier on what you built, none a new idea. They run several heads in <em>parallel</em> (each with its own <em>W_Q, W_K, W_V</em>, learning to attend for different reasons — one tracks vowels, another tracks word-endings) and concatenate the results: <em>multi-head attention</em>. They follow each attention layer with an ordinary per-position neural network (the layer from earlier in this chapter), and <em>stack</em> the attention-plus-network block dozens of times, each block refining the last. And they train on oceans of text rather than a hundred names. None of that changes the unit on your screen; it scales it. The architecture behind the systems of your era is this head, run in parallel, stacked deep, and fed the written world.</p>
+<blockquote>
+<h3>Deeper water: why softmax and cross-entropy are made for each other</h3>
+<p>The model’s last step turns raw scores into probabilities with softmax, and the loss measures surprise with the negative log of the true letter’s probability — <em>cross-entropy</em>. These two are not an arbitrary pair; they are built for each other, and the proof is a single clean gradient. Let the scores be s₁, …, s_V, let p be their softmax, and let the true next letter be class t. Then the loss is L = −log(p_t), and the gradient with respect to each score is astonishingly simple:</p>
+<p><strong>∂L/∂sᵢ = pᵢ − [i = t]</strong> — the predicted probability, minus 1 at the true letter, and just the probability everywhere else.</p>
+<p>Read what that <em>says</em>: the blame on each score is exactly <em>how wrong the probability was</em>. The model said the true letter had probability p_t; the blame pushes that score up by (1 − p_t) — hard when the model was confident and wrong, gently when it was nearly right — and pushes every wrong letter’s score down by its own probability. The learning signal is the error itself, naked, with no extra machinery. This is why every classifier in the world pairs these two: the Diamond has you derive this gradient, and when you do, your Value engine will agree with your algebra to the last decimal, because it computed the very same derivatives, one operation at a time.</p>
+<h3>Deeper water: the size of the thing you did not build</h3>
+<p>Your name model has a few thousand knobs — about eight thousand, when Lab 9 counts them — and the public figure for a frontier model is the order of a <em>trillion</em>. The gap is eight powers of ten, and almost everything strange and unsettled about modern AI lives in that gap. The training loop is identical; the architecture is the same attention you built, stacked; the loss is the same cross-entropy. What changes across twelve orders of magnitude is not the algorithm but the <em>behavior</em> — capabilities appear that no one designed and few predicted, and the question of why a trillion-knob next-letter-guesser, trained on enough text, does what it does is not a settled engineering matter but an open scientific one, pursued right now by people using tools you would recognize from this book: the spectra of large matrices, the geometry of high-dimensional landscapes, the search for phase transitions in training. The author of this book is among them. You have built the small version completely. The large version is built completely too — and understood by no one completely, which is the most honest and most exciting sentence this book can end its technical chapters on.</p>
+</blockquote>
+<h2>Where this leaves us</h2>
+<p>The bill from Chapter 8 is paid. Backpropagation — one forward pass recording a graph, one backward pass pricing it — gets the slope of every knob at once, and you built it from sixty lines that were really just Chapters 3, 5, 7, and Book 2’s derivatives, assembled. Around it, three small classes compose knobs into a network; numpy scales the network to where it can speak; attention upgrades it to the architecture of the present age. And the parrot exam, throughout, kept the enterprise honest: a model that memorizes is not a model that learned, and the gap between the two is visible on your own screen in a one-minute run.</p>
+<p>You set out, nine chapters ago, to learn the usual algorithms — greedy, recursive, the ones in a college book — and some foundations of the machines that learn. You have them, and you have something the usual treatment rarely conveys: every one of these ideas, from binary search to backpropagation, is a particular way of <em>refusing to do most of the work</em>, and the refusals were invented by people, sat unnoticed for years as often as not, and are still being invented now, by a community whose tools you have just spent a book acquiring. There remains one short chapter, and it is not about a method. It is about the edges of the whole enterprise — the work that cannot be refused, the problems no algorithm will ever solve, and the questions that are open not because this book is elementary but because no one on Earth yet knows the answers. The map has edges, and standing at them is the best view in the subject.</p>
+<hr>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>Eight chapters return as parts on a workbench. List which chapter supplied which part.</li><li>Computing each slope separately is hopeless for billions of knobs; backpropagation gets them all in one sweep. Why is 'all at once' the entire difference?</li><li>'You will not have read about it. You will have built it — sixty lines, from nothing.' What is the difference between those two kinds of knowing?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/building-the-learner/from-engine-to-learner/"><span>Previous</span>From engine to learner</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/problem-set-9/"><span>Next</span>Problem Set 9</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Building the Learner","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/"},{"@type":"ListItem","position":5,"name":"Weighted looking-back"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/weighted-looking-back/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/weighted-looking-back/","headline":"Weighted looking-back","articleSection":"Building the Learner","inLanguage":"en","isAccessibleForFree":true,"wordCount":1867,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

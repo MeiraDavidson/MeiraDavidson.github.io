@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept &amp; Counterexample — Problem Set 1, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="3.1 A classmate claims: “binary search works fine on unsorted lists — I tried it and it found my target.” Construct an unsorted list and a target that is…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-1/concept-and-counterexample/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-1/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-0-talking-to-the-machine/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Concept &amp; Counterexample — Problem Set 1, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="3.1 A classmate claims: “binary search works fine on unsorted lists — I tried it and it found my target.” Construct an unsorted list and a target that is…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-1/concept-and-counterexample/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/problem-set-1/">Problem Set 1</a><span class="sep">›</span><span aria-current="page">Concept &amp; Counterexample</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Problem Set 1</p>
+  <h1>Concept &amp; Counterexample</h1>
+  
+<p><strong>3.1</strong> A classmate claims: “binary search works fine on unsorted lists — I tried it and it found my target.” Construct an unsorted list and a target <em>that is in the list</em> for which binary search wrongly reports absence. Make your example as small as possible.</p>
+<p><strong>3.2</strong> Another claim: “if binary search finds the target, the list must have been sorted.” Refute it with a three-item example.</p>
+<p><strong>3.3</strong> Claim: “in the guessing game, the question ‘is it bigger than 50?’ is the best first question for the range 1–100.” Is the question “is the number even?” just as good — it also eliminates exactly half? Trace what goes wrong (or doesn’t) when you try to build a <em>whole strategy</em> out of such questions. Then say precisely what property the survivors must keep for the two-finger method to work, and which deep-water sentence that property comes from.</p>
+<p><strong>3.4</strong> Claim: “worst case is too pessimistic; the target is usually somewhere in the middle.” Construct a realistic scenario where the <em>absent</em> case — the true worst case — is the overwhelmingly common one. (Hint: think about checking whether a username is taken.)</p>
+<p><strong>3.5</strong> Modify binary search so that, when the fingers cross, it reports <em>where the target would belong</em> instead of merely “not found.” Why does the invariant guarantee that this position is correct? (This version is what your phone uses to keep a list sorted as items arrive.)</p>
+<h2>Diamond</h2>
+<p><strong>4.1</strong> The lower bound, yours now. Write out the exact-count argument from the deep water as a complete proof, in your own words, of the statement: <em>any strategy that solves the guessing game on 1, …, n with yes/no questions needs at least ⌈log₂(n+1)⌉ questions in the worst case.</em> Your proof must make explicit (a) why two different situations cannot share an answer-sequence, (b) where the “+1” comes from, and (c) why the argument applies to every strategy, including ones nobody has invented. Then answer: does the bound still hold if the questions need not be of the form “is it bigger than x?” — and where in your proof is that fact used (or not used)?</p>
+<h2>Computational Lab</h2>
+<p><strong>5.1</strong> Labs 0 and 1, completely — including every Break-it prediction <em>written before running</em>. Bring your prediction gaps (the ones you got wrong) to the Teach It tier: they are your best material.</p>
+<h2>Teach It</h2>
+<p><strong>6.1</strong> Teach the guessing game and the halving strategy to someone at home, with one rule: you may not say “algorithm,” “binary,” or “logarithm.” Win the game on 1–1000 in ten questions in front of them, then get <em>them</em> to explain back to you why ten is always enough. Write three sentences on what was hardest for them to believe.</p>
+<p><strong>6.2</strong> Explain to the same person why being sure something is <em>missing</em> from a messy drawer costs more than finding something that’s there — and why a sorted drawer changes that. If you can make them feel the asymmetry, you understand this chapter.</p>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>Problem 6.2 asks you to explain why being sure something is missing from a messy drawer costs more than finding something that is there. Try it on someone. Did they feel the asymmetry?</li><li>Which problem in this set did you get wrong first, and what did the wrong answer assume?</li><li>The set mixes hand-tracing with proof. Why does tracing by hand matter when a computer could do it instantly?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/problem-set-1/"><span>Previous</span>Problem Set 1</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/lab-0-talking-to-the-machine/"><span>Next</span>Lab 0: Talking to the Machine</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Problem Set 1","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-1/"},{"@type":"ListItem","position":5,"name":"Concept & Counterexample"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-1/concept-and-counterexample/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-1/concept-and-counterexample/","headline":"Concept & Counterexample","articleSection":"Problem Set 1","inLanguage":"en","isAccessibleForFree":true,"wordCount":497,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

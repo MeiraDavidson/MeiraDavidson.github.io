@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Architecture, Not Amount — The Energy Question, Honestly, The Invisible Trillion | The Curious Family Library</title>
+<meta name="description" content="Connected to the above point but worth its own treatment: the energy cost of AI depends much more on where the inference runs than on how much of it there…">
+<link rel="canonical" href="https://meiradavidson.github.io/library/the-invisible-trillion/the-energy-question-honestly/architecture-not-amount/">
+<link rel="prev" href="https://meiradavidson.github.io/library/the-invisible-trillion/the-energy-question-honestly/how-much-of-the-growth-is-real/">
+<link rel="next" href="https://meiradavidson.github.io/library/the-invisible-trillion/the-energy-question-honestly/what-this-actually-means/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Architecture, Not Amount — The Energy Question, Honestly, The Invisible Trillion | The Curious Family Library">
+<meta property="og:description" content="Connected to the above point but worth its own treatment: the energy cost of AI depends much more on where the inference runs than on how much of it there…">
+<meta property="og:url" content="https://meiradavidson.github.io/library/the-invisible-trillion/the-energy-question-honestly/architecture-not-amount/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/library/">Library</a><span class="sep">›</span><a href="/library/the-invisible-trillion/">The Invisible Trillion</a><span class="sep">›</span><a href="/library/the-invisible-trillion/the-energy-question-honestly/">The Energy Question, Honestly</a><span class="sep">›</span><span aria-current="page">Architecture, Not Amount</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">The Invisible Trillion · The Energy Question, Honestly</p>
+  <h1>Architecture, Not Amount</h1>
+  
+<p>Connected to the above point but worth its own treatment: the energy cost of AI depends much more on <em>where</em> the inference runs than on <em>how much</em> of it there is.</p>
+<p>Consider a specific task — say, summarizing an email — and trace the energy cost under different architectures.</p>
+<p><em>If the summary runs through a frontier-model API</em>: your phone sends the email text to a hyperscale data center, which loads the email into a model running on $40,000 GPUs cooled by industrial-scale chillers, in a building drawing 100 megawatts of power, on a grid that has been expanded to serve that data center at residential ratepayer expense. The inference itself takes perhaps half a second of GPU time, consuming a few watt-hours. The total energy cost of the inference, properly accounted, includes the share of the data center’s idle-but-running infrastructure, the share of the cooling load, the share of the grid expansion. The end-to-end energy might be ten to twenty watt-hours, depending on how you count.</p>
+<p><em>If the summary runs on a 4-billion-parameter model on your phone</em>: your phone never sends the email anywhere. The model, already loaded into the phone’s neural processing unit, runs the inference in a few hundred milliseconds, drawing perhaps 0.1 watt-hours from the phone’s battery — energy that came from the wall outlet you plugged the phone into last night, at residential rates, with no marginal grid expansion required. The end-to-end energy cost is one one-hundredth of the cloud version, and you didn’t ask any utility or any data center to add capacity to serve you.</p>
+<p>Same task. Two architectures. Two orders of magnitude difference in energy cost. The difference is not in how good AI is or how much people use it. It is in <em>where the inference runs</em>.</p>
+<p>The chapter on self-driving — which comes a few chapters later in the book — describes the same architecture argument in more detail. Self-driving was forced onto an edge-inference architecture by the physical constraints of real-time driving. The result is that the world’s fleet of partially and fully autonomous vehicles, running billions of inference operations per day, has an energy footprint that mostly does not show up in hyperscale data center demand. Each car’s compute runs on the car’s battery, paid for at the rates the car owner pays for charging, with no centralized grid expansion required.</p>
+<p>Route general inference the way self-driving routes it, and the demand-growth projections shrink dramatically. The “rising fast” trajectory is partly real growth and partly an artifact of sending inference to hyperscale data centers that did not need to handle it — a business-model preference on the providers’ part, not a technical necessity, whose energy cost is paid by ratepayers and host communities.</p>
+<hr>
+  
+  <nav class="pager">
+    <a class="p" href="/library/the-invisible-trillion/the-energy-question-honestly/how-much-of-the-growth-is-real/"><span>Previous</span>How Much Of The Growth Is Real?</a>
+    <a class="n" href="/library/the-invisible-trillion/the-energy-question-honestly/what-this-actually-means/"><span>Next</span>What This Actually Means</a>
+  </nav>
+  <p class="backto"><a href="/library/the-invisible-trillion/">All 19 chapters of The Invisible Trillion</a> · <a href="/library/">Library</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Library","item":"https://meiradavidson.github.io/library/"},{"@type":"ListItem","position":3,"name":"The Invisible Trillion","item":"https://meiradavidson.github.io/library/the-invisible-trillion/"},{"@type":"ListItem","position":4,"name":"The Energy Question, Honestly","item":"https://meiradavidson.github.io/library/the-invisible-trillion/the-energy-question-honestly/"},{"@type":"ListItem","position":5,"name":"Architecture, Not Amount"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/library/the-invisible-trillion/the-energy-question-honestly/architecture-not-amount/","url":"https://meiradavidson.github.io/library/the-invisible-trillion/the-energy-question-honestly/architecture-not-amount/","headline":"Architecture, Not Amount","articleSection":"The Energy Question, Honestly","inLanguage":"en","isAccessibleForFree":true,"wordCount":457,"isPartOf":{"@type":"Book","name":"The Invisible Trillion","url":"https://meiradavidson.github.io/library/the-invisible-trillion/"}}]}</script>
+</body>
+</html>

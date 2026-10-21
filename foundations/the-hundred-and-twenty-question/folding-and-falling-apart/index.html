@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Folding and Falling Apart — Will you live to 120? | The Curious Family Library</title>
+<meta name="description" content="Proteins must fold into exact shapes to work, and the cell fights a constant, losing war to keep them folded — the war behind the diseases we fear most.…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/folding-and-falling-apart/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-beautiful-wrong-idea/where-the-machines-come-in/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/folding-and-falling-apart/when-the-crews-fall-behind/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Folding and Falling Apart — Will you live to 120? | The Curious Family Library">
+<meta property="og:description" content="Proteins must fold into exact shapes to work, and the cell fights a constant, losing war to keep them folded — the war behind the diseases we fear most.…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/folding-and-falling-apart/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/the-hundred-and-twenty-question/">Will you live to 120?</a><span class="sep">›</span><span aria-current="page">Folding and Falling Apart</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Will you live to 120?</p>
+  <h1>Chapter 6 · Folding and Falling Apart</h1>
+  
+<p><em>Proteins must fold into exact shapes to work, and the cell fights a constant, losing war to keep them folded — the war behind the diseases we fear most. The most celebrated AI in biology cracked how proteins fold; misfolding is another matter.</em></p>
+
+<p><strong>Companion notebook · Chapter 6.</strong> <em>Why Proteins Don’t Fold by Searching (the folding funnel)</em> — open it in Google Colab and build it yourself: <a href="https://colab.research.google.com/github/MeiraDavidson/biology_aging/blob/main/notebooks/build-protein-folding-funnel.ipynb">Open in Colab →</a></p>
+
+<h3>The shape is the function</h3>
+<p>Almost everything your body does, it does with proteins. They are the enzymes that run your chemistry, the motors that move your muscles, the receptors that hear signals, the antibodies that defend you, the scaffolds that hold cells in shape. And every one of them is built the same way: as a long chain of amino acids, strung together in an order written by a gene, that then folds up into a precise three-dimensional shape. The shape is not decoration. <strong>The shape <em>is</em> the function.</strong> An enzyme works because its folded form creates a pocket shaped exactly to grip its target; an antibody binds because its folded loops match the thing it’s hunting. Unfold the protein — or fold it wrong — and the function is simply gone, the way a key filed to the wrong shape opens nothing.</p>
+<p>This poses a problem the cell must solve billions of times a second, and a problem so hard that it took the field of biology fifty years and, eventually, an artificial intelligence to crack even half of it. How does a floppy chain of amino acids find its one correct shape, reliably, fast, in the chaos of a living cell — and what happens, in aging and in the diseases we fear most, when it fails? This chapter is about folding, about the cellular crews whose job is to keep proteins folded and to dispose of the ones that aren’t, about what goes wrong when those crews fall behind, and about the most famous AI achievement in the history of biology — which, it turns out, solved precisely the part of this problem that isn’t killing us.</p>
+
+<h3>The folding problem, and why it’s hard</h3>
+<p>Begin with a puzzle that stopped people cold in 1969, named for the scientist who posed it: <strong>Levinthal’s paradox.</strong></p>
+<p>Consider a smallish protein, a chain of a hundred amino acids. At each link, the chain can bend into roughly a few distinct angles. With a hundred links and, say, three choices each, the number of possible shapes the chain could take is about <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>3</mn><mn>100</mn></msup><annotation encoding="application/x-tex">3^{100}</annotation></semantics></math> — which is around <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>10</mn><mn>48</mn></msup><annotation encoding="application/x-tex">10^{48}</annotation></semantics></math>, a one followed by forty-eight zeros. Now suppose the protein folded by <em>trying</em> shapes, flipping from one to the next as fast as molecules can move, about once every <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>10</mn><mrow><mo>−</mo><mn>13</mn></mrow></msup><annotation encoding="application/x-tex">10^{-13}</annotation></semantics></math> seconds. To sample all <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>10</mn><mn>48</mn></msup><annotation encoding="application/x-tex">10^{48}</annotation></semantics></math> shapes would take roughly <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>10</mn><mn>35</mn></msup><annotation encoding="application/x-tex">10^{35}</annotation></semantics></math> seconds. The universe is about <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>×</mo><msup><mn>10</mn><mn>17</mn></msup></mrow><annotation encoding="application/x-tex">4 \times 10^{17}</annotation></semantics></math> seconds old. A protein folding by random search would take <em>vastly</em> longer than the age of the universe to find its shape — and yet real proteins fold in thousandths of a second to seconds. They cannot possibly be searching at random. Something is guiding them.</p>
+<p>The resolution, worked out over the following decades, is one of the loveliest ideas in molecular biophysics: <strong>folding is not a search, it is a fall.</strong> Picture the protein’s possible shapes as a landscape of hills and valleys, where height represents energy — and picture that landscape shaped not like a flat plain riddled with pits, but like a <strong>funnel</strong>, sloping down on all sides toward a single deep well at the bottom that is the correct, native shape. The unfolded chain starts at the wide rim, and at every moment the local slope nudges it downhill, toward more stable, more correct partial structures. It doesn’t try every shape; it rolls down the funnel, the way water finds the drain without first visiting every point in the sink. This is why folding is fast despite the astronomical number of possibilities: the energy landscape itself does the work of narrowing the search. And — a second deep idea, established by Christian Anfinsen, who showed that an unfolded protein in a test tube can refold to its exact working shape entirely on its own — <strong>the shape of that funnel, and the location of the well at the bottom, is encoded in the amino-acid sequence itself.</strong> The sequence determines the structure. The instructions for the final shape are written into the chain.</p>
+<p><img src="/foundations/the-hundred-and-twenty-question/img/file17.png" alt="" loading="lazy"></p>
+<p>So in principle, sequence determines structure and the funnel makes folding fast. In practice, inside a real cell, folding is perilous — and the peril is the seed of everything that follows. The cytoplasm is not a clean test tube; it is one of the most crowded environments in nature, packed so densely with other molecules that a newly made protein chain emerges into a jostling crowd, half-folded and vulnerable, with no room to spare. Heat, mutations, and ordinary wear can knock a protein out of its well. And here is the crucial danger: a misfolded protein usually exposes patches that are meant to be buried in its core — oily, water-avoiding “sticky” surfaces — and when two misfolded proteins drift together, those exposed sticky patches latch onto each other. They clump. <strong>Aggregation</strong> — misfolded proteins gluing themselves into clumps — is the central catastrophe of this chapter, because a clump is far harder to fix or remove than a single bad protein, and because the clumps are toxic. Folding is a fall, and most of the time it lands true. But it doesn’t always, and the cell needs a way to deal with what happens when it doesn’t.</p>
+
+<h3>The cleanup crews</h3>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/the-hundred-and-twenty-question/the-beautiful-wrong-idea/where-the-machines-come-in/"><span>Previous</span>Where the machines come in</a>
+    <a class="n" href="/foundations/the-hundred-and-twenty-question/folding-and-falling-apart/when-the-crews-fall-behind/"><span>Next</span>When the crews fall behind</a>
+  </nav>
+  <p class="backto"><a href="/foundations/the-hundred-and-twenty-question/">All 10 chapters of Will you live to 120?</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Will you live to 120?","item":"https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/"},{"@type":"ListItem","position":4,"name":"Folding and Falling Apart"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/folding-and-falling-apart/","url":"https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/folding-and-falling-apart/","headline":"Folding and Falling Apart","articleSection":"Folding and Falling Apart","inLanguage":"en","isAccessibleForFree":true,"wordCount":951,"isPartOf":{"@type":"Book","name":"Will you live to 120?","url":"https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/"}}]}</script>
+</body>
+</html>

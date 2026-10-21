@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept &amp; Counterexample — Problem Set 9, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="3.1 Claim: “you need calculus to know each operation’s blame-rule, so backprop can’t be elementary.” Half true. Show that each individual rule is a single…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-9/concept-and-counterexample/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-9/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-9/diamond/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Concept &amp; Counterexample — Problem Set 9, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="3.1 Claim: “you need calculus to know each operation’s blame-rule, so backprop can’t be elementary.” Half true. Show that each individual rule is a single…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-9/concept-and-counterexample/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/problem-set-9/">Problem Set 9</a><span class="sep">›</span><span aria-current="page">Concept &amp; Counterexample</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Problem Set 9</p>
+  <h1>Concept &amp; Counterexample</h1>
+  
+<p><strong>3.1</strong> Claim: “you need calculus to know each operation’s blame-rule, so backprop can’t be elementary.” Half true. Show that <em>each individual rule</em> is a single Book 2 derivative (list the rules for +, ·, xⁿ, exp, log), and that the <em>algorithm</em> combining them needs no calculus at all — only graph traversal. State precisely where the mathematics lives and where the computer science does.</p>
+<p><strong>3.2</strong> Claim: “a deeper network needs a more complicated backprop.” Refute using the chapter’s central structural fact: what does <code>backward()</code> actually operate on, and why is it blind to how deep or wide the network is? Construct the one-sentence argument that the <em>same sixty lines</em> train a 2-layer and a 200-layer network.</p>
+<p><strong>3.3</strong> Claim: “the model generates real mathematician names, so it has memorized the list.” Distinguish, with the parrot exam: what would <em>perfect memorization</em> look like in the generated samples (and in the two loss curves)? What does the appearance of <em>novel plausible</em> names prove instead? Then the subtle case from the lab: if the model <em>does</em> emit some exact training names alongside novel ones, has it memorized? What single experiment settles it?</p>
+<p><strong>3.4</strong> Claim: “softmax and cross-entropy are just two reasonable choices among many.” The deep water shows they are <em>matched</em>. Pair softmax instead with a different loss — squared error on the probabilities — and argue qualitatively why the gradient is messier and the learning signal less clean. (You need not compute it fully; identify what the clean “p − 1” structure depended on.)</p>
+<p><strong>3.5</strong> Claim: “attention is fundamentally different from the simple model — a new kind of thing.” Argue the opposite from the chapter: name everything attention <em>shares</em> with the toy (the loss, the descent, the backward sweep, the softmax), and isolate the single thing it adds (learned, input-dependent weights over all prior positions). Is the transformer a new <em>idea</em> or a new <em>arrangement</em> of old ideas? Defend your answer.</p>
+<p><strong>3.6</strong> Claim: “the √d_k scaling in attention is a minor numerical tweak.” Refute it with the mechanism: when query and key entries are independent with unit variance, what is the typical size of their dot product over <em>d_k</em> dimensions (think about summing d_k independent products — Chapter 7’s linearity of expectation, and what happens to the <em>spread</em>)? Then argue what an unscaled, large-magnitude score does to softmax (where do its outputs go?) and to the gradient through that softmax. The scaling is the difference between a head that learns and a head that is frozen at birth; say precisely why.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/problem-set-9/"><span>Previous</span>Problem Set 9</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/problem-set-9/diamond/"><span>Next</span>Diamond</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Problem Set 9","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-9/"},{"@type":"ListItem","position":5,"name":"Concept & Counterexample"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-9/concept-and-counterexample/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-9/concept-and-counterexample/","headline":"Concept & Counterexample","articleSection":"Problem Set 9","inLanguage":"en","isAccessibleForFree":true,"wordCount":422,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

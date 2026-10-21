@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3. The clock arrives — with a protocol — Lab 6: Counted and Clocked, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Python’s stopwatch is time.perf_counter(): call it, do work, call it again, subtract. But a computer is a busy place — your timing shares the machine with…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-6-counted-and-clocked/the-clock-arrives-with-a-protocol/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-6-counted-and-clocked/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-6-counted-and-clocked/the-first-plot/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3. The clock arrives — with a protocol — Lab 6: Counted and Clocked, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Python’s stopwatch is time.perf_counter(): call it, do work, call it again, subtract. But a computer is a busy place — your timing shares the machine with…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-6-counted-and-clocked/the-clock-arrives-with-a-protocol/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/lab-6-counted-and-clocked/">Lab 6: Counted and Clocked</a><span class="sep">›</span><span aria-current="page">3. The clock arrives — with a protocol</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Lab 6: Counted and Clocked</p>
+  <h1>3. The clock arrives — with a protocol</h1>
+  
+<p>Python’s stopwatch is <code>time.perf_counter()</code>: call it, do work, call it again, subtract. But a computer is a busy place — your timing shares the machine with everything else running — so single measurements lie. The professional protocol: <strong>repeat many times, take the median</strong> (the middle value when sorted — outliers from a busy moment fall off the ends).</p>
+<pre><code>import time
+
+def clock(sorter, items, repeats):
+    times = []
+    for _ in range(repeats):
+        copy = list(items)
+        start = time.perf_counter()
+        sorter(copy)
+        times.append(time.perf_counter() - start)
+    times.sort()                      # the built-in sort; §6 turns the clock on it
+    return times[len(times) // 2]     # the median
+</code></pre>
+<p>(Note the line <code>copy = list(items)</code>: each repeat sorts a <strong>fresh copy</strong>. For an in-place sorter this is not tidiness, it is the experiment’s integrity — predict what the second repeat would be measuring without it, then hold the thought for Break-it 2.)</p>
+<h2>4. The clocked race, and the neighborhood</h2>
+<p>Now both sorts on the clock. Plain versions without counters (retype <code>merge_sort</code> from Lab 3; write <code>insertion_sort</code> by deleting the counter from §1), shuffled inputs this time — the clock’s question is “typical day,” and <code>random.shuffle</code> deals one:</p>
+<pre><code>import random
+random.seed(7)                        # same shuffles every run: experiments should repeat
+
+for n in [4, 8, 16, 32, 64, 128, 256]:
+    items = list(range(n))
+    random.shuffle(items)
+    t_ins = clock(insertion_sort, items, 51)
+    t_mrg = clock(merge_sort, items, 51)
+    winner = "insertion" if t_ins &lt; t_mrg else "merge"
+    print(n, "  insertion:", round(t_ins * 1e6, 1), "µs   merge:",
+          round(t_mrg * 1e6, 1), "µs   →", winner)
+</code></pre>
+<p>Predict before running: §2 said merge wins every count — does it win every clock? Then read the table. On most machines a <em>neighborhood</em> appears at small n where insertion wins the clock while losing the count: the plodder is a simple creature with almost no overhead, and at a dozen items, overhead is most of the bill. Find your machine’s crossover point (the n where the winner flips) and write it down — it is data for Problem 2.1, and it is the constant factor, located. The count predicted the shapes; the constants own the neighborhood.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/lab-6-counted-and-clocked/"><span>Previous</span>Lab 6: Counted and Clocked</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/lab-6-counted-and-clocked/the-first-plot/"><span>Next</span>5. The first plot</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Lab 6: Counted and Clocked","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-6-counted-and-clocked/"},{"@type":"ListItem","position":5,"name":"3. The clock arrives — with a protocol"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-6-counted-and-clocked/the-clock-arrives-with-a-protocol/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-6-counted-and-clocked/the-clock-arrives-with-a-protocol/","headline":"3. The clock arrives — with a protocol","articleSection":"Lab 6: Counted and Clocked","inLanguage":"en","isAccessibleForFree":true,"wordCount":352,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

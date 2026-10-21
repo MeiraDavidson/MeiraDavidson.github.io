@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Order, and Its Price — A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="In which the toll booth opens its books, and a fence is built around the possible">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/order-and-its-price/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/interlude-the-other-exponential/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/order-and-its-price/the-halver-returns/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Order, and Its Price — A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="In which the toll booth opens its books, and a fence is built around the possible">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/order-and-its-price/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><span aria-current="page">Order, and Its Price</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms</p>
+  
+  <h1>Chapter 6: Order, and Its Price</h1>
+<p>✦ ✦ ✦</p>
+<p>In which the toll booth opens its books, and a fence is built around the possible</p>
+<h2>The bill comes due</h2>
+<p>Chapter 1 sold you a miracle on credit. Binary search answers in twenty steps what costs a million — <em>provided the list is sorted</em> — and the chapter admitted, in fine print, that sortedness is purchased in advance. Five chapters later, the invoice: what does sorting actually cost? Is the toll worth paying? And — the question that makes this chapter different from every chapter before it — could anyone, ever, sort <em>fast</em>? Not “has anyone” but “could anyone”: is there a floor under the price, built into the universe of the problem itself?</p>
+<p>By the end you will hold a proof that there is. It is this book’s first full <strong>impossibility theorem</strong>, and impossibility theorems are the strangest goods mathematics sells: a fence around every algorithm that exists and every algorithm that ever will, including ones no mind has conceived. Chapter 1’s deep water built a small fence of this kind around the guessing game. Today we build the famous one.</p>
+<p>But first, honest accounting of how sorting is actually done.</p>
+<h2>How humans sort</h2>
+<p>Pick up a dozen dealt cards the way every card player on Earth does: take them one at a time, and slide each new card leftward through the cards already in your hand until it sits where it belongs. The cards in your hand are always sorted; each arrival walks left past everything bigger than itself.</p>
+<p>That is an algorithm — <strong>insertion sort</strong> — and your hands have known it for years. Its correctness needs one sentence (the hand is sorted before each arrival and sorted after — the invariant trick, which you should greet like a relative by now). The cost, in the declared currency of comparisons: the arriving card is compared against each card it walks past. Worst case — the deck dealt in perfectly reversed order — every card walks past <em>everything</em> already in hand: the first arrival makes 1 comparison, the next 2, then 3, and the bill is</p>
+<p><strong>1 + 2 + 3 + … + (n − 1) = n(n − 1)/2</strong></p>
+<p>— Gauss’s schoolroom sum from Lab 0, sitting in the middle of sorting, presenting the bill instead of the discount. For n = 2,048 cards: 2,096,128 comparisons. And the <em>gait</em>: double the deck and the bill quadruples — the n² signature you met in Lab 3’s lopsided tree, now arising honestly rather than by sabotage. (One virtue, recorded now and cashed later: deal the cards <em>already sorted</em> and each arrival walks past nothing — n − 1 comparisons total. Insertion sort notices order that is already there. Hold that.)</p>
+<blockquote>
+<h3>A human moment</h3>
+<p>Sorting was an industrial crisis before it was a subject. The United States counts its people every ten years, and the 1880 census — tallied by hand, by clerks, with paper and patience — took about eight years to process. Projections for 1890 ran <em>past</em> 1900: the country would be counting one census when the next arrived. A young engineer who had worked on the 1880 count, Herman Hollerith, proposed heresy: punch each person’s answers as holes in a card, and build machines to sort and tally the cards electrically. His tabulators processed the 1890 census in a fraction of the time, sorting millions of cards by trade, by age, by state — and the company he founded to rent out the machines became, after mergers and a renaming, International Business Machines. IBM. The computer industry is, by lineage, a <em>sorting</em> industry: before machines computed much of anything, they sorted, because sorting was where civilization’s paperwork actually drowned. When this chapter asks what sorting costs, remember that for Hollerith’s clerks the answer was measured in <em>years of a nation’s attention</em> — and that the gap between n² and n log n, at census scale, is the gap between drowning and not.</p>
+</blockquote>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/interlude-the-other-exponential/"><span>Previous</span>Interlude: The Other Exponential</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/order-and-its-price/the-halver-returns/"><span>Next</span>The halver returns</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Order, and Its Price"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/order-and-its-price/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/order-and-its-price/","headline":"Order, and Its Price","articleSection":"Order, and Its Price","inLanguage":"en","isAccessibleForFree":true,"wordCount":665,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

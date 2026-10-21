@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Muscles — The Brain, How Cars Work | The Curious Family Library</title>
+<meta name="description" content="Sensors are useless unless the computer can act on what they tell it. So just as the car has senses, it has actuators — devices that take commands from…">
+<link rel="canonical" href="https://meiradavidson.github.io/library/how-cars-work/the-brain/muscles/">
+<link rel="prev" href="https://meiradavidson.github.io/library/how-cars-work/the-brain/senses/">
+<link rel="next" href="https://meiradavidson.github.io/library/how-cars-work/crash-prevention/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Muscles — The Brain, How Cars Work | The Curious Family Library">
+<meta property="og:description" content="Sensors are useless unless the computer can act on what they tell it. So just as the car has senses, it has actuators — devices that take commands from…">
+<meta property="og:url" content="https://meiradavidson.github.io/library/how-cars-work/the-brain/muscles/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/library/">Library</a><span class="sep">›</span><a href="/library/how-cars-work/">How Cars Work</a><span class="sep">›</span><a href="/library/how-cars-work/the-brain/">The Brain</a><span class="sep">›</span><span aria-current="page">Muscles</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">How Cars Work · The Brain</p>
+  <h1>Muscles</h1>
+  
+<p>Sensors are useless unless the computer can act on what they tell it. So just as the car has senses, it has <strong>actuators</strong> — devices that take commands from the ECU and do something physical in the engine.</p>
+<p>The two most important are the fuel injectors and the ignition coils. <strong>Fuel injectors</strong> are small electric valves, one per cylinder, that spray a precise amount of gasoline into the cylinder when the ECU commands them to. The ECU controls each injector independently, telling it exactly how long to stay open. A few milliseconds longer means a richer shot of fuel; a few milliseconds shorter means leaner.</p>
+<p>The ignition coils are the same coils we met in Chapter 3 — but in a modern car, instead of one big coil and a mechanical distributor, each cylinder usually has its own little coil. The ECU fires each one electronically, at exactly the moment it wants that cylinder to spark.</p>
+<p>There are other actuators too — idle valves, variable timing solenoids, throttle servos in cars where the gas pedal is electric. But fuel injectors and ignition coils are the two big ones. Together, they let the ECU control the two most important things about combustion: how much fuel goes in, and exactly when it ignites.</p>
+
+<h2>A tour around the loop</h2>
+<p>Here is the whole thing in motion. Your mom is driving up a hill. The car needs more power than it would on flat ground, because gravity is fighting it. Watch what the ECU does, all in less than a second:</p>
+<p>Your mom presses the gas pedal a little farther down. The throttle position sensor sees the change and reports it to the ECU. The throttle plate in the intake opens wider, more air starts flowing into the engine, and the mass airflow sensor reports the new airflow number.</p>
+<p>The ECU looks up the new conditions in its map: more air, same RPM, what fuel and timing should I use? It finds the answer. It sends slightly longer pulses to the fuel injectors so they stay open a few milliseconds longer per shot, putting more fuel in to match the extra air. It nudges the ignition timing a tiny bit to get the most power out of the bigger fuel-air charge. The bigger charge ignites, the engine makes more power, the car climbs the hill.</p>
+<p>Meanwhile, the oxygen sensor in the exhaust is reading the burned gas on its way out, telling the ECU whether the mixture turned out a touch too rich or a touch too lean. The ECU nudges the next batch a hair the other way.</p>
+<p>This loop runs continuously, hundreds of times per minute, all without the driver knowing anything is happening other than that the car is responding to her foot. The ECU has just done what a 1960s carburetor and distributor could not — adjusted, on the fly, in real time, based on what was actually happening, to get the best possible burn.</p>
+<figure>
+<img src="/library/how-cars-work/img/file8.jpg" alt="" loading="lazy"><figcaption>Sense, decide, act: the ECU loop.</figcaption>
+</figure>
+
+<h3>Try It: The Toilet Tank Loop</h3>
+<p>This is going to sound weird. Trust me.</p>
+<p>You will need:</p>
+<ul>
+<li><p>A toilet</p></li>
+<li><p>An adult’s permission to lift the tank lid</p></li>
+</ul>
+<p>Lift the lid off the back of a toilet tank and set it carefully on the floor. Inside, you will see water, a chain, a flapper valve at the bottom, and a tall plastic pole or cylinder with a float on it. Now flush. Watch what happens.</p>
+<p>When the handle goes down, the chain lifts the flapper, water rushes out into the bowl, and the level in the tank drops. As the level drops, the float drops with it. Once the float gets low enough, a valve opens at the top of the supply pipe and fresh water starts pouring in. The water level rises again. When the float rises high enough, the valve closes. The water stops. The tank is full.</p>
+<p>What you just watched is a complete sense-decide-act loop, the same kind the ECU runs. The float is the sensor — it measures the water level by sitting on top of it. The mechanism that opens and closes the valve is the decider — it decides “valve open below this level, valve closed above this level.” The valve itself is the actuator — it does the work of letting water in or stopping it.</p>
+<p>A toilet tank is not smart. It has no microprocessor, no software, not a single transistor. But it has senses, decisions, and actions, all linked in a loop. That is exactly what the ECU is doing inside your car, just faster, with electronics, and with stakes higher than overflowing porcelain.</p>
+
+<p><strong>Did You Know?</strong> Long before computers, engineers solved control problems with clever mechanical linkages. The most famous example came from James Watt, the Scottish engineer who improved the steam engine in the late 1700s. Steam engines had a problem: if they ran too fast, they could shake themselves apart. Watt’s solution, in 1788, was a device called a flyball governor. It was two metal balls on hinged arms, attached to a vertical shaft that spun along with the engine. As the engine sped up, the balls spun faster, flew outward (the same way you fly outward on a fast carnival swing-ride), and pulled levers that closed the steam valve. As the engine slowed, the balls fell back inward and the valve opened more. A purely mechanical, self-correcting control loop, working entirely on its own. Sensor: the flyball arms. Decider: the linkage geometry. Actuator: the steam valve. The same architecture as a modern ECU, made entirely of metal, two hundred years before microchips existed.</p>
+
+<h2>The car can adapt</h2>
+<p>The car has a brain now. Sensors at one end to feel what is happening, actuators at the other end to do something about it, and the ECU in the middle reading and deciding hundreds of times per second. The mechanical heart is still there — same pistons, same crankshaft, same combustion — but a layer of decision-making has been wrapped around it. The car can adapt.</p>
+<p>What can it do, now that it can think?</p>
+<p>A lot. The next chapter is about safety systems — anti-lock brakes, traction control, stability control, airbags. Every one of them is the same sense-decide-act loop, pointed outward at the world instead of inward at the engine, and used to help prevent crashes.</p>
+<p>That is Chapter 7.</p>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>Two pressures pushed computers into cars: smog and the 1973 fuel price shock. Neither was about making cars faster or nicer. What does that suggest about why technology actually changes?</li><li>The oxygen sensor checks the exhaust to judge whether the last batch of fuel burned right — the book compares it to tasting your soup after cooking. Why is checking afterwards useful at all, if that batch is already burned?</li><li>A mechanical carburettor cannot change its behaviour; a computer can. What can a thing that adjusts do that a thing with a fixed shape never can? What does the fixed version still do better?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/library/how-cars-work/the-brain/senses/"><span>Previous</span>Senses</a>
+    <a class="n" href="/library/how-cars-work/crash-prevention/"><span>Next</span>Crash Prevention</a>
+  </nav>
+  <p class="backto"><a href="/library/how-cars-work/">All 13 chapters of How Cars Work</a> · <a href="/library/">Library</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Library","item":"https://meiradavidson.github.io/library/"},{"@type":"ListItem","position":3,"name":"How Cars Work","item":"https://meiradavidson.github.io/library/how-cars-work/"},{"@type":"ListItem","position":4,"name":"The Brain","item":"https://meiradavidson.github.io/library/how-cars-work/the-brain/"},{"@type":"ListItem","position":5,"name":"Muscles"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/library/how-cars-work/the-brain/muscles/","url":"https://meiradavidson.github.io/library/how-cars-work/the-brain/muscles/","headline":"Muscles","articleSection":"The Brain","inLanguage":"en","isAccessibleForFree":true,"wordCount":1065,"isPartOf":{"@type":"Book","name":"How Cars Work","url":"https://meiradavidson.github.io/library/how-cars-work/"}}]}</script>
+</body>
+</html>

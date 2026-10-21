@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4. The machine tells you when you’ve lost it — Lab 0: Talking to the Machine, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="print(&quot;the answer is &quot; + 42) Python stops and prints several lines of complaint ending in something like:">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-0-talking-to-the-machine/the-machine-tells-you-when-youve-lost-it/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-0-talking-to-the-machine/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-1-counting-steps/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4. The machine tells you when you’ve lost it — Lab 0: Talking to the Machine, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="print(&quot;the answer is &quot; + 42) Python stops and prints several lines of complaint ending in something like:">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-0-talking-to-the-machine/the-machine-tells-you-when-youve-lost-it/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/lab-0-talking-to-the-machine/">Lab 0: Talking to the Machine</a><span class="sep">›</span><span aria-current="page">4. The machine tells you when you’ve lost it</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Lab 0: Talking to the Machine</p>
+  <h1>4. The machine tells you when you’ve lost it</h1>
+  
+<p>Run this. It is broken on purpose.</p>
+<pre><code>print("the answer is " + 42)
+</code></pre>
+<p>Python stops and prints several lines of complaint ending in something like:</p>
+<pre><code>TypeError: can only concatenate str (not "int") to str
+</code></pre>
+<p>Read the last line. It is not scolding you; it is reporting, precisely, what it could not do: glue a piece of text to a number, because those are different kinds of things. An error message is information. Every programmer who has ever lived reads dozens of them a day. The ones who get good are the ones who read them rather than flinch.</p>
+<p>Fix the program by making the number into text:</p>
+<pre><code>print("the answer is " + str(42))
+</code></pre>
+<h2>5. The machine is fast</h2>
+<p>One more, and this one needs a construct we will not explain until Chapter 1 — run it anyway:</p>
+<pre><code>total = 0
+for n in range(1, 1000001):
+    total = total + n
+print(total)
+</code></pre>
+<p>This adds every whole number from 1 to one million. Run it and notice two things. First, the answer appears before your finger leaves the key. A million additions cost the machine nothing you can perceive. Second — check the answer. Gauss, as a schoolboy, is said to have computed this sum (to one hundred, but the trick scales) in seconds, by <em>thinking</em> instead of adding: pair 1 with 1,000,000, pair 2 with 999,999, and so on; 500,000 pairs, each summing to 1,000,001.</p>
+<p>So there are two ways to be fast: do the dumb thing very quickly, or find a way to not do most of the work at all. The machine gives you the first for free. This book is about the second. An <em>algorithm</em> is, more than anything else, a way of not doing most of the work — and the strange, wonderful fact is that the not-doing can be written down, studied, and proved correct, like any other piece of mathematics.</p>
+<p>That is where Chapter 1 begins.</p>
+<h2>Break it</h2>
+<p>End every lab this way: change one thing, <em>predict what will happen before you run it</em>, run it, and if the prediction was wrong, figure out why. The prediction is the exercise. Running the code only grades it.</p>
+<ol>
+<li>In §3, swap the last two lines, so <code>print(steps)</code> comes before the second <code>steps = steps + 1</code>. What prints?</li>
+<li>In §5, change <code>range(1, 1000001)</code> to <code>range(1000001)</code>. Predict whether the answer changes, then check. (Something here starts at 0. Does it matter?)</li>
+<li>In §5, change one million to one billion: <code>range(1, 1000000001)</code>. Predict first: instant, a few seconds, a minute, or never finishes? Then run it and time it. You have just taken your first measurement of the thing this whole book is about — what computation <em>costs</em>.</li>
+</ol>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>'It does not know what you meant. It knows what you wrote. The entire craft of programming lives in that gap.' Describe a time something took you literally.</li><li>The lab says if a program fits on one screen it is meant to be typed, not copied, because typing is slower and that is the point. Do you agree?</li><li>You were asked to predict before running — instant, seconds, a minute, or never. Were you right? What did a wrong prediction teach you?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/lab-0-talking-to-the-machine/"><span>Previous</span>Lab 0: Talking to the Machine</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/lab-1-counting-steps/"><span>Next</span>Lab 1: Counting Steps</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Lab 0: Talking to the Machine","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-0-talking-to-the-machine/"},{"@type":"ListItem","position":5,"name":"4. The machine tells you when you’ve lost it"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-0-talking-to-the-machine/the-machine-tells-you-when-youve-lost-it/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-0-talking-to-the-machine/the-machine-tells-you-when-youve-lost-it/","headline":"4. The machine tells you when you’ve lost it","articleSection":"Lab 0: Talking to the Machine","inLanguage":"en","isAccessibleForFree":true,"wordCount":458,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

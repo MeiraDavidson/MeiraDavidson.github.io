@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6. The parrot exam — Lab 8: Downhill, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Nearest neighbor, four lines as promised, on points with two features:">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-8-downhill/the-parrot-exam/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-8-downhill/the-two-valleys/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="6. The parrot exam — Lab 8: Downhill, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Nearest neighbor, four lines as promised, on points with two features:">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-8-downhill/the-parrot-exam/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/lab-8-downhill/">Lab 8: Downhill</a><span class="sep">›</span><span aria-current="page">6. The parrot exam</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Lab 8: Downhill</p>
+  <h1>6. The parrot exam</h1>
+  
+<p>Nearest neighbor, four lines as promised, on points with two features:</p>
+<pre><code>def nearest_label(examples, p):
+    best = None
+    for q, label in examples:
+        d = (p[0] - q[0]) ** 2 + (p[1] - q[1]) ** 2
+        if best is None or d &lt; best[0]:
+            best = [d, label]
+    return best[1]
+</code></pre>
+<p>(Chapter 1’s linear search, distance for equality — and squared distance suffices, since comparing squares compares distances.) Build a little world. Each song is [loudness, tempo]; in this user’s library, morning and night songs come at <em>every</em> loudness — the signal lives entirely in the tempo, slow mornings and fast nights, with honest scatter at the border:</p>
+<pre><code>def make_song(kind):
+    if kind == "morning":
+        return [[random.uniform(1, 9), random.uniform(60, 110)], "morning"]
+    else:
+        return [[random.uniform(1, 9), random.uniform(105, 160)], "night"]
+
+random.seed(88)
+training = [make_song("morning") for _ in range(20)] + [make_song("night") for _ in range(20)]
+testing  = [make_song("morning") for _ in range(50)] + [make_song("night") for _ in range(50)]
+</code></pre>
+<p>Now the two exams — the one it memorized, and the one it never saw:</p>
+<pre><code>def score(examples, exam):
+    right = 0
+    for p, truth in exam:
+        if nearest_label(examples, p) == truth:
+            right = right + 1
+    return right / len(exam)
+
+print("training score:", score(training, training))
+print("test score:    ", score(training, testing))
+</code></pre>
+<p>Predict both before running. The first is 1.0 — <em>necessarily</em>, eternally, by construction (each exam point finds itself at distance zero); write one sentence on why that score is therefore worth nothing. The second is the honest number — high here, because the world really is learnable and the features really do carry the signal — and the <em>gap</em> between the two numbers is the chapter’s last section in miniature. You have administered the parrot exam, and this learner passed it. Keep the grader; Chapter 9’s learner takes the same exam.</p>
+<h2>Break it</h2>
+<p>Predict first. Run second. Explain any gap third.</p>
+<p><strong>1.</strong> <em>The walker on the hilltop.</em> The two-valley landscape’s hill crests where the slope is exactly zero — solve nothing, just start a walker at 0.16993844331159128 (the lab hands you the cursed coordinate) and descend. Predict its journey. Then nudge it: start at 0.1699384 (seven digits). Predict again, run, and explain the difference in fates using §1’s confession about floats. A zero-slope point is a trap of measure zero — but what does “measure zero” feel like in a world of seventeen decimal places, and which of the two runs is the one real training jobs experience?</p>
+<p><strong>2.</strong> <em>Convergence vs. arrival.</em> On the bowl with η = 0.25, descend from 2.0 and test <code>path[k] == 0.0</code> for k = 20, 50, 200. Predict the three answers. Then test <code>abs(path[k]) &lt; 1e-6</code> instead. State the rule you’ll follow for the rest of your life about asking whether an iterative method has “finished” — and connect it to why §1 banned <code>==</code> before you’d written a single algorithm that needed the ban.</p>
+<p><strong>3.</strong> <em>The poisoned example.</em> In §6, flip exactly one training label (pick a morning song, call it “night”). Predict both scores’ movements before running: which is <em>guaranteed</em> not to drop, and why? Then measure the test score’s change, and — using <code>nearest_label</code> as a probe — map the poisoned point’s island: classify a small grid of points around it and find the territory one lie governs. The chapter’s Figure 8.1 island, grown in your own lab; finish with one sentence on what a learner that cannot doubt its examples does with a lie.</p>
+<p><strong>4.</strong> <em>Features are destiny.</em> Rebuild §6’s world with the tempo feature corrupted: multiply every tempo by 0.001 (a units botch — somebody filed kilo-beats-per-minute). The labels are untouched, the algorithm is untouched, and <em>the information is all still present</em> — every tempo is exactly recoverable. Predict the test score anyway. Then run it and explain the collapse to a coin flip: in <code>nearest_label</code>’s distance sum, who is doing all the talking now, who has been whispered into silence, and why does the only feature that knows anything no longer get a vote? Try 0.01 too and watch the score land <em>between</em> coin-flip and honest — silencing comes in degrees. Then repair it <em>without touching the data</em>: rescale inside the distance until both features speak at comparable volume. The lesson — a learner’s competence lives as much in the representation as in the algorithm — is Problem 2.3’s, now measured; it is also, one chapter early, the reason Chapter 9 will spend real care on how text becomes numbers before any learning begins.</p>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>Walking downhill by small steps is the whole of training. Where did your ball get stuck, and why?</li><li>Change the step size and predict first. What happened at too small, and at too large?</li><li>What does it mean that such a simple procedure underlies systems people call intelligent?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/lab-8-downhill/the-two-valleys/"><span>Previous</span>4. The two valleys</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/building-the-learner/"><span>Next</span>Building the Learner</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Lab 8: Downhill","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-8-downhill/"},{"@type":"ListItem","position":5,"name":"6. The parrot exam"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-8-downhill/the-parrot-exam/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-8-downhill/the-parrot-exam/","headline":"6. The parrot exam","articleSection":"Lab 8: Downhill","inLanguage":"en","isAccessibleForFree":true,"wordCount":741,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

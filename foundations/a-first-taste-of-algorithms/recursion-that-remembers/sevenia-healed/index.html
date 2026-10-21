@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sevenia, healed — Recursion That Remembers, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Now the debt this book has carried since Chapter 2. Sevenia’s coins {1, 7, 10}; you owe 14; greedy grabbed the 10 and paid five coins for a two-coin debt.…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/sevenia-healed/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/write-it-down/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/when-the-table-method-works-and-the-spell-checker/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sevenia, healed — Recursion That Remembers, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Now the debt this book has carried since Chapter 2. Sevenia’s coins {1, 7, 10}; you owe 14; greedy grabbed the 10 and paid five coins for a two-coin debt.…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/sevenia-healed/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/recursion-that-remembers/">Recursion That Remembers</a><span class="sep">›</span><span aria-current="page">Sevenia, healed</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Recursion That Remembers</p>
+  <h1>Sevenia, healed</h1>
+  
+<p>Now the debt this book has carried since Chapter 2. Sevenia’s coins {1, 7, 10}; you owe 14; greedy grabbed the 10 and paid five coins for a two-coin debt. Time to make change <em>correctly</em> — for every amount, in any coin system whatsoever.</p>
+<p>Ask the question in the staircase’s grammar. Let best(a) be the fewest coins paying amount a. Stand at amount a and look at your first decision: the first coin handed over is a 1, a 7, or a 10 — no fourth kind — and each choice leaves a smaller debt:</p>
+<p><strong>best(a) = 1 + min( best(a − 1), best(a − 7), best(a − 10) )</strong></p>
+<p>(only the options with a − c ≥ 0 compete, and the floor is best(0) = 0: no debt, no coins).</p>
+<p>Put this next to greedy and the difference in <em>character</em> is the chapter’s real lesson. Greedy, at amount 14, looked at the three coins, judged the 10 best-looking, and <strong>committed</strong> — the 7-branch and the 1-branch were never priced. The recurrence refuses to commit: it prices <strong>every</strong> branch — what would the future cost after a 1, after a 7, after a 10 — and only then takes the min. Greedy is a verdict before the trial; dynamic programming insists on hearing every future testify. That refusal would be exponentially expensive done naively (three branches, branching again, the staircase’s tree all over). The notebook makes it cheap: only the amounts 0 through a exist as distinct questions, so the whole trial costs about a × (number of coin types) table entries.</p>
+<p>Run the table bottom-up by hand for Sevenia to 14 — this is the wound actually closing, so do it slowly:</p>
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+<th>12</th>
+<th>13</th>
+<th>14</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>best(a)</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td><strong>1</strong></td>
+<td>2</td>
+<td>3</td>
+<td><strong>1</strong></td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td><strong>2</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Watch the entry at 7 snap to 1, the entry at 10 snap to 1, and then the entry at 14: min(best(13), best(7), best(4)) + 1 = min(4, <strong>1</strong>, 4) + 1 = <strong>2</strong>. The table found 7 + 7 not by insight but by <em>bookkeeping</em> — the 7-branch was priced like every other branch, and the price was right there. In Lab 4 your DP changer faces your own Chapter 2 greedy across every amount to 100; greedy loses six times and DP never loses once, because DP cannot lose: the Diamond below has you prove its recurrence is not a heuristic but a <em>theorem</em>.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/recursion-that-remembers/write-it-down/"><span>Previous</span>Write it down</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/recursion-that-remembers/when-the-table-method-works-and-the-spell-checker/"><span>Next</span>When the table method works — and the spell-checker</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Recursion That Remembers","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/"},{"@type":"ListItem","position":5,"name":"Sevenia, healed"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/sevenia-healed/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/sevenia-healed/","headline":"Sevenia, healed","articleSection":"Recursion That Remembers","inLanguage":"en","isAccessibleForFree":true,"wordCount":423,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

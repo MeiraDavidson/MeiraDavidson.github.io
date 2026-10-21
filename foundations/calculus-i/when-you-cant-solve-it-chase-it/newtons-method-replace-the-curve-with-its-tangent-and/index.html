@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Newton’s method: replace the curve with its tangent, and repeat — When You Can’t Solve It, Chase It, Calculus I | The Curious Family Library</title>
+<meta name="description" content="We want a root of ff — a place x⋆x_\star where f(x⋆)=0f(x_\star) = 0. Suppose we have a guess xnx_n that is in the neighborhood but not exact. From…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/calculus-i/when-you-cant-solve-it-chase-it/newtons-method-replace-the-curve-with-its-tangent-and/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/calculus-i/when-you-cant-solve-it-chase-it/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/calculus-i/when-you-cant-solve-it-chase-it/when-newton-breaks/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Newton’s method: replace the curve with its tangent, and repeat — When You Can’t Solve It, Chase It, Calculus I | The Curious Family Library">
+<meta property="og:description" content="We want a root of ff — a place x⋆x_\star where f(x⋆)=0f(x_\star) = 0. Suppose we have a guess xnx_n that is in the neighborhood but not exact. From…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/calculus-i/when-you-cant-solve-it-chase-it/newtons-method-replace-the-curve-with-its-tangent-and/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/calculus-i/">Calculus I</a><span class="sep">›</span><a href="/foundations/calculus-i/when-you-cant-solve-it-chase-it/">When You Can’t Solve It, Chase It</a><span class="sep">›</span><span aria-current="page">Newton’s method: replace the curve with its tangent, and repeat</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Calculus I · When You Can’t Solve It, Chase It</p>
+  <h1>Newton’s method: replace the curve with its tangent, and repeat</h1>
+  
+<p>We want a <strong>root</strong> of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math> — a place <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mo>⋆</mo></msub><annotation encoding="application/x-tex">x_\star</annotation></semantics></math> where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mo>⋆</mo></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">f(x_\star) = 0</annotation></semantics></math>. Suppose we have a guess <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mi>n</mi></msub><annotation encoding="application/x-tex">x_n</annotation></semantics></math> that is in the neighborhood but not exact. From Chapter 6 we know that near <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mi>n</mi></msub><annotation encoding="application/x-tex">x_n</annotation></semantics></math>, the function is almost equal to its tangent line:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>≈</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo>−</mo><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">f(x) \approx f(x_n) + f&#39;(x_n)\,(x - x_n).</annotation></semantics></math></p>
+<p>The curve is hard. The tangent line is easy — it is just a straight line, and a straight line crosses zero in exactly one obvious place. So here is the whole idea: <em>instead of asking where the hard curve hits zero, ask where its easy tangent line hits zero, and use that as our next guess.</em> Set the right-hand side to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math> and call the solution <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><annotation encoding="application/x-tex">x_{n+1}</annotation></semantics></math>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>=</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">0 = f(x_n) + f&#39;(x_n)\,(x_{n+1} - x_n).</annotation></semantics></math></p>
+<p>Solve for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><annotation encoding="application/x-tex">x_{n+1}</annotation></semantics></math> — just rearranging:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>x</mi><mi>n</mi></msub><mo>=</mo><mi>−</mi><mfrac><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><mrow><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mspace width="2.0em"></mspace><mo>⇒</mo><mspace width="2.0em"></mspace><menclose notation="box"><mrow><mspace width="0.278em"></mspace><msub><mi>x</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>x</mi><mi>n</mi></msub><mo>−</mo><mfrac><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><mrow><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mspace width="0.278em"></mspace></mrow></menclose></mrow><annotation encoding="application/x-tex">x_{n+1} - x_n = -\frac{f(x_n)}{f&#39;(x_n)} \qquad\Longrightarrow\qquad \boxed{\;x_{n+1} = x_n - \frac{f(x_n)}{f&#39;(x_n)}\;}</annotation></semantics></math></p>
+<p>That is Newton’s method. You did not memorize it; you built it. Geometrically: stand on the curve above your guess, slide down the tangent line until it hits the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>-axis, and step over to that spot. The new spot is almost always closer to the true root. Then do it again. <em>(Figure 9.1: the curve, the tangent at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>0</mn></msub><annotation encoding="application/x-tex">x_0</annotation></semantics></math> sliding to the axis at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>1</mn></msub><annotation encoding="application/x-tex">x_1</annotation></semantics></math>, the tangent at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>1</mn></msub><annotation encoding="application/x-tex">x_1</annotation></semantics></math> sliding to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>2</mn></msub><annotation encoding="application/x-tex">x_2</annotation></semantics></math>, the guesses marching in toward the root.)</em></p>
+<figure>
+<img src="/foundations/calculus-i/img/file49.png" alt="Figure 9.1" loading="lazy">
+<figcaption>Figure 9.1</figcaption>
+</figure>
+
+<h3>Watching it work: computing <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mn>2</mn></msqrt><annotation encoding="application/x-tex">\sqrt{2}</annotation></semantics></math> by hand</h3>
+<p>In Book 1, the very first irrational number we met was <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mn>2</mn></msqrt><annotation encoding="application/x-tex">\sqrt{2}</annotation></semantics></math> — a number with no exact fraction and no terminating decimal. We could prove it existed but we could not write it down. Now we can <em>chase</em> it.</p>
+<p>Finding <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mn>2</mn></msqrt><annotation encoding="application/x-tex">\sqrt{2}</annotation></semantics></math> means finding the root of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">f(x) = x^2 - 2</annotation></semantics></math> (since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mn>2</mn></msup><mo>−</mo><mn>2</mn><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x^2 - 2 = 0</annotation></semantics></math> means <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><msqrt><mn>2</mn></msqrt></mrow><annotation encoding="application/x-tex">x = \sqrt 2</annotation></semantics></math>). Its derivative is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>2</mn><mi>x</mi></mrow><annotation encoding="application/x-tex">f&#39;(x) = 2x</annotation></semantics></math>. Drop these into Newton’s formula:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>x</mi><mi>n</mi></msub><mo>−</mo><mfrac><mrow><msubsup><mi>x</mi><mi>n</mi><mn>2</mn></msubsup><mo>−</mo><mn>2</mn></mrow><mrow><mn>2</mn><msub><mi>x</mi><mi>n</mi></msub></mrow></mfrac><mo>=</mo><mfrac><msub><mi>x</mi><mi>n</mi></msub><mn>2</mn></mfrac><mo>+</mo><mfrac><mn>1</mn><msub><mi>x</mi><mi>n</mi></msub></mfrac><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mspace width="-0.167em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mi>n</mi></msub><mo>+</mo><mfrac><mn>2</mn><msub><mi>x</mi><mi>n</mi></msub></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">x_{n+1} = x_n - \frac{x_n^2 - 2}{2x_n} = \frac{x_n}{2} + \frac{1}{x_n} = \frac{1}{2}\!\left(x_n + \frac{2}{x_n}\right).</annotation></semantics></math></p>
+<p>Start with a rough guess, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mn>0</mn></msub><mo>=</mo><mn>1.5</mn></mrow><annotation encoding="application/x-tex">x_0 = 1.5</annotation></semantics></math>, and turn the crank:</p>
+<table>
+<thead>
+<tr>
+<th>step</th>
+<th>value</th>
+<th>correct digits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>0</mn></msub><annotation encoding="application/x-tex">x_0</annotation></semantics></math></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>1.5</mn><annotation encoding="application/x-tex">1.5</annotation></semantics></math></td>
+<td>—</td>
+</tr>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>1</mn></msub><annotation encoding="application/x-tex">x_1</annotation></semantics></math></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1.416</mn><mspace width="0.167em"></mspace><mn>666</mn><mi>…</mi></mrow><annotation encoding="application/x-tex">1.416\,666\ldots</annotation></semantics></math></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≈</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\approx 2</annotation></semantics></math></td>
+</tr>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>2</mn></msub><annotation encoding="application/x-tex">x_2</annotation></semantics></math></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1.414</mn><mspace width="0.167em"></mspace><mn>215</mn><mspace width="0.167em"></mspace><mn>7</mn><mi>…</mi></mrow><annotation encoding="application/x-tex">1.414\,215\,7\ldots</annotation></semantics></math></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≈</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">\approx 5</annotation></semantics></math></td>
+</tr>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>3</mn></msub><annotation encoding="application/x-tex">x_3</annotation></semantics></math></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1.414</mn><mspace width="0.167em"></mspace><mn>213</mn><mspace width="0.167em"></mspace><mn>562</mn><mspace width="0.167em"></mspace><mn>3</mn><mi>…</mi></mrow><annotation encoding="application/x-tex">1.414\,213\,562\,3\ldots</annotation></semantics></math></td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≈</mo><mn>11</mn></mrow><annotation encoding="application/x-tex">\approx 11</annotation></semantics></math></td>
+</tr>
+</tbody>
+</table>
+<p>The true value is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mn>2</mn></msqrt><mo>=</mo><mn>1.414</mn><mspace width="0.167em"></mspace><mn>213</mn><mspace width="0.167em"></mspace><mn>562</mn><mspace width="0.167em"></mspace><mn>37</mn><mi>…</mi></mrow><annotation encoding="application/x-tex">\sqrt 2 = 1.414\,213\,562\,37\ldots</annotation></semantics></math>. Look at the last column: the number of correct digits roughly <strong>doubles</strong> every step — two, then five, then eleven. After three steps from a sloppy start we have eleven correct digits. This blistering speed is called <strong>quadratic convergence</strong>, and it is Newton’s signature. <em>(That formula <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>n</mi></msub><mo>+</mo><mn>2</mn><mi>/</mi><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">x_{n+1} = \frac12(x_n + 2/x_n)</annotation></semantics></math>, by the way, is the square-root method the Babylonians used four thousand years ago. They had no calculus; they found the rule by cleverness. You just rediscovered it from a tangent line.)</em></p>
+<hr>
+<blockquote>
+<h3>Toolkit: Newton’s method (finding a root)</h3>
+<p>To solve <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">f(x) = 0</annotation></semantics></math> when no formula will: 1. Pick a starting guess <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>0</mn></msub><annotation encoding="application/x-tex">x_0</annotation></semantics></math> somewhere near the root. 2. Repeat: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mspace width="1.0em"></mspace><msub><mi>x</mi><mrow><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>x</mi><mi>n</mi></msub><mo>−</mo><mstyle displaystyle="true"><mfrac><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><mrow><msup><mi>f</mi><mo>′</mo></msup><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>n</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow></mfrac></mstyle></mrow><annotation encoding="application/x-tex">\quad x_{n+1} = x_n - \dfrac{f(x_n)}{f&#39;(x_n)}</annotation></semantics></math>. 3. Stop when the guesses stop changing (to as many digits as you need).</p>
+<p><strong>What it’s really doing:</strong> approximating the curve by its tangent line and jumping to where the <em>line</em> hits zero. Fast — digits roughly double each step — <em>when it works.</em> The next section is about when it doesn’t.</p>
+</blockquote>
+<hr>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/calculus-i/when-you-cant-solve-it-chase-it/"><span>Previous</span>When You Can’t Solve It, Chase It</a>
+    <a class="n" href="/foundations/calculus-i/when-you-cant-solve-it-chase-it/when-newton-breaks/"><span>Next</span>When Newton breaks</a>
+  </nav>
+  <p class="backto"><a href="/foundations/calculus-i/">All 13 chapters of Calculus I</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Calculus I","item":"https://meiradavidson.github.io/foundations/calculus-i/"},{"@type":"ListItem","position":4,"name":"When You Can’t Solve It, Chase It","item":"https://meiradavidson.github.io/foundations/calculus-i/when-you-cant-solve-it-chase-it/"},{"@type":"ListItem","position":5,"name":"Newton’s method: replace the curve with its tangent, and repeat"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/calculus-i/when-you-cant-solve-it-chase-it/newtons-method-replace-the-curve-with-its-tangent-and/","url":"https://meiradavidson.github.io/foundations/calculus-i/when-you-cant-solve-it-chase-it/newtons-method-replace-the-curve-with-its-tangent-and/","headline":"Newton’s method: replace the curve with its tangent, and repeat","articleSection":"When You Can’t Solve It, Chase It","inLanguage":"en","isAccessibleForFree":true,"wordCount":538,"isPartOf":{"@type":"Book","name":"Calculus I","url":"https://meiradavidson.github.io/foundations/calculus-i/"}}]}</script>
+</body>
+</html>

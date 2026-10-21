@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept &amp; Counterexample — Problem Set 5, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="3.1 Claim: “DFS, like BFS, finds shortest paths — it explores systematically, after all.” Build the smallest maze or graph where DFS from S (neighbors…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-5/concept-and-counterexample/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-5/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-5-dots-and-lines/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Concept &amp; Counterexample — Problem Set 5, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="3.1 Claim: “DFS, like BFS, finds shortest paths — it explores systematically, after all.” Build the smallest maze or graph where DFS from S (neighbors…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-5/concept-and-counterexample/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/problem-set-5/">Problem Set 5</a><span class="sep">›</span><span aria-current="page">Concept &amp; Counterexample</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Problem Set 5</p>
+  <h1>Concept &amp; Counterexample</h1>
+  
+<p><strong>3.1</strong> Claim: “DFS, like BFS, finds shortest paths — it explores systematically, after all.” Build the smallest maze or graph where DFS from S (neighbors explored in alphabetical order) reaches T by a path strictly longer than the shortest, and state in one sentence what the thread does that the ripple never does.</p>
+<p><strong>3.2</strong> Claim: “BFS handles weighted graphs: just treat the weights as distances.” Three vertices suffice for the refutation — exhibit weights where the fewest-hops route is not the cheapest route, and say which ring BFS puts the destination in versus what Dijkstra’s tags say.</p>
+<p><strong>3.3</strong> Claim: “Dijkstra works fine with a few negative weights as long as the total stays positive.” Build the three-vertex counterexample the chapter promised: Home→B direct weight 2, Home→C weight 3, C→B weight −2. Trace the protocol — at what moment does it <em>settle a lie</em>? Point to the sentence in the deep-water proof that your example kills, quoting its load-bearing clause.</p>
+<p><strong>3.4</strong> Claim: “adding an edge to a graph never makes any shortest path longer.” True or false for nonnegative weights? Prove or refute. Then the sneaky cousin: “adding an edge never makes any <em>DFS</em> route longer.” (Careful: what does DFS’s route even depend on?)</p>
+<p><strong>3.5</strong> Claim: “if a graph is connected, BFS from any vertex visits all vertices; therefore, to <em>check</em> connectivity, you must run BFS from every vertex.” Keep the first half, demolish the second: how many BFS runs does connectivity-checking actually need, and why?</p>
+<h2>Diamond</h2>
+<p><strong>4.1</strong> <em>The rings are the distances.</em> Prove: when BFS runs from vertex s, every vertex v it visits is assigned to ring d(v), where d(v) is the true minimum number of edges from s to v — and vertices never visited have no path from s at all. Structure it as induction on rings:
+(a) Floor: ring 0.
+(b) Step, two halves that students always conflate, so keep them apart: (i) everything BFS puts in ring k + 1 truly has distance ≤ k + 1 (exhibit the path — where does it come from?); (ii) nothing of true distance k + 1 gets missed or placed later (its neighbor on a shortest path lives in ring k by hypothesis — finish the sentence, and find the precise line of the queue’s discipline that this half leans on).
+(c) The absence clause: prove the never-visited claim by contradiction, walking a hypothetical path from s and locating its first never-visited vertex.
+(d) One sentence: which half of (b) fails for DFS, and which for BFS-with-weights? (Your counterexamples from 3.1 and 3.2 are the witnesses; the proof tells you <em>where</em> they strike.)</p>
+<h2>Computational Lab</h2>
+<p><strong>5.1</strong> Lab 5 in full, predictions before runs. Your hand-run of Dijkstra (Fluency 1.5) must be checked against the machine’s tags before you trust either.</p>
+<h2>Teach It</h2>
+<p><strong>6.1</strong> Tell someone the Königsberg story with a napkin: draw the city, then perform Euler’s deletion — redraw as four dots and seven lines while they watch — and let them hunt for the walk before you show the parity argument. Three sentences: did the abstraction step or the parity step impress them more, and why do you think that is?</p>
+<p><strong>6.2</strong> Run the Dijkstra coin protocol with someone on a map of your actual neighborhood (six or seven places, walking-minutes as weights, estimated honestly). Let them be the bureaucrat — they move the coins, you only enforce the two rules. Report the first moment a detour beat a direct edge on <em>your</em> streets, and whether they trusted it.</p>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>Which of the three ways of walking a graph would you use to find the shortest route, and why not the other two?</li><li>Draw a graph where your intuition gives the wrong answer. What makes it misleading?</li><li>The chapter says three ways of walking answer almost everything. What does 'almost' leave out?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/problem-set-5/"><span>Previous</span>Problem Set 5</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/lab-5-dots-and-lines/"><span>Next</span>Lab 5: Dots and Lines</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Problem Set 5","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-5/"},{"@type":"ListItem","position":5,"name":"Concept & Counterexample"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-5/concept-and-counterexample/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-5/concept-and-counterexample/","headline":"Concept & Counterexample","articleSection":"Problem Set 5","inLanguage":"en","isAccessibleForFree":true,"wordCount":587,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

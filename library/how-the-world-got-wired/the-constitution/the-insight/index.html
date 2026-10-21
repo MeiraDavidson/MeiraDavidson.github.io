@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Insight — The Constitution, How the World Got Wired | The Curious Family Library</title>
+<meta name="description" content="Here is what they realized, sitting in that hotel room in the spring of 1973.">
+<link rel="canonical" href="https://meiradavidson.github.io/library/how-the-world-got-wired/the-constitution/the-insight/">
+<link rel="prev" href="https://meiradavidson.github.io/library/how-the-world-got-wired/the-constitution/">
+<link rel="next" href="https://meiradavidson.github.io/library/how-the-world-got-wired/the-constitution/the-gift/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Insight — The Constitution, How the World Got Wired | The Curious Family Library">
+<meta property="og:description" content="Here is what they realized, sitting in that hotel room in the spring of 1973.">
+<meta property="og:url" content="https://meiradavidson.github.io/library/how-the-world-got-wired/the-constitution/the-insight/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/library/">Library</a><span class="sep">›</span><a href="/library/how-the-world-got-wired/">How the World Got Wired</a><span class="sep">›</span><a href="/library/how-the-world-got-wired/the-constitution/">The Constitution</a><span class="sep">›</span><span aria-current="page">The Insight</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">How the World Got Wired · The Constitution</p>
+  <h1>The Insight</h1>
+  
+<p>Here is what they realized, sitting in that hotel room in the spring of 1973.</p>
+<p>The standard idea, up to that point, was to make all the networks more alike. If they all spoke the same language — the same kind of packets, the same kind of equipment — they could talk to each other directly. This was the obvious solution. It was also impossible. Each network had been built for a different purpose, with different physical equipment. You couldn’t make the satellite network into a copy of the ARPANET. You couldn’t make the packet radio network into a copy of the satellite network. They had to stay different.</p>
+<p>So Cerf and Kahn flipped the problem.</p>
+<p>What if, they thought, you didn’t try to make the networks the same? What if, instead, you let each network be whatever it wanted to be — different equipment, different rules, different speeds — and you added one new thing on top of all of them: a single, simple language that <em>every computer in every network</em> would agree to speak when it wanted to talk to a computer in a different network?</p>
+<p>You wouldn’t need to change any of the existing networks. You would just need a translator. A common language, sitting above all the local languages, used only when packets had to cross from one network to another.</p>
+<p>This is what we now call <em>internetworking</em>. The word <em>internet</em> comes from this idea: a network <em>between</em> networks. Not one big network, but many networks, joined together by a shared language.</p>
+<p>The language Cerf and Kahn started designing that week was called TCP/IP.</p>
+
+<h3>How TCP/IP Works</h3>
+<p>TCP/IP is actually two languages stacked on top of each other. Each does a different job. You can think of them like two parts of a postal system.</p>
+<p>The bottom one is called IP. The letters stand for <em>Internet Protocol.</em> IP’s job is the address book.</p>
+<p>In the same way that every house in the world has a postal address — a street, a city, a country — IP gives every computer on the internet a unique number, called an <em>IP address.</em> When a packet leaves your phone, the first thing it carries — stamped on its outside — is the IP address of the computer it’s trying to reach. Every router along the way looks at that address and decides: <em>based on this number, I should send this packet that way.</em> It doesn’t matter whether the next part of the journey is a cable, a radio wave, a satellite link, or a fiber on the seafloor. IP doesn’t care. It just hands the packet to whatever network can move it one step closer.</p>
+<p>This is why your grandmother’s video can leave a phone in Vietnam, travel through a hotel WiFi router, a Vietnamese phone company, an undersea cable, an American backbone, a Facebook data center, and your home router, without any of those systems needing to know anything about each other. They just need to know how to read an IP address and pass the packet along. IP is the worldwide postal address system for machines.</p>
+<p>The top one is called TCP. The letters stand for <em>Transmission Control Protocol.</em> TCP’s job is to make sure nothing gets lost.</p>
+<p>Here’s the thing about IP. IP doesn’t actually promise that your packet will arrive. It tries its best. But a packet can get dropped — by a busy router, a glitchy cable, a satellite link that fades in bad weather. If the packet doesn’t make it, IP just shrugs. IP is fast, but careless.</p>
+<p>TCP is the careful one. Remember from the prologue: when your grandmother’s phone chops the video into thousands of pieces, each piece gets a number — <em>I am piece 47 of 12,330.</em> That numbering is TCP’s work. When the pieces arrive at your phone, TCP checks every single number to make sure none are missing. If piece 47 didn’t show up, TCP quietly sends a message back across the ocean asking for piece 47 to be re-sent. The video pauses, for a fraction of a second, while the missing piece travels back through everything. Then the video plays. You didn’t notice. Your grandmother didn’t notice. TCP noticed, and TCP fixed it.</p>
+<p>If IP is the postal worker who carries the envelopes, TCP is the careful clerk who numbers every page inside the envelope, files them away as they arrive, and chases down the missing ones until the whole document is complete.</p>
+<p>Cerf and Kahn published their design in a paper in May of 1974. The paper was called <em>A Protocol for Packet Network Intercommunication.</em> It was twelve pages long. It would turn out to be one of the most important twelve pages anybody has written in the last hundred years.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/library/how-the-world-got-wired/the-constitution/"><span>Previous</span>The Constitution</a>
+    <a class="n" href="/library/how-the-world-got-wired/the-constitution/the-gift/"><span>Next</span>The Gift</a>
+  </nav>
+  <p class="backto"><a href="/library/how-the-world-got-wired/">All 24 chapters of How the World Got Wired</a> · <a href="/library/">Library</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Library","item":"https://meiradavidson.github.io/library/"},{"@type":"ListItem","position":3,"name":"How the World Got Wired","item":"https://meiradavidson.github.io/library/how-the-world-got-wired/"},{"@type":"ListItem","position":4,"name":"The Constitution","item":"https://meiradavidson.github.io/library/how-the-world-got-wired/the-constitution/"},{"@type":"ListItem","position":5,"name":"The Insight"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/library/how-the-world-got-wired/the-constitution/the-insight/","url":"https://meiradavidson.github.io/library/how-the-world-got-wired/the-constitution/the-insight/","headline":"The Insight","articleSection":"The Constitution","inLanguage":"en","isAccessibleForFree":true,"wordCount":796,"isPartOf":{"@type":"Book","name":"How the World Got Wired","url":"https://meiradavidson.github.io/library/how-the-world-got-wired/"}}]}</script>
+</body>
+</html>

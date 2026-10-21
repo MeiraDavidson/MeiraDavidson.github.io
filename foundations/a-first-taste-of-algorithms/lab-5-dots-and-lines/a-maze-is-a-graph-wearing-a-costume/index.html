@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3. A maze is a graph wearing a costume — Lab 5: Dots and Lines, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Build a maze as a list of strings — # wall, . floor, S start, E exit:">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-5-dots-and-lines/a-maze-is-a-graph-wearing-a-costume/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-5-dots-and-lines/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-5-dots-and-lines/price-tags-on-the-town/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3. A maze is a graph wearing a costume — Lab 5: Dots and Lines, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Build a maze as a list of strings — # wall, . floor, S start, E exit:">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-5-dots-and-lines/a-maze-is-a-graph-wearing-a-costume/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/lab-5-dots-and-lines/">Lab 5: Dots and Lines</a><span class="sep">›</span><span aria-current="page">3. A maze is a graph wearing a costume</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Lab 5: Dots and Lines</p>
+  <h1>3. A maze is a graph wearing a costume</h1>
+  
+<p>Build a maze as a list of strings — <code>#</code> wall, <code>.</code> floor, <code>S</code> start, <code>E</code> exit:</p>
+<pre><code>maze = [
+    "#########",
+    "#S..#...#",
+    "#.#.#.#.#",
+    "#.#...#.#",
+    "#.###.#.#",
+    "#.....#E#",
+    "#########",
+]
+</code></pre>
+<p>Where is the graph? Every floor cell is a vertex; two floor cells side-by-side share an edge. We never build the dictionary — the maze <em>answers neighbor queries on demand</em> (look up, down, left, right; a graph is anywhere that can answer “who are your neighbors?”).</p>
+<p>A cell’s name is its (row, column) position — and here the second tool arrives with its debt. Positions must live in the <code>seen</code> set and the <code>dist</code> notebook, and Python’s rule is that set members and notebook keys must be <em>unchangeable</em> things; a list, which can be appended to and edited, is not allowed. The unchangeable list is called a <strong>tuple</strong>: written <code>(5, 7)</code> with round brackets, indexed like a list, frozen forever at birth. Positions are tuples because positions must be lookupable.</p>
+<pre><code>def maze_bfs(maze, start):
+    queue = [start]
+    head = 0
+    seen = {start}
+    dist = {start: 0}
+    while head &lt; len(queue):
+        here = queue[head]
+        head = head + 1
+        r = here[0]
+        c = here[1]
+        for next_pos in [(r-1, c), (r+1, c), (r, c-1), (r, c+1)]:
+            if maze[next_pos[0]][next_pos[1]] != "#":
+                if next_pos not in seen:
+                    seen.add(next_pos)
+                    dist[next_pos] = dist[here] + 1
+                    queue.append(next_pos)
+    return dist
+
+distances = maze_bfs(maze, (1, 1))      # S is at row 1, column 1
+print(distances[(5, 7)])                # E is at row 5, column 7
+</code></pre>
+<p>The ripple’s answer is the shortest path length in steps. Verify it by tracing the maze with a pencil — then design your <em>own</em> maze (keep the <code>#</code> border, it is what spares the code from falling off the edge) with at least two routes from S to E of different lengths, and confirm BFS reports the shorter.</p>
+<h2>4. The one word</h2>
+<p>The chapter claimed BFS and DFS differ by which end of the line you serve. Test the claim with the smallest possible edit — serve the <em>back</em>:</p>
+<pre><code>def dfs(graph, start):
+    line = [start]
+    seen = {start}
+    order = []
+    while len(line) &gt; 0:
+        here = line.pop()               # .pop(): remove and return the LAST item
+        order.append(here)
+        for neighbor in graph[here]:
+            if neighbor not in seen:
+                seen.add(neighbor)
+                line.append(neighbor)
+    return order
+
+print(dfs(hallways, "gym"))
+print(bfs(hallways, "gym"))
+</code></pre>
+<p>(<code>.pop()</code> is the one new move: take the last item off a list. A line served from the back is called a <strong>stack</strong> — the call stack of Chapter 3 is one, which is why the chapter could say DFS <em>is</em> recursion.) Compare the two visit orders on the school, then on your maze (adapt as in §3): the ripple sweeps level by level; the thread plunges. Same dots, same lines, opposite temperaments, one word.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/lab-5-dots-and-lines/"><span>Previous</span>Lab 5: Dots and Lines</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/lab-5-dots-and-lines/price-tags-on-the-town/"><span>Next</span>5. Price tags on the town</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Lab 5: Dots and Lines","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-5-dots-and-lines/"},{"@type":"ListItem","position":5,"name":"3. A maze is a graph wearing a costume"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-5-dots-and-lines/a-maze-is-a-graph-wearing-a-costume/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-5-dots-and-lines/a-maze-is-a-graph-wearing-a-costume/","headline":"3. A maze is a graph wearing a costume","articleSection":"Lab 5: Dots and Lines","inLanguage":"en","isAccessibleForFree":true,"wordCount":462,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

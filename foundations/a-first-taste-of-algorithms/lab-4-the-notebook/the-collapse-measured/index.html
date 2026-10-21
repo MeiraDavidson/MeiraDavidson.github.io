@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3. The collapse, measured — Lab 4: The Notebook, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Count the memoized version’s calls (the counter rides along in a one-item list — a small trick: numbers passed to functions don’t come back changed, but a…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-4-the-notebook/the-collapse-measured/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-4-the-notebook/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-4-the-notebook/the-same-table-bottom-up/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3. The collapse, measured — Lab 4: The Notebook, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Count the memoized version’s calls (the counter rides along in a one-item list — a small trick: numbers passed to functions don’t come back changed, but a…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-4-the-notebook/the-collapse-measured/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/lab-4-the-notebook/">Lab 4: The Notebook</a><span class="sep">›</span><span aria-current="page">3. The collapse, measured</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Lab 4: The Notebook</p>
+  <h1>3. The collapse, measured</h1>
+  
+<p>Count the memoized version’s calls (the counter rides along in a one-item list — a small trick: numbers passed to functions don’t come back changed, but a list’s <em>contents</em> do, so we keep the count in a box and pass the box):</p>
+<pre><code>memo = {1: 1, 2: 2}
+calls = [0]
+
+def ways_memo_count(n):
+    calls[0] = calls[0] + 1
+    if n in memo:
+        return memo[n]
+    answer = ways_memo_count(n - 1) + ways_memo_count(n - 2)
+    memo[n] = answer
+    return answer
+
+ways_memo_count(30)
+print("memoized calls for n=30:", calls[0])
+</code></pre>
+<p>Set it beside §1’s number for n = 30. Millions against dozens, identical answers. Now the gait check: reset the notebook (rerun the cell after changing 30 to 40, but reset <code>memo</code> and <code>calls</code> first — why must you reset? predict what the count reports if you <em>don’t</em>) and confirm the memoized call count grows like n itself: the straight line that replaced the explosion.</p>
+<h2>4. Sevenia on trial</h2>
+<p>The chapter’s recurrence, as a program — for <em>any</em> coin system. The notebook here must be reset per problem, so we wrap the whole trial in one function that builds a fresh memo, then defines the recursive worker inside (a function defined inside a function: new sight, no new idea — the inner worker simply gets to use the outer function’s <code>memo</code> and <code>coins</code>):</p>
+<pre><code>def fewest_coins(coins, amount):
+    memo = {0: 0}                       # the floor: no debt, no coins
+
+    def best(a):
+        if a in memo:
+            return memo[a]
+        options = []
+        for c in coins:
+            if c &lt;= a:
+                options.append(best(a - c))
+        answer = 1 + min(options)       # min: the cheapest priced future
+        memo[a] = answer
+        return answer
+
+    return best(amount)
+
+print(fewest_coins([10, 7, 1], 14))
+</code></pre>
+<p>Two. The wound closes on your screen. (<code>min</code> of a list is what it says; it has been waiting in Python all along for this chapter.)</p>
+<p>Now the full trial — your Chapter 2 greedy versus the table method, every amount to 100. Retype your greedy from Lab 2 (or paste it from your notebook there):</p>
+<pre><code>def greedy_change(coins, amount):
+    used = []
+    for coin in coins:
+        while amount &gt;= coin:
+            amount = amount - coin
+            used.append(coin)
+    return used
+
+for amount in range(1, 101):
+    g = len(greedy_change([10, 7, 1], amount))
+    d = fewest_coins([10, 7, 1], amount)
+    if g != d:
+        print(amount, "greedy:", g, "  table:", d)
+</code></pre>
+<p>Compare the verdict list with your Lab 2 audit (which used brute force as the truth). Same failures, same truth — but notice what changed <em>about the truth-machine</em>: Lab 2’s three nested loops tried everything; this one prices each amount once. The notebook replaced the brute force. Confirm the new machine’s reach: <code>fewest_coins([10, 7, 1], 900)</code> — instant, where three nested loops would grind.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/lab-4-the-notebook/"><span>Previous</span>Lab 4: The Notebook</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/lab-4-the-notebook/the-same-table-bottom-up/"><span>Next</span>5. The same table, bottom-up</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Lab 4: The Notebook","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-4-the-notebook/"},{"@type":"ListItem","position":5,"name":"3. The collapse, measured"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-4-the-notebook/the-collapse-measured/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-4-the-notebook/the-collapse-measured/","headline":"3. The collapse, measured","articleSection":"Lab 4: The Notebook","inLanguage":"en","isAccessibleForFree":true,"wordCount":448,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

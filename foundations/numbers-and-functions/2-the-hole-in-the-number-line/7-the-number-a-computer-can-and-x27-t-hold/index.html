@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.7 The number a computer can&#x27;t hold — 2 The Hole in the Number Line, Numbers &amp; Functions | The Curious Family Library</title>
+<meta name="description" content="Now here’s where it gets interesting, and it’s the whole reason I made you sit with infinite decimals.">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/numbers-and-functions/2-the-hole-in-the-number-line/7-the-number-a-computer-can-and-x27-t-hold/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/numbers-and-functions/2-the-hole-in-the-number-line/5-what-does-an-irrational-number-even-look-like/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/numbers-and-functions/2-the-hole-in-the-number-line/8-where-we-are-now/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2.7 The number a computer can&#x27;t hold — 2 The Hole in the Number Line, Numbers &amp; Functions | The Curious Family Library">
+<meta property="og:description" content="Now here’s where it gets interesting, and it’s the whole reason I made you sit with infinite decimals.">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/numbers-and-functions/2-the-hole-in-the-number-line/7-the-number-a-computer-can-and-x27-t-hold/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/numbers-and-functions/">Numbers &amp; Functions</a><span class="sep">›</span><a href="/foundations/numbers-and-functions/2-the-hole-in-the-number-line/">2 The Hole in the Number Line</a><span class="sep">›</span><span aria-current="page">2.7 The number a computer can&#x27;t hold</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Numbers &amp; Functions · 2 The Hole in the Number Line</p>
+  <h1>2.7 The number a computer can&#x27;t hold</h1>
+  
+<p>Now here’s where it gets interesting, and it’s the whole reason I made you sit with infinite decimals.</p>
+<p>To write π down exactly, you would need infinitely many digits. Not a lot of digits. Infinitely many. You would never finish. A computer cannot do that. It has room for maybe fifteen or sixteen digits, and then it is out of boxes. So when you hand it π, it writes down 3.141592653589793 and then it stops, and throws the rest away forever. It rounds. The number it actually stores isn’t π — it’s a near-miss.</p>
+<p>And it’s not just the irrationals. The fraction 1 10 — plain old 0.1 — turns into a repeating decimal when you write it in binary, the computer’s native twos. So the machine can’t store 0.1 exactly either. Here’s the demonstration that makes everyone’s eyebrows go up. Ask almost any computer: does 0.1 + 0.2 = 0.3? The computer says no. It reports the answer as 0.30000000000000004. It’s not broken. It rounded 0.1 and rounded 0.2, each to the nearest dot it could store, and the two tiny roundings didn’t quite cancel. A speck of error, made visible. ▶Run it yourself — watch your own computer get 0.1 + 0.2 “wrong.” (notebook 2.1 in Colab) One line of code makes your machine print 0.30000000000000004 on your own screen. Then try printing 1 3 and π and see exactly where the computer runs out of room. Reading about it is a curiosity; watching your own computer do it is unforgettable.</p>
+<p>Our number line is perfect and infinite. The computer’s number line is a finite grid of dots. Most real numbers fall between the dots, so the computer quietly snaps each one to the nearest dot it can hold. It isn’t lying to you — it’s working with a very good sketch of the real numbers, never the real thing.</p>
+<p>our line continuous — every point is a number computer π snaps to nearest dot Figure 2.5. The finite grid versus the continuous line. Most reals (like π) fall between the computer’s representable dots, so it stores the nearest dot instead — a faithful sketch, not the real thing.</p>
+<p>Most of the time that speck of error is far too small to matter. But specks add up. When a computer trains an artificial intelligence, it performs billions of The Hole in the Number Line these slightly-rounded steps, each feeding the next. Stack a billion tiny errors and they can grow into a real one. And notice what this quietly tells you. The careful, infinite reasoning you’re learning in this book is not the clumsy version of what computers do — it’s the exact version. You are learning the ground truth that the machine spends all its effort trying to imitate.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/numbers-and-functions/2-the-hole-in-the-number-line/5-what-does-an-irrational-number-even-look-like/"><span>Previous</span>2.5 What does an irrational number even look like?</a>
+    <a class="n" href="/foundations/numbers-and-functions/2-the-hole-in-the-number-line/8-where-we-are-now/"><span>Next</span>2.8 Where we are now</a>
+  </nav>
+  <p class="backto"><a href="/foundations/numbers-and-functions/">All 8 chapters of Numbers &amp; Functions</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Numbers & Functions","item":"https://meiradavidson.github.io/foundations/numbers-and-functions/"},{"@type":"ListItem","position":4,"name":"2 The Hole in the Number Line","item":"https://meiradavidson.github.io/foundations/numbers-and-functions/2-the-hole-in-the-number-line/"},{"@type":"ListItem","position":5,"name":"2.7 The number a computer can&#x27;t hold"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/numbers-and-functions/2-the-hole-in-the-number-line/7-the-number-a-computer-can-and-x27-t-hold/","url":"https://meiradavidson.github.io/foundations/numbers-and-functions/2-the-hole-in-the-number-line/7-the-number-a-computer-can-and-x27-t-hold/","headline":"2.7 The number a computer can&#x27;t hold","articleSection":"2 The Hole in the Number Line","inLanguage":"en","isAccessibleForFree":true,"wordCount":469,"isPartOf":{"@type":"Book","name":"Numbers & Functions","url":"https://meiradavidson.github.io/foundations/numbers-and-functions/"}}]}</script>
+</body>
+</html>

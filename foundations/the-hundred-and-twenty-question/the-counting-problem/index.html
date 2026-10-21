@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Counting Problem — Will you live to 120? | The Curious Family Library</title>
+<meta name="description" content="Telomeres, the Hayflick limit, and the first thing almost everyone gets wrong about aging.">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-counting-problem/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-question/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-counting-problem/the-pond-the-yeast-and-the-christmas-gel/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Counting Problem — Will you live to 120? | The Curious Family Library">
+<meta property="og:description" content="Telomeres, the Hayflick limit, and the first thing almost everyone gets wrong about aging.">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-counting-problem/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/the-hundred-and-twenty-question/">Will you live to 120?</a><span class="sep">›</span><span aria-current="page">The Counting Problem</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Will you live to 120?</p>
+  <h1>Chapter 1 · The Counting Problem</h1>
+  
+<p><em>Telomeres, the Hayflick limit, and the first thing almost everyone gets wrong about aging.</em></p>
+
+<p><strong>Companion notebook · Chapter 1.</strong> <em>A Real Number That Can’t Tell Your Age</em> — open it in Google Colab and build it yourself: <a href="https://colab.research.google.com/github/MeiraDavidson/biology_aging/blob/main/notebooks/build-telomere-weak-biomarker.ipynb">Open in Colab →</a></p>
+
+<h3>A cell that would not die</h3>
+<p>In January 1912, a surgeon named Alexis Carrel cut a sliver of tissue from the heart of a chick embryo, dropped it into a flask of nutrient broth, and started a clock he believed would never stop. The cells lived. They divided; he fed them; he split the culture; they divided again. Carrel was already famous — he had worked out how to sew blood vessels back together end to end, the technique that made organ transplantation thinkable, and the same year he started his chicken-heart culture he won the Nobel Prize for it. When such a man announced that he had captured a piece of immortality in a bottle, the world listened. His laboratory tended the culture for thirty-four years, outliving the chicken it came from by three decades. Every January, newspapers reported its birthday.</p>
+<p>The lesson the public absorbed, and that biologists absorbed with them, was simple and wrong: a cell, given clean food and a clean home, is intrinsically immortal. If your cells die, the reasoning went, it is because the body wore out around them — the cells themselves could go on forever. For nearly fifty years this was the textbook position.</p>
+<p>It was also almost certainly an artifact. The broth Carrel used to feed the culture was an extract made from fresh chick embryos, and there is good reason to think it quietly reintroduced living cells at every feeding. The “immortal” line was not living forever; it was being topped up. The deeper lesson — worth keeping for the whole of this book — is that a charismatic result announced by an authority can hold an entire field captive for decades. Authority is not evidence. The experiment is.</p>
+<p>Then, in 1961, Leonard Hayflick counted.</p>
+<p>Hayflick and his colleague Paul Moorhead grew normal human cells — fibroblasts, the workhorse cells of connective tissue — and did the unglamorous thing of keeping track of how many times they divided. The cells did not divide forever. After roughly forty to sixty doublings they stopped — not dying, exactly, but settling into a state where they sat alive and metabolizing yet would never divide again. And Hayflick ran the controls that ruled out neglect. He mixed young cells and old cells in the same dish; the old ones stopped on schedule regardless of the company they kept. It was not the broth, not the technique, not the flask. The limit was coming from inside the cells.</p>
+<p>The paper was initially rejected, in part because its conclusions conflicted with the long-standing view Carrel had established. He pushed it through anyway. The phenomenon he had found is now called the <strong>Hayflick limit</strong>: a normal human cell can divide only a fixed number of times — around fifty for these fibroblasts — and then it retires. Somewhere inside it, a cell keeps a tally of how many times it has divided, and when the tally runs out, it stops.</p>
+<p>Hayflick had found the counter. He could not yet say what it was made of. That question — what physical thing inside a cell could possibly keep count — is where the molecular story begins, and it leads straight to the ends of your chromosomes.</p>
+
+<h3>Why the ends are a problem</h3>
+<p>To see what the counter is, we have to look at how a cell copies its DNA, and at one specific place where the copying machine fails.</p>
+<p>Start with the molecule. DNA is a double helix of two strands running in opposite directions — <em>antiparallel</em> — and by convention we label the ends of each strand 5′ and 3′. When a cell divides, it copies its DNA by <em>semiconservative replication</em>: the two strands separate, and each serves as the template for a new partner. The copying is done by an enzyme, DNA polymerase, which has two stubborn constraints. First, it can only add new building blocks onto an existing 3′ end — it cannot start a strand from nothing, so every new strand has to be kicked off by a short <em>primer</em> made of RNA. Second, it can only build in one direction, 5′ to 3′.</p>
+<p>Those two constraints collide at a replication fork. Because the strands are antiparallel, one new strand can be built smoothly and continuously in the same direction the fork is opening — the <strong>leading strand</strong>. The other has to be built backwards, away from the fork, in short pieces — <strong>Okazaki fragments</strong> — each one started by its own little RNA primer, which is later removed, filled in with DNA, and stitched to its neighbor. For a chromosome’s interior this works fine: every gap left by a removed primer is filled in from the fragment upstream of it.</p>
+<p>But look at the very end of a linear chromosome. On the lagging strand, the last Okazaki fragment is started by an RNA primer sitting at the extreme 5′ tip of the new strand. When that terminal primer is removed, there is no fragment further out to fill the gap from — nothing provides the 3′ end the polymerase needs to extend. The gap simply cannot be filled. So every time a linear chromosome is copied, the new lagging-strand copy comes out a little shorter at its 5′ end than the template it was read from. <strong>A linear DNA molecule cannot fully copy its own ends.</strong> This is the <em>end-replication problem</em>, recognized independently by Alexey Olovnikov in Moscow in the early 1970s and by James Watson in 1972.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/the-hundred-and-twenty-question/the-question/"><span>Previous</span>The Question</a>
+    <a class="n" href="/foundations/the-hundred-and-twenty-question/the-counting-problem/the-pond-the-yeast-and-the-christmas-gel/"><span>Next</span>The pond, the yeast, and the Christmas gel</a>
+  </nav>
+  <p class="backto"><a href="/foundations/the-hundred-and-twenty-question/">All 10 chapters of Will you live to 120?</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Will you live to 120?","item":"https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/"},{"@type":"ListItem","position":4,"name":"The Counting Problem"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-counting-problem/","url":"https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-counting-problem/","headline":"The Counting Problem","articleSection":"The Counting Problem","inLanguage":"en","isAccessibleForFree":true,"wordCount":962,"isPartOf":{"@type":"Book","name":"Will you live to 120?","url":"https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/"}}]}</script>
+</body>
+</html>

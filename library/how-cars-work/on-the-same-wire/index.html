@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>On the Same Wire — How Cars Work | The Curious Family Library</title>
+<meta name="description" content="We left Chapter 7 with a problem. A modern car has fifty to a hundred small computers in it. Each one does its own job. None of them are very smart on its…">
+<link rel="canonical" href="https://meiradavidson.github.io/library/how-cars-work/on-the-same-wire/">
+<link rel="prev" href="https://meiradavidson.github.io/library/how-cars-work/crash-prevention/when-prevention-fails/">
+<link rel="next" href="https://meiradavidson.github.io/library/how-cars-work/on-the-same-wire/taking-turns/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="On the Same Wire — How Cars Work | The Curious Family Library">
+<meta property="og:description" content="We left Chapter 7 with a problem. A modern car has fifty to a hundred small computers in it. Each one does its own job. None of them are very smart on its…">
+<meta property="og:url" content="https://meiradavidson.github.io/library/how-cars-work/on-the-same-wire/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/library/">Library</a><span class="sep">›</span><a href="/library/how-cars-work/">How Cars Work</a><span class="sep">›</span><span aria-current="page">On the Same Wire</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">How Cars Work</p>
+  
+  <h1>On the Same Wire</h1>
+
+<p>CHAPTER EIGHT</p>
+
+<p>We left Chapter 7 with a problem. A modern car has fifty to a hundred small computers in it. Each one does its own job. None of them are very smart on its own.</p>
+<p>But many of the things a car does well require several computers to cooperate. The stability control system from the last chapter — the one that catches the car if it starts to slide sideways — needs to know how much the driver has turned the steering wheel (from the steering computer), how fast each wheel is spinning (from the brake computer), how hard the engine is pulling (from the ECU), and how fast the car is rotating around its own axis (from the yaw sensor). It uses all four of those numbers, many times per second, to figure out whether the car is going where it should be going.</p>
+<p>That information lives in four different places in the car. The stability computer needs to gather it all.</p>
+<p>To do that, the computers need to talk to each other.</p>
+<p>This chapter is about how they do.</p>
+
+<h2>Wires everywhere</h2>
+<p>The first idea you might have is straightforward. Just connect every computer to every other computer with a wire. The brake computer wires directly to the stability computer. The ECU wires directly to the dashboard. The lane camera wires directly to the steering. And so on.</p>
+<p>This works for two computers. It works for three, with three connections. For four, you need six connections. For ten, forty-five. For a hundred — the number in a typical modern car — you need 4,950 connections.</p>
+<p>That is a lot of wires.</p>
+<p>It is also a lot of weight (copper is heavy), a lot of cost, a lot of plugs, and a lot of places where something can come loose. Modern cars don’t do this.</p>
+
+<h2>One shared line</h2>
+<p>What modern cars do instead is run two thin wires through the entire car, and connect every computer to those same two wires. Every computer talks on the same shared line. The shared line is called a <strong>bus</strong>. In a car, the most common one is called the <strong>CAN bus</strong>, short for Controller Area Network. It was invented in the 1980s by a German engineering company called Bosch.</p>
+<p>Here is how it works. Every message sent on the CAN bus has two parts: an ID number (which says what the message is about — “wheel speeds,” “engine RPM,” “steering angle,” and so on) and the data itself (the actual values).</p>
+<p>When a computer wants to send a message, it puts the message on the wire. Every other computer on the bus receives it — every single one. The computers that don’t care about that message just ignore it. The computers that do care read the message and act on it.</p>
+<p>It is like the public address system at a school. The PA broadcasts an announcement to every classroom in the building. Every teacher and every student hears it. Most of them ignore it. But the kids it is actually for — “Will the third grade please report to the gym?” — pay attention. The PA doesn’t have to address each student personally. It sends one message, and the listeners filter.</p>
+<p>The CAN bus is the PA system of the car. One channel, every computer listening, each one filtering for what it cares about.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/library/how-cars-work/crash-prevention/when-prevention-fails/"><span>Previous</span>When prevention fails</a>
+    <a class="n" href="/library/how-cars-work/on-the-same-wire/taking-turns/"><span>Next</span>Taking turns</a>
+  </nav>
+  <p class="backto"><a href="/library/how-cars-work/">All 13 chapters of How Cars Work</a> · <a href="/library/">Library</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Library","item":"https://meiradavidson.github.io/library/"},{"@type":"ListItem","position":3,"name":"How Cars Work","item":"https://meiradavidson.github.io/library/how-cars-work/"},{"@type":"ListItem","position":4,"name":"On the Same Wire"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/library/how-cars-work/on-the-same-wire/","url":"https://meiradavidson.github.io/library/how-cars-work/on-the-same-wire/","headline":"On the Same Wire","articleSection":"On the Same Wire","inLanguage":"en","isAccessibleForFree":true,"wordCount":566,"isPartOf":{"@type":"Book","name":"How Cars Work","url":"https://meiradavidson.github.io/library/how-cars-work/"}}]}</script>
+</body>
+</html>

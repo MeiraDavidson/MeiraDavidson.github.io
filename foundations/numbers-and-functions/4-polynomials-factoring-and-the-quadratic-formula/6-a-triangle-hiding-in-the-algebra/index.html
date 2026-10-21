@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.6 A triangle hiding in the algebra — 4 Polynomials, Factoring, and the Quadratic Formula, Numbers &amp; Functions | The Curious Family Library</title>
+<meta name="description" content="Before we crack the quadratic, here’s something delightful — no work required, just notice it. What if we take higher powers of a sum? Line up the…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/numbers-and-functions/4-polynomials-factoring-and-the-quadratic-formula/6-a-triangle-hiding-in-the-algebra/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/numbers-and-functions/4-polynomials-factoring-and-the-quadratic-formula/5-a-factoring-toolkit-you-should-own/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/numbers-and-functions/4-polynomials-factoring-and-the-quadratic-formula/8-the-discriminant-a-fork-in-the-road/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4.6 A triangle hiding in the algebra — 4 Polynomials, Factoring, and the Quadratic Formula, Numbers &amp; Functions | The Curious Family Library">
+<meta property="og:description" content="Before we crack the quadratic, here’s something delightful — no work required, just notice it. What if we take higher powers of a sum? Line up the…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/numbers-and-functions/4-polynomials-factoring-and-the-quadratic-formula/6-a-triangle-hiding-in-the-algebra/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/numbers-and-functions/">Numbers &amp; Functions</a><span class="sep">›</span><a href="/foundations/numbers-and-functions/4-polynomials-factoring-and-the-quadratic-formula/">4 Polynomials, Factoring, and the Quadratic Formula</a><span class="sep">›</span><span aria-current="page">4.6 A triangle hiding in the algebra</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Numbers &amp; Functions · 4 Polynomials, Factoring, and the Quadratic Formula</p>
+  <h1>4.6 A triangle hiding in the algebra</h1>
+  
+<p>Before we crack the quadratic, here’s something delightful — no work required, just notice it. What if we take higher powers of a sum? Line up the results: (a + b)1 = 1a + 1b (a + b)2 = 1a2 + 2ab + 1b2 (a + b)3 = 1a3 + 3a2b + 3ab2 + 1b3 (a + b)4 = 1a4 + 4a3b + 6a2b2 + 4ab3 + 1b4 Stare at just the numbers in front — the coefficients. That’s a triangle, and it has a magic building rule: every number is the sum of the two just above it. 1 1 1 1 2 1 1 3 3 1 1 4 6 4 1 3 + 3 = 6 (a+b)0 (a+b)1 (a+b)2 (a+b)3 (a+b)4 Figure 4.2. Yang Hui’s triangle. Each entry is the sum of the two above it (here 3 + 3 = 6), and row n gives the coefficients of (a + b)n. Extend it forever with no multiplying — the next row is 1, 5, 10, 10, 5, 1. This is Yang Hui’s triangle — named for the Chinese mathematician who wrote it down in 1261, though it was known to Jia Xian earlier and appears in Persian and Indian mathematics too. (In many Western books it’s called Pascal’s triangle, after a European who studied it four centuries later.) When you reach the probability book, these exact numbers will walk back through the door — because the number of ways to flip a coin and get a certain number of heads is a number in this triangle. For now, just enjoy the pattern.</p>
+<h2>4.7 When factoring won&#x27;t cooperate: build your own formula</h2>
+<p>Factoring by hand works beautifully when the numbers are friendly. But plenty of quadratics have roots that aren’t tidy, and then the guess-two-numbers game just fails. We need something that works every time — and we’re going to build it, so you never have to take it on faith.</p>
+<p>The one idea. Square roots undo squares. If I can force a quadratic into the shape (something)2 = a number, then I can square-root both sides and I’m basically done. The bending move is called completing the square, and the name is literal.</p>
+<p>Solve x2 + 6x + 5 = 0. Step 1: get the loose number out of the way. Move the +5 across: x2 + 6x = −5. Step 2: complete the square. A perfect square (x + p)2 expands to x2 + 2px + p2. Matching the middle: 2p = 6, so p = 3, and the missing piece is p2 = 9. Add 9 to both sides: x2 + 6x + 9 = −5 + 9 =⇒ (x + 3)2 = 4.</p>
+<p>x2 x x 3x 3 3x 3 9 the piece to add Figure 4.3. Completing the square, literally. The x2 square plus two 3-wide strips (3x each) leave a missing 3 × 3 = 9 corner. Adding that 9 completes the square into (x + 3)2.</p>
+<p>The whole left side collapsed into a single square. Step 3: undo the square — and a square root has two answers, so we write ±: x + 3 = ±2. Step 4: solve. x = −3 ± 2, which means x = −1 or x = −5. Notice where the two roots came from — the ±, which came from the fact that square roots have two answers. ♦Why it’s true — skip on a first read, but the real brain-training Here is the result, the quadratic formula, which solves every quadratic ax2 + bx + c = 0 at once: x = −b ± √ b2 −4ac 2a .</p>
+<p>But where does it come from? It’s nothing more than the completing-thesquare you just did, run once on letters instead of numbers. Divide through by a: x2 + b ax + c a = 0. Move the loose number across: x2 + b ax = −c a.</p>
+<p>Polynomials, Factoring, and the Quadratic Formula Complete the square — half the middle coefficient is b 2a, squared is b2 4a2 — and add it to both sides:  x + b 2a 2 = b2 −4ac 4a2 .</p>
+<p>Undo the square with a ±, then move the b 2a across: x + b 2a = ± √ b2 −4ac 2a =⇒ x = −b ± √ b2 −4ac 2a .</p>
+<p>There it is — just completing the square, done once and for all, so nobody ever has to do the four steps again.</p>
+<p>A formula is frozen thought. You do the hard reasoning once, in general, with letters — and from then on it’s reusable. You can remember the quadratic formula, or, if you forget it, rebuild it from the one idea. The second skill is the one that actually makes you a mathematician.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/numbers-and-functions/4-polynomials-factoring-and-the-quadratic-formula/5-a-factoring-toolkit-you-should-own/"><span>Previous</span>4.5 A factoring toolkit you should own</a>
+    <a class="n" href="/foundations/numbers-and-functions/4-polynomials-factoring-and-the-quadratic-formula/8-the-discriminant-a-fork-in-the-road/"><span>Next</span>4.8 The discriminant: a fork in the road</a>
+  </nav>
+  <p class="backto"><a href="/foundations/numbers-and-functions/">All 8 chapters of Numbers &amp; Functions</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Numbers & Functions","item":"https://meiradavidson.github.io/foundations/numbers-and-functions/"},{"@type":"ListItem","position":4,"name":"4 Polynomials, Factoring, and the Quadratic Formula","item":"https://meiradavidson.github.io/foundations/numbers-and-functions/4-polynomials-factoring-and-the-quadratic-formula/"},{"@type":"ListItem","position":5,"name":"4.6 A triangle hiding in the algebra"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/numbers-and-functions/4-polynomials-factoring-and-the-quadratic-formula/6-a-triangle-hiding-in-the-algebra/","url":"https://meiradavidson.github.io/foundations/numbers-and-functions/4-polynomials-factoring-and-the-quadratic-formula/6-a-triangle-hiding-in-the-algebra/","headline":"4.6 A triangle hiding in the algebra","articleSection":"4 Polynomials, Factoring, and the Quadratic Formula","inLanguage":"en","isAccessibleForFree":true,"wordCount":806,"isPartOf":{"@type":"Book","name":"Numbers & Functions","url":"https://meiradavidson.github.io/foundations/numbers-and-functions/"}}]}</script>
+</body>
+</html>

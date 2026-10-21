@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Learning as an Algorithm — A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="In which the two questions soften without surrendering, and an old wound reopens on a landscape">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-7-the-honest-die/the-birthday-machine/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/a-number-called-wrong/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Learning as an Algorithm — A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="In which the two questions soften without surrendering, and an old wound reopens on a landscape">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><span aria-current="page">Learning as an Algorithm</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms</p>
+  
+  <h1>Chapter 8: Learning as an Algorithm</h1>
+<p>✦ ✦ ✦</p>
+<p>In which the two questions soften without surrendering, and an old wound reopens on a landscape</p>
+<h2>A different kind of problem</h2>
+<p>Every problem in this book so far came with a definition. “Sorted” has a definition; “shortest path” has a definition; an algorithm could be <em>proved</em> correct because correct <em>meant</em> something exact. Now consider the problems your devices answer all day: is this email spam? Is this photo of a cat? Given the words so far, what word comes next? Try to write the definition of “cat photo” precise enough to check a procedure against. There isn’t one. Nobody has one. And yet the problems get solved, billions of times a day, to a standard everyone lives with.</p>
+<p>The escape is a different deal with the problem. Instead of a definition, you are handed <strong>examples</strong> — ten thousand photos labeled cat/not-cat, a million emails labeled spam/not-spam — and the task becomes: <em>produce a procedure whose answers agree with the examples, and keep agreeing on examples you haven’t seen.</em> An algorithm fitted to examples rather than derived from a definition is called <strong>learning</strong>, and this chapter’s claim is that it is not a new subject. It is this book’s same two questions, in their final form:</p>
+<ul>
+<li><strong>Does it work?</strong> softens to: <em>is it approximately correct, on average, over the examples the world will actually send?</em> — and Chapter 7 spent itself making “on average” a phrase you can compute, concentrate, and trust. That promotion is cashed here, immediately and forever.</li>
+<li><strong>What does it cost?</strong> doesn’t soften at all. We still count.</li>
+</ul>
+<h2>The simplest learner</h2>
+<p>Here is a complete learning algorithm, four lines long, with no training step whatsoever. The examples are points — say, each point is (hours of sleep, hours of practice) for a student, labeled by whether they passed the audition. To predict a new student’s fate: <strong>find the example nearest to them, and copy its label.</strong></p>
+<p>That’s the whole algorithm — <strong>nearest neighbor</strong> — and “learning” here is just <em>storage</em>: the learner memorizes the examples and does nothing else until asked. All the cost lands at answer time, and the cost is an old friend wearing new clothes: finding the nearest point in a pile of n examples is <em>search</em> — Chapter 1’s linear scan, distance instead of equality, n steps per question. (And Chapter 1’s sequel question returns with it: could structure make the search cheap, the way sortedness did? For points in space the answer is yes, with lovely data structures this book only waves at — but the <em>instinct</em> to ask is the chapter’s point.)</p>
+<p><img src="/foundations/a-first-taste-of-algorithms/img/fig_8_3_nearest_neighbor.png" alt="Figure 8.1 — The nearest-neighbor map: twelve memorized examples and the territory each one governs. Note the island around the lone deep point — memory, faithfully serving one example, possibly an error." loading="lazy"></p>
+<p><em>Figure 8.1 — The nearest-neighbor map: twelve memorized examples and the territory each one governs. Note the island around the lone deep point — memory, faithfully serving one example, possibly an error.</em></p>
+<p>Simple as it is, nearest neighbor already contains the field’s central tension, visible in its map. Each memorized example governs the territory nearer to it than to anything else — and one example deep in foreign territory (a mislabeled point, an odd duck) carves out a little island of its influence. The learner serves that island as faithfully as everything else, because the learner <em>cannot tell data from noise</em>: it memorizes both. Whether faithful memory is wisdom or gullibility is the question the chapter ends on. File the island; we return to it.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/lab-7-the-honest-die/the-birthday-machine/"><span>Previous</span>5. The birthday machine</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/a-number-called-wrong/"><span>Next</span>A number called wrong</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Learning as an Algorithm"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/","headline":"Learning as an Algorithm","articleSection":"Learning as an Algorithm","inLanguage":"en","isAccessibleForFree":true,"wordCount":564,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

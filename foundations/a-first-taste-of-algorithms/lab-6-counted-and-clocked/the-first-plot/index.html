@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5. The first plot — Lab 6: Counted and Clocked, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Six chapters of tables; time for the picture. matplotlib draws it — three moves for now: plt.plot draws a curve from lists of x and y values, plt.loglog…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-6-counted-and-clocked/the-first-plot/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-6-counted-and-clocked/the-clock-arrives-with-a-protocol/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-algorithm-that-flips-coins/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5. The first plot — Lab 6: Counted and Clocked, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Six chapters of tables; time for the picture. matplotlib draws it — three moves for now: plt.plot draws a curve from lists of x and y values, plt.loglog…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-6-counted-and-clocked/the-first-plot/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/lab-6-counted-and-clocked/">Lab 6: Counted and Clocked</a><span class="sep">›</span><span aria-current="page">5. The first plot</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Lab 6: Counted and Clocked</p>
+  <h1>5. The first plot</h1>
+  
+<p>Six chapters of tables; time for the picture. <code>matplotlib</code> draws it — three moves for now: <code>plt.plot</code> draws a curve from lists of x and y values, <code>plt.loglog</code> does the same with both axes multiplying (so power laws become straight lines), and <code>plt.show()</code> reveals.</p>
+<pre><code>import matplotlib.pyplot as plt
+
+ns = [8, 32, 128, 512, 2048]
+ins_counts = []
+mrg_counts = []
+for n in ns:
+    worst = list(range(n, 0, -1))
+    ins_counts.append(insertion_sort_count(worst)[1])
+    mrg_counts.append(merge_sort_count(worst)[1])
+
+plt.loglog(ns, ins_counts, "o-", label="insertion (counted)")
+plt.loglog(ns, mrg_counts, "s-", label="merge (counted)")
+plt.xlabel("n")
+plt.ylabel("steps")
+plt.legend()
+plt.show()
+</code></pre>
+<p>Two nearly straight lines, diverging — and their <em>slopes</em> are the exponents: the insertion line climbs twice as steeply (n² against n·log n’s almost-1). You are looking at Θ notation before it had a name: the plot ignores constants (they only shift a line up or down on these axes) and shows shape, which is exactly the deal the notation offers. Then plot the clocked data from §4 the same way and find the crossover as a <em>crossing of curves</em> — the picture of the constants’ neighborhood.</p>
+<h2>6. The humbling</h2>
+<p>One more clock. Python ships with <code>sorted()</code> — Timsort, the deep water’s engineered descendant of exactly the two algorithms on your screen. Predict the ratio before running: your merge sort versus the professionals, n = 2,048, shuffled. Twice as fast? Five times?</p>
+<pre><code>items = list(range(2048))
+random.shuffle(items)
+t_mine = clock(merge_sort, items, 11)
+t_builtin = clock(sorted, items, 11)
+print("mine:", round(t_mine * 1e3, 2), "ms   built-in:",
+      round(t_builtin * 1e3, 2), "ms   ratio:", round(t_mine / t_builtin))
+</code></pre>
+<p>The ratio is humbling — and the humility has <em>structure</em>, so spend it wisely. The built-in is the same Θ(n log n) as yours; the fence guarantees it cannot be a different shape. The entire margin is constants: decades of engineering, plus the quiet fact that <code>sorted</code> runs in C beneath Python’s floor. Your algorithm and theirs will scale <em>identically</em> — double n and both double-and-a-bit — which you can verify by clocking both at 4,096 and checking the two ratios-to-before. The shapes are yours; the constants are an industry; and you now own the instrument that tells those two stories apart.</p>
+<h2>Break it</h2>
+<p>Predict first. Run second. Explain any gap third.</p>
+<p><strong>1.</strong> Feed §2’s counted race <em>already-sorted</em> inputs instead of reversed: <code>list(range(n))</code> in both places. Predict both columns before running. One algorithm’s column collapses to almost nothing; which, why, and what is its exact new count? Connect to the chapter’s recorded virtue — and to why “insertion sort is Θ(n²)” needed the words <em>worst case</em> attached.</p>
+<p><strong>2.</strong> Sabotage the timing protocol: change <code>clock</code> so all repeats share one list instead of sorting fresh copies (<code>copy = items</code> instead of <code>list(items)</code>). Predict what happens to insertion sort’s clocked numbers and <em>why</em> — then run §4’s race with the corrupted clock and watch the standings change. Which algorithm benefited from the corruption, and what does Break-it 1 have to do with it? (Measurement bugs that flatter one contestant are the most dangerous kind; you have just built one.)</p>
+<p><strong>3.</strong> Time a <em>single</em> run instead of a median of 51 (set repeats to 1) and run the n = 64 comparison ten times in a loop, printing the winner each time. Predict: same winner all ten times? Report the tally. The median protocol exists because of what you just witnessed; state the lesson in one sentence about believing any single measurement, anywhere, ever.</p>
+<p><strong>4.</strong> Build the chapter’s counting sort for exam scores (whole numbers 0–100): 101 buckets, one pass in, read out in order. Count its touches at n = 1,000,000 (simulate with random scores) and clock it against <code>sorted</code> on the same data. Predict the winner first — you are betting a linear algorithm against the best-engineered n log n on Earth. Then betray it: change the keys from scores to <code>random.random()</code> decimals and explain, in the theorem-and-gate language of the chapter, why your algorithm doesn’t just slow down but <em>stops making sense</em>.</p>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>Counting and clocking give different pictures of the same algorithm. Where did they disagree, and which did you trust?</li><li>What does a stopwatch measure that a step count does not — and is that signal or noise?</li><li>If your measurements contradicted the theory, what would you check first?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/lab-6-counted-and-clocked/the-clock-arrives-with-a-protocol/"><span>Previous</span>3. The clock arrives — with a protocol</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/the-algorithm-that-flips-coins/"><span>Next</span>The Algorithm That Flips Coins</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Lab 6: Counted and Clocked","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-6-counted-and-clocked/"},{"@type":"ListItem","position":5,"name":"5. The first plot"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-6-counted-and-clocked/the-first-plot/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-6-counted-and-clocked/the-first-plot/","headline":"5. The first plot","articleSection":"Lab 6: Counted and Clocked","inLanguage":"en","isAccessibleForFree":true,"wordCount":654,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Getting Arbitrarily Close — Calculus I | The Curious Family Library</title>
+<meta name="description" content="Or: What a function is doing right next to a point it might never reach">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/calculus-i/getting-arbitrarily-close/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/calculus-i/patterns-that-go-somewhere/where-this-is-heading/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/calculus-i/getting-arbitrarily-close/from-a-marching-nn-to-a-sliding-xx/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Getting Arbitrarily Close — Calculus I | The Curious Family Library">
+<meta property="og:description" content="Or: What a function is doing right next to a point it might never reach">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/calculus-i/getting-arbitrarily-close/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/calculus-i/">Calculus I</a><span class="sep">›</span><span aria-current="page">Getting Arbitrarily Close</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Calculus I</p>
+  
+  <h1>Getting Arbitrarily Close</h1>
+<p><em>Or: What a function is doing right next to a point it might never reach</em></p>
+<blockquote>
+<p><strong>Companion notebook.</strong> Play with this chapter’s ideas — sliders, animations, and drills — in <a href="https://github.com/MeiraDavidson/math_module2/blob/main/notebooks/ch2_limits.ipynb"><code>notebooks/ch2_limits.ipynb</code></a>.</p>
+</blockquote>
+<p>By the end of this chapter you will be able to find what a <em>function</em> approaches as its input slides toward a target — which is the same idea as Chapter 1, with one new and crucial wrinkle. You will compute these limits three ways: by simply plugging in (when the function is well-behaved), by <strong>factoring and canceling</strong> (when plugging in gives the nonsense <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mstyle displaystyle="false"><mfrac><mn>0</mn><mn>0</mn></mfrac></mstyle><annotation encoding="application/x-tex">\tfrac00</annotation></semantics></math>), and out at infinity. You will know what it means for a function to be <strong>continuous</strong> — the “draw it without lifting your pen” idea — and why, underneath, continuity is really the promise that <em>a small change in input makes only a small change in output.</em> You’ll also meet the two great theorems that continuity <em>guarantees</em> — the <strong>Intermediate Value Theorem</strong> (a continuous function can’t skip a value, which is how we’ll prove that solutions exist) and the <strong>Extreme Value Theorem</strong> (a continuous function on a closed interval actually reaches its highest and lowest points) — both of which the back half of the book quietly runs on.</p>
+<p>And you will meet one specific limit, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="true"><mfrac><mrow><mrow><mi mathvariant="normal">sin</mi><mo>&#8289;</mo></mrow><mi>x</mi></mrow><mi>x</mi></mfrac></mstyle><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\dfrac{\sin x}{x}\to 1</annotation></semantics></math>, that looks like it should be undefined and isn’t. It is the single most important limit in the book, because in the very next chapter it turns out to <em>be</em> a slope — your first derivative, computed before we even have the word.</p>
+<p>Here is the one new idea, and it is worth saying before anything else. In Chapter 1 the input was a whole number <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> that marched off to infinity. Now the input is a real number <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> that you slide toward a finite point <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math> — and it can approach <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math> <strong>from either side</strong>. The limit asks what <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(x)</annotation></semantics></math> is doing <em>in the neighborhood</em> of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>. It does <strong>not</strong> ask, and does not care, what <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math> does <em>at</em> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math> itself. That gap between “near <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>” and “at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>” looks like a technicality. It is actually the loophole that makes all of calculus possible.</p>
+<hr>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/calculus-i/patterns-that-go-somewhere/where-this-is-heading/"><span>Previous</span>Where this is heading</a>
+    <a class="n" href="/foundations/calculus-i/getting-arbitrarily-close/from-a-marching-nn-to-a-sliding-xx/"><span>Next</span>From a marching nn to a sliding xx</a>
+  </nav>
+  <p class="backto"><a href="/foundations/calculus-i/">All 13 chapters of Calculus I</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Calculus I","item":"https://meiradavidson.github.io/foundations/calculus-i/"},{"@type":"ListItem","position":4,"name":"Getting Arbitrarily Close"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/calculus-i/getting-arbitrarily-close/","url":"https://meiradavidson.github.io/foundations/calculus-i/getting-arbitrarily-close/","headline":"Getting Arbitrarily Close","articleSection":"Getting Arbitrarily Close","inLanguage":"en","isAccessibleForFree":true,"wordCount":363,"isPartOf":{"@type":"Book","name":"Calculus I","url":"https://meiradavidson.github.io/foundations/calculus-i/"}}]}</script>
+</body>
+</html>

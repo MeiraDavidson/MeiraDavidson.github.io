@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diamond — Problem Set 9, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="4.1 The matched pair, derived. Prove the deep water’s claim: for softmax probabilities p over scores s₁, …, s_V with true class t and loss L = −log(p_t),…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-9/diamond/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-9/concept-and-counterexample/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Diamond — Problem Set 9, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="4.1 The matched pair, derived. Prove the deep water’s claim: for softmax probabilities p over scores s₁, …, s_V with true class t and loss L = −log(p_t),…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-9/diamond/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/problem-set-9/">Problem Set 9</a><span class="sep">›</span><span aria-current="page">Diamond</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Problem Set 9</p>
+  <h1>Diamond</h1>
+  
+<p><strong>4.1</strong> <em>The matched pair, derived.</em> Prove the deep water’s claim: for softmax probabilities p over scores s₁, …, s_V with true class t and loss L = −log(p_t),
+∂L/∂sᵢ = pᵢ − [i = t].
+(a) Write p_t = e^{s_t} / Σⱼ e^{sⱼ} and L = −s_t + log(Σⱼ e^{sⱼ}).
+(b) Differentiate the two terms of L with respect to a general score sᵢ, carefully handling the case i = t versus i ≠ t in the first term, and using the chain rule on the log-sum in the second. (The derivative of the log-sum is where pᵢ is born — show it.)
+(c) Combine to get pᵢ − [i = t], and interpret the result as a sentence about blame: confident-and-wrong versus nearly-right.
+(d) The verification that closes the loop: explain why your hand-derived gradient <em>must</em> match what the Value engine computes when you build this same loss out of <code>exp</code>, <code>log</code>, and division — and what it would mean about your algebra (or the engine) if they disagreed. This is the chapter’s deepest point: the engine and the calculus are the same thing, one done by machine and one by hand.</p>
+<p><strong>4.2</strong> <em>(Alternative Diamond — attention.)</em> For a single attention head, derive the gradient of the loss with respect to the query matrix <em>W_Q</em>, at least through the first link of the chain.
+(a) Write the output context vector for position <em>t</em> as a weighted sum of value vectors with weights <em>A_{t,s}</em>, and <em>A</em> as the softmax of scaled scores <em>Q Kᵀ/√d_k</em>.
+(b) Using the softmax gradient you derived in 4.1 (the same p − [i=t] structure, now per attention row), express ∂(loss)/∂(scores) in terms of the incoming gradient on the context.
+(c) Push one more link: ∂(scores)/∂Q is linear in K, so assemble ∂(loss)/∂W_Q via the chain rule and X. You need not simplify fully — the point is to <em>see</em> that attention’s gradient is the same softmax-and-chain machinery as the classifier’s, which is why your Value engine trains it without knowing it is “attention.” (d) State, in one sentence, what this shared machinery says about the unity of everything in this chapter.</p>
+<h2>Computational Lab</h2>
+<p><strong>5.1</strong> Lab 9 in full. The engine is not real until (a) it matches finite-difference gradients on a messy expression, (b) it trains a tiny model end-to-end by your own backward sweep, and (c) the numpy model generates novel names and shows you the train/test gap opening. Export your parameter count (Problem 2.5) and your two loss curves (Problem 2.2).</p>
+<h2>Teach It</h2>
+<p><strong>6.1</strong> Explain backpropagation to someone using the word “blame” and no calculus: a final mistake is blamed on the things that caused it, each cause blamed in proportion to how much it mattered, blame flowing backward through the steps until every knob knows its share. Use a concrete chain (the bowl, or a two-step calculation). Then show them the actual <code>backward</code> method and point to where “blame flows backward” <em>is</em> the reversed loop. Report which half — the metaphor or the code — made it click.</p>
+<p><strong>6.2</strong> Show someone the model generating names, then tell them the honest two-part truth this book ends its technical arc on: <em>we built exactly this, and we understand exactly this; the trillion-knob version is built exactly too, and understood by no one exactly.</em> Discuss the gap between building and understanding. Report their reaction to the idea that the most powerful technology of their era is, at bottom, this — counted steps, downhill walks, blame flowing backward — scaled twelve orders of magnitude past where anyone can fully follow it.</p>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>Having built the learner, what is the smallest change you could make that would break it completely?</li><li>Which part of the assembly did you least understand while typing it, and does it make sense now?</li><li>What would you need to add to go from this to something genuinely useful?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/problem-set-9/concept-and-counterexample/"><span>Previous</span>Concept &amp; Counterexample</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/lab-9-the-engine/"><span>Next</span>Lab 9: The Engine</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Problem Set 9","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-9/"},{"@type":"ListItem","position":5,"name":"Diamond"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-9/diamond/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-9/diamond/","headline":"Diamond","articleSection":"Problem Set 9","inLanguage":"en","isAccessibleForFree":true,"wordCount":596,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

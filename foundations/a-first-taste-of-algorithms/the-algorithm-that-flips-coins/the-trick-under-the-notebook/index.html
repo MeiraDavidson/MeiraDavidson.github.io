@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The trick under the notebook — The Algorithm That Flips Coins, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="One debt from Chapter 4 remains unpaid. The notebook — Python’s dictionary — answers “is this question already written down?” essentially instantly, on…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-algorithm-that-flips-coins/the-trick-under-the-notebook/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-algorithm-that-flips-coins/the-move/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-7/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The trick under the notebook — The Algorithm That Flips Coins, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="One debt from Chapter 4 remains unpaid. The notebook — Python’s dictionary — answers “is this question already written down?” essentially instantly, on…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-algorithm-that-flips-coins/the-trick-under-the-notebook/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/the-algorithm-that-flips-coins/">The Algorithm That Flips Coins</a><span class="sep">›</span><span aria-current="page">The trick under the notebook</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · The Algorithm That Flips Coins</p>
+  <h1>The trick under the notebook</h1>
+  
+<p>One debt from Chapter 4 remains unpaid. The notebook — Python’s dictionary — answers “is this question already written down?” essentially <em>instantly</em>, on notebooks of any size. Lists can’t do that (finding a thing in an unsorted list is Chapter 1’s linear search). What is the dictionary doing?</p>
+<p>It is gambling, and winning the same way quicksort does. The scheme is called <strong>hashing</strong>: keep k buckets; put each key through a fixed scrambling function — the <strong>hash function</strong> — that turns the key into a bucket number, spreading keys across buckets like a fair die; to look a key up, recompute its bucket number and look <em>only there</em>. One arithmetic step to find the bucket, and then a search within it — fast exactly when buckets stay small.</p>
+<p>So everything turns on <strong>collisions</strong>: different keys landing in the same bucket. How soon do collisions appear? That question has a famous, disguised twin. A class of k students, 365 possible birthdays: how likely is it that <em>some two students share one</em>? Intuition says you’d need a hundred-plus students for an even chance. The truth — compute it, then simulate it in the lab until belief arrives — is <strong>23</strong>. With 23 people, the probability of a shared birthday already exceeds one half (0.507, exactly); at 50 people it is 0.97. The reason intuition fails by a factor of five: you instinctively count <em>people</em>, but collisions are about <em>pairs</em>, and 23 people contain 253 pairs — each pair an unlikely coincidence, but 253 lottery tickets add up. (The Diamond has you prove the threshold of 23 with one inequality from Book 2 and no calculator, via a numerical coincidence so clean it feels illegal.)</p>
+<p><img src="/foundations/a-first-taste-of-algorithms/img/fig_7_2_birthday.png" alt="Figure 7.2 — The birthday curve: probability of a shared birthday against group size, crossing one-half at 23 and saturating by 50." loading="lazy"></p>
+<p><em>Figure 7.2 — The birthday curve: probability of a shared birthday against group size, crossing one-half at 23 and saturating by 50.</em></p>
+<p>The birthday arithmetic delivers hashing’s honest verdict, both halves. The pessimistic half: collisions arrive <em>shockingly early</em> — around √k keys into k buckets — so no hash table outruns collisions, and the design must survive them (each bucket holds a little list; lookups search it). The optimistic half: early collisions are not <em>many</em> collisions. Keep roughly as many buckets as keys, and the <em>average</em> bucket holds about one item — so the average lookup is an arithmetic step plus a glance: <strong>constant time, on average</strong>, by the same logic that priced the hats. Chapter 4’s miracle, retroactively explained: the notebook was fast because it was gambling on a fair scramble, and the gamble concentrates just like quicksort’s. The two halves of this chapter are one idea wearing two costumes — randomness, honestly priced, converts worst-case dread into average-case contracts you can measure, trust, and build on.</p>
+<blockquote>
+<h3>Deeper water: the average, exactly</h3>
+<p>Quicksort’s expected comparisons, by linearity. Sort distinct items; name them by rank, 1 through n. Decompose: for each pair i &lt; j, let the pair’s contribution be 1 if i and j are ever compared, else 0; the total comparisons is the sum over all pairs.</p>
+<p>When are ranks i and j compared? Only when one of them is chosen as a pivot while both are still in the same sublist — and the sublist containing both always contains the whole stretch i, i+1, …, j (nothing between them can leave for the other side before they’re separated). Watch that stretch of j − i + 1 items: the <em>first</em> of them to be picked as a pivot decides everything. If it’s i or j, they are compared (the pivot meets everyone present); if it’s anything strictly between, they are sent to opposite sides, never to meet. By the fairness of the coins, each of the j − i + 1 candidates is equally likely to be first, so</p>
+<p><strong>P(i, j compared) = 2 / (j − i + 1).</strong></p>
+<p>Adjacent ranks are always compared (2/2 = 1 — someone must separate them, and only they themselves can); the extreme pair almost never (2/n). Sum over all pairs, group by distance d = j − i, and the sum telescopes into harmonic numbers: E = 2(n+1)Hₙ − 4n, where Hₙ = 1 + ½ + ⅓ + … + 1/n ≈ ln n. Hence E ≈ 2n ln n for large n — with the honest small-print this book owes you: at n = 256 the exact formula gives ≈ 2,125 while the asymptotic slogan says 2,839, a third too high. Your histogram’s hill will sit on the exact number, not the slogan. Asymptotics are shadows; at toy sizes, measure.</p>
+<h3>Deeper water: two kinds of gambler</h3>
+<p>Quicksort’s gamble never risks the <em>answer</em> — every run sorts correctly; only the <em>time</em> is random. Algorithms of this temperament are called <strong>Las Vegas</strong>. The other temperament — fixed time, but a small probability of a wrong answer — is called <strong>Monte Carlo</strong>, after the vignette’s method, and it is not a compromise for the desperate: the fastest known ways to test whether a 600-digit number is prime are Monte Carlo, wrong with probability less than one in 2¹⁰⁰ per run — and runs can be repeated, squaring the doubt away, until the error probability is dwarfed by the chance of the computer being struck by a meteor mid-calculation. At that point, philosophy must decide what “knowing” ever meant; engineering, sensibly, ships it. (Your phone performed such a test, several times, the last time it opened a secure connection.)</p>
+</blockquote>
+<h2>Where this leaves us</h2>
+<p>Predictability was the vulnerability: any fixed rule, read by an adversary, has a killer input. Coins removed the vulnerability by removing the readability — bad inputs became bad luck, and bad luck, priced by linearity and verified by histogram, turned out to be a tight hill far from the cliff. The same gamble runs the dictionary: scramble fairly, collide early but thinly, answer in constant time on average. And “average” itself was promoted from a vague comfort to a computed, concentrated, instrument-checked quantity.</p>
+<p>Hold that promotion carefully, because the book’s second act now begins, and it runs on nothing else. Chapter 8 asks what it means for a machine to <em>learn</em> — and the answer, it will turn out, is built from this chapter’s materials: a quantity averaged over examples, minimized by a greedy walk, trusted not because any single answer is guaranteed but because the average is honest and the distribution concentrates. “Approximately correct, on average” sounds like a retreat from Chapter 1’s two questions. It is actually their final form.</p>
+<hr>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>An adversary can choose the worst input for any fixed rule. How does flipping a coin take that power away?</li><li>'Fast not always, not in the worst case, but on average, in a sense that can be made precise, trusted, and measured.' Which of those four words is doing the most work?</li><li>Would you fly in a plane whose software was fast on average? What makes that question different for sorting than for flight control?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/the-algorithm-that-flips-coins/the-move/"><span>Previous</span>The move</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/problem-set-7/"><span>Next</span>Problem Set 7</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"The Algorithm That Flips Coins","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-algorithm-that-flips-coins/"},{"@type":"ListItem","position":5,"name":"The trick under the notebook"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-algorithm-that-flips-coins/the-trick-under-the-notebook/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-algorithm-that-flips-coins/the-trick-under-the-notebook/","headline":"The trick under the notebook","articleSection":"The Algorithm That Flips Coins","inLanguage":"en","isAccessibleForFree":true,"wordCount":1081,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7.7 The five families, one viewpoint — 7 Functions as Objects, Numbers &amp; Functions | The Curious Family Library</title>
+<meta name="description" content="Step back. We have five families of machine — polynomials, exponentials, logarithms, trigonometric, and the rational functions and combinations built from…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/numbers-and-functions/7-functions-as-objects/7-the-five-families-one-viewpoint/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/numbers-and-functions/7-functions-as-objects/6-when-iteration-goes-wild-a-doorway-to-chaos/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/numbers-and-functions/8-numbers-that-shouldn-and-x27-t-exist/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7.7 The five families, one viewpoint — 7 Functions as Objects, Numbers &amp; Functions | The Curious Family Library">
+<meta property="og:description" content="Step back. We have five families of machine — polynomials, exponentials, logarithms, trigonometric, and the rational functions and combinations built from…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/numbers-and-functions/7-functions-as-objects/7-the-five-families-one-viewpoint/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/numbers-and-functions/">Numbers &amp; Functions</a><span class="sep">›</span><a href="/foundations/numbers-and-functions/7-functions-as-objects/">7 Functions as Objects</a><span class="sep">›</span><span aria-current="page">7.7 The five families, one viewpoint</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Numbers &amp; Functions · 7 Functions as Objects</p>
+  <h1>7.7 The five families, one viewpoint</h1>
+  
+<p>Step back. We have five families of machine — polynomials, exponentials, logarithms, trigonometric, and the rational functions and combinations built from them — and a single viewpoint that unifies them: each is a machine (Chapter 3) with a domain and range, each can be graphed, transformed, combined, and sometimes inverted, and composition ties the whole structure together. That’s not five separate topics. It’s one idea — the function as a manipulable object — wearing five costumes.</p>
+<p>This is the real reason we spent a whole book here before touching calculus. Calculus is not about numbers; it’s about functions — how they change, how they accumulate. You cannot study how a thing changes until you are completely comfortable holding that thing in your hands. That comfort is what this book was for. You now have it.</p>
+<p>Functions as Objects</p>
+<h2>7.8 Where we are now — and the door ahead</h2>
+<p>We learned to treat a function as an object: to shift, stretch, and flip it, to read its symmetry, to combine machines, and to compose them — the master operation that scales up into the architecture of artificial intelligence. We met composition’s most potent form, iteration: the engine of recursion, of how we solve what we can’t solve directly, and the doorway to chaos and the phase transition. Along the way we met induction, the domino argument that proves infinitely many cases at once.</p>
+<p>There’s just one thing left unfinished — the oldest debt in the book. Since Chapter 1 we’ve extended our numbers every time an operation broke. Then, in Chapter 4, we hit a wall and stopped: the quadratic formula demanded the square root of a negative, and we had no number for it. In the final chapter we open that door. We invent the number that squares to −1, and watch — all at once — the negative discriminant resolve, every polynomial gain its full set of roots, the trig addition formulas collapse into one line, and the growth machine and the going-around machine turn out to be the same machine. Let’s finish what Chapter 1 started.</p>
+<p>Things worth thinking about 1. f(x + 3) shifts the graph left, which feels backwards. Check it concretely: if f(x) = x2 has its lowest point at x = 0, where is the lowest point of f(x + 3) = (x + 3)2? Solve for the input that makes the inside zero. Left or right?</p>
+<p>2. The squaring machine is even and cubing is odd. What about f(x) = x2 + x — even, odd, or neither? (Work out f(−x) and compare. Not everything has to be one or the other.)</p>
+<p>3. We said every transformation is secretly a composition. The stretch 2f(x) is f composed with which simple machine — and does that machine act before or after f? What about f(2x)?</p>
+<p>4. (Looking ahead.) We’re about to invent a number that squares to −1 and claim it makes ex and sine/cosine the same thing. Make a guess: what could a number that squares to a negative have to do with going around in a circle? Problems to work Problem 1 — Read the transformations.</p>
+<p>Starting from f(x) = x2, describe each new graph — which way it shifted, stretched, or flipped, and by how much. (a) f(x) −5; (b) f(x −2) (careful — inside!); (c) 3f(x); (d) f(−x) (why is the answer “nothing visible”?); (e) f(x −1) + 4 (two moves at once).</p>
+<p>Problem 2 — Build a wave to order.</p>
+<p>Starting from sin(x), write the function that is twice as tall, repeats twice as fast, and shifted up by 3. Then say which piece of your formula does each job. Problem 3 — Even, odd, or neither.</p>
+<p>For each, compute f(−x) and decide. (a) f(x) = x4; (b) f(x) = x3 −x; (c) f(x) = x2 + 1; (d) f(x) = x + 1 (show why it’s neither).</p>
+<p>Problem 4 — Iterate by hand.</p>
+<p>Apply each machine five times from the given start, writing the sequence, then say what it does in the long run. (a) f(x) = x 2 from 32; (b) f(x) = x + 3 from 0; (c) the square-root finder f(x) = 1 2  x + 2 x  from 1 (three steps; compare to √ 2 = 1.41421 . . .).</p>
+<p>Problem 5 — Watch chaos appear.</p>
+<p>Compute this one — it’s the whole point. The machine is f(x) = r x (1 −x); keep about 3 decimals. (a) Set r = 2, start at x = 0.3, iterate ∼8 times. What value does it settle to? (b) Set r = 3.9, start at x = 0.3, iterate ∼12 times. Does it settle, repeat, or jump around? (c) Still r = 3.9, start at x = 0.301 (a hair away) and compare to (b). Do the runs stay close or drift apart? (That drift is the butterfly effect, with your own hands.)</p>
+<p>Problem 6 — Your first induction proof.</p>
+<p>Prove by induction that the sum of the first n odd numbers is n2: 1 + 3 + 5 + · · · + (2n −1) = n2. (Try a few first: 1 = 1, 1 + 3 = 4, 1 + 3 + 5 = 9 — squares!) Do the base case (n = 1), then the inductive step: assume it holds for k, add the next odd number (2k + 1), and show you land on (k + 1)2.</p>
+<p>⋆Teach it — explain it to someone Problem 7 — Teach it. Explain to someone why f(x + 3) shifts a graph to the left and not the right — the thing that confuses nearly everyone. The cleanest explanation isn’t a rule; it’s an example: show them that whatever f used to do at x = 3, the new machine now does at x = 0, because you fed it 0 + 3. If you can make someone see why “adding inside makes it happen earlier, so the graph slides left,” you understand transformations Functions as Objects better than someone who just memorized “inside is backwards.”</p>
+<p>Going further ⋆Teach it — explain it to someone Problem 8 — Teach it (the domino proof). Teach a family member how induction proves something for all numbers at once, using real dominoes (or books stood on end).</p>
+<p>Knock the first one (“the base case”), then explain the one rule that matters: each domino must be close enough to knock the next (“the inductive step”). Then connect it to the formula 1+2+· · ·+n = n(n+1) 2 : checking n = 1 is tipping the first domino; showing “if it works for k it works for k +1” is the spacing that guarantees the whole line falls. If they see why you don’t have to check every number, they’ve understood the most powerful proof technique in mathematics.</p>
+<p>Problem 9 — [challenge] A second induction.</p>
+<p>Prove by induction that 1 + 2 + 4 + 8 + · · · + 2n−1 = 2n −1 (the doubling sum from Chapter 4, now proven airtight). Base case n = 1: the left side is just 1 and 21 −1 = 1. ✓For the step, assume it holds for k, add the next term 2k to both sides, and show the right side becomes 2k+1 −1. (You’ll use 2k + 2k = 2k+1 — the key move.)</p>
+<p>Problem 10 — [challenge] Find the fixed point.</p>
+<p>A fixed point of a machine is an input it leaves unchanged: f(x) = x. (a) Show that iterating f(x) = x 2 has fixed point 0 — and that’s exactly the attractor it crawls toward. (b) The √ 2-finder f(x) = 1 2  x + 2 x  lands on √ 2. Confirm √ 2 is a fixed point by checking that f( √ 2) = √ 2. (c) Explain in words why an iteration can only “settle” on a value that is a fixed point. (This is the secret behind why these machines converge where they do — and it’s the heart of Newton’s method.) Problem 11 — [challenge] Compose to undo.</p>
+<p>If g is the inverse of f, then composing them gives back the input: f(g(x)) = x and g(f(x)) = x. Take f(x) = 3x −6. (a) Find g (the undo machine). (b) Verify by computing f(g(x)) and g(f(x)) and watching both collapse to x. (c) Explain why “composing a machine with its inverse gives the do-nothing machine” is just the formal version of “undo the steps in reverse order.”</p>
+<p>Induction practice Induction is worth drilling — it’s the tool you reach for whenever something must be true for every n. Each of these is a short proof: nail the base case, assume the claim holds at k, then push to k + 1. (You’ve already done two, in Problems 6 and 9 — here are a few more, in new flavours.)</p>
+<p>Problem 12 — Even numbers (warm-up).</p>
+<p>Prove that 2 + 4 + 6 + · · · + 2n = n(n + 1). It mirrors the 1 + 2 + · · · + n proof from the chapter almost move for move — a good one to build the rhythm on. Problem 13 — [challenge] Divisibility, a new flavour.</p>
+<p>Prove that n3 −n is a multiple of 3 for every whole number n. There’s no sum here — the step is the whole trick. Expand (k + 1)3 −(k + 1), peel off the k3 −k that’s a multiple of 3 by assumption, and check what’s left over is too. (Hint: what’s left is 3k2 + 3k — and look, it wears its 3 on its sleeve.) Problem 14 — [challenge] An inequality.</p>
+<p>Prove that n &lt; 2n for every n ≥1 — induction isn’t only for equations. Base case: 1 &lt; 2. For the step, assume k &lt; 2k and show k + 1 &lt; 2k+1. (You’ll want 2k + 2k = 2k+1, and the fact that 2k ≥1.)</p>
+<p>Problem 15 — [challenge] Spot the flaw (the most important one). Here is a “proof” that all horses are the same colour. Base case: a group of one horse is all the same colour — obviously. Inductive step: suppose any group of k horses is all one colour. Take any k + 1 horses in a row. The first k are one colour (by assumption); the last k are one colour (by assumption); the two groups overlap, so everything matches — all k + 1 are one colour. By induction, every horse on Earth is the same colour.</p>
+<p>This conclusion is absurd, so the argument has a hole — find it. Where exactly does the inductive step fail? (Decisive hint: test the very first link, from k = 1 to k = 2, with two actual horses. Do the “first k” and “last k” groups really overlap then?) Getting this is worth more than any ten correct proofs: it teaches you to check an argument instead of trusting it because it looks like induction.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/numbers-and-functions/7-functions-as-objects/6-when-iteration-goes-wild-a-doorway-to-chaos/"><span>Previous</span>7.6 When iteration goes wild: a doorway to chaos</a>
+    <a class="n" href="/foundations/numbers-and-functions/8-numbers-that-shouldn-and-x27-t-exist/"><span>Next</span>8 Numbers That Shouldn&#x27;t Exist</a>
+  </nav>
+  <p class="backto"><a href="/foundations/numbers-and-functions/">All 8 chapters of Numbers &amp; Functions</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Numbers & Functions","item":"https://meiradavidson.github.io/foundations/numbers-and-functions/"},{"@type":"ListItem","position":4,"name":"7 Functions as Objects","item":"https://meiradavidson.github.io/foundations/numbers-and-functions/7-functions-as-objects/"},{"@type":"ListItem","position":5,"name":"7.7 The five families, one viewpoint"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/numbers-and-functions/7-functions-as-objects/7-the-five-families-one-viewpoint/","url":"https://meiradavidson.github.io/foundations/numbers-and-functions/7-functions-as-objects/7-the-five-families-one-viewpoint/","headline":"7.7 The five families, one viewpoint","articleSection":"7 Functions as Objects","inLanguage":"en","isAccessibleForFree":true,"wordCount":1843,"isPartOf":{"@type":"Book","name":"Numbers & Functions","url":"https://meiradavidson.github.io/foundations/numbers-and-functions/"}}]}</script>
+</body>
+</html>

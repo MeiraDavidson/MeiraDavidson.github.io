@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why this is not cheating — The Procedure That Calls Itself, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="“To move a tower, move a tower” sounds like the dictionary that defines a word using the word. The suspicion is correct in general and wrong here, and the…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-procedure-that-calls-itself/why-this-is-not-cheating/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-procedure-that-calls-itself/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-procedure-that-calls-itself/two-halves-are-better-than-one-smaller/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Why this is not cheating — The Procedure That Calls Itself, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="“To move a tower, move a tower” sounds like the dictionary that defines a word using the word. The suspicion is correct in general and wrong here, and the…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-procedure-that-calls-itself/why-this-is-not-cheating/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/the-procedure-that-calls-itself/">The Procedure That Calls Itself</a><span class="sep">›</span><span aria-current="page">Why this is not cheating</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · The Procedure That Calls Itself</p>
+  <h1>Why this is not cheating</h1>
+  
+<p>“To move a tower, move a tower” sounds like the dictionary that defines a word using the word. The suspicion is correct in general and wrong here, and the difference is worth nailing down, because it is the difference between recursion and nonsense.</p>
+<p>Two things rescue the definition. First, every self-call is <em>strictly smaller</em>: n hands its work to n − 1, never to n or upward. Second, the descent has a floor: at n = 1 the procedure does its work directly, asking nobody. Smaller-every-time plus a floor means the chain of delegations cannot go on forever — n, n − 1, n − 2, … must hit 1, the floor acts, and the answers come climbing back up the chain. A recursion with both properties is as legitimate as any procedure in this book; a recursion missing either is an infinite regress, and in Lab 3 you will build one on purpose and watch the machine refuse it.</p>
+<p>If “smaller every time, with a floor” sounds familiar, it should. It is <strong>induction</strong>, from Book 2, read in the opposite direction. Induction <em>climbs up</em>: the statement holds at 1, and each rung passes truth to the next. Recursion <em>climbs down</em>: the case at n hands its work toward 1, where work becomes possible. They are the same staircase. And that means proving a recursive procedure correct is induction with no disguise at all: <em>the procedure is correct for n = 1 (look at it); and if it is correct for n − 1, then the three-line plan — clear, cross, restack — is legal and correct for n.</em> Notice your old friend: true at the floor, preserved at each level, decisive at the top. Same trick as Chapter 1’s invariant and Chapter 2’s stays-ahead. Still the only trick.</p>
+<h2>The bill</h2>
+<p>Two questions, always. Correctness is settled. Now the cost, in the declared currency of <em>moves</em>. Let M(n) be the moves our procedure makes on n disks. Read the three-line plan and the bill writes itself:</p>
+<p><strong>M(n) = 2·M(n − 1) + 1</strong>, with M(1) = 1.</p>
+<p>A cost equation that refers to itself — of course it does; the procedure refers to itself. Such an equation is called a <strong>recurrence</strong>, and the cheapest way to understand one is to make it produce numbers:</p>
+<table>
+<thead>
+<tr>
+<th>n</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M(n)</td>
+<td>1</td>
+<td>3</td>
+<td>7</td>
+<td>15</td>
+<td>31</td>
+<td>63</td>
+<td>127</td>
+<td>255</td>
+</tr>
+</tbody>
+</table>
+<p>Stare until the pattern declares itself: each entry is one less than a power of two. <strong>M(n) = 2ⁿ − 1.</strong> (Conjectured from the table; <em>proved</em>, in two lines of induction, in Fluency 1.3 — by now you know that a table is a conjecture machine, not a proof.)</p>
+<p>Sit with what this kind of growth means, because it is the opposite of Chapter 1’s logarithm. There, multiplying the problem <em>added</em> to the cost. Here, adding one disk <em>doubles</em> the cost. The logarithm and the exponential are the two ends of the book’s scale — the curve you want to be on, and the wall. Ten disks, about a thousand moves: an evening. Twenty disks, about a million: a sleepless month at one move per second. Sixty-four disks — hold that thought.</p>
+<blockquote>
+<h3>A human moment</h3>
+<p>The Tower of Hanoi is not ancient. It was invented in 1883 by Édouard Lucas — a French number theorist with serious theorems to his name — and sold in toy shops, credited to a mysterious “Professor N. Claus (de Siam), mandarin of the College of Li-Sou-Stian.” Read those names again slowly: <em>N. Claus de Siam</em> is an anagram of <em>Lucas d’Amiens</em> — Lucas of Amiens, his hometown — and “Li-Sou-Stian” rearranges the Lycée Saint-Louis, where he taught. The toy shipped wrapped in a legend, also written by Lucas: in a temple at Benares, priests labor over a tower of 64 golden disks, and when the last disk falls, the world ends.</p>
+<p>The legend is marketing. Its <em>arithmetic</em> is real, and it is the whole reason to tell the story. By your own formula the priests need 2⁶⁴ − 1 moves — 18,446,744,073,709,551,615 of them. At one move per second, day and night, that is about 585 <em>billion</em> years: more than forty times the age of the universe. Lucas knew exactly what he was doing — he dressed the scariest curve in mathematics as a children’s toy, signed it with a puzzle, and let the customers discover the apocalypse by themselves. The pseudonym was solved; the curve never softened. When someone tells you a process is “just like Hanoi but bigger,” check which axis got bigger before you agree to wait.</p>
+</blockquote>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/the-procedure-that-calls-itself/"><span>Previous</span>The Procedure That Calls Itself</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/the-procedure-that-calls-itself/two-halves-are-better-than-one-smaller/"><span>Next</span>Two halves are better than one smaller</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"The Procedure That Calls Itself","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-procedure-that-calls-itself/"},{"@type":"ListItem","position":5,"name":"Why this is not cheating"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-procedure-that-calls-itself/why-this-is-not-cheating/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-procedure-that-calls-itself/why-this-is-not-cheating/","headline":"Why this is not cheating","articleSection":"The Procedure That Calls Itself","inLanguage":"en","isAccessibleForFree":true,"wordCount":773,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

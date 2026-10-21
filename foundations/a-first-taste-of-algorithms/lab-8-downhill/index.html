@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lab 8: Downhill — A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Accompanies Chapter 8. Gradient descent gets built in ten lines and then systematically mistreated: the stride cranked through every fate the Diamond…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-8-downhill/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-8/diamond/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-8-downhill/the-two-valleys/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lab 8: Downhill — A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Accompanies Chapter 8. Gradient descent gets built in ten lines and then systematically mistreated: the stride cranked through every fate the Diamond…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-8-downhill/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><span aria-current="page">Lab 8: Downhill</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms</p>
+  
+  <h1>Lab 8: Downhill</h1>
+<p>✦ ✦ ✦</p>
+<p><em>Accompanies Chapter 8. Gradient descent gets built in ten lines and then systematically mistreated: the stride cranked through every fate the Diamond classifies, the two valleys claiming walkers by their birthplace, a line fitted to real points, and nearest neighbor sitting the parrot exam — scoring perfectly on what it memorized and honestly on what it never saw. One quiet arrival: numbers with decimal points, and their one sharp edge.</em></p>
+<h2>1. Floats, and their edge</h2>
+<p>Until now this book’s numbers were whole. Landscapes need <strong>floats</strong> — numbers with decimal points — and they mostly behave like numbers. Mostly. Run the classic:</p>
+<pre><code>print(0.1 + 0.2)
+print(0.1 + 0.2 == 0.3)
+</code></pre>
+<p>Not a bug — a confession. Floats are <em>approximations</em>: the machine stores numbers in binary, and 0.1 in binary is an infinite repeating fraction the machine must cut short, the way 1/3 = 0.3333… must be cut short in decimal. The error is tiny (look at it: seventeen places out) and almost never matters — except in one habit you must never form: <strong>testing floats with <code>==</code></strong>. Ask instead whether two floats are <em>close</em>: <code>abs(a - b) &lt; 0.000001</code>. Adopt the habit now; today’s algorithms converge <em>toward</em> answers without ever exactly arriving, and <code>==</code> would wait forever for an arrival that isn’t coming.</p>
+<h2>2. The descent, in ten lines</h2>
+<p>The bowl f(x) = x², slope 2x, the chapter’s hand-run made executable:</p>
+<pre><code>def descend(slope, x, eta, steps):
+    path = [x]
+    for _ in range(steps):
+        x = x - eta * slope(x)
+        path.append(x)
+    return path
+
+def bowl_slope(x):
+    return 2 * x
+
+print(descend(bowl_slope, 2.0, 0.25, 6))
+</code></pre>
+<p>Check the first three steps against the chapter: 2, 1, 0.5, 0.25 — then watch the next three continue the halving. The function takes the <em>slope</em>, not the landscape: the walker never sees the terrain, only the tilt underfoot. That blindness is not an implementation shortcut. It is the algorithm’s entire epistemology, and everything that goes wrong today goes wrong because of it.</p>
+<h2>3. Every fate of the stride</h2>
+<p>The Diamond claims one number, 1 − 2η, decides everything on this bowl. Produce the full taxonomy:</p>
+<pre><code>for eta in [0.05, 0.25, 0.5, 0.75, 1.0, 1.05]:
+    path = descend(bowl_slope, 2.0, eta, 20)
+    print("eta =", eta, "  factor =", 1 - 2 * eta,
+          "  x after 20 steps =", round(path[20], 6))
+</code></pre>
+<p>Predict each row before running, from the factor alone. Then the pictures — plot |x| against step for a chosen few (a log scale makes geometric behavior into straight lines; <code>plt.semilogy</code> is <code>plt.plot</code> with a logarithmic y-axis):</p>
+<pre><code>import matplotlib.pyplot as plt
+
+for eta in [0.05, 0.25, 0.75, 1.05]:
+    path = descend(bowl_slope, 2.0, eta, 20)
+    sizes = [abs(x) + 1e-12 for x in path]      # +tiny: log of zero is forbidden
+    plt.semilogy(sizes, label="eta = " + str(eta))
+plt.xlabel("step")
+plt.ylabel("|x|  (log scale)")
+plt.legend()
+plt.show()
+</code></pre>
+<p>Four straight lines, four slopes: crawl, brisk convergence, <em>ringing</em> convergence (print that path and look at the signs — the walker overshoots the bottom every step and lands closer anyway), and explosion. Find η = 0.5’s line by adding it: where did it go, and why does the +1e-12 in the code suddenly matter? One dial, every fate, exactly as the factor foretold.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/problem-set-8/diamond/"><span>Previous</span>Diamond</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/lab-8-downhill/the-two-valleys/"><span>Next</span>4. The two valleys</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Lab 8: Downhill"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-8-downhill/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-8-downhill/","headline":"Lab 8: Downhill","articleSection":"Lab 8: Downhill","inLanguage":"en","isAccessibleForFree":true,"wordCount":533,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

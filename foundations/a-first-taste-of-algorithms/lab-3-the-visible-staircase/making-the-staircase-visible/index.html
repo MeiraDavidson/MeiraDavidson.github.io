@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3. Making the staircase visible — Lab 3: The Visible Staircase, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Every call in §2 ran at some depth — Hanoi-for-3 paused while Hanoi-for-2 worked, which paused for Hanoi-for-1. The machine keeps the paused calls on its…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-3-the-visible-staircase/making-the-staircase-visible/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-3-the-visible-staircase/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-3-the-visible-staircase/the-bill-audited/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3. Making the staircase visible — Lab 3: The Visible Staircase, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Every call in §2 ran at some depth — Hanoi-for-3 paused while Hanoi-for-2 worked, which paused for Hanoi-for-1. The machine keeps the paused calls on its…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-3-the-visible-staircase/making-the-staircase-visible/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/lab-3-the-visible-staircase/">Lab 3: The Visible Staircase</a><span class="sep">›</span><span aria-current="page">3. Making the staircase visible</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Lab 3: The Visible Staircase</p>
+  <h1>3. Making the staircase visible</h1>
+  
+<p>Every call in §2 ran at some <em>depth</em> — Hanoi-for-3 paused while Hanoi-for-2 worked, which paused for Hanoi-for-1. The machine keeps the paused calls on its stack; let’s print the stack’s shape directly. Pass the depth along, and indent by it:</p>
+<pre><code>def hanoi_trace(n, source, target, spare, depth):
+    print("  " * depth, "want", n, "disks:", source, "-&gt;", target)
+    if n == 1:
+        print("  " * depth, "move disk 1")
+        return
+    hanoi_trace(n - 1, source, spare, target, depth + 1)
+    print("  " * depth, "move disk", n)
+    hanoi_trace(n - 1, spare, target, source, depth + 1)
+
+hanoi_trace(3, "A", "C", "B", 0)
+</code></pre>
+<p>(<code>"  " * depth</code> is a small Python kindness: a string times a number repeats it.) Run it and <em>read the left margin</em>: the indentation breathes in and out, deeper as work is delegated, shallower as delegations finish. That margin <strong>is</strong> the call stack — the deep-water box made of whitespace. Draw the same shape by hand for <code>hanoi_trace(2, ...)</code> before believing the machine’s.</p>
+<h2>4. Merge sort, audited</h2>
+<p>The chapter sorted cards: split, sort each half somehow, merge. The merge first — it is where all real work happens:</p>
+<pre><code>def merge(left, right):
+    result = []
+    i = 0                      # finger on left pile
+    j = 0                      # finger on right pile
+    while i &lt; len(left) and j &lt; len(right):
+        if left[i] &lt;= right[j]:
+            result.append(left[i])
+            i = i + 1
+        else:
+            result.append(right[j])
+            j = j + 1
+    while i &lt; len(left):       # one pile ran dry; sweep the other in
+        result.append(left[i])
+        i = i + 1
+    while j &lt; len(right):
+        result.append(right[j])
+        j = j + 1
+    return result
+
+print(merge([2, 9, 11, 30], [4, 5, 12, 28]))
+</code></pre>
+<p>Two fingers, two piles, always take the smaller top card — the code is your hands from the chapter. Now the recursion around it, with one new piece of notation: <code>items[:mid]</code> is the list <em>up to</em> position mid, and <code>items[mid:]</code> is the rest. Splitting is the idea; the colon is just its spelling.</p>
+<pre><code>def merge_sort(items):
+    if len(items) &lt;= 1:        # the floor: tiny piles are born sorted
+        return items
+    mid = len(items) // 2
+    left = merge_sort(items[:mid])
+    right = merge_sort(items[mid:])
+    return merge(left, right)
+
+print(merge_sort([7, 3, 9, 1, 8, 2, 6, 4]))
+</code></pre>
+<p>Eight lines around a merge. Test it on your own lists — include an empty list, a one-item list, a list with repeats, a list already sorted backward. (Testing the <em>edges</em> first is a habit worth stealing from professionals; Chapter 1’s human moment is the reason the habit exists.)</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/lab-3-the-visible-staircase/"><span>Previous</span>Lab 3: The Visible Staircase</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/lab-3-the-visible-staircase/the-bill-audited/"><span>Next</span>5. The bill, audited</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Lab 3: The Visible Staircase","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-3-the-visible-staircase/"},{"@type":"ListItem","position":5,"name":"3. Making the staircase visible"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-3-the-visible-staircase/making-the-staircase-visible/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-3-the-visible-staircase/making-the-staircase-visible/","headline":"3. Making the staircase visible","articleSection":"Lab 3: The Visible Staircase","inLanguage":"en","isAccessibleForFree":true,"wordCount":419,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

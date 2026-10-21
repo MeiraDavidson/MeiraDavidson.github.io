@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Is the clock cause or consequence? — The Clock and the Lever, Will you live to 120? | The Curious Family Library</title>
+<meta name="description" content="A positive residual means the clock reads you as older than expected for your age. And in large studies, that residual does carry signal: people with…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-clock-and-the-lever/is-the-clock-cause-or-consequence/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-clock-and-the-lever/how-you-build-a-clock-out-of-regression/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-clock-and-the-lever/the-most-important-sentence-in-this-book/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Is the clock cause or consequence? — The Clock and the Lever, Will you live to 120? | The Curious Family Library">
+<meta property="og:description" content="A positive residual means the clock reads you as older than expected for your age. And in large studies, that residual does carry signal: people with…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-clock-and-the-lever/is-the-clock-cause-or-consequence/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/the-hundred-and-twenty-question/">Will you live to 120?</a><span class="sep">›</span><a href="/foundations/the-hundred-and-twenty-question/the-clock-and-the-lever/">The Clock and the Lever</a><span class="sep">›</span><span aria-current="page">Is the clock cause or consequence?</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Will you live to 120? · The Clock and the Lever</p>
+  <h1>Is the clock cause or consequence?</h1>
+  <p>A positive residual means the clock reads you as older than expected for your age. And in large studies, that residual does carry signal: people with accelerated first-generation clocks tend, on average, to die somewhat sooner and to carry more age-related disease. Real, but modest — and it is here that the field made its decisive move, and the move was pure machine learning.</p>
+<p>The insight: if what you ultimately care about is health and mortality, why train the clock on <em>age</em> — a proxy — at all? Why not train it directly on what you actually want to predict? That single change of <em>training target</em> produced three generations of clocks:</p>
+<p>The <strong>first generation</strong> (Horvath 2013; Hannum 2013) trained on chronological age. They predict age beautifully and health only weakly, for the reason above: they were optimized to recover the calendar, not your condition.</p>
+<p>The <strong>second generation</strong> abandoned the calendar. <em>PhenoAge</em> (Levine, 2018) first built a “phenotypic age” out of clinical blood markers chosen because they predict death — things like inflammation, glucose, and kidney function — and then trained a methylation clock to predict <em>that</em>. <em>GrimAge</em> (Lu, 2019) went further still and trained directly on time-to-death, using methylation patterns as stand-ins for proteins in the blood and even for a person’s smoking history. These mortality-trained clocks predict who will get sick and when far better than the first generation — because they were aimed at the real target instead of a proxy for it. GrimAge remains among the strongest.</p>
+<p>The <strong>third generation</strong> changed the target again, from a <em>state</em> to a <em>rate</em>. <em>DunedinPACE</em> (Belsky, 2022) was built on an unusual and precious resource: a cohort of roughly a thousand people in Dunedin, New Zealand, all born in the same year and followed for decades, with the decline of nineteen different organ-system measures tracked over time. That let the researchers measure each person’s <em>pace</em> of aging — how many years of biological wear they accumulate per calendar year — and train a methylation model to estimate that pace from a single blood draw. DunedinPACE doesn’t ask “how old are your cells?” It asks “how fast are you aging <em>right now?</em>” — which is, arguably, the more useful question, and certainly the more useful one for testing whether an intervention is slowing anything down.</p>
+<p><img src="/foundations/the-hundred-and-twenty-question/img/file7.png" alt="" loading="lazy"></p>
+<p>This is a genuinely important lesson about machine learning in medicine, and it is bigger than clocks: <strong>a model is only ever as good as the target you train it on.</strong> Train on a proxy and you get a proxy. The art is almost never the architecture; it is choosing what the model should be trying to predict. The clock field’s real progress came not from fancier math but from three successive, smarter answers to the question “predict <em>what</em>?”</p>
+<p>It is worth pausing on an obvious skeptic’s question, because the answer matters: are these clocks measuring anything <em>real</em>, or just fitting noise that happens to track birthdays? The evidence that they capture genuine biology is strong, and it comes from how they respond to things we already know harm the body. People with rare accelerated-aging syndromes read as biologically older on these clocks; so do people who smoke, who carry significant obesity, who are living with HIV, or who have been through chemotherapy. Confront a clock with a known biological insult, and it consistently registers it as accelerated aging — exactly what you would want from a real measure of aging, and a strong sign the clocks are not arbitrary. But notice that this <em>sharpens</em> the chapter’s central worry rather than dissolving it. A meaningless number is easy to ignore; a number that genuinely tracks the body’s condition is precisely the one you will be tempted to push on directly. Hold both facts at once: the clocks are real — and a real measurement is still not a lever.</p>
+<blockquote>
+<p><strong>Deeper Water — why the penalty makes the clock sparse.</strong> It is worth seeing <em>why</em> the L1 penalty zeroes out weights while the L2 penalty doesn’t, because the reason is geometric and it recurs all over modern machine learning. Picture the weights as a point you’re free to move, with two forces acting on it: the data pulls it toward the best-fit values, and the penalty pulls it toward the origin (all weights zero). The L2 penalty’s “budget” of allowed weight is a sphere — smooth, round — and the best-fit solution that just touches that sphere almost never touches it at a point where a coordinate is exactly zero; you get many small nonzero weights. The L1 penalty’s budget is instead a diamond (in high dimensions, a cross-polytope), and a diamond has sharp corners that stick out <em>along the axes</em> — exactly the points where most coordinates are zero. A surface touching a spiky shape tends to touch it at a spike, so the L1 solution lands on a corner, setting most weights to zero and keeping a sparse few. That is why the elastic net can sift 450,000 sites down to 353: the L1 corner does the sifting, and the L2 roundness keeps the survivors stable when several of them carry overlapping information. Sparsity isn’t a bonus feature bolted on. It falls out of the shape of the penalty.</p>
+</blockquote>
+
+<h3>Is the clock cause or consequence?</h3>
+<p>If methylation reliably changes with age — reliably enough to read age to within a few years — a natural and momentous question follows. Is that changing methylation <em>driving</em> aging, or merely <em>recording</em> it? Is the epigenome the cause of the breakdown, or the breakdown’s logbook?</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/the-hundred-and-twenty-question/the-clock-and-the-lever/how-you-build-a-clock-out-of-regression/"><span>Previous</span>How you build a clock out of regression</a>
+    <a class="n" href="/foundations/the-hundred-and-twenty-question/the-clock-and-the-lever/the-most-important-sentence-in-this-book/"><span>Next</span>The most important sentence in this book</a>
+  </nav>
+  <p class="backto"><a href="/foundations/the-hundred-and-twenty-question/">All 10 chapters of Will you live to 120?</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Will you live to 120?","item":"https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/"},{"@type":"ListItem","position":4,"name":"The Clock and the Lever","item":"https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-clock-and-the-lever/"},{"@type":"ListItem","position":5,"name":"Is the clock cause or consequence?"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-clock-and-the-lever/is-the-clock-cause-or-consequence/","url":"https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-clock-and-the-lever/is-the-clock-cause-or-consequence/","headline":"Is the clock cause or consequence?","articleSection":"The Clock and the Lever","inLanguage":"en","isAccessibleForFree":true,"wordCount":925,"isPartOf":{"@type":"Book","name":"Will you live to 120?","url":"https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/"}}]}</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5. The birthday machine — Lab 7: The Honest Die, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="The chapter claims 23 people make a shared birthday more likely than not. Exact arithmetic first:">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-7-the-honest-die/the-birthday-machine/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-7-the-honest-die/the-adversarys-kill-then-the-coins-rescue/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5. The birthday machine — Lab 7: The Honest Die, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="The chapter claims 23 people make a shared birthday more likely than not. Exact arithmetic first:">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-7-the-honest-die/the-birthday-machine/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/lab-7-the-honest-die/">Lab 7: The Honest Die</a><span class="sep">›</span><span aria-current="page">5. The birthday machine</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Lab 7: The Honest Die</p>
+  <h1>5. The birthday machine</h1>
+  
+<p>The chapter claims 23 people make a shared birthday more likely than not. Exact arithmetic first:</p>
+<pre><code>def p_shared(k):
+    q = 1.0
+    for i in range(k):
+        q = q * (365 - i) / 365
+    return 1 - q
+
+for k in [5, 10, 23, 50]:
+    print(k, "people:", round(p_shared(k), 4))
+</code></pre>
+<p>There it is: 0.5073 at 23. But this lab’s standard is belief through simulation — so build the room:</p>
+<pre><code>def room_has_collision(k):
+    seen = set()
+    for _ in range(k):
+        day = random.randrange(365)
+        if day in seen:
+            return True
+        seen.add(day)
+    return False
+
+for k in [10, 23, 50]:
+    hits = 0
+    for _ in range(10000):
+        if room_has_collision(k):
+            hits = hits + 1
+    print(k, "people: shared birthday in", hits, "of 10000 rooms")
+</code></pre>
+<p>Ten thousand rooms of 23, and right around 5,073 of them have the coincidence — exact formula and honest die agreeing to three figures. (The <code>seen</code> set doing collision-detection here <em>is</em> a hash table detecting hash collisions — the lab is quietly eating its own cooking.)</p>
+<h2>Break it</h2>
+<p>Predict first. Run second. Explain any gap third.</p>
+<p><strong>1.</strong> <em>The seed.</em> Add <code>random.seed(42)</code> at the top of a cell, run §4’s histogram experiment with only 20 runs, and print the 20 counts. Now rerun the identical cell. Predict before the rerun: same 20 “random” numbers, or different? The result tells you what the word <em>pseudo</em> is doing in “pseudo-random” — state it plainly. Then the consequence, which Problem 3.2 weaponizes: if randomness is reproducible by anyone who knows the seed, what has happened, exactly, to the chapter’s claim that “the coins do not read lists”? When is reproducibility a virtue (think: this book’s figures, science itself) and when is it a vulnerability?</p>
+<p><strong>2.</strong> <em>The biased die.</em> Build a crooked die: <code>random.choice([1, 2, 3, 4, 5, 6, 6])</code> — the six appears twice in the list. Predict its expected roll exactly (it’s a weighted average; compute before running), then detect the bias by simulation: how many rolls did <em>you</em> need before the empirical average stood clearly apart from 3.5? A casual glance at twenty rolls would never catch it; state in one sentence what the long run does to small dishonesties. (Casinos, auditors, and particle physicists all live by your sentence.)</p>
+<p><strong>3.</strong> <em>Rigged dice, both directions.</em> In <code>quicksort_random</code>, replace the honest coin with two rigged ones and measure each against §4’s baseline (400 runs suffice).
+First the saboteur: pivot = the <strong>minimum of five</strong> random picks — a die heavily biased toward terrible pivots. Predict the hill’s move, then measure (the chapter’s wisdom says lopsided splits cost; expect the mean up by roughly a quarter and the worst runs worse).
+Then the surprise: pivot = the <strong>median of three</strong> random picks (draw three with <code>random.choice</code>, take the middle one — two <code>if</code>s will do it). Predict first; then watch the hill land <em>left</em> of the honest die’s, around 13% cheaper. Real libraries ship exactly this rig (“median-of-three”); you have just rediscovered why.
+Now the question both rigs were for: if unfair coins can beat fair ones, what were the fair coins ever <em>for</em>? Answer precisely — what property do the honest die and the median-of-three rig share that <code>pivot = items[0]</code> lacks, and which §3 catastrophe does that property, alone, rule out? (Hint: it is a sentence about the adversary, not about speed. A rigged die the adversary cannot read is still a die.)
+One curiosity to keep, free of charge: a <em>mild</em> low-bias rig — minimum of just two picks — measurably doesn’t hurt the mean at all; if you have the patience, confirm it, and notice you have reached the edge of what this chapter’s tools explain. The full account needs integrals this book doesn’t assume. Edges are good places to know the location of.</p>
+<p><strong>4.</strong> <em>Certainty returns.</em> Run the birthday simulation at k = 366. Predict the count out of 10,000 rooms before running — and predict what kind of fact your prediction is. The chapter’s Problem 3.5 distinguishes two species of theorem; after this cell you will have simulated one species and <em>proved</em> the other, and you should be able to say which is which in one sentence each.</p>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>Randomness in a program comes from a generator that is not really random. Does that undermine the guarantee?</li><li>Run the same randomised algorithm many times. What shape did the results take, and did it match what the chapter promised?</li><li>'The honest die.' What would a dishonest one look like, and how would you catch it?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/lab-7-the-honest-die/the-adversarys-kill-then-the-coins-rescue/"><span>Previous</span>3. The adversary’s kill, then the coins’ rescue</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/"><span>Next</span>Learning as an Algorithm</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Lab 7: The Honest Die","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-7-the-honest-die/"},{"@type":"ListItem","position":5,"name":"5. The birthday machine"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-7-the-honest-die/the-birthday-machine/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-7-the-honest-die/the-birthday-machine/","headline":"5. The birthday machine","articleSection":"Lab 7: The Honest Die","inLanguage":"en","isAccessibleForFree":true,"wordCount":692,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

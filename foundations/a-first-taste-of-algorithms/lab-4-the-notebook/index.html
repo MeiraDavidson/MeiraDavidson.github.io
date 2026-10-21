@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lab 4: The Notebook — A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Accompanies Chapter 4. The chapter caught a correct recursion wasting its life on repetition, and tore the exponential down with a notebook. In this lab…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-4-the-notebook/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-4/concept-and-counterexample/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-4-the-notebook/the-collapse-measured/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lab 4: The Notebook — A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Accompanies Chapter 4. The chapter caught a correct recursion wasting its life on repetition, and tore the exponential down with a notebook. In this lab…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-4-the-notebook/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><span aria-current="page">Lab 4: The Notebook</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms</p>
+  
+  <h1>Lab 4: The Notebook</h1>
+<p>✦ ✦ ✦</p>
+<p><em>Accompanies Chapter 4. The chapter caught a correct recursion wasting its life on repetition, and tore the exponential down with a notebook. In this lab the waste is counted call by call, the notebook is built, and your own Chapter 2 greedy is put on trial against a changer that cannot lose.</em></p>
+<h2>1. The amnesiac, counted</h2>
+<p>The staircase recursion, plus the counting trick from Lab 3 — each call reports the <em>total number of calls</em> it caused, alongside its answer, as a two-item list <code>[answer, calls]</code>:</p>
+<pre><code>def ways_count(n):
+    if n &lt;= 2:
+        return [n, 1]                     # ways(1)=1, ways(2)=2; one call
+    a = ways_count(n - 1)
+    b = ways_count(n - 2)
+    return [a[0] + b[0], a[1] + b[1] + 1]
+
+print(ways_count(6))
+print(ways_count(10))
+</code></pre>
+<p>Check ways(6) against the chapter’s hand count — and check the call count against your drawing of the tree (the chapter said fifteen boxes; does the machine agree?). Now the audit, in the house style:</p>
+<pre><code>for n in [10, 15, 20, 25, 30]:
+    result = ways_count(n)
+    print(n, "ways:", result[0], "  calls:", result[1])
+</code></pre>
+<p>Read the calls column the way you read every table in this book: n goes up by 5 each row — what happens to the calls? This is not Chapter 1’s logarithm and not even Chapter 3’s doubling-per-step; measure its gait (each row is roughly <em>how many times</em> the previous?). Run n = 34 and <em>feel</em> the pause before the answer — the first time in this book the machine has kept you waiting. The answer is a seven-digit number you could extend by hand in seconds. All that waiting was repetition.</p>
+<h2>2. The notebook</h2>
+<p>Python’s notebook is the <strong>dictionary</strong>: like a list, but indexed by <em>question</em> rather than by position. Three moves to learn, all visible here:</p>
+<pre><code>memo = {}                 # an empty notebook
+memo[7] = 13              # write: next to question 7, answer 13
+print(7 in memo)          # ask: is question 7 already answered?
+print(memo[7])            # read the answer
+</code></pre>
+<p>Now the chapter’s fix, verbatim — look it up, or compute-and-write:</p>
+<pre><code>memo = {1: 1, 2: 2}       # the floor, pre-written
+
+def ways_memo(n):
+    if n in memo:
+        return memo[n]
+    answer = ways_memo(n - 1) + ways_memo(n - 2)
+    memo[n] = answer
+    return answer
+
+print(ways_memo(30))
+</code></pre>
+<p>Same recursion, same floor, same answers — verify a few against §1. The only new behavior: no question is ever <em>computed</em> twice.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/problem-set-4/concept-and-counterexample/"><span>Previous</span>Concept &amp; Counterexample</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/lab-4-the-notebook/the-collapse-measured/"><span>Next</span>3. The collapse, measured</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Lab 4: The Notebook"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-4-the-notebook/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-4-the-notebook/","headline":"Lab 4: The Notebook","articleSection":"Lab 4: The Notebook","inLanguage":"en","isAccessibleForFree":true,"wordCount":397,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

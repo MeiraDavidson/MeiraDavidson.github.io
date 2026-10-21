@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept &amp; Counterexample — Problem Set 6, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="3.1 Claim: “merge sort is O(n log n) and insertion sort is O(n²), so merge sort is faster.” Produce two refutations from your own Lab 6 data: one about…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-6/concept-and-counterexample/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-6/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-6-counted-and-clocked/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Concept &amp; Counterexample — Problem Set 6, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="3.1 Claim: “merge sort is O(n log n) and insertion sort is O(n²), so merge sort is faster.” Produce two refutations from your own Lab 6 data: one about…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-6/concept-and-counterexample/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/problem-set-6/">Problem Set 6</a><span class="sep">›</span><span aria-current="page">Concept &amp; Counterexample</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Problem Set 6</p>
+  <h1>Concept &amp; Counterexample</h1>
+  
+<p><strong>3.1</strong> Claim: “merge sort is O(n log n) and insertion sort is O(n²), so merge sort is faster.” Produce two refutations from your own Lab 6 data: one about small n and clocks, one about a <em>specific input family</em> where insertion sort beats merge sort at every size in the counted currency. State what the claim should have said.</p>
+<p><strong>3.2</strong> Claim: “to speed up insertion sort, find each card’s landing spot by binary search — comparisons drop to O(n log n), so insertion sort becomes as good as merge sort.” The comparison count is right; the conclusion is wrong. Find the cost the claim forgot to count (watch your own hands slide cards), and state insertion sort’s Θ with the repair in place. Currencies, always currencies.</p>
+<p><strong>3.3</strong> Claim: “the lower bound proves sorting takes Ω(n log n), so counting sort must have a hidden flaw.” Resolve the apparent contradiction in three sentences, quoting the exact phrase of the theorem that counting sort steps around. Then state what counting sort <em>cannot</em> do: exhibit a sorting task where no finite bucket scheme works and the fence reasserts itself.</p>
+<p><strong>3.4</strong> Claim: “counting sort is O(n), so it’s always the best choice when keys are integers.” The hidden variable is the universe size k. Construct a scenario (real numbers welcome: ID numbers, timestamps) where k is so much larger than n that counting sort loses to merge sort by any honest accounting — and give the rule for when the dodge pays.</p>
+<p><strong>3.5</strong> Take the score-name pairs from Lab 3’s Break-it 4: [[3, “Ada”], [1, “Hua”], [3, “Noether”]]. Show, step by step, how sorting by score with an <em>unstable</em> method can shred a previous sort by name, while the stable method composes. Then explain why stability is free for insertion sort as humans deal cards (where does the tie naturally land?).</p>
+<h2>Diamond</h2>
+<p><strong>4.1</strong> <em>The fence, built by your hands.</em> Prove: every comparison-based sorting algorithm makes at least log₂(n!) comparisons on some input of n distinct items.
+(a) Model: argue that a deterministic comparison sort <em>is</em> a binary tree — what exactly are its nodes, branches, and leaves, and why does determinism matter to the modeling?
+(b) The load-bearing wall: prove distinct input orderings cannot share a leaf. Suppose orderings π ≠ σ follow identical answer-paths; the algorithm at that leaf applies one fixed rearrangement to the input; show it cannot correctly sort both, <em>exhibiting</em> the failure (where do π and σ first differ, and what does the fixed rearrangement do to that position?).
+(c) Geometry: prove a binary tree of depth d has at most 2ᵈ leaves, by induction on d (the only trick, appearance the sixth).
+(d) Conclude d ≥ log₂(n!), and finish the shape with the crude bound: log₂(n!) ≥ (n/2)log₂(n/2).
+(e) Two sentences of architecture: set this proof beside Chapter 1’s answer-sequence bound and Chapter 3’s unavoidable-event bound for Hanoi. Which of the three is this one’s sibling, and what single word names what both of them count?</p>
+<h2>Computational Lab</h2>
+<p><strong>5.1</strong> Lab 6 in full, predictions before runs. Your clocked crossover point (or your environment’s refusal to produce one) is data for problems 2.1 and 3.1 — record it.</p>
+<h2>Teach It</h2>
+<p><strong>6.1</strong> Deal someone twelve cards and ask them to sort their hand while you watch their hands, not the cards. Then show them they were running an algorithm with a name, count its worst case together on a reversed deal, and demonstrate the halver on the table with the same cards. Three sentences: which fact surprised them more — that they already knew an algorithm, or that the table method beat their hands?</p>
+<p><strong>6.2</strong> Tell the census story, ending not with IBM but with the fence: explain to your listener, in plain words, what it means that <em>nobody</em> — no company, no genius, no machine — will ever sort by comparisons faster than the n log n shape, and how anyone could possibly know such a thing about algorithms not yet invented. If you can convey “we counted situations, not strategies,” you own this chapter. Report the sentence that finally worked.</p>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>Work the lower-bound argument by hand. At which step did you first believe it applied to all possible algorithms?</li><li>Why is knowing exactly where the wall stands described as the most valuable knowledge in the subject?</li><li>Find a claim someone has made that an impossibility result would rule out. How would you explain it to them?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/problem-set-6/"><span>Previous</span>Problem Set 6</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/lab-6-counted-and-clocked/"><span>Next</span>Lab 6: Counted and Clocked</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Problem Set 6","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-6/"},{"@type":"ListItem","position":5,"name":"Concept & Counterexample"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-6/concept-and-counterexample/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-6/concept-and-counterexample/","headline":"Concept & Counterexample","articleSection":"Problem Set 6","inLanguage":"en","isAccessibleForFree":true,"wordCount":684,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

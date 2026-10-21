@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6. The machine speaks — Lab 9: The Engine, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Generate names — feed the model a start, take its prediction, feed it back, repeat:">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/the-machine-speaks/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/hold-out-15-of-names-as-a-test-set-the-model-never-trains/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/after-training-provided-print-the-attention-matrix-for-a/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="6. The machine speaks — Lab 9: The Engine, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Generate names — feed the model a start, take its prediction, feed it back, repeat:">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/the-machine-speaks/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/lab-9-the-engine/">Lab 9: The Engine</a><span class="sep">›</span><span aria-current="page">6. The machine speaks</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Lab 9: The Engine</p>
+  <h1>6. The machine speaks</h1>
+  
+<p>Generate names — feed the model a start, take its prediction, feed it back, repeat:</p>
+<pre><code>def sample(temp=1.0):
+    ctx = [stoi["."]] * CONTEXT; out = []
+    for _ in range(20):
+        emb = C[np.array([ctx])].reshape(1, -1)
+        h = np.tanh(emb @ W1 + b1)
+        logits = (h @ W2 + b2)[0] / temp
+        logits -= logits.max(); pr = np.exp(logits); pr /= pr.sum()
+        ix = rng.choice(V, p=pr)
+        if itos[ix] == ".": break
+        out.append(itos[ix]); ctx = ctx[1:] + [ix]
+    return "".join(out)
+
+known = set(names)
+print("generated names (★ = novel):")
+for _ in range(25):
+    name = sample(1.0)
+    print(f"   {name:&lt;16} {'★ never existed' if name not in known else '(in training)'}")
+</code></pre>
+<p>Names like <em>Riemanujan</em>, <em>Dantor</em>, <em>Wilevin</em> — nobody’s, everybody’s plausible. The model learned the <em>music</em> of the names without copying them, which is learning itself. Some exact training names may appear too; Problem 3.3 asks what that does and doesn’t prove. Then run §6 again with <code>temp=0.4</code> and <code>temp=1.6</code> (Problem 2.3’s prediction): cold sampling plays it safe and wordlike, hot sampling gets adventurous and strange.</p>
+<h2>7. A real attention head</h2>
+<p>The toy model read a flat window. Now build the unit behind the transformer — one self-attention head, from the chapter’s five equations, in numpy. This is the architecture of your era, small enough to read whole.</p>
+<p>The pieces, dimensioned (<code>D</code> = model dimension, <code>V</code> = vocabulary, <code>BLOCK</code> = longest sequence):</p>
+<p>```python
+import numpy as np
+rng = np.random.default_rng(0)</p>
+
+<h2>reuse names / chars / stoi / itos / V from §5; set up dimensions</h2>
+<p>✦ ✦ ✦</p>
+<p>BLOCK = 16
+D = 32; Dk = 32
+Wtok = rng.standard_normal((V, D)) * 0.1     # character -&gt; vector
+Wpos = rng.standard_normal((BLOCK, D)) * 0.1 # position  -&gt; vector
+WQ = rng.standard_normal((D, Dk)) * 0.1      # query projection
+WK = rng.standard_normal((D, Dk)) * 0.1      # key projection
+WV = rng.standard_normal((D, D)) * 0.1       # value projection
+Wout = rng.standard_normal((D, V)) * 0.1     # context -&gt; next-char scores</p>
+<p>def softmax_rows(M):
+    M = M - M.max(axis=-1, keepdims=True)
+    e = np.exp(M)
+    return e / e.sum(axis=-1, keepdims=True)</p>
+<pre><code>
+The forward pass *is* the five equations, in order — embed, project to Q/K/V, score, mask, weight, combine, read out:
+
+```python
+def forward(seq):
+    T = len(seq)
+    X = Wtok[seq] + Wpos[:T]                  # (T,D)  symbols + positions
+    Q = X @ WQ; K = X @ WK; Vv = X @ WV       # the three projections
+    scores = Q @ K.T / np.sqrt(Dk)            # (T,T)  query · key, scaled
+    mask = np.triu(np.ones((T, T)), k=1).astype(bool)
+    scores = np.where(mask, -1e9, scores)     # causal: no peeking ahead
+    A = softmax_rows(scores)                  # (T,T)  attention weights
+    context = A @ Vv                          # (T,D)  weighted values
+    logits = context @ Wout                   # (T,V)  next-char scores
+    return logits, A
+
+seq = [stoi[c] for c in "." + "riemann"]
+logits, A = forward(seq)
+print("attention matrix shape:", A.shape, " (should be square, one row per position)")
+</code></pre>
+<p>Read <code>A</code> and confirm it is <strong>lower-triangular</strong> — each position attends only to itself and earlier, the mask at work. That triangle is the difference between generating and blank-filling.</p>
+<p>Training is the same loop (the full gradient code is provided in the notebook — it is the chapter’s backward sweep applied to each matrix, batched). Run it, then <strong>inspect what the model learned to look at</strong>:</p>
+<p>```python</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/lab-9-the-engine/hold-out-15-of-names-as-a-test-set-the-model-never-trains/"><span>Previous</span>hold out 15% of names as a test set the model never trains on</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/lab-9-the-engine/after-training-provided-print-the-attention-matrix-for-a/"><span>Next</span>after training (provided), print the attention matrix for a name</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Lab 9: The Engine","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/"},{"@type":"ListItem","position":5,"name":"6. The machine speaks"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/the-machine-speaks/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/the-machine-speaks/","headline":"6. The machine speaks","articleSection":"Lab 9: The Engine","inLanguage":"en","isAccessibleForFree":true,"wordCount":539,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

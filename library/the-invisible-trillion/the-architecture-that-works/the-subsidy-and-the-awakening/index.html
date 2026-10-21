@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Subsidy, and the Awakening — The Architecture That Works, The Invisible Trillion | The Curious Family Library</title>
+<meta name="description" content="The under-provisioning tells you something about pricing, if you sit with it. When Anthropic throttles Claude Code at the peak instead of adding capacity,…">
+<link rel="canonical" href="https://meiradavidson.github.io/library/the-invisible-trillion/the-architecture-that-works/the-subsidy-and-the-awakening/">
+<link rel="prev" href="https://meiradavidson.github.io/library/the-invisible-trillion/the-architecture-that-works/but-wait-why-cant-i-rent-an-h100/">
+<link rel="next" href="https://meiradavidson.github.io/library/the-invisible-trillion/the-architecture-that-works/the-colossus-lesson/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Subsidy, and the Awakening — The Architecture That Works, The Invisible Trillion | The Curious Family Library">
+<meta property="og:description" content="The under-provisioning tells you something about pricing, if you sit with it. When Anthropic throttles Claude Code at the peak instead of adding capacity,…">
+<meta property="og:url" content="https://meiradavidson.github.io/library/the-invisible-trillion/the-architecture-that-works/the-subsidy-and-the-awakening/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/library/">Library</a><span class="sep">›</span><a href="/library/the-invisible-trillion/">The Invisible Trillion</a><span class="sep">›</span><a href="/library/the-invisible-trillion/the-architecture-that-works/">The Architecture That Works</a><span class="sep">›</span><span aria-current="page">The Subsidy, and the Awakening</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">The Invisible Trillion · The Architecture That Works</p>
+  <h1>The Subsidy, and the Awakening</h1>
+  
+<p>The under-provisioning tells you something about pricing, if you sit with it. When Anthropic throttles Claude Code at the peak instead of adding capacity, it’s making a precise statement: at current prices, the marginal query at the peak isn’t worth enough to pay for the hardware to serve it. If frontier inference were actually profitable per unit, they’d provision for peak, because every extra query would be extra margin. They don’t, because the extra queries aren’t margin — they’re loss, and serving more of them makes the math worse. So they ration by degradation. The slowdown isn’t a supply problem wearing a costume. It’s a pricing problem.</p>
+<p>This is the Uber and Lyft playbook, pointed at inference: subsidize the ride, grab the market, kick the unit-economics question down the road to “later, when we have scale.” The frontier labs underprice on purpose, because their valuations are priced on <em>growth</em> — they want you habituated, they want enterprises building on their APIs, they want the world leaning on them. The Uber version did eventually produce profitable rides, after a decade of losses and a fair amount of quiet erosion in what it was actually like to be a driver or a rider. The inference version is still in the subsidy phase, the economics still upside down on most workloads, the rescue — better capability, cheaper inference, pricing power — still parked in the future tense.</p>
+<p>Enterprises are starting to do the arithmetic. Picture the mid-sized company that wired Claude or GPT-4-class APIs into customer service, document processing, and a dozen internal tools back in 2023, when the pricing felt cheap and the capability felt essential. By year-end the bill is tens to hundreds of thousands a month, big enough that the CFO notices, and the AI team gets asked to defend it. They struggle — not because the features are useless, but because a lot of the money is going to queries a much cheaper model would have handled just fine.</p>
+<p>The autocomplete in the support tool calling out to GPT-4 when a 7B model running locally would’ve produced output nobody could tell apart. The document summarizer reaching for Claude when a small open model would do. The internal Q&amp;A bot firing frontier inference at every question, including the ones where the person already knew the answer and was just stalling.</p>
+<p>Each query is pennies. The pile, measured against the value it actually delivered, is wildly wasteful. The survey I cited earlier caught the leading edge of this: cost-per-inference jumped from 34% to 41% of IT decision-makers’ top priorities in a single quarter. Through 2027, big chunks of enterprise work will slide toward smaller models, local inference, and batch processing that burn a fraction of the hyperscale capacity per dollar of value. The infrastructure going up right now is sized for the 2024–2025 demand pattern, projected forward. The 2027–2028 pattern will be smaller, and the difference is more inflation.</p>
+<p>I want to be careful here, though, and not claim more than the evidence supports — because this is exactly the kind of argument that gets carried too far. The inflation hypothesis is my read, and I think it’s the better-supported read, but it’s a hypothesis, not a verdict, and honesty means saying so out loud. The other side is real. It is entirely possible that demand catches up to the capacity — that the productivity gains compound faster than the skeptics expect, that enterprise adoption deepens instead of stalling, that uses nobody has thought of yet show up and fill the buildout. Serious, well-informed people believe that version, and they are not obviously wrong. If they’re right, what looks like overbuilding today will look like foresight in hindsight.</p>
+<p>So the honest framing is conditional. <em>If</em> the inflation hypothesis holds, the open questions are how much of the buildout gets finished before the market figures it out, and how much damage lands on the host neighborhoods in the meantime. If it doesn’t hold, a lot more of the buildout turns out to have been warranted. Either way, one thing doesn’t depend on which story wins: the residents in the neighborhood chapters pay their costs whether the boom sustains or breaks.</p>
+<p>And for everyone else — including a reader sizing up what to do with their own savings — the smart posture is not to bet the house on either story before the evidence has settled it. A reader who closes this chapter convinced the crash is imminent and rearranges their financial life around that conviction is running a real risk of their own, because the crash everyone can see coming sometimes takes years to show up, and sometimes never shows up at all.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/library/the-invisible-trillion/the-architecture-that-works/but-wait-why-cant-i-rent-an-h100/"><span>Previous</span>But Wait — Why Can’t I Rent an H100?</a>
+    <a class="n" href="/library/the-invisible-trillion/the-architecture-that-works/the-colossus-lesson/"><span>Next</span>The Colossus Lesson</a>
+  </nav>
+  <p class="backto"><a href="/library/the-invisible-trillion/">All 19 chapters of The Invisible Trillion</a> · <a href="/library/">Library</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Library","item":"https://meiradavidson.github.io/library/"},{"@type":"ListItem","position":3,"name":"The Invisible Trillion","item":"https://meiradavidson.github.io/library/the-invisible-trillion/"},{"@type":"ListItem","position":4,"name":"The Architecture That Works","item":"https://meiradavidson.github.io/library/the-invisible-trillion/the-architecture-that-works/"},{"@type":"ListItem","position":5,"name":"The Subsidy, and the Awakening"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/library/the-invisible-trillion/the-architecture-that-works/the-subsidy-and-the-awakening/","url":"https://meiradavidson.github.io/library/the-invisible-trillion/the-architecture-that-works/the-subsidy-and-the-awakening/","headline":"The Subsidy, and the Awakening","articleSection":"The Architecture That Works","inLanguage":"en","isAccessibleForFree":true,"wordCount":786,"isPartOf":{"@type":"Book","name":"The Invisible Trillion","url":"https://meiradavidson.github.io/library/the-invisible-trillion/"}}]}</script>
+</body>
+</html>

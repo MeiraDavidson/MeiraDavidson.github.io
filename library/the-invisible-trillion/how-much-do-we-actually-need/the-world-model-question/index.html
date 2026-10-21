@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The World Model Question — How Much Do We Actually Need?, The Invisible Trillion | The Curious Family Library</title>
+<meta name="description" content="The robotics fleet scale is also smaller than the marketing implies. The total number of advanced robots deployed in the world, as of early 2026, is in…">
+<link rel="canonical" href="https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/the-world-model-question/">
+<link rel="prev" href="https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/the-industry-tour-who-actually-needs-what/">
+<link rel="next" href="https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/scientific-computing/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The World Model Question — How Much Do We Actually Need?, The Invisible Trillion | The Curious Family Library">
+<meta property="og:description" content="The robotics fleet scale is also smaller than the marketing implies. The total number of advanced robots deployed in the world, as of early 2026, is in…">
+<meta property="og:url" content="https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/the-world-model-question/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/library/">Library</a><span class="sep">›</span><a href="/library/the-invisible-trillion/">The Invisible Trillion</a><span class="sep">›</span><a href="/library/the-invisible-trillion/how-much-do-we-actually-need/">How Much Do We Actually Need?</a><span class="sep">›</span><span aria-current="page">The World Model Question</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">The Invisible Trillion · How Much Do We Actually Need?</p>
+  <h1>The World Model Question</h1>
+  <p>The robotics fleet scale is also smaller than the marketing implies. The total number of advanced robots deployed in the world, as of early 2026, is in the low hundreds of thousands and growing fast but from a small base. Even if every robot in the world were doing some cloud-side inference (which they mostly are not), the per-robot compute would be modest, and the total fleet compute would be substantially smaller than current consumer inference loads. Robotics as a sustained driver of hyperscale demand is a story that may be true a decade from now and is not yet true today.</p>
+
+<h3>The World Model Question</h3>
+<p>There is a substantive debate happening, right now, about whether the next phase of AI even runs on the architecture the current buildout is being constructed for. It is worth describing carefully, because the debate has real implications for whether the hyperscale infrastructure being built today is the right infrastructure for what’s coming, or whether it is being built for a technological moment that may already be partly past.</p>
+<p>The dominant approach since 2022 has been <em>large language models</em> — systems trained on vast quantities of text (and increasingly images, audio, and video) to produce capable general-purpose behavior. GPT-4, Claude, Gemini, Grok, DeepSeek, and the other frontier systems are all variants of this approach. The bet behind the current buildout is, in significant part, that scaling these systems further will continue to produce capability gains across most domains, including domains that require reasoning about the physical world, embodied action, and long-horizon planning.</p>
+<p>A substantial and growing camp of senior AI researchers disagrees. Yann LeCun, who ran Meta’s AI research for a decade and is one of the three Turing Award winners credited with founding the deep learning era, left Meta in late 2025 to launch AMI Labs (Advanced Machine Intelligence Labs), explicitly to pursue <em>world models</em> rather than language models. LeCun has argued, publicly and at length, that the LLM paradigm has a ceiling — that language alone cannot give a system the physics, causation, persistent state, and embodied common sense required for systems that operate competently in the physical world. His bet, and the bet of his new lab, is that fundamentally different architectures, trained on different kinds of data, are required for the next phase of AI capability.</p>
+<p>Fei-Fei Li — the Stanford professor known as “the godmother of AI” for her role in creating the ImageNet dataset that ignited the deep learning era — has taken a similar position with her startup World Labs. As of February 2026, World Labs had raised $1.23 billion at a $5 billion valuation, with investors including NVIDIA, AMD, Andreessen Horowitz, Autodesk ($200 million, with an advisory relationship), Emerson Collective, Fidelity, and Sea. The company’s product, Marble, generates persistent navigable 3D environments from text, images, or video. Li’s framing of the work is that <em>spatial intelligence</em> — the ability to reason about the three-dimensional world rather than about flat text and images — is a distinct technological category that the language-centric platforms cannot fully address.</p>
+<p>Jeff Bezos, in his first hands-on operational role since stepping back from Amazon in 2021, returned in November 2025 to co-lead Project Prometheus alongside Vik Bajaj, a chemist and physicist formerly of Google X. Prometheus initially raised $6.2 billion, then closed a $12 billion Series B in June 2026 at a $41 billion valuation — total funding of approximately $18.2 billion in about seven months, making it one of the best-capitalized AI startups in history. Prometheus’s focus is <em>physical AI</em> — applying machine learning to engineering and manufacturing of complex physical systems including semiconductors, automobiles, spacecraft, jet engines, and pharmaceutical compounds. Bezos has described the long-term goal as building “an artificial general engineer.”</p>
+<p>Google DeepMind has been working on world models in parallel, with the Genie family of models capable of generating and simulating navigable 3D environments. NVIDIA’s Cosmos platform is an explicit infrastructure bet on world foundation models, positioning the company to sell into whichever camp wins. Physical Intelligence (a Bezos portfolio company since 2024), Figure AI, 1X, and several other embodied-AI startups have positioned themselves along the spectrum between language-model fine-tuning and pure-world-model training.</p>
+<p>The substantive technical question between the two camps is whether the language-centered approach can extend to embodied and physical-world reasoning by being scaled and given access to multimodal data, or whether the language approach has a real architectural ceiling that requires a different paradigm to surpass. The honest answer, in mid-2026, is that we do not yet know. Both camps are building, both are making progress, and the decisive empirical evidence will not be in for several more years.</p>
+<p>What this means for the buildout question, though, is significant. <em>The current hyperscale infrastructure is designed around language-model training and inference.</em> The very large GPU clusters, the specific networking topologies, the optimizations for token-by-token generation, the deployment patterns for serving frontier language APIs — all of these are infrastructure choices that match the LLM bet. If the LLM bet wins, or even if it remains dominant, the infrastructure is well-matched to the demand. If the world-model camp is right that fundamentally different architectures are needed, then a meaningful fraction of the current infrastructure is being built for a paradigm that is at or near its capability ceiling, while the infrastructure that will actually be needed for the next phase is different and is not, yet, being built at scale.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/library/the-invisible-trillion/how-much-do-we-actually-need/the-industry-tour-who-actually-needs-what/"><span>Previous</span>The Industry Tour: Who Actually Needs What</a>
+    <a class="n" href="/library/the-invisible-trillion/how-much-do-we-actually-need/scientific-computing/"><span>Next</span>Scientific Computing</a>
+  </nav>
+  <p class="backto"><a href="/library/the-invisible-trillion/">All 19 chapters of The Invisible Trillion</a> · <a href="/library/">Library</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Library","item":"https://meiradavidson.github.io/library/"},{"@type":"ListItem","position":3,"name":"The Invisible Trillion","item":"https://meiradavidson.github.io/library/the-invisible-trillion/"},{"@type":"ListItem","position":4,"name":"How Much Do We Actually Need?","item":"https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/"},{"@type":"ListItem","position":5,"name":"The World Model Question"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/the-world-model-question/","url":"https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/the-world-model-question/","headline":"The World Model Question","articleSection":"How Much Do We Actually Need?","inLanguage":"en","isAccessibleForFree":true,"wordCount":903,"isPartOf":{"@type":"Book","name":"The Invisible Trillion","url":"https://meiradavidson.github.io/library/the-invisible-trillion/"}}]}</script>
+</body>
+</html>

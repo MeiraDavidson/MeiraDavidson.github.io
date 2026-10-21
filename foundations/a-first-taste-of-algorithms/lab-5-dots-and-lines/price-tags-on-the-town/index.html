@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5. Price tags on the town — Lab 5: Dots and Lines, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="The chapter’s town, with weights — a dictionary of neighbor lists where each neighbor comes with a price, as a (place, minutes) tuple:">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-5-dots-and-lines/price-tags-on-the-town/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-5-dots-and-lines/a-maze-is-a-graph-wearing-a-costume/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/interlude-the-other-exponential/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5. Price tags on the town — Lab 5: Dots and Lines, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="The chapter’s town, with weights — a dictionary of neighbor lists where each neighbor comes with a price, as a (place, minutes) tuple:">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-5-dots-and-lines/price-tags-on-the-town/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/lab-5-dots-and-lines/">Lab 5: Dots and Lines</a><span class="sep">›</span><span aria-current="page">5. Price tags on the town</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Lab 5: Dots and Lines</p>
+  <h1>5. Price tags on the town</h1>
+  
+<p>The chapter’s town, with weights — a dictionary of neighbor lists where each neighbor comes with a price, as a <code>(place, minutes)</code> tuple:</p>
+<pre><code>town = {
+    "Home":    [("Park", 2), ("School", 9), ],
+    "Park":    [("Home", 2), ("School", 5), ("Library", 9), ("Gym", 11)],
+    "School":  [("Park", 5), ("Home", 9), ("Library", 1), ("Cafe", 7)],
+    "Library": [("School", 1), ("Park", 9), ("Cafe", 4)],
+    "Cafe":    [("Library", 4), ("School", 7), ("Gym", 3)],
+    "Gym":     [("Park", 11), ("Cafe", 3)],
+}
+</code></pre>
+<p>Dijkstra’s protocol, exactly as you played it with coins — tags, settle the cheapest, relax its edges:</p>
+<pre><code>def dijkstra(graph, start):
+    tags = {start: 0}                   # tentative prices; absent = infinity
+    settled = set()
+    while len(settled) &lt; len(graph):
+        cheapest = None                 # scan for the cheapest unsettled tag
+        for place in tags:
+            if place not in settled:
+                if cheapest is None or tags[place] &lt; tags[cheapest]:
+                    cheapest = place
+        if cheapest is None:
+            break                       # the rest is unreachable
+        settled.add(cheapest)
+        for edge in graph[cheapest]:
+            place = edge[0]
+            cost = tags[cheapest] + edge[1]
+            if place not in tags or cost &lt; tags[place]:
+                tags[place] = cost      # relax: the detour wins
+    return tags
+
+print(dijkstra(town, "Home"))
+</code></pre>
+<p>(<code>None</code> is Python’s word for “nothing yet” — the scan starts with no champion and crowns the first candidate.) Check every tag against the chapter’s hand-run: Park 2, School 7, Library 8, Café 12, Gym 13 — five answers, five detours. Then rebuild <code>town</code> as <strong>your actual neighborhood</strong>, six or seven places with honest walking-minutes, and find something true you didn’t know about your own streets.</p>
+<h2>Break it</h2>
+<p>Predict first. Run second. Explain any gap third.</p>
+<p><strong>1.</strong> The desynchronized graph from §1: delete <code>"gym"</code> from lobby’s neighbor list (keep lobby in gym’s). Predict <code>bfs(hallways, "gym")</code> and then <code>bfs(hallways, "lab")</code> — same reachability or different? You have built a <em>one-way door</em>. Real graphs (the web, who-follows-whom) are full of them; what single sentence of the §1 convention did you break, and which of the two BFS runs is the one that can no longer find everything?</p>
+<p><strong>2.</strong> In <code>maze_bfs</code>, remove the border: change your maze’s top row to open floor and run from S. Predict the failure before running — wrong answer, error, or infinite loop? — then read the error’s last line and explain which innocent-looking expression walked off the world. (Two repairs exist: rebuild the wall, or teach the neighbor-check to refuse positions outside the maze. Implement the second; the first you already had.)</p>
+<p><strong>3.</strong> <em>The road that pays you.</em> First, make Dijkstra’s promises audible: add one line right after <code>settled.add(cheapest)</code> — <code>print("settled:", cheapest, "at", tags[cheapest])</code> — and rerun the honest town. Compare the announcements with the final notebook: they agree perfectly, every time, on every honest map (that agreement <em>is</em> the deep-water theorem talking). Now build the chapter’s Problem 3.3 graph using Break-it 1’s one-way doors — <code>{"Home": [("B", 2), ("C", 3)], "B": [], "C": [("B", -2)]}</code> — predict the announcements, and run it. Catch the exact moment the algorithm publicly settles a lie (which vertex, announced at what price, versus the truth you can see by eye?). Then two follow-ups: (a) point to the clause of the deep-water proof that this graph kills, quoting it; (b) the <em>final</em> notebook actually shows the right number anyway — find the line of our code that quietly forgave the lie after the announcement, and explain why you still must not trust this on bigger graphs (what if the lying vertex’s wrong tag had been used to relax <em>its</em> neighbors before the correction arrived?). One warning while experimenting: keep negative edges one-way here. A negative <em>two</em>-way road lets a walker pace back and forth earning money forever, and “cheapest route” stops meaning anything — the question itself, not just the algorithm, dies. (Restore the town when done; it has suffered enough.)</p>
+<p><strong>4.</strong> <em>The knight’s ripple</em> (finishing Problem 2.5). A chessboard is rows and columns 0–7; a knight at (r, c) can jump to eight positions: (r±1, c±2) and (r±2, c±1), board permitting. Adapt <code>maze_bfs</code> — same skeleton, different neighbor list, and the “board permitting” check is Break-it 2’s repair earning rent. Compute the fewest moves from (0, 0) to (7, 7), compare with the prediction you wrote in the problem set, and then print the full <code>dist</code> notebook and find the squares that are <em>hardest</em> for a corner knight to reach. Are they where you’d have guessed?</p>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>Building a graph in code forces you to decide how to store it. What did your choice make easy, and what did it make hard?</li><li>Watching a search run step by step — what surprised you about the order it visited things?</li><li>What question about a network could you now answer that you could not before this lab?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/lab-5-dots-and-lines/a-maze-is-a-graph-wearing-a-costume/"><span>Previous</span>3. A maze is a graph wearing a costume</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/interlude-the-other-exponential/"><span>Next</span>Interlude: The Other Exponential</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Lab 5: Dots and Lines","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-5-dots-and-lines/"},{"@type":"ListItem","position":5,"name":"5. Price tags on the town"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-5-dots-and-lines/price-tags-on-the-town/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-5-dots-and-lines/price-tags-on-the-town/","headline":"5. Price tags on the town","articleSection":"Lab 5: Dots and Lines","inLanguage":"en","isAccessibleForFree":true,"wordCount":723,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taking turns — On the Same Wire, How Cars Work | The Curious Family Library</title>
+<meta name="description" content="There is one obvious problem. If every computer can speak on the same wire, what happens when two of them try to speak at the same time?">
+<link rel="canonical" href="https://meiradavidson.github.io/library/how-cars-work/on-the-same-wire/taking-turns/">
+<link rel="prev" href="https://meiradavidson.github.io/library/how-cars-work/on-the-same-wire/">
+<link rel="next" href="https://meiradavidson.github.io/library/how-cars-work/on-the-same-wire/one-bus-is-not-enough-anymore/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Taking turns — On the Same Wire, How Cars Work | The Curious Family Library">
+<meta property="og:description" content="There is one obvious problem. If every computer can speak on the same wire, what happens when two of them try to speak at the same time?">
+<meta property="og:url" content="https://meiradavidson.github.io/library/how-cars-work/on-the-same-wire/taking-turns/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/library/">Library</a><span class="sep">›</span><a href="/library/how-cars-work/">How Cars Work</a><span class="sep">›</span><a href="/library/how-cars-work/on-the-same-wire/">On the Same Wire</a><span class="sep">›</span><span aria-current="page">Taking turns</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">How Cars Work · On the Same Wire</p>
+  <h1>Taking turns</h1>
+  
+<p>There is one obvious problem. If every computer can speak on the same wire, what happens when two of them try to speak at the same time?</p>
+<p>They have to take turns.</p>
+<p>The CAN bus has a clever rule for deciding who goes first. Every message has a priority number (which is, conveniently, just the same as its ID). When two computers try to talk at the same time, the one with the higher-priority message wins, and the lower-priority one waits a fraction of a millisecond and tries again.</p>
+<p>Important messages — engine timing, brake commands, anything safety-critical — get high priority. Less urgent messages — door lock states, dashboard light statuses — get lower priority. The bus organizes itself, with no central controller and no traffic cop, just a rule that makes the right thing happen automatically.</p>
+<p>Each message is short. About eight bytes of data — enough for a handful of numbers. The CAN bus runs at half a million bits per second, so dozens of messages can fit into a single millisecond. Plenty of bandwidth to keep all the computers in sync.</p>
+
+<h2>Six computers, half a second</h2>
+<p>Here is what this looks like in real time. Your mom is driving down a wet highway, and the car suddenly starts to slide sideways through a curve. Watch what happens — all in less than a second:</p>
+<p><strong>1. </strong>The yaw sensor detects that the car is rotating faster than the steering wheel input would suggest. It puts a message on the bus: “yaw rate higher than expected.”</p>
+<p><strong>2. </strong>The stability computer, which has been listening for that message, picks it up. It already knows, from messages it received earlier in the same second, the steering angle (from the steering computer), the wheel speeds (from the brake module), and the engine torque (from the ECU).</p>
+<p><strong>3. </strong>The stability computer does some quick math and decides the right rear wheel needs a brief, firm brake to pull the car back into line.</p>
+<p><strong>4. </strong>The stability computer sends a message on the bus: “brake module: please apply firm pressure to the right rear caliper for 200 milliseconds.”</p>
+<p><strong>5. </strong>The brake module, which has been listening for messages addressed to it, picks up that command. It applies the brake.</p>
+<p><strong>6. </strong>Meanwhile, the dashboard module — which is also listening to the bus — sees the “stability control activated” message and lights up a small icon to let the driver know the car is helping.</p>
+<p><strong>7. </strong>A fraction of a second later, the yaw sensor reports that the spin has stopped. The stability computer tells the brake module to release. The dashboard turns off the icon.</p>
+<p>Total elapsed time: maybe 200 milliseconds — about as fast as you can blink. Six different computers, communicating across one pair of wires, working together to keep the car going where it is supposed to go. None of them in charge of the others. Each one doing its own job, listening to and producing messages on the same shared line.</p>
+<p>That is the modern car.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/library/how-cars-work/on-the-same-wire/"><span>Previous</span>On the Same Wire</a>
+    <a class="n" href="/library/how-cars-work/on-the-same-wire/one-bus-is-not-enough-anymore/"><span>Next</span>One bus is not enough anymore</a>
+  </nav>
+  <p class="backto"><a href="/library/how-cars-work/">All 13 chapters of How Cars Work</a> · <a href="/library/">Library</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Library","item":"https://meiradavidson.github.io/library/"},{"@type":"ListItem","position":3,"name":"How Cars Work","item":"https://meiradavidson.github.io/library/how-cars-work/"},{"@type":"ListItem","position":4,"name":"On the Same Wire","item":"https://meiradavidson.github.io/library/how-cars-work/on-the-same-wire/"},{"@type":"ListItem","position":5,"name":"Taking turns"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/library/how-cars-work/on-the-same-wire/taking-turns/","url":"https://meiradavidson.github.io/library/how-cars-work/on-the-same-wire/taking-turns/","headline":"Taking turns","articleSection":"On the Same Wire","inLanguage":"en","isAccessibleForFree":true,"wordCount":509,"isPartOf":{"@type":"Book","name":"How Cars Work","url":"https://meiradavidson.github.io/library/how-cars-work/"}}]}</script>
+</body>
+</html>

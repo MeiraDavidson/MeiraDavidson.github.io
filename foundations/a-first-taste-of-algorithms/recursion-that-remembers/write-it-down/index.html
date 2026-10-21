@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Write it down — Recursion That Remembers, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="The fix is one idea, and it is the entire chapter: the first time you answer a question, write the answer down; ever after, look it up.">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/write-it-down/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/sevenia-healed/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Write it down — Recursion That Remembers, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="The fix is one idea, and it is the entire chapter: the first time you answer a question, write the answer down; ever after, look it up.">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/write-it-down/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/recursion-that-remembers/">Recursion That Remembers</a><span class="sep">›</span><span aria-current="page">Write it down</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Recursion That Remembers</p>
+  <h1>Write it down</h1>
+  
+<p>The fix is one idea, and it is the entire chapter: <strong>the first time you answer a question, write the answer down; ever after, look it up.</strong></p>
+<p>The notebook for answers is a new tool, Python’s <strong>dictionary</strong> — a list, roughly, that you index by <em>question</em> instead of by position; Lab 4 introduces it properly. The memoized procedure (the term of art is <strong>memoization</strong> — “memo,” not “memor”: leaving yourself a memo) does this:</p>
+<blockquote>
+<p>asked ways(n): if n is in the notebook, read it out;
+otherwise compute ways(n − 1) + ways(n − 2) — by this same procedure —
+write the result next to n in the notebook, then answer.</p>
+</blockquote>
+<p>Now count the cost. Each of the n distinct questions is <em>computed</em> at most once — every later asking is a lookup. So the total computing work is about n. The audit in Lab 4 makes it brutal: ways(30) falls from 1.7 million calls to <strong>57</strong>. Same recursion, same answers, same correctness proof. One notebook, and the exponential collapses to a straight line. There is no other moment in this book where so much is bought for so little.</p>
+<p>And once the notebook is in view, a small liberation follows. The recursion fills the notebook from the top down — asked about 30, it scrambles down to the floor and climbs back. But you could just as well fill the notebook <strong>bottom-up</strong>: write ways(1), ways(2), then march upward, each entry a one-line sum of two earlier entries, no recursion at all, just a table and a loop. Top-down and bottom-up produce <em>the identical table</em>; they differ only in the order the blanks get filled (and bottom-up, having no call stack, never meets Chapter 3’s recursion limit). The table is the real object. The method that builds answers to a problem out of stored answers to its subproblems — by either route — is called <strong>dynamic programming</strong>, a name so unhelpful that it has its own story below. Think “recursion that remembers,” or just: <em>the table method</em>.</p>
+<blockquote>
+<h3>A human moment</h3>
+<p>“Dynamic programming” contains no dynamics and no programming in the modern sense. The name was chosen around 1950 by Richard Bellman at the RAND Corporation — and by his own telling, chosen as <em>camouflage</em>. The Secretary of Defense then funding RAND, Bellman wrote in his autobiography, “had a pathological fear and hatred of the word <em>research</em>”; mathematics was even worse. So Bellman picked a name no one could object to or even quite parse: “it’s impossible to use the word <em>dynamic</em> in a pejorative sense,” he explained, and “programming” then meant planning — schedules, logistics, tables — not code. Historians note the dates in his story don’t all line up, and Bellman, a famous raconteur, may have polished it. But the lesson survives the embellishment, and it is the second vignette in a row about a mathematician choosing a disguise: Lucas dressed an exponential as a toy from Siam; Bellman dressed a method as bureaucratic nothing to keep it funded. Names are not neutral. The thing itself — the table method — outlived the Secretary, the camouflage, and very possibly the anecdote.</p>
+</blockquote>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/recursion-that-remembers/"><span>Previous</span>Recursion That Remembers</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/recursion-that-remembers/sevenia-healed/"><span>Next</span>Sevenia, healed</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Recursion That Remembers","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/"},{"@type":"ListItem","position":5,"name":"Write it down"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/write-it-down/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/write-it-down/","headline":"Write it down","articleSection":"Recursion That Remembers","inLanguage":"en","isAccessibleForFree":true,"wordCount":525,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

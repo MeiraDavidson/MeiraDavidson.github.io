@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ripples: breadth-first search — Maps, Mazes, and Networks, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Drop a stone in a pond and watch the rings: everything one hop away gets wet first, then everything two hops away, then three. Breadth-first search (BFS)…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/ripples-breadth-first-search/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/the-thread-depth-first-search/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ripples: breadth-first search — Maps, Mazes, and Networks, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Drop a stone in a pond and watch the rings: everything one hop away gets wet first, then everything two hops away, then three. Breadth-first search (BFS)…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/ripples-breadth-first-search/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/">Maps, Mazes, and Networks</a><span class="sep">›</span><span aria-current="page">Ripples: breadth-first search</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Maps, Mazes, and Networks</p>
+  <h1>Ripples: breadth-first search</h1>
+  
+<p>Drop a stone in a pond and watch the rings: everything one hop away gets wet first, then everything two hops away, then three. <strong>Breadth-first search (BFS)</strong> is that ripple, run on a graph: starting somewhere, visit all vertices 1 edge away, then all at 2 edges, then 3 — never touching a far vertex before every nearer one is done.</p>
+<p>The discipline that enforces ripple-order is a waiting line. Keep a <strong>queue</strong> of vertices to process; always serve the <em>front</em> of the line; when you serve a vertex, its not-yet-seen neighbors join the <em>back</em>. First in, first out — exactly a bakery line — and fairness of the line is what makes the rings expand evenly: everything at distance d entered the line before anything at distance d + 1, so it gets served first, so <em>its</em> discoveries (distance d + 1) enter before theirs (d + 2). The ripple is bureaucracy, perfectly administered. One more piece of bookkeeping makes it terminate: a <strong>visited</strong> set, so no vertex joins the line twice. (Chapter 1’s lesson about structure: the visited set is what makes “have I seen this?” cheap.)</p>
+<p><img src="/foundations/a-first-taste-of-algorithms/img/fig_5_2_school_bfs.png" alt="Figure 5.2 — The school as a graph, and the ripple from the gym: ring numbers are hop distances." loading="lazy"></p>
+<p><em>Figure 5.2 — The school as a graph, and the ripple from the gym: ring numbers are hop distances.</em></p>
+<p>What you get for this discipline is the chapter’s central theorem: <strong>BFS finds shortest paths</strong> — when BFS first reaches a vertex, it has reached it by a fewest-possible-edges route, and the ring number <em>is</em> the distance in hops. The proof is an induction on the rings, and it is the Diamond: ring d is correct because ring d − 1 was, true at the floor (the start is its own ring zero), preserved ring to ring. Fourth appearance of the only trick.</p>
+<p>And note what BFS says when the ripple dies out with some vertex never wetted: that vertex is <strong>unreachable</strong> — not “probably not connected,” but provably, because the ripple visited everything touchable. Chapter 1’s expensive certainty of absence, again purchased by exhaustiveness, again organized by structure.</p>
+<blockquote>
+<h3>A human moment</h3>
+<p>Nobody invented breadth-first search; at least three people did, separately. Konrad Zuse — who built programmable computers in his parents’ Berlin living room during the war — described it in his 1945 thesis, which sat unpublished until 1972. E. F. Moore at Bell Labs reinvented it in 1959 as “the shortest path through a maze,” wanting to route telephone calls through switching networks. C. Y. Lee reinvented it again in 1961 to route <em>wires</em> across circuit boards — chip designers call grid-BFS the “Lee algorithm” to this day, and some version of it has helped lay out nearly every chip in every device you own. Triple invention is not embarrassment; it is evidence. When the world builds networks — telephone, electronic, social — the ripple gets discovered by whoever is standing closest to the need. Ideas have infrastructure the way plants have seasons.</p>
+</blockquote>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/"><span>Previous</span>Maps, Mazes, and Networks</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/the-thread-depth-first-search/"><span>Next</span>The thread: depth-first search</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Maps, Mazes, and Networks","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/"},{"@type":"ListItem","position":5,"name":"Ripples: breadth-first search"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/ripples-breadth-first-search/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/ripples-breadth-first-search/","headline":"Ripples: breadth-first search","articleSection":"Maps, Mazes, and Networks","inLanguage":"en","isAccessibleForFree":true,"wordCount":486,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

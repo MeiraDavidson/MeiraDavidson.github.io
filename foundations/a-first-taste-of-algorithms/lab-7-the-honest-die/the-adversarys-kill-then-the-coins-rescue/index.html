@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3. The adversary’s kill, then the coins’ rescue — Lab 7: The Honest Die, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Quicksort with the predictable rule — first item as pivot — and a comparison counter riding along:">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-7-the-honest-die/the-adversarys-kill-then-the-coins-rescue/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-7-the-honest-die/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-7-the-honest-die/the-birthday-machine/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3. The adversary’s kill, then the coins’ rescue — Lab 7: The Honest Die, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Quicksort with the predictable rule — first item as pivot — and a comparison counter riding along:">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-7-the-honest-die/the-adversarys-kill-then-the-coins-rescue/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/lab-7-the-honest-die/">Lab 7: The Honest Die</a><span class="sep">›</span><span aria-current="page">3. The adversary’s kill, then the coins’ rescue</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Lab 7: The Honest Die</p>
+  <h1>3. The adversary’s kill, then the coins’ rescue</h1>
+  
+<p>Quicksort with the <em>predictable</em> rule — first item as pivot — and a comparison counter riding along:</p>
+<pre><code>def quicksort_first(items):
+    if len(items) &lt;= 1:
+        return [items, 0]
+    pivot = items[0]
+    smaller = []
+    bigger = []
+    for x in items[1:]:               # items[1:]: everything after the pivot
+        if x &lt; pivot:
+            smaller.append(x)
+        else:
+            bigger.append(x)
+    left = quicksort_first(smaller)
+    right = quicksort_first(bigger)
+    return [left[0] + [pivot] + right[0], left[1] + right[1] + len(items) - 1]
+
+shuffled = list(range(200))
+random.shuffle(shuffled)
+print("shuffled input:", quicksort_first(shuffled)[1], "comparisons")
+</code></pre>
+<p>On shuffled input: respectable, n log n-ish. Now be the adversary — you know the rule, so supply the killer:</p>
+<pre><code>print("sorted input:", quicksort_first(list(range(200)))[1], "comparisons")
+</code></pre>
+<p>Quadratic: 19,900 = 200·199/2, the full bill, on the most innocent input there is. Then push the adversary’s advantage to its conclusion: try <code>list(range(5000))</code> and read the error to its last line — Lab 3’s old enemy, because the lopsided recursion is n deep. The adversary didn’t just slow your algorithm; it <em>crashed</em> it, with sorted data.</p>
+<p>The rescue is one line — the pivot by coin:</p>
+<pre><code>def quicksort_random(items):
+    if len(items) &lt;= 1:
+        return [items, 0]
+    pivot = random.choice(items)
+    smaller = []
+    bigger = []
+    for x in items:
+        if x &lt; pivot:
+            smaller.append(x)
+        elif x &gt; pivot:
+            bigger.append(x)          # equal-to-pivot items sit out: they're placed
+    left = quicksort_random(smaller)
+    right = quicksort_random(bigger)
+    return [left[0] + [pivot] + right[0], left[1] + right[1] + len(items) - 1]
+
+print(quicksort_random(list(range(5000)))[1], "comparisons on the killer input")
+</code></pre>
+<p>The input that crashed the predictable version is now unremarkable. Run that cell five times: five <em>different</em> comparison counts, all in the same healthy neighborhood. The cost has become a random quantity — which is exactly why the next section needs a new instrument.</p>
+<h2>4. The distribution, drawn</h2>
+<p>A random cost is not one number; it is a <em>shape</em>, and the instrument for shapes is the <strong>histogram</strong>: chop the number line into bins, count how many runs land in each, draw the counts as bars. One new plotting move, <code>plt.hist</code>:</p>
+<pre><code>import matplotlib.pyplot as plt
+
+n = 256
+counts = []
+for _ in range(2000):
+    counts.append(quicksort_random(list(range(n)))[1])
+
+mean = sum(counts) / len(counts)
+print("mean:", round(mean, 1), "   smallest:", min(counts), "   largest:", max(counts))
+
+plt.hist(counts, bins=40)
+plt.xlabel("comparisons (n = 256)")
+plt.ylabel("how many of the 2000 runs")
+plt.show()
+</code></pre>
+<p>Read your hill. The mean sits near 2,125 — the deep water’s exact 2(n+1)Hₙ − 4n, <em>not</em> the asymptotic slogan 2n ln n ≈ 2,839; check both against your printout and note which one your data votes for. Then the question the picture answers and the mean cannot: where is the worst case? It is n(n−1)/2 = 32,640 — find the largest of your 2,000 runs and see how breathtakingly far short of the cliff even your <em>unluckiest</em> run fell. Two thousand genuine gambles, and the catastrophe wasn’t merely avoided; it was never in the room. That concentration — not the average alone — is what the chapter meant by trusting the gamble.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/lab-7-the-honest-die/"><span>Previous</span>Lab 7: The Honest Die</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/lab-7-the-honest-die/the-birthday-machine/"><span>Next</span>5. The birthday machine</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Lab 7: The Honest Die","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-7-the-honest-die/"},{"@type":"ListItem","position":5,"name":"3. The adversary’s kill, then the coins’ rescue"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-7-the-honest-die/the-adversarys-kill-then-the-coins-rescue/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-7-the-honest-die/the-adversarys-kill-then-the-coins-rescue/","headline":"3. The adversary’s kill, then the coins’ rescue","articleSection":"Lab 7: The Honest Die","inLanguage":"en","isAccessibleForFree":true,"wordCount":487,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

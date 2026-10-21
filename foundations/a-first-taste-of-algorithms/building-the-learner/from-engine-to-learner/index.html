@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>From engine to learner — Building the Learner, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="The engine prices knobs; a learner needs knobs arranged into something that computes. Three small classes, each a few lines, each built from the Value…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/from-engine-to-learner/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/the-sweep-that-prices-everything/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/weighted-looking-back/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="From engine to learner — Building the Learner, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="The engine prices knobs; a learner needs knobs arranged into something that computes. Three small classes, each a few lines, each built from the Value…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/from-engine-to-learner/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/building-the-learner/">Building the Learner</a><span class="sep">›</span><span aria-current="page">From engine to learner</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Building the Learner</p>
+  <h1>From engine to learner</h1>
+  
+<p>The engine prices knobs; a learner needs knobs arranged into something that computes. Three small classes, each a few lines, each built from the Value engine — and the design idea is the one classes exist to express: <strong>composition</strong>, small pieces that snap together.</p>
+<p><img src="/foundations/a-first-taste-of-algorithms/img/fig_9_2_neuron_layer_net.png" alt="Figure 9.2 — Composition at three zoom levels: a neuron, a layer of neurons, a network of layers — the same shape repeated, which is the whole reason classes exist." loading="lazy"></p>
+<p><em>Figure 9.2 — Composition at three zoom levels: a neuron, a layer of neurons, a network of layers — the same shape repeated, which is the whole reason classes exist.</em></p>
+<p>A <strong>neuron</strong> holds a weight per input and a bias (all Values, all knobs), multiplies each input by its weight, sums, adds the bias, squashes with <code>tanh</code>. A <strong>layer</strong> is a row of neurons sharing inputs. A <strong>network</strong> is layers chained, each feeding the next — the same shape at three zoom levels, which is exactly what composition buys. Because every operation inside is a Value operation, the whole network — however deep — builds one giant graph as it runs forward, and the single <code>backward()</code> you wrote prices every weight in it. You do not write new calculus for a bigger network. The engine already handles arbitrary graphs; a deeper network is just a bigger graph.</p>
+<p>That is the entire principle behind every deep learning framework in the world. The ones running in data centers differ from yours in three ways and <em>only</em> three: they store numbers in big arrays instead of one-at-a-time (the next section’s instrument), they run on hardware built for exactly this graph, and they have a decade of engineering in the constants — Chapter 6’s lesson, that the shape is yours and the constants are an industry, returning for its final bow. The <em>idea</em> on your screen is complete.</p>
+<h2>The instrument, and the model</h2>
+<p>To train on real data at any speed, one concession — the same kind Chapter 6 made for clocks and Chapter 7 for dice: an instrument earned by need. Pricing Values one at a time is correct but slow; a network’s thousands of multiply-adds want to happen <em>together</em>. <strong>NumPy</strong> is Python’s tool for holding numbers in arrays and operating on whole arrays at once — and it is to this chapter what the stopwatch was to Lab 6: adopted for scale, framed honestly, the same mathematics at a thousandfold the speed. The pure-Value engine stays on the workbench as the thing that <em>explains</em>; numpy becomes the thing that <em>runs</em>. (Lab 9 keeps both: it trains a tiny model with your own Value engine, end to end, to prove the engine is real — then rebuilds the same idea in numpy to train at a size that can actually speak.)</p>
+<p>The model itself is the simplest one that <em>generates</em>: it reads the last few characters and predicts the next, then feeds its own prediction back as input and predicts again, spinning out a name one letter at a time. The training data is this book’s own cast — a list of mathematicians’ names. (The example lists that have seeded this book since Lab 1 — Ada, Erdős, Gauss — were always meant to arrive here.) The loss is the one Chapter 8 built, averaged over every next-letter prediction across every name: how surprised was the model by the letter that actually came next? Train by the loop you ran on the bowl — gradient down, repeat — and the model’s surprise falls, its letters grow wordlike, and eventually it produces names like <em>Riemanujan</em>, <em>Dantor</em>, <em>Wilevin</em>: nobody’s name, everybody’s plausible mathematician. The machine learned the <em>shape</em> of the names without memorizing the names, which is the whole of what learning is.</p>
+<p>And here the parrot exam from Chapter 8 returns to keep everyone honest, because it has teeth in this chapter. As the model trains, its <em>training</em> loss keeps falling — but its loss on held-out names it never saw will, past a point, start to <em>rise</em>. That gap is overfitting, live, in your own run: the model beginning to memorize its specific training names rather than learn the general music of names. Lab 9 makes you watch both curves and name the moment they part ways. The most expensive lesson in modern AI, the one Chapter 8 said no one fully understands at scale, is reproducible on your laptop in under a minute — and seeing it small is the beginning of taking it seriously large.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/building-the-learner/the-sweep-that-prices-everything/"><span>Previous</span>The sweep that prices everything</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/building-the-learner/weighted-looking-back/"><span>Next</span>Weighted looking-back</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Building the Learner","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/"},{"@type":"ListItem","position":5,"name":"From engine to learner"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/from-engine-to-learner/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/building-the-learner/from-engine-to-learner/","headline":"From engine to learner","articleSection":"Building the Learner","inLanguage":"en","isAccessibleForFree":true,"wordCount":722,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

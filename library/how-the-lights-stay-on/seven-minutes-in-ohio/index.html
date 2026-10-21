@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seven Minutes in Ohio — How the Lights Stay On | The Curious Family Library</title>
+<meta name="description" content="Tuesday, August 14, 2003. Akron, Ohio. The FirstEnergy control room. It is the early afternoon of an ordinary hot summer day, and four men are sitting at…">
+<link rel="canonical" href="https://meiradavidson.github.io/library/how-the-lights-stay-on/seven-minutes-in-ohio/">
+<link rel="prev" href="https://meiradavidson.github.io/library/how-the-lights-stay-on/the-long-road/">
+<link rel="next" href="https://meiradavidson.github.io/library/how-the-lights-stay-on/the-last-hundred-feet/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Seven Minutes in Ohio — How the Lights Stay On | The Curious Family Library">
+<meta property="og:description" content="Tuesday, August 14, 2003. Akron, Ohio. The FirstEnergy control room. It is the early afternoon of an ordinary hot summer day, and four men are sitting at…">
+<meta property="og:url" content="https://meiradavidson.github.io/library/how-the-lights-stay-on/seven-minutes-in-ohio/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/library/">Library</a><span class="sep">›</span><a href="/library/how-the-lights-stay-on/">How the Lights Stay On</a><span class="sep">›</span><span aria-current="page">Seven Minutes in Ohio</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">How the Lights Stay On</p>
+  
+  <h1>Chapter 4: Seven Minutes in Ohio</h1>
+<p>Tuesday, August 14, 2003. Akron, Ohio. The FirstEnergy control room. It is the early afternoon of an ordinary hot summer day, and four men are sitting at desks looking at screens.</p>
+<p>Outside, the temperature is in the upper eighties. Air conditioners across the eastern United States are humming. Demand on the grid is high but manageable — well within what the system was designed to handle. The screens in the Akron control room show what they always show: maps of the transmission network, line loadings, voltage and frequency, alerts. The frequency is steady at 60.0. The lines are loaded but not overloaded. Nothing is flashing red.</p>
+<p>The men have done this job for years. None of them is panicking. None of them has any reason to.</p>
+<p>Within two hours, this control room will become the most consequential place in North America. The decisions made — and not made — in this room will plunge fifty million people across eight U.S. states and one Canadian province into darkness.</p>
+<p>And none of the men in the room will see it coming.</p>
+<p>To understand what went wrong, you have to understand what an alarm system in a control room is for.</p>
+<p>The operators are watching, yes. But they cannot watch every single piece of equipment every second. The grid has thousands of components. So a piece of software — in FirstEnergy’s case, a system called XA/21, built by General Electric — runs constantly in the background, comparing every measurement against what is expected, and <em>alerting</em> the operators when something is off. A line gets overloaded: alarm. A voltage drops below normal: alarm. A generator goes offline: alarm. The screens flash. A sound plays. The operators look up and respond.</p>
+<p>Without the alarm system, the operators are mostly blind. They are watching perhaps a dozen screens out of hundreds, and trusting the software to tell them which screens to watch.</p>
+<p>At 2:14 PM on August 14, the XA/21 system in Akron silently crashed.</p>
+<p>A bug — what programmers call a “race condition,” where two parts of the software tried to access the same data at the same instant and tangled each other up — caused the alarm system to stop functioning. It did not beep. It did not say <em>I am no longer working.</em> It just stopped. The operators in the control room had no idea anything was wrong.</p>
+<p>The screens still updated. The numbers still scrolled. From the operators’ point of view, everything looked exactly as it had a minute earlier. Quiet, normal, manageable.</p>
+<p>This is one of the most dangerous failure modes any system can have. The thing that is supposed to warn you when something is wrong is itself wrong, and it does not tell you.</p>
+<p>At 3:05 PM, fifty-one minutes after the alarm system died, a high-voltage transmission line called Harding-Chamberlin started to sag.</p>
+<p>The day was hot. The line had been carrying a lot of current. From Chapter 3, you remember that current heats wires. Hot wires expand. Expanding wires sag lower toward the ground. Most of the time this is fine, because the lines have been designed with sag built into the calculations and the right-of-way underneath them is supposed to be clear of tall things.</p>
+<p>But somewhere along the Harding-Chamberlin line, a tree had grown taller than it was supposed to. FirstEnergy’s vegetation management program — the people who trim trees in transmission corridors — had not gotten to that section recently enough. The hot, sagging wire touched the tree.</p>
+<p>When a high-voltage line touches a tree, it does not gently spark. It arcs. The electricity flashes from the wire through the tree to the ground in a brilliant burst. The line’s protection equipment — designed to prevent fires and equipment damage — instantly disconnects the line from the rest of the grid.</p>
+<p>The Harding-Chamberlin line went dark.</p>
+<p>In the Akron control room, no alarm sounded.</p>
+<p>Here is the dangerous thing that happens when a line drops.</p>
+<p>The current that <em>was</em> flowing through the Harding-Chamberlin line does not just disappear. The electricity still has to get from where it is being generated to where it is being used. It just has to find a different path. So it redistributes itself across the remaining lines in the area, raising their loadings.</p>
+<p>A few of those neighboring lines are now carrying more current than they were before. More current means more heat. More heat means more sag.</p>
+<p>At 3:32 PM, twenty-seven minutes after the first failure, the Hanna-Juniper line sagged into a tree and tripped. Same physics. Same failure mode. Same silent control room.</p>
+<p>Again, the current redistributed across the surviving lines. Again, those lines began to heat up and sag further.</p>
+<p>At 3:41 PM, the Star-South Canton line tripped.</p>
+<p>By now, phones in the FirstEnergy control room were starting to ring. The Midwest Independent System Operator — a regional grid operator that watches a wider picture than FirstEnergy does — called Akron to ask whether they were aware they had lost three major transmission lines in the last forty minutes.</p>
+<p>The operators in Akron said they were not aware. They looked at their screens. The screens still showed everything fine. They began to suspect their system was lying to them.</p>
+<p>But by then it was almost too late to matter.</p>
+<p>Between 4:05 PM and 4:13 PM, the grid came apart.</p>
+<p>Once enough transmission lines had failed in northern Ohio, the remaining lines could not carry the load. They tripped, one by one, like fuses blowing. Each trip pushed more current onto fewer lines, which then tripped, which pushed more current onto still fewer lines.</p>
+<p>This is what engineers call a <strong>cascading failure</strong>. It is not a single event. It is a feedback loop that, once it starts, runs faster than humans can react.</p>
+<p>At 4:06 PM, large parts of the grid in northern Ohio went dark.</p>
+<p>At 4:10 PM, the cascade jumped across Lake Erie into Michigan and Ontario. It headed east.</p>
+<p>At 4:11 PM, it reached western New York. The transmission lines feeding New York City began to overload as they tried to compensate for the failures upstream. The grid’s automatic protection equipment, designed to prevent the entire system from suffering physical damage, started to disconnect huge regions from one another. Whole cities went offline in seconds.</p>
+<p>At 4:13 PM, the cascade stopped. It stopped because there was nothing left to disconnect. Fifty million people across eight U.S. states and the Canadian province of Ontario were now without electricity.</p>
+<p>In a subway tunnel under Forty-Second Street, a train rolled to a stop in the dark. Passengers looked up from their books. In an office tower in Manhattan, computer screens blanked at the same instant. In an apartment in Toronto, a refrigerator stopped humming. The lights at a stoplight in downtown Cleveland went out, and the car waiting at the red light slowly rolled forward into an empty intersection, not knowing what to do.</p>
+<p>The juggling act, the synchronized machine, the heartbeat — all of it had failed in less time than it takes to listen to a song.</p>
+<p>You do not get a fifty-million-person blackout without a <em>lot</em> of small things being wrong at once.</p>
+<p>The official report on the 2003 blackout, written by a joint U.S.-Canadian task force, listed dozens of contributing causes. They are worth pausing on, because together they tell a story that applies to almost any large disaster.</p>
+<p><strong>A software bug.</strong> The XA/21 alarm system had a defect that GE did not know about. After the blackout, GE issued a fix, and similar systems around the world were updated.</p>
+<p><strong>Tree management.</strong> FirstEnergy had fallen behind on trimming trees in some of its transmission corridors. After the blackout, federal regulators imposed new mandatory rules — with fines — for vegetation management. Today, U.S. utilities trim trees on a strict schedule.</p>
+<p><strong>Lack of situational awareness.</strong> The Midwest Independent System Operator had the data to see the cascade coming, but its monitoring systems did not have a way to clearly display the developing problem across multiple utilities’ territories. After the blackout, regional grid operators got new tools to see the bigger picture.</p>
+<p><strong>Aging infrastructure.</strong> Many transmission lines in the affected region were running closer to their physical limits than designers had assumed. After the blackout, more line upgrades and new construction were prioritized.</p>
+<p><strong>No mandatory reliability rules.</strong> Before 2003, reliability standards for the U.S. grid were <em>voluntary</em>. After 2003, Congress passed legislation creating mandatory standards enforced by an organization called the North American Electric Reliability Corporation, or NERC. Utilities that violate the rules can now be fined millions of dollars per day per violation.</p>
+<p>The blackout was not caused by any one person making a stupid choice. It was caused by many small problems lining up at once, and by a single bug that hid the unfolding disaster from the people who could have stopped it. The operators in Akron were not bad operators. They were good operators looking at lying screens.</p>
+<p>This is the most important takeaway from any large engineering failure: <strong>disasters rarely happen because someone did something wrong. They usually happen because many small things were wrong at once, and nobody could see the whole picture.</strong></p>
+<p>The 2003 blackout caused somewhere between four and ten billion dollars in damage. Spoiled food in refrigerators. Lost wages. Industrial processes interrupted. Hospitals running on generators that were not designed for sustained use. Cell towers losing battery backup. Water pumps stopping — some communities lost water pressure entirely.</p>
+<p>It killed people, too. Most blackout deaths are indirect — people who depended on medical equipment, people trapped in unventilated heat, traffic accidents at dark intersections. The official death toll from the 2003 blackout is around one hundred people. The unofficial figure may be higher.</p>
+<p>Power was restored to most areas within twenty-nine hours. Some places were dark for several days.</p>
+<p>For many people who lived through it, the lasting memory is not the inconvenience. It is the strange, peaceful experience of an enormous modern city suddenly hearing no air conditioners. People in New York that night went up onto rooftops and saw, for the first time in their lives, the stars over Manhattan.</p>
+<p>After 2003, the United States grid became more reliable than it had been before. New rules, new software, new monitoring, new tree trimming, new mandatory standards. Another cascade on the scale of 2003 has not happened on the eastern grid since.</p>
+<p>But the grid is still vulnerable. The basic facts have not changed: electricity has to be made and used in the same instant, the system is one giant synchronized machine, and feedback loops can still outrun human reaction time. New kinds of failure are becoming possible — failures that come from cyberattacks rather than software bugs, from extreme weather rather than overgrown trees, from the heat of a changing climate stressing equipment that was designed for a cooler world.</p>
+<p>Texas would discover one of these new failure modes in February 2021, in a way that killed more people in a single week than the 2003 blackout did. That story is coming, four chapters from now.</p>
+<p>For now, look up the next time you walk past a transmission tower. The lines are humming. The grid is balanced. The heartbeat is steady. Somewhere, in a control room you will never see, a person you will never meet is watching the screens.</p>
+<p>They are watching, in part, because of what happened in Akron, Ohio, in the early afternoon of a Tuesday in August 2003.</p>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>The operators were experienced, nothing was flashing red, and the grid was within design limits. How does a catastrophe begin on an ordinary afternoon with nobody doing anything obviously wrong?</li><li>The alarm software existed because operators cannot watch thousands of components at once. What happens to a human watcher who has been taught to rely on an alarm, when the alarm stops?</li><li>Compare your guess from Chapter 1 against what actually happened. What did you assume, and where did the assumption come from?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/library/how-the-lights-stay-on/the-long-road/"><span>Previous</span>The Long Road</a>
+    <a class="n" href="/library/how-the-lights-stay-on/the-last-hundred-feet/"><span>Next</span>The Last Hundred Feet</a>
+  </nav>
+  <p class="backto"><a href="/library/how-the-lights-stay-on/">All 18 chapters of How the Lights Stay On</a> · <a href="/library/">Library</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Library","item":"https://meiradavidson.github.io/library/"},{"@type":"ListItem","position":3,"name":"How the Lights Stay On","item":"https://meiradavidson.github.io/library/how-the-lights-stay-on/"},{"@type":"ListItem","position":4,"name":"Seven Minutes in Ohio"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/library/how-the-lights-stay-on/seven-minutes-in-ohio/","url":"https://meiradavidson.github.io/library/how-the-lights-stay-on/seven-minutes-in-ohio/","headline":"Seven Minutes in Ohio","articleSection":"Seven Minutes in Ohio","inLanguage":"en","isAccessibleForFree":true,"wordCount":1923,"isPartOf":{"@type":"Book","name":"How the Lights Stay On","url":"https://meiradavidson.github.io/library/how-the-lights-stay-on/"}}]}</script>
+</body>
+</html>

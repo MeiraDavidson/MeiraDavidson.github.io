@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5. The same table, bottom-up — Lab 4: The Notebook, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="The chapter promised the notebook can be filled by a plain loop, floor upward, no recursion at all:">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-4-the-notebook/the-same-table-bottom-up/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-4-the-notebook/the-collapse-measured/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5. The same table, bottom-up — Lab 4: The Notebook, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="The chapter promised the notebook can be filled by a plain loop, floor upward, no recursion at all:">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-4-the-notebook/the-same-table-bottom-up/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/lab-4-the-notebook/">Lab 4: The Notebook</a><span class="sep">›</span><span aria-current="page">5. The same table, bottom-up</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Lab 4: The Notebook</p>
+  <h1>5. The same table, bottom-up</h1>
+  
+<p>The chapter promised the notebook can be filled by a plain loop, floor upward, no recursion at all:</p>
+<pre><code>def fewest_coins_table(coins, amount):
+    best = [0]                          # best[0] = 0; the table grows rightward
+    for a in range(1, amount + 1):
+        options = []
+        for c in coins:
+            if c &lt;= a:
+                options.append(best[a - c])
+        best.append(1 + min(options))
+    return best
+
+table = fewest_coins_table([10, 7, 1], 14)
+print(table)
+print("best(14) =", table[14])
+</code></pre>
+<p>Read the printed list against the chapter’s hand-built table — entry by entry, they must agree (the table <em>is</em> the method; the two routes merely fill it in different orders). This version climbs to any height without a call stack: try amount 5,000, then try the same in §4’s recursive version and witness which one meets Lab 3’s old enemy.</p>
+<h2>Break it</h2>
+<p>Predict first. Run second. Explain any gap third.</p>
+<p><strong>1.</strong> In §2’s <code>ways_memo</code>, delete only the line <code>memo[n] = answer</code> (keep everything else). Predict: still correct? still fast? one or the other? Run §3’s count with the line gone. Which single line of this lab was the entire chapter?</p>
+<p><strong>2.</strong> Sabotage by sharing: move §4’s <code>memo = {0: 0}</code> <em>outside</em> the function (one notebook for all trials), then run <code>fewest_coins([10, 7, 1], 14)</code> followed by <code>fewest_coins([25, 10, 5, 1], 14)</code>. Predict both outputs first. The second answer is wrong — wrong <em>how</em>, and in whose favor? State the moral as one sentence about what a notebook entry silently assumes. (This bug, in grown-up systems, is called cache poisoning, and it has caused real outages; you have now caused one in eleven lines.)</p>
+<p><strong>3.</strong> Hops of {2, 3} only: adapt <code>ways_memo</code> for a staircase where you may hop 2 or 3 steps. The floor needs care — decide what ways(0) and ways(1) should <em>be</em> (is “do nothing” a way to climb zero steps? is 1 climbable at all?), write your floor, and test against hand counts for n = 2, 3, 4, 5. Then break a classmate’s floor: find the n where a plausible-but-wrong floor (say, ways(0) = 0) first gives a wrong count. Floors are where recursions are won and lost.</p>
+<p><strong>4.</strong> In §5’s bottom-up changer, feed it a kingdom without the 1-coin: <code>fewest_coins_table([10, 7], 11)</code>. Predict the failure mode precisely — wrong answer, error, or silence? — and read what actually happens to its last line. Then repair the design: unpayable amounts need an answer that survives <code>min</code> and <code>+ 1</code> honestly (the chapter’s Problem 3.5 is circling this same hole). Propose a fix, implement it, and verify amount 11 reports “impossible” while 17 reports 2.</p>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>The notebook is the memory. What happens to the program's behaviour the instant you give it one?</li><li>Predict the speed-up before measuring it. How close were you, and what does the gap say about intuitions for exponentials?</li><li>When would you not want a program to remember?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/lab-4-the-notebook/the-collapse-measured/"><span>Previous</span>3. The collapse, measured</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/"><span>Next</span>Maps, Mazes, and Networks</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Lab 4: The Notebook","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-4-the-notebook/"},{"@type":"ListItem","position":5,"name":"5. The same table, bottom-up"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-4-the-notebook/the-same-table-bottom-up/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-4-the-notebook/the-same-table-bottom-up/","headline":"5. The same table, bottom-up","articleSection":"Lab 4: The Notebook","inLanguage":"en","isAccessibleForFree":true,"wordCount":431,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

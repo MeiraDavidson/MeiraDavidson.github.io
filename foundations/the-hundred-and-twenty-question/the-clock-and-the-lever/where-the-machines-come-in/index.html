@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Where the machines come in — The Clock and the Lever, Will you live to 120? | The Curious Family Library</title>
+<meta name="description" content="Deeper Water — predicting versus pushing. The distinction at the core of this chapter has an exact formal form, and it is one of the most important ideas…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-clock-and-the-lever/where-the-machines-come-in/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-clock-and-the-lever/the-most-important-sentence-in-this-book/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-cells-that-wont-die/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Where the machines come in — The Clock and the Lever, Will you live to 120? | The Curious Family Library">
+<meta property="og:description" content="Deeper Water — predicting versus pushing. The distinction at the core of this chapter has an exact formal form, and it is one of the most important ideas…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-clock-and-the-lever/where-the-machines-come-in/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/the-hundred-and-twenty-question/">Will you live to 120?</a><span class="sep">›</span><a href="/foundations/the-hundred-and-twenty-question/the-clock-and-the-lever/">The Clock and the Lever</a><span class="sep">›</span><span aria-current="page">Where the machines come in</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Will you live to 120? · The Clock and the Lever</p>
+  <h1>Where the machines come in</h1>
+  <p><strong>Deeper Water — predicting versus pushing.</strong> The distinction at the core of this chapter has an exact formal form, and it is one of the most important ideas in modern statistics and AI. When you fit a clock, you learn an <em>observational</em> relationship — in the notation of causal inference, the distribution of the outcome given what you <em>see</em>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">age</mtext><mo>∣</mo><mtext mathvariant="normal">methylation</mtext><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(\text{age}\mid \text{methylation})</annotation></semantics></math>. What you actually want to know before intervening is different: the distribution of the outcome given what you <em>do</em>, written <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">age</mtext><mo>∣</mo><mstyle mathvariant="normal"><mi>d</mi><mi>o</mi></mstyle><mo stretchy="false" form="prefix">(</mo><mtext mathvariant="normal">methylation</mtext><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">P(\text{age}\mid \mathrm{do}(\text{methylation}))</annotation></semantics></math> — the result of <em>setting</em> the methylation to a value rather than merely <em>observing</em> it. These are not the same object, and no amount of observational data, however large or clean, can convert one into the other on its own; bridging them requires either a real intervention (an experiment) or strong, explicit causal assumptions. There is also a concrete, mundane way clocks get fooled that lives inside this gap: <strong>cell-composition confounding.</strong> Blood is a mixture of cell types, and their proportions shift with age (your naive-T-cell fraction falls, for instance). A clock measured on whole blood can be partly reading the <em>changing mixture</em> rather than the aging of any individual cell — so an intervention that alters your blood-cell proportions can move the clock while changing nothing about cellular aging at all. Researchers now try to separate “intrinsic” age acceleration (independent of cell mix) from “extrinsic” (which includes it), precisely because the clock you naively measure is reading two different stories at once. Even the world’s best aging predictor doesn’t fully know what it’s keying on.</p>
+</blockquote>
+
+<h3>Where the machines come in</h3>
+<p>This whole chapter has been the AI chapter — the clocks <em>are</em> machine learning, the elastic net is a learning algorithm, and the generational leap forward was a lesson in choosing training targets. But it is worth asking the two questions a drug-discovery reader would ask next.</p>
+<p>First: would a fancier model do better? People have built deep-learning clocks — neural networks trained on the same methylation data instead of a penalized linear regression. The honest and slightly deflating answer is that they perform <em>comparably</em> to the humble elastic net, with at best modest gains. That is itself one of the most useful results in the field, and it echoes the last chapter exactly: when the signal is what it is, piling on model complexity does not manufacture more truth. A 353-site linear formula captures most of what a deep network does, because the limit here is the information in the data, not the cleverness of the model. More parameters do not create more reality.</p>
+<p>Second, and this is where AI in aging could actually matter: can we use clocks to <em>find drugs</em>? The obvious move is to run candidate compounds through cells and screen for whichever ones lower the epigenetic clock the most — and people are doing exactly this. But you can now see the danger written into it. A screen that rewards “lowers the clock” will faithfully hand you the compounds that are best at <em>gaming the clock</em>, which is not the same as the compounds that slow aging — unless and until the clock is a validated surrogate. Used carelessly, a clock-based screen is an efficient machine for finding clever ways to teach to the test.</p>
+<p>The genuinely promising frontier runs the other way: using these tools to move <em>from correlation toward cause</em>. If methylation at a specific site is suspected of actually driving an aging phenotype, you can now go and <em>edit just that site</em> — using engineered proteins (a disabled Cas9 fused to a methylation-writing or methylation-erasing enzyme) to add or remove the mark at one location, then watch what the cell does. That converts the clock’s correlations into testable causal claims, one site at a time, and it is precisely the experiment that could eventually tell us which of the clock’s 353 sites are thermostats and which are merely thermometers. That is where machine learning and the wet lab together could turn a beautiful predictor into an actual drug target — by doing the one thing the clock alone can never do, which is to <em>intervene</em> and see.</p>
+<p>✦ ✦ ✦</p>
+
+<h3>Carry these three things</h3>
+<ol>
+<li><p><strong>An epigenetic clock is a machine-learning model, and a strikingly economical one.</strong> Out of roughly 450,000 methylation sites, a penalized regression keeps a few hundred and sums their weighted values to read your age to within three or four years. The progress from first-generation clocks to GrimAge to DunedinPACE came not from fancier math but from smarter training targets — from predicting the calendar, to predicting death, to predicting the <em>rate</em> of decline. A model is only as good as the target you train it on.</p></li>
+<li><p><strong>A measurement that predicts an outcome is not a handle that controls it.</strong> The clock is a thermometer for aging, not a thermostat. Its sites were chosen because they <em>correlate</em> with aging, which says nothing about whether <em>changing</em> them changes anything. Moving a clock — especially in a tiny, uncontrolled study — is a hypothesis, not a reversal of aging. Until a clock is shown to be a valid <em>surrogate</em> (move it, and the real outcome reliably moves with it), “we lowered your biological age” is a claim about a model’s output, not about your life.</p></li>
+<li><p><strong>Correlation is silent about cause — and precision doesn’t change that.</strong> The clock cannot tell you whether methylation drives aging or merely records it; that is the open, contested question behind the “information theory of aging,” and no predictor, however tight, can settle it. The way forward is to <em>intervene</em> — to edit single sites and watch — because only an experiment can turn a correlation into a cause. The clocks tell us, better than anything before them, <em>that</em> we are aging and roughly how fast. They do not tell us <em>what is breaking</em>. For that we have to open the mechanisms — and the next one refuses to die.</p></li>
+</ol>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>Horvath's clock reads age from a few hundred methylation sites, in almost any tissue, to within three or four years — and nobody designed it; a machine found it. What is unsettling about a result that works better than anyone can explain?</li><li>The chapter calls a clock a thermometer, not a thermostat. Why does moving a number that predicts aging not amount to changing aging? Invent an everyday example of a thermometer someone mistook for a thermostat.</li><li>A model is only as good as the target it was trained on. If a clock were trained to predict chronological age, what would it necessarily fail to notice about a person who is unusually healthy or unusually ill for their years?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/foundations/the-hundred-and-twenty-question/the-clock-and-the-lever/the-most-important-sentence-in-this-book/"><span>Previous</span>The most important sentence in this book</a>
+    <a class="n" href="/foundations/the-hundred-and-twenty-question/the-cells-that-wont-die/"><span>Next</span>The Cells That Won’t Die</a>
+  </nav>
+  <p class="backto"><a href="/foundations/the-hundred-and-twenty-question/">All 10 chapters of Will you live to 120?</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Will you live to 120?","item":"https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/"},{"@type":"ListItem","position":4,"name":"The Clock and the Lever","item":"https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-clock-and-the-lever/"},{"@type":"ListItem","position":5,"name":"Where the machines come in"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-clock-and-the-lever/where-the-machines-come-in/","url":"https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/the-clock-and-the-lever/where-the-machines-come-in/","headline":"Where the machines come in","articleSection":"The Clock and the Lever","inLanguage":"en","isAccessibleForFree":true,"wordCount":988,"isPartOf":{"@type":"Book","name":"Will you live to 120?","url":"https://meiradavidson.github.io/foundations/the-hundred-and-twenty-question/"}}]}</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Industry Tour: Who Actually Needs What — How Much Do We Actually Need?, The Invisible Trillion | The Curious Family Library</title>
+<meta name="description" content="A tour through the major industries cited as drivers of AI compute demand, in roughly decreasing order of how often each is invoked to justify the…">
+<link rel="canonical" href="https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/the-industry-tour-who-actually-needs-what/">
+<link rel="prev" href="https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/a-worked-example-the-compute-cost-of-building-the-software/">
+<link rel="next" href="https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/the-world-model-question/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Industry Tour: Who Actually Needs What — How Much Do We Actually Need?, The Invisible Trillion | The Curious Family Library">
+<meta property="og:description" content="A tour through the major industries cited as drivers of AI compute demand, in roughly decreasing order of how often each is invoked to justify the…">
+<meta property="og:url" content="https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/the-industry-tour-who-actually-needs-what/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/library/">Library</a><span class="sep">›</span><a href="/library/the-invisible-trillion/">The Invisible Trillion</a><span class="sep">›</span><a href="/library/the-invisible-trillion/how-much-do-we-actually-need/">How Much Do We Actually Need?</a><span class="sep">›</span><span aria-current="page">The Industry Tour: Who Actually Needs What</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">The Invisible Trillion · How Much Do We Actually Need?</p>
+  <h1>The Industry Tour: Who Actually Needs What</h1>
+  
+<p>A tour through the major industries cited as drivers of AI compute demand, in roughly decreasing order of how often each is invoked to justify the buildout — and what each one actually needs.</p>
+
+<h3>Consumer Internet and Social Media</h3>
+<p>This is the largest current driver of inference compute by volume, and it is the part of the picture most distorted by the inflation incentives I described above. The major consumer AI products — ChatGPT, Claude, Gemini, Grok, Meta AI, Perplexity, and their many imitators — are running enormous inference volumes against frontier models, paid for partly by subscription revenue (Claude Pro, ChatGPT Plus, etc.) and partly by free-tier usage that is subsidized by investor capital while the providers try to figure out how to monetize it.</p>
+<p>What is the usage actually for? Surveys and product analytics, where they have been published, suggest that the substantial majority of consumer AI queries are mundane: rephrasing emails, generating short writing, asking factual questions, getting recipe ideas, debugging code, explaining concepts, drafting messages, summarizing articles. The hardest queries — novel reasoning, complex multi-step planning, frontier-grade creative work — are a small minority of total usage.</p>
+<p>A 4-billion-parameter model running on the user’s own device could handle the substantial majority of this load. The user-experience differential between local and cloud for most of these queries is small and often runs in the opposite direction from what the providers claim — local inference has lower latency, works offline, preserves privacy, and costs the user nothing per query. The provider’s profit motive is the dominant reason the queries route to the cloud.</p>
+<p>The IEA projects that consumer AI inference will grow substantially over the next five years. In user-engagement terms that’s probably right — more people using AI more often. But what it means for hyperscale demand depends entirely on where the inference runs. If the growth happens on the edge, hyperscale demand comes in dramatically below current projections; if it happens in the cloud, the projections are roughly right.</p>
+<p>That choice will be made by users, developers, and platform designers, not by abstract demand — and users have not, on net, expressed a strong preference yet. They will, as the latency, privacy, and cost advantages of edge inference become more visible.</p>
+
+<h3>Enterprise SaaS</h3>
+<p>The second-largest current driver, by spending if not by volume, is enterprise software-as-a-service. Microsoft, Google, Salesforce, Adobe, Oracle, SAP, and essentially every other major enterprise software company has added AI features to their products and is charging premium rates for them. The marketing is that these features will transform productivity. The reality, in early 2026, is more uneven.</p>
+<p>Some enterprise AI features have demonstrated real value. Code assistance (Copilot, Claude Code, Cursor) has measurably improved developer productivity for many users. Document analysis and summarization for legal, financial, and research workflows has saved meaningful time. Customer service automation has reduced costs in many call centers, though the quality is uneven.</p>
+<p>Many enterprise AI features have not demonstrated value. The “AI summary” at the top of every Slack channel and Microsoft Teams meeting and Salesforce dashboard, for the most part, has not been shown to materially improve outcomes; it just exists, consuming compute, because the product manager added it as a feature. The “AI insight” sidebar on every analytics product. The “ask AI” button on every interface. Most of these add marginal value at best, and they consume a substantial amount of inference per impression.</p>
+<p>The honest unit economics: <em>some</em> of these features justify their compute cost, <em>some</em> are net negative once API costs are subtracted from the productivity gains, and <em>most</em> sit in between. As enterprises learn to evaluate them individually instead of buying them in bundles, the spending will rationalize toward the ones that work — and the ones that work mostly run on smaller models. Code assistance is fine on 7–14B parameter models; so is document summarization; so is routine customer service. The cases that genuinely require frontier-scale models are narrower than the marketing suggests, and the compute footprint of the valuable features, properly sized, is much smaller than the current allocation.</p>
+
+<h3>Robotics</h3>
+<p>Robotics is the category most commonly invoked in pitches for sustained, large-scale AI compute demand, and it is also the category where the realistic compute picture is most different from the marketing.</p>
+<p>Robotics has two compute needs that are quite different. <em>Training</em> of robot control models — using simulation, real-world data, or reinforcement learning to build the models that decide how a robot should move — is genuinely compute-intensive and benefits from hyperscale infrastructure. The major robotics labs (Boston Dynamics, Tesla, Figure, 1X, Apptronik, the academic robotics programs at Stanford and CMU and Berkeley, the major Chinese robotics efforts) all use substantial GPU clusters for training.</p>
+<p><em>Inference</em> — the actual on-robot computation that runs while a robot is operating — is overwhelmingly an <em>edge</em> problem. A robot operating in the real world cannot tolerate the latency of a cloud round-trip for every motor decision. The control loops run at hundreds to thousands of cycles per second. The compute has to be on the robot, with low latency to the sensors and actuators. Modern robot platforms increasingly include substantial on-board compute (Nvidia Jetson, AMD edge platforms, custom silicon from the robot vendors themselves) precisely because cloud-based inference is unworkable for real-time control.</p>
+<p>So the robotics story, for the buildout, is: <em>training is real and contributes to hyperscale demand; inference is mostly on the edge</em>. The training contribution is genuinely large but represents a small number of major training runs per year per company, with the total compute footprint comparable to general-purpose AI training rather than larger.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/library/the-invisible-trillion/how-much-do-we-actually-need/a-worked-example-the-compute-cost-of-building-the-software/"><span>Previous</span>A Worked Example: The Compute Cost Of Building The Software</a>
+    <a class="n" href="/library/the-invisible-trillion/how-much-do-we-actually-need/the-world-model-question/"><span>Next</span>The World Model Question</a>
+  </nav>
+  <p class="backto"><a href="/library/the-invisible-trillion/">All 19 chapters of The Invisible Trillion</a> · <a href="/library/">Library</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Library","item":"https://meiradavidson.github.io/library/"},{"@type":"ListItem","position":3,"name":"The Invisible Trillion","item":"https://meiradavidson.github.io/library/the-invisible-trillion/"},{"@type":"ListItem","position":4,"name":"How Much Do We Actually Need?","item":"https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/"},{"@type":"ListItem","position":5,"name":"The Industry Tour: Who Actually Needs What"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/the-industry-tour-who-actually-needs-what/","url":"https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/the-industry-tour-who-actually-needs-what/","headline":"The Industry Tour: Who Actually Needs What","articleSection":"How Much Do We Actually Need?","inLanguage":"en","isAccessibleForFree":true,"wordCount":943,"isPartOf":{"@type":"Book","name":"The Invisible Trillion","url":"https://meiradavidson.github.io/library/the-invisible-trillion/"}}]}</script>
+</body>
+</html>

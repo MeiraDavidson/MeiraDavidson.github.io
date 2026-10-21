@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.6 Running it backwards: logarithms — 5 Exponentials and Logarithms, Numbers &amp; Functions | The Curious Family Library</title>
+<meta name="description" content="Every interesting machine makes us ask the Chapter 3 question: can we undo it? For the exponential, the undo button is so important it gets its own name.…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/numbers-and-functions/5-exponentials-and-logarithms/6-running-it-backwards-logarithms/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/numbers-and-functions/5-exponentials-and-logarithms/4-the-shape-of-growth/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/numbers-and-functions/5-exponentials-and-logarithms/8-the-most-important-question-which-base/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5.6 Running it backwards: logarithms — 5 Exponentials and Logarithms, Numbers &amp; Functions | The Curious Family Library">
+<meta property="og:description" content="Every interesting machine makes us ask the Chapter 3 question: can we undo it? For the exponential, the undo button is so important it gets its own name.…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/numbers-and-functions/5-exponentials-and-logarithms/6-running-it-backwards-logarithms/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/numbers-and-functions/">Numbers &amp; Functions</a><span class="sep">›</span><a href="/foundations/numbers-and-functions/5-exponentials-and-logarithms/">5 Exponentials and Logarithms</a><span class="sep">›</span><span aria-current="page">5.6 Running it backwards: logarithms</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Numbers &amp; Functions · 5 Exponentials and Logarithms</p>
+  <h1>5.6 Running it backwards: logarithms</h1>
+  
+<p>Every interesting machine makes us ask the Chapter 3 question: can we undo it? For the exponential, the undo button is so important it gets its own name. The doubling machine takes a number of doublings and gives the result: 3 7→8. The reverse question is: “I’m looking at 8 — how many doublings produced it?” The answer is 3. That reverse machine is the logarithm: log2(8) = 3, asking “2 raised to what gives 8?′′ A logarithm is, quite simply, an exponent in disguise. These two machines are perfect inverses: 23 = 8 ⇐⇒ log2(8) = 3.</p>
+<p>This is the moment a thread from Chapter 3 pays off. We found the rule for when a machine can be run backwards: only if it never sends two different inputs to the same output. The squaring machine failed that test. But the exponential’s graph only ever climbs — it never repeats an output — so it passes perfectly. That is the deep reason the logarithm exists as a clean, single-valued undo button while the square root couldn’t.</p>
+<p>And here’s why logarithms matter beyond being a tidy inverse: they turn multiplication into addition. The rule 2a · 2b = 2a+b, read through the logarithm, becomes log(xy) = log(x) + log(y). For three centuries, before calculators, scientists multiplied enormous numbers by adding their logarithms. Logarithms are also why we measure earthquakes (Richter), loudness (decibels), and acidity (pH) the way we do — each compresses a range spanning factors of billions into a friendly little number.</p>
+<p>x y 2x log2 x y = x (3, 8) (8, 3) the log is the exponential reflected across y = x Figure 5.6. Exponential and logarithm are mirror inverses, reflected across the line y = x. The twin points (3, 8) and (8, 3) swap across the mirror.</p>
+<h2>5.7 The laws of logarithms (the exponent laws in a mirror)</h2>
+<p>Every log law is an exponent law seen through the inverse. A logarithm is an exponent, so everything drops down one level: multiplication becomes addition, powers become multiplication.</p>
+<p>♦Why it’s true — skip on a first read, but the real brain-training Write x = ap and y = aq, so p = loga x and q = loga y.</p>
+<p>Law 1 — Product becomes sum: loga(xy) = loga x + loga y. Why: xy = ap · aq = ap+q, so the exponent producing xy is p + q.</p>
+<p>Law 2 — Quotient becomes difference: loga  x y  = loga x −loga y.</p>
+<p>Why: x y = ap−q.</p>
+<p>Law 3 — Power becomes multiplier: loga(xk) = k loga x.</p>
+<p>Why: xk = (ap)k = apk. The most useful law in practice — it pulls an exponent down into an ordinary multiplier, which is how logs tame equations where the unknown is stuck up in an exponent.</p>
+<p>Law 4 — Anchors: loga 1 = 0 and loga a = 1. Why: just a0 = 1 and a1 = a read backwards.</p>
+<p>Exponentials and Logarithms The one idea to carry: a logarithm knocks every operation down a rung. Multiplication →addition. Division →subtraction. Powers → multiplication. Remember that, and you can regenerate the whole table. There’s one more law, the practical one, because real calculators only carry log10 and ln (base e). To compute log2 50 with no base-2 button, you change the base: loga x = logb x logb a. So log2 50 is just ln 50 ln 2 on a calculator.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/numbers-and-functions/5-exponentials-and-logarithms/4-the-shape-of-growth/"><span>Previous</span>5.4 The shape of growth</a>
+    <a class="n" href="/foundations/numbers-and-functions/5-exponentials-and-logarithms/8-the-most-important-question-which-base/"><span>Next</span>5.8 The most important question: which base?</a>
+  </nav>
+  <p class="backto"><a href="/foundations/numbers-and-functions/">All 8 chapters of Numbers &amp; Functions</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Numbers & Functions","item":"https://meiradavidson.github.io/foundations/numbers-and-functions/"},{"@type":"ListItem","position":4,"name":"5 Exponentials and Logarithms","item":"https://meiradavidson.github.io/foundations/numbers-and-functions/5-exponentials-and-logarithms/"},{"@type":"ListItem","position":5,"name":"5.6 Running it backwards: logarithms"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/numbers-and-functions/5-exponentials-and-logarithms/6-running-it-backwards-logarithms/","url":"https://meiradavidson.github.io/foundations/numbers-and-functions/5-exponentials-and-logarithms/6-running-it-backwards-logarithms/","headline":"5.6 Running it backwards: logarithms","articleSection":"5 Exponentials and Logarithms","inLanguage":"en","isAccessibleForFree":true,"wordCount":579,"isPartOf":{"@type":"Book","name":"Numbers & Functions","url":"https://meiradavidson.github.io/foundations/numbers-and-functions/"}}]}</script>
+</body>
+</html>

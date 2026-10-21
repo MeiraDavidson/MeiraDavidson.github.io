@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The same instinct, somewhere it betrays you — The Greedy Idea, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="So greedy, pointed correctly, is provably perfect on scheduling. Lulled by that, you might start to trust the instinct — grab the locally best thing — as…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-greedy-idea/the-same-instinct-somewhere-it-betrays-you/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-greedy-idea/but-does-it-always-work/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-2/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The same instinct, somewhere it betrays you — The Greedy Idea, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="So greedy, pointed correctly, is provably perfect on scheduling. Lulled by that, you might start to trust the instinct — grab the locally best thing — as…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-greedy-idea/the-same-instinct-somewhere-it-betrays-you/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/the-greedy-idea/">The Greedy Idea</a><span class="sep">›</span><span aria-current="page">The same instinct, somewhere it betrays you</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · The Greedy Idea</p>
+  <h1>The same instinct, somewhere it betrays you</h1>
+  
+<p>So greedy, pointed correctly, is provably perfect on scheduling. Lulled by that, you might start to trust the <em>instinct</em> — grab the locally best thing — as if it were generally safe. It is not, and the cleanest way to feel the danger is to watch the exact same instinct fail on a problem where it looks even <em>more</em> obviously fine than “earliest start” did.</p>
+<p>A problem from a world before your time, which is part of the point. Long ago, people paid for things with metal coins of fixed values, and a cashier making change had to hand back a given amount using as <em>few coins</em> as possible. The greedy rule is the one every old cashier used without thinking: hand over the biggest coin that doesn’t overshoot, then the biggest that fits in what’s left, and so on. For the coins those societies actually used, this works perfectly — it always produces the fewest coins.</p>
+<p>Now invent a country. Its mint, for whatever strange reason, makes coins worth exactly <strong>1, 7, and 10</strong>. You owe someone <strong>14</strong>. Apply the cashier’s instinct: the biggest coin that fits is 10, so hand it over; now you owe 4, and only 1-coins fit, so four of them. <strong>Five coins:</strong> 10 + 1 + 1 + 1 + 1.</p>
+<p>The right answer is <strong>two coins: 7 + 7.</strong></p>
+<p>Perform the autopsy, because it is the same disease as earliest-start in a new body. The greedy choice was not stupid — 10 <em>was</em> the biggest coin that fit. But grabbing it destroyed a better future greedy never even priced: the 7 + 7 plan was sitting right there, worth less per coin at the first step and worth more in the end. Greedy optimized the step and mortgaged the rest. It is blind in exactly one direction — forward — and it never looks back to notice what it threw away.</p>
+<p>Two lessons, and the second is the deep one:</p>
+<ol>
+<li><em>The same instinct succeeds on one problem and fails on another.</em> Earliest-finish-first was greedy and perfect; grab-the-biggest-coin is greedy and, in this country, wrong by 150%. So “greedy” is never the answer by itself.</li>
+<li><em>Whether greedy works is a property of the problem, not of greed.</em> And you already know the test: does the exchange argument go through? For scheduling it did. Try it here — swap greedy’s 10 into the 7 + 7 plan — and it <em>breaks</em>: 10 + 7 isn’t 14, and patching with 1-coins makes the answer worse. The swap has a cost. That broken swap is the precise, structural reason greedy fails on these coins and succeeds on the Saturday. Not a vibe. A swap that does or doesn’t go through.</li>
+</ol>
+<p>File this country’s coins in your head — <strong>14, paid badly with five coins when two would do</strong> — because this wound does not heal in this chapter. It is the standing reminder that <em>locally best can mortgage the global future</em>, and it returns, by name, twice more: in Chapter 4, where a method that refuses to commit early finds the 7 + 7 by <em>pricing every option instead of grabbing one</em>; and in Chapter 8, in continuous disguise, when an algorithm walking downhill on a landscape commits its way into the wrong valley for exactly this reason. The coins are not really about coins. They are about the price of not looking back.</p>
+<blockquote>
+<h3>Deeper water: how the coins are caught, and how honest coins are certified</h3>
+<p>“Greedy fails for <em>some</em> amount” looks like a claim needing an infinite search — infinitely many amounts. It isn’t, by a small theorem of Kozen and Zaks: <strong>if greedy change ever fails, it already fails at some amount below the sum of the two largest coins.</strong> For {1, 7, 10} that bound is 17, and the smallest failure, 14, sits under it. Read the contrapositive, the useful direction: <em>audit every amount below the bound, and if greedy survives all of them, it is correct for all infinitely many amounts forever.</em> Your Lab 2 audit loop on {1, 5, 10, 25} up to 34 is therefore not evidence — it is a <strong>proof</strong>, a finite certificate of an infinite claim, run by machine. Problem 3.5 has you write it down. (Notice the <em>kind</em> of result: infinity fenced into a finite check — Chapter 1’s lower bound fenced what’s possible; this fences where failure can hide.)</p>
+<h3>Deeper water: a door, ajar</h3>
+<p>Scheduling is not a lucky one-off. There is a whole theory — of structures called <em>matroids</em> — characterizing a large family of problems on which greedy is <em>guaranteed</em> optimal, all by essentially the exchange argument you saw. That a single proof shape could be bottled and poured over infinitely many problems is the kind of thing that happens in mathematics more often than seems fair. The door stays ajar; this book does not walk through it.</p>
+</blockquote>
+<h2>Where this leaves us</h2>
+<p>Greedy is a strategy, not a truth. The obvious version of it failed your Saturday by half; a subtler version — earliest-finish-first — was provably perfect; the very same instinct, on a strange country’s coins, failed again. What separated success from failure was never how clever the rule sounded. It was whether the exchange argument went through: whether any other answer could be massaged into greedy’s at no cost. When it can, greedy is unbeatable. When it can’t, greedy lies with total confidence.</p>
+<p>And the failures taught more than the success. <em>Which</em> greedy is the whole problem, the right choice is often the counterintuitive one, and “locally best” can quietly bankrupt the future — the coins’ lesson, filed for two later chapters.</p>
+<p>And there is a hint of the next chapter hiding in the exchange argument, if you look. After greedy picks the first event — the earliest finisher — what’s left is <em>the same problem on the events that remain</em>: attend the most non-overlapping things from a smaller pile. Pick the earliest finisher of <em>those</em>, and you face a smaller pile again. The problem contains a smaller copy of itself, and greedy is really solving that smaller copy, and the smaller copy inside that, all the way down. That structure — a problem defined in terms of a smaller version of itself — is the engine of the next chapter, and it is stranger and deeper than greedy. Instead of committing to one option at each step and never looking back, you solve a problem by handing a smaller copy of it to <em>yourself</em>.</p>
+<hr>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>Work out your own overbooked Saturday before reading the answer. Which rule did your hands reach for first?</li><li>Earliest-finish-first is provably perfect; shortest-first is confidently wrong. Both feel sensible. What makes a rule's feeling unreliable?</li><li>'Telling those two outcomes apart will not be a vibe. It will be a theorem.' Why does that sentence matter for everything that follows?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/the-greedy-idea/but-does-it-always-work/"><span>Previous</span>But does it always work?</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/problem-set-2/"><span>Next</span>Problem Set 2</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"The Greedy Idea","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-greedy-idea/"},{"@type":"ListItem","position":5,"name":"The same instinct, somewhere it betrays you"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-greedy-idea/the-same-instinct-somewhere-it-betrays-you/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-greedy-idea/the-same-instinct-somewhere-it-betrays-you/","headline":"The same instinct, somewhere it betrays you","articleSection":"The Greedy Idea","inLanguage":"en","isAccessibleForFree":true,"wordCount":1091,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

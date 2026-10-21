@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3. More operations, tested against reality — Lab 9: The Engine, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="The model needs squashing and probabilities. Add these inside the class, each three lines, each just its derivative:">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/more-operations-tested-against-reality/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/knobs-a-score-for-each-previous-letter-next-letter-pair/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3. More operations, tested against reality — Lab 9: The Engine, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="The model needs squashing and probabilities. Add these inside the class, each three lines, each just its derivative:">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/more-operations-tested-against-reality/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/lab-9-the-engine/">Lab 9: The Engine</a><span class="sep">›</span><span aria-current="page">3. More operations, tested against reality</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Lab 9: The Engine</p>
+  <h1>3. More operations, tested against reality</h1>
+  
+<p>The model needs squashing and probabilities. Add these inside the class, each three lines, each just its derivative:</p>
+<pre><code>    def __pow__(self, p):
+        out = Value(self.data ** p, (self,))
+        def _backward():
+            self.grad += p * (self.data ** (p - 1)) * out.grad
+        out._backward = _backward
+        return out
+
+    def tanh(self):
+        t = math.tanh(self.data)
+        out = Value(t, (self,))
+        def _backward():
+            self.grad += (1 - t * t) * out.grad
+        out._backward = _backward
+        return out
+
+    def exp(self):
+        e = math.exp(self.data)
+        out = Value(e, (self,))
+        def _backward():
+            self.grad += e * out.grad
+        out._backward = _backward
+        return out
+
+    def log(self):
+        out = Value(math.log(self.data), (self,))
+        def _backward():
+            self.grad += (1 / self.data) * out.grad
+        out._backward = _backward
+        return out
+
+    def __truediv__(self, other):
+        other = other if isinstance(other, Value) else Value(other)
+        return self * other ** -1
+
+    def __neg__(self): return self * -1
+    def __sub__(self, other):
+        other = other if isinstance(other, Value) else Value(other)
+        return self + (-other)
+    def __radd__(self, other): return self + other
+    def __rmul__(self, other): return self * other
+</code></pre>
+<p>Now verify the <em>whole engine</em> the way professionals verify gradients: against <strong>finite differences</strong>. Calculus says the derivative is the limit of (f(x+h) − f(x−h)) / 2h; compute that numerically and check the engine matches:</p>
+<pre><code>def f(av, bv, cv):
+    return (math.tanh(av * bv) + cv ** 2) * (av + cv)
+
+a = Value(0.5); b = Value(1.3); c = Value(-0.7)
+out = ((a * b).tanh() + c ** 2) * (a + c)
+out.backward()
+
+h = 1e-6
+ga = (f(0.5 + h, 1.3, -0.7) - f(0.5 - h, 1.3, -0.7)) / (2 * h)
+print("a.grad engine:", round(a.grad, 5), "  finite diff:", round(ga, 5))
+</code></pre>
+<p>They agree to five decimals — your sixty lines compute the same derivatives the limit does, on an expression you’d never want to differentiate by hand. This is the test that makes the engine <em>trustworthy</em>: not a proof, but the check every practitioner actually runs.</p>
+<h2>4. A tiny model, trained by your own engine</h2>
+<p>Before numpy, prove the engine can <em>learn</em> — train a tiny next-letter model with nothing but Values and your backward sweep. Small enough to be pure Value, real enough to work:</p>
+<p>```python
+random.seed(0)
+names = [“ada”, “gauss”, “euler”, “abel”, “nash”, “hardy”, “klein”, “peano”, “boole”, “bayes”]
+chars = sorted(set(“”.join(names))) + [“.”]
+stoi = {c: i for i, c in enumerate(chars)}
+V = len(chars)</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/lab-9-the-engine/"><span>Previous</span>Lab 9: The Engine</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/lab-9-the-engine/knobs-a-score-for-each-previous-letter-next-letter-pair/"><span>Next</span>knobs: a score for each (previous letter -&gt; next letter) pair</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Lab 9: The Engine","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/"},{"@type":"ListItem","position":5,"name":"3. More operations, tested against reality"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/more-operations-tested-against-reality/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-9-the-engine/more-operations-tested-against-reality/","headline":"3. More operations, tested against reality","articleSection":"Lab 9: The Engine","inLanguage":"en","isAccessibleForFree":true,"wordCount":387,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

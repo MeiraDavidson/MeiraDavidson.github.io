@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>But does it always work? — The Greedy Idea, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Earliest-finish-first got seven on this Saturday. But one Saturday is one input, and Chapter 1 taught the difference between a demonstration and a…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-greedy-idea/but-does-it-always-work/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-greedy-idea/the-strategy-named/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-greedy-idea/the-same-instinct-somewhere-it-betrays-you/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="But does it always work? — The Greedy Idea, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Earliest-finish-first got seven on this Saturday. But one Saturday is one input, and Chapter 1 taught the difference between a demonstration and a…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-greedy-idea/but-does-it-always-work/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/the-greedy-idea/">The Greedy Idea</a><span class="sep">›</span><span aria-current="page">But does it always work?</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · The Greedy Idea</p>
+  <h1>But does it always work?</h1>
+  
+<p>Earliest-finish-first got seven on <em>this</em> Saturday. But one Saturday is one input, and Chapter 1 taught the difference between a demonstration and a guarantee. Shortest-first also looked fine until the three-event trap. How do we know earliest-finish doesn’t have its own trap — some devious calendar where it quietly loses?</p>
+<p>We need a proof that it works on <em>every</em> possible schedule, and the proof is a thing of real beauty — the standard shape of all greedy correctness arguments — so it is worth seeing in full.</p>
+<p>Suppose a rival hands you the <em>best possible</em> schedule for some day — found by magic, by trying every combination, by whatever means; call it perfect. Line up the rival’s schedule and greedy’s, both in time order, and walk along them until the <em>first</em> place they differ. There, greedy attends some event G and the rival attends a different event R. Now the key fact: at that moment greedy chose the earliest-finishing event among everything compatible with the (identical) shared start — and R was one of the options greedy was choosing among. So <strong>G finishes no later than R.</strong></p>
+<p>Here is the move. In the rival’s “perfect” schedule, cross out R and write in G. Does anything break? Everything before the swap was identical — no conflict there. Everything the rival did <em>after</em> R started after R finished, which is after G finished (G finishes no later) — no conflict there either. The rival’s schedule is still valid, still has exactly as many events, and now agrees with greedy one step longer.</p>
+<p>Repeat. Each swap is free and pushes the agreement forward one more event. When you run out of disagreements, the rival’s schedule has <em>become</em> greedy’s — without ever losing a single event. So greedy’s schedule has just as many events as the perfect one. Greedy <strong>is</strong> perfect. This is the <strong>exchange argument</strong>: you don’t prove greedy is brilliant; you prove that <em>any other answer can be massaged into greedy’s without getting worse</em>, so greedy’s can’t be beaten.</p>
+<p>That is what was missing from the failed rules. There is no exchange argument for shortest-first — try to swap a shortest-first choice into a better schedule and it breaks, because “shortest” guaranteed nothing about timing. The presence or absence of a working exchange argument is the exact, provable line between a greedy rule you can trust forever and one that fails on the third example. “Does greedy work here?” is never a vibe. It is a question about whether the swap goes through, settled at a desk.</p>
+<p>Here is what makes this particular problem a favorite of the people who study these things. You could solve it by <strong>brute force</strong> — try every possible combination of compatible events and keep the largest — and that always works, at ruinous cost (Chapter 1’s exponential wall). You could solve it by the <strong>table method</strong> of Chapter 4, which also always works, at reasonable cost. And then there is this: a one-line greedy rule, the cheapest possible procedure, that <em>also</em> gets the exact right answer — provably, on every input. Three methods, three costs, one answer. The marvel is not the algorithm; the algorithm is almost too simple to be impressed by. The marvel is the <em>proof</em> — that a choice made with no thought for the future, grabbing the earliest finisher and never looking back, can be shown to equal the best that any amount of foresight could achieve. When a reckless local rule provably produces a global optimum, something structural is going on underneath, and the exchange argument is how you see it.</p>
+<blockquote>
+<h3>A human moment</h3>
+<p>The first greedy algorithm ever <em>proved</em> correct was invented before computers existed, to wire a country. In 1926 the electric company of western Moravia asked the mathematician Otakar Borůvka for the cheapest way to connect dozens of towns with power lines. Borůvka saw the real problem under the engineering one — towns and possible lines form an abstract web of dots and connections, the graph waiting for you in Chapter 5 — invented a greedy procedure for it, and proved, with an argument of exactly the swap-and-nothing-breaks kind you just read, that greed could not be beaten. No machine ran his algorithm in his lifetime’s main work; he published it in Czech, in an electrotechnical journal, and the world’s computer scientists rediscovered it decades later. The order of events is the lesson: the <em>proof</em> is the technology. Machines came later and merely made it fast.</p>
+<h3>Deeper water: greedy stays ahead</h3>
+<p>The swap story, formalized, is an induction. List greedy’s chosen events g₁, g₂, …, g_k and any rival’s s₁, s₂, …, s_m, both in finish-time order. Claim: for every i up to the shorter length, <strong>finish(gᵢ) ≤ finish(sᵢ)</strong> — greedy’s i-th event ends no later than anyone’s i-th.</p>
+<p><em>Base:</em> g₁ is the earliest-finishing event of all, so finish(g₁) ≤ finish(s₁). <em>Step:</em> assume finish(gᵢ) ≤ finish(sᵢ). The rival’s next event sᵢ₊₁ starts after finish(sᵢ) ≥ finish(gᵢ), so sᵢ₊₁ was <em>available</em> to greedy when it picked gᵢ₊₁ — and greedy picks the earliest finisher among the available, so finish(gᵢ₊₁) ≤ finish(sᵢ₊₁). ∎</p>
+<p>Greedy is never behind at any position. The conclusion that the rival can’t have <em>more</em> events than greedy is now one observation away — the Diamond asks you for it, and for an honest account of where back-to-back events (the ≥ versus &gt; of conflict) enter. Compare this induction’s skeleton — true at the start, preserved each step, decisive at the end — with Chapter 1’s loop invariant. It is the same correctness trick, second appearance. There will not be a third.</p>
+<h3>Deeper water: the best greedy algorithms are theorems in disguise</h3>
+<p>Interval scheduling is the gateway, not the summit. The greedy algorithms that working mathematicians actually find beautiful are the ones where the “grab the best-looking thing” rule looks not just non-obvious but <em>reckless</em> — and is exactly optimal anyway, because a deep structural fact about the problem is secretly guaranteeing it. The crown jewel waits for you in Chapter 5, once you have graphs. The problem: connect a set of towns with the least total length of cable (this is Borůvka’s problem, from the human-moment above — the first greedy algorithm ever proved correct). The rule, called <strong>Kruskal’s algorithm</strong>: repeatedly take the <em>cheapest remaining cable that doesn’t form a loop</em>, and stop when everything is connected. It feels like it can’t possibly work — surely grabbing cheap cables greedily paints you into a corner — yet it produces the provably cheapest network, every time.</p>
+<p>Why? Because of a fact called the <strong>cut property</strong>: split the towns into any two groups, look at all the cables crossing between the groups, and the <em>cheapest</em> such cable must belong to the best network. The proof is the exchange argument once more — if the best network didn’t use that cheapest crossing cable, it used a pricier one to bridge the two groups, and you could swap the cheap one in and save money, a contradiction. The same swap-and-nothing-breaks move that tamed your Saturday, now revealing a structural law about graphs.</p>
+<p>So here is a rough ranking of the classic greedy algorithms by how much the greedy step exceeds mere common sense — by how deep the hidden theorem is. Minimum spanning trees (the cut property) sit at the top; interval scheduling (the exchange argument you just saw) next; then Huffman coding (the optimal way to compress a message, which you could nearly discover yourself with the tools of Chapter 3); then Dijkstra’s shortest paths, whose greedy step is safe only because distances can’t be negative — which you <em>will</em> meet in Chapter 5, where it is this very exchange argument wearing weights. If any of this is irresistible, you do not have to wait for the chapters; the names are above, and the internet is patient. The point of this book is to make you the kind of reader who can chase them.</p>
+</blockquote>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/the-greedy-idea/the-strategy-named/"><span>Previous</span>The strategy, named</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/the-greedy-idea/the-same-instinct-somewhere-it-betrays-you/"><span>Next</span>The same instinct, somewhere it betrays you</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"The Greedy Idea","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-greedy-idea/"},{"@type":"ListItem","position":5,"name":"But does it always work?"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-greedy-idea/but-does-it-always-work/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-greedy-idea/but-does-it-always-work/","headline":"But does it always work?","articleSection":"The Greedy Idea","inLanguage":"en","isAccessibleForFree":true,"wordCount":1330,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

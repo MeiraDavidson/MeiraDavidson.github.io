@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Problem Set 4 — A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Lab 4 (The Notebook) is the Computational Lab tier. Problems 2.5 and 3.2 want your lab code as equipment.">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-4/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/recursion-that-remembers/when-the-table-method-works-and-the-spell-checker/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-4/concept-and-counterexample/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Problem Set 4 — A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Lab 4 (The Notebook) is the Computational Lab tier. Problems 2.5 and 3.2 want your lab code as equipment.">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-4/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><span aria-current="page">Problem Set 4</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms</p>
+  
+  <h1>Problem Set 4</h1>
+<p>✦ ✦ ✦</p>
+<p><em>Lab 4 (The Notebook) is the Computational Lab tier. Problems 2.5 and 3.2 want your lab code as equipment.</em></p>
+<h2>Fluency</h2>
+<p><strong>1.1</strong> Extend the staircase table by hand to n = 12 using the recurrence. Then answer from the table, no new work: a 12-step staircase where the first hop was a 2 — how many ways remain?</p>
+<p><strong>1.2</strong> For ways(7), draw the full amnesiac call tree and count how many times each of ways(1) through ways(6) is computed. Then list, in order, the calls the <em>memoized</em> version actually computes (not looks up) when asked ways(7) cold.</p>
+<p><strong>1.3</strong> Build the Sevenia table bottom-up from 15 to 22, continuing the chapter’s table. At which amounts in that range does greedy (from your Chapter 2 audit) disagree, and by how much?</p>
+<p><strong>1.4</strong> US coins {1, 5, 10, 25}: build the best(a) table to a = 30 and verify it agrees with greedy at every entry. (Chapter 2’s deep water explains why this agreement, continued to 34, is a certificate.)</p>
+<p><strong>1.5</strong> Fill in the complete 4 × 5 edit-distance table for “cap” → “tape” (rows: prefixes of “cap” including empty; columns: prefixes of “tape” including empty). Confirm the corner says 2, and trace one optimal edit sequence back through the table.</p>
+<p><strong>1.6</strong> Edit distance of “kitten” → “sitting” is famously 3. Name three edits that achieve it; the table (optional, 7 × 8) certifies nothing beats them.</p>
+<h2>Practice</h2>
+<p><strong>2.1</strong> Triple staircase: hops of 1, 2, or 3 allowed. Derive the recurrence and floor, build the table to n = 10, and find how many ways to climb 10 steps.</p>
+<p><strong>2.2</strong> City grid: you stand at the corner of 1st &amp; 1st and walk to 5th &amp; 7th moving only north or east one block at a time. Set up ways(street, avenue) as a table-method problem — what is the recurrence, what is the floor (think: edges of the grid), and how many routes exist? Then the variant: the corner at 3rd &amp; 4th is closed. One table entry changes its rule; recount.</p>
+<p><strong>2.3</strong> Toll staircase: step k charges a toll t(k), and you pay the toll of every step you <em>land on</em>. For tolls (steps 1 through 8) = 3, 1, 4, 1, 5, 9, 2, 6, find the cheapest climb to the top of step 8 with hops of 1 or 2. State the recurrence (min now, not sum), build the table, and recover <em>which steps</em> the cheapest climb lands on.</p>
+<p><strong>2.4</strong> Counting versus optimizing: the Sevenia recurrence used min; the staircase used sum. Write the recurrence for “how many <em>different ways</em> can Sevenia’s coins pay amount a, where order of handing over matters” and compute the table to a = 12. Why does the same skeleton serve both questions?</p>
+<p><strong>2.5</strong> Use your lab’s DP changer on the stamp system {1, 4, 9} (Problem 2.3 of Chapter 2) for all amounts to 50: list every amount where greedy overpays and the worst overpayment in the range. Then design a three-coin system (with a 1) where greedy’s worst overpayment on amounts up to 100 is as large as you can make it — beat your Chapter 2 entry now that you own the truth-machine.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/recursion-that-remembers/when-the-table-method-works-and-the-spell-checker/"><span>Previous</span>When the table method works — and the spell-checker</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/problem-set-4/concept-and-counterexample/"><span>Next</span>Concept &amp; Counterexample</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Problem Set 4"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-4/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-4/","headline":"Problem Set 4","articleSection":"Problem Set 4","inLanguage":"en","isAccessibleForFree":true,"wordCount":536,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5.4 The shape of growth — 5 Exponentials and Logarithms, Numbers &amp; Functions | The Curious Family Library</title>
+<meta name="description" content="Read the shape of 2x from left to right. Far to the left, the curve hugs down close to zero but never touches it — 2−10 is tiny but still positive. The…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/numbers-and-functions/5-exponentials-and-logarithms/4-the-shape-of-growth/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/numbers-and-functions/5-exponentials-and-logarithms/3-the-laws-of-exponents-and-why-every-one-is-true/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/numbers-and-functions/5-exponentials-and-logarithms/6-running-it-backwards-logarithms/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5.4 The shape of growth — 5 Exponentials and Logarithms, Numbers &amp; Functions | The Curious Family Library">
+<meta property="og:description" content="Read the shape of 2x from left to right. Far to the left, the curve hugs down close to zero but never touches it — 2−10 is tiny but still positive. The…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/numbers-and-functions/5-exponentials-and-logarithms/4-the-shape-of-growth/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/numbers-and-functions/">Numbers &amp; Functions</a><span class="sep">›</span><a href="/foundations/numbers-and-functions/5-exponentials-and-logarithms/">5 Exponentials and Logarithms</a><span class="sep">›</span><span aria-current="page">5.4 The shape of growth</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Numbers &amp; Functions · 5 Exponentials and Logarithms</p>
+  <h1>5.4 The shape of growth</h1>
+  
+<p>Read the shape of 2x from left to right. Far to the left, the curve hugs down close to zero but never touches it — 2−10 is tiny but still positive. The machine x 2x x3 passes through (0, 1) hugs zero never touches range (0, ∞) explodes the exponential eventually outruns any polynomial Figure 5.2. The exponential’s personality. On the left it hugs zero but never touches (range (0, ∞)); it passes through (0, 1); on the right it explodes — and eventually outruns any polynomial, even x3.</p>
+<p>can never output zero or a negative (its range is (0, ∞)). At x = 0 it passes through height 1. To the right it explodes — not “goes up steadily” like a line, it accelerates. This is exponential growth, and it eventually outruns everything. A grain of rice doubled on each square of a chessboard buries the planet. A base between 0 and 1 — like (1 2)x — does the mirror image: it decays.</p>
+<p>That’s exponential decay: radioactive atoms, a cooling drink, medicine clearing from your blood. Same machine, base flipped.</p>
+<h2>5.5 What exponentials are good for (and where they lie)</h2>
+<p>The friendly face: compound interest. Put $100 in an account paying 10% a year. After one year, $110. But in the second year you earn 10% on the whole $110, gaining $11, not $10. Your interest earns interest. Each year multiplies your money by 1.1, so after x years you have 100 · (1.1)x — an exponential. This is growth feeding on itself, and it’s quietly where the number e comes from historically.</p>
+<p>Now the turn: nothing compounds forever. Compound interest says $100 becomes, after 500 years, more money than exists on Earth. Obviously that doesn’t happen. Something always intervenes. The same lie hides in scarier Exponentials and Logarithms x 2x growth (1 2)x decay base &gt; 1 grows; base between 0 and 1 decays same machine, base flipped Figure 5.3. Growth versus decay, mirror images across the vertical axis. Base greater than 1 grows; base between 0 and 1 decays.</p>
+<p>exponentials. An epidemic’s first weeks really do grow exponentially — each sick person infects two more. If that continued, within months every human would be infected several times over, which is impossible. So the growth runs out of room: as fewer susceptible people remain, the doubling slows, and finally stops. The curve bends over and levels off.</p>
+<p>That lazy-S shape is the logistic curve, and it’s what exponential growth actually looks like in any finite world.</p>
+<p>Exponential growth is always a model of the early phase. The real question is never “how fast does it grow?” but “what is the ceiling, and when does it start to bite?” Anyone who promises you exponential growth forever — in money, in followers, in anything — is selling you the first half of an S-curve and hiding the second. You’ll meet this S-curve again in machine learning — and you already have every piece. The exponential decay e−x heads toward zero as x grows. Build this little machine from it: σ(x) = 1 1 + e−x .</p>
+<p>When x is large and positive, e−x is nearly zero, so σ(x) is nearly 1. When x is large and negative, e−x is enormous, so σ(x) is nearly 0. At x = 0 we get 1 2. So this machine squashes any input on the whole number line into the range between 0 and 1.</p>
+<p>time size ceiling (asymptote) &quot;the model&quot; (pure exponential) exponential start steepest (inflection) plateau &quot;reality&quot; is an S-curve: the ceiling always bites Figure 5.4. The honest correction. A pure exponential (dashed) shoots to infinity; in any finite world reality tracks the logistic S-curve (solid) — explosive start, steep inflection, then a plateau as the ceiling bites. x σ(x) 1 0 (0, 1 2) →0 →1 σ(x) = 1 1 + e−x squashes the whole line into (0, 1) Figure 5.5. The sigmoid σ(x) = 1 1+e−x — the S-curve written as a formula.</p>
+<p>It squashes the whole number line into (0, 1), passing through (0, 1 2). This is how an artificial neuron “decides.”</p>
+<p>Exponentials and Logarithms This is the sigmoid function, and it is exactly the S-curve. It’s how an artificial neuron decides: it takes a runaway input of any size and squashes it into a bounded answer between 0 (no) and 1 (yes), with 1 2 as “unsure.” The curve that tames an epidemic and the curve that lets a neural network make up its mind are the same curve — and you just built it from e−x, a reciprocal, and a +1. ▶Run it yourself — drag the knobs on growth, decay, and the decision curve. (notebook 5.1 in Colab) Slide the base of bx from above 1 to below 1 and watch growth flip into decay. Then watch a pure exponential race off to infinity while the S-curve bends to a ceiling. Before each slide, predict which way the curve will move — then check yourself.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/numbers-and-functions/5-exponentials-and-logarithms/3-the-laws-of-exponents-and-why-every-one-is-true/"><span>Previous</span>5.3 The laws of exponents (and why every one is true)</a>
+    <a class="n" href="/foundations/numbers-and-functions/5-exponentials-and-logarithms/6-running-it-backwards-logarithms/"><span>Next</span>5.6 Running it backwards: logarithms</a>
+  </nav>
+  <p class="backto"><a href="/foundations/numbers-and-functions/">All 8 chapters of Numbers &amp; Functions</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Numbers & Functions","item":"https://meiradavidson.github.io/foundations/numbers-and-functions/"},{"@type":"ListItem","position":4,"name":"5 Exponentials and Logarithms","item":"https://meiradavidson.github.io/foundations/numbers-and-functions/5-exponentials-and-logarithms/"},{"@type":"ListItem","position":5,"name":"5.4 The shape of growth"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/numbers-and-functions/5-exponentials-and-logarithms/4-the-shape-of-growth/","url":"https://meiradavidson.github.io/foundations/numbers-and-functions/5-exponentials-and-logarithms/4-the-shape-of-growth/","headline":"5.4 The shape of growth","articleSection":"5 Exponentials and Logarithms","inLanguage":"en","isAccessibleForFree":true,"wordCount":836,"isPartOf":{"@type":"Book","name":"Numbers & Functions","url":"https://meiradavidson.github.io/foundations/numbers-and-functions/"}}]}</script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Toolkit for Slopes — Calculus I | The Curious Family Library</title>
+<meta name="description" content="Or: how to differentiate almost anything without ever touching a difference quotient again">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/calculus-i/a-toolkit-for-slopes/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/calculus-i/the-slope-of-a-single-point/where-this-is-heading/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/calculus-i/a-toolkit-for-slopes/sums-differences-and-constant-multiples/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Toolkit for Slopes — Calculus I | The Curious Family Library">
+<meta property="og:description" content="Or: how to differentiate almost anything without ever touching a difference quotient again">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/calculus-i/a-toolkit-for-slopes/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/calculus-i/">Calculus I</a><span class="sep">›</span><span aria-current="page">A Toolkit for Slopes</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Calculus I</p>
+  
+  <h1>A Toolkit for Slopes</h1>
+<p><em>Or: how to differentiate almost anything without ever touching a difference quotient again</em></p>
+<blockquote>
+<p><strong>Companion notebook.</strong> Play with this chapter’s ideas — sliders, animations, and drills — in <a href="https://github.com/MeiraDavidson/math_module2/blob/main/notebooks/ch4_rules.ipynb"><code>notebooks/ch4_rules.ipynb</code></a>.</p>
+</blockquote>
+<p>In Chapter 3 you computed derivatives the hard way — every one from the definition, expanding <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mi>h</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">(a+h)^n</annotation></semantics></math> and rationalizing roots until the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math> canceled. That was the right way to <em>learn</em> what a derivative is. It is a terrible way to <em>use</em> them. This chapter fixes that, permanently.</p>
+<p>By the end you will own a handful of <strong>rules</strong> — power, sum, product, quotient, chain — that let you differentiate polynomials, roots, fractions, compositions, trigonometric functions, and exponentials in seconds, never again returning to a limit. But here is the rule of <em>this</em> book: you will not be handed these rules to memorize. <strong>Every one of them is derived from the definition you learned last chapter.</strong> You’ll see exactly why each is true, which is the only way to know when you’re using it correctly.</p>
+<p>One of them — the <strong>chain rule</strong> — stands above the rest. It is the rule for differentiating a function <em>inside</em> a function, and it is the single most important computation in modern machine learning: training a neural network is the chain rule applied, backward, across millions of nested functions. We’ll get there. First, the easy wins.</p>
+<hr>
+
+<h2>The power rule</h2>
+<p>In Chapter 3 you computed, by hand, that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="false"><mfrac><mi>d</mi><mrow><mi>d</mi><mi>x</mi></mrow></mfrac></mstyle><msup><mi>x</mi><mn>2</mn></msup><mo>=</mo><mn>2</mn><mi>x</mi></mrow><annotation encoding="application/x-tex">\tfrac{d}{dx}x^2 = 2x</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="false"><mfrac><mi>d</mi><mrow><mi>d</mi><mi>x</mi></mrow></mfrac></mstyle><msup><mi>x</mi><mn>3</mn></msup><mo>=</mo><mn>3</mn><msup><mi>x</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\tfrac{d}{dx}x^3 = 3x^2</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="false"><mfrac><mi>d</mi><mrow><mi>d</mi><mi>x</mi></mrow></mfrac></mstyle><msup><mi>x</mi><mn>4</mn></msup><mo>=</mo><mn>4</mn><msup><mi>x</mi><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">\tfrac{d}{dx}x^4 = 4x^3</annotation></semantics></math> — and in the Diamond problems you proved the pattern for <em>every</em> positive whole number using the binomial theorem:</p>
+<figure>
+<img src="/foundations/calculus-i/img/file20.png" alt="Figure 4.1" loading="lazy">
+<figcaption>Figure 4.1</figcaption>
+</figure>
+<blockquote>
+<p><strong>The Power Rule.</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>d</mi><mrow><mi>d</mi><mi>x</mi></mrow></mfrac><mspace width="0.167em"></mspace><msup><mi>x</mi><mi>n</mi></msup><mo>=</mo><mi>n</mi><mspace width="0.167em"></mspace><msup><mi>x</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">\displaystyle \frac{d}{dx}\,x^n = n\,x^{n-1}.</annotation></semantics></math></p>
+</blockquote>
+<p>What’s remarkable is that this one formula also absorbs the <em>other</em> derivatives you computed from scratch. Recall <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="false"><mfrac><mn>1</mn><mi>x</mi></mfrac></mstyle><mo>=</mo><msup><mi>x</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\tfrac1x = x^{-1}</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mi>x</mi></msqrt><mo>=</mo><msup><mi>x</mi><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\sqrt{x} = x^{1/2}</annotation></semantics></math>. Plug those exponents into the power rule:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>d</mi><mrow><mi>d</mi><mi>x</mi></mrow></mfrac><msup><mi>x</mi><mrow><mi>−</mi><mn>1</mn></mrow></msup><mo>=</mo><mi>−</mi><mn>1</mn><mo>⋅</mo><msup><mi>x</mi><mrow><mi>−</mi><mn>2</mn></mrow></msup><mo>=</mo><mi>−</mi><mfrac><mn>1</mn><msup><mi>x</mi><mn>2</mn></msup></mfrac><mo>,</mo><mspace width="2.0em"></mspace><mfrac><mi>d</mi><mrow><mi>d</mi><mi>x</mi></mrow></mfrac><msup><mi>x</mi><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow></msup><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><msup><mi>x</mi><mrow><mi>−</mi><mn>1</mn><mi>/</mi><mn>2</mn></mrow></msup><mo>=</mo><mfrac><mn>1</mn><mrow><mn>2</mn><msqrt><mi>x</mi></msqrt></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{d}{dx}x^{-1} = -1\cdot x^{-2} = -\frac{1}{x^2}, \qquad \frac{d}{dx}x^{1/2} = \frac12 x^{-1/2} = \frac{1}{2\sqrt{x}}.</annotation></semantics></math></p>
+<p>Both match exactly what you ground out by hand in Chapter 3 — the reciprocal and the square root were special cases of the power rule all along. In fact the rule <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mspace width="0.167em"></mspace><msup><mi>x</mi><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">n\,x^{n-1}</annotation></semantics></math> holds for <strong>every real exponent</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> — negative, fractional, even irrational. (The whole-number case you’ve proven; the negative case follows from the quotient rule below; the general case needs <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>x</mi><mi>n</mi></msup><mo>=</mo><msup><mi>e</mi><mrow><mi>n</mi><mrow><mi mathvariant="normal">ln</mi><mo>&#8289;</mo></mrow><mi>x</mi></mrow></msup></mrow><annotation encoding="application/x-tex">x^n = e^{n\ln x}</annotation></semantics></math> and waits for Chapter 5. We’ll use the full rule now and settle the last piece there — an honest loan.) From now on, no more expanding <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mi>h</mi><msup><mo stretchy="false" form="postfix">)</mo><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">(a+h)^n</annotation></semantics></math>. Just bring the exponent down and subtract one.</p>
+<hr>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/calculus-i/the-slope-of-a-single-point/where-this-is-heading/"><span>Previous</span>Where this is heading</a>
+    <a class="n" href="/foundations/calculus-i/a-toolkit-for-slopes/sums-differences-and-constant-multiples/"><span>Next</span>Sums, differences, and constant multiples</a>
+  </nav>
+  <p class="backto"><a href="/foundations/calculus-i/">All 13 chapters of Calculus I</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Calculus I","item":"https://meiradavidson.github.io/foundations/calculus-i/"},{"@type":"ListItem","position":4,"name":"A Toolkit for Slopes"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/calculus-i/a-toolkit-for-slopes/","url":"https://meiradavidson.github.io/foundations/calculus-i/a-toolkit-for-slopes/","headline":"A Toolkit for Slopes","articleSection":"A Toolkit for Slopes","inLanguage":"en","isAccessibleForFree":true,"wordCount":417,"isPartOf":{"@type":"Book","name":"Calculus I","url":"https://meiradavidson.github.io/foundations/calculus-i/"}}]}</script>
+</body>
+</html>

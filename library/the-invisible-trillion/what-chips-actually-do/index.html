@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What Chips Actually Do — The Invisible Trillion | The Curious Family Library</title>
+<meta name="description" content="How many chips are in the phone in your pocket?">
+<link rel="canonical" href="https://meiradavidson.github.io/library/the-invisible-trillion/what-chips-actually-do/">
+<link rel="prev" href="https://meiradavidson.github.io/library/the-invisible-trillion/sand-light-and-the-worlds-most-precise-factories/what-this-chapter-is-for/">
+<link rel="next" href="https://meiradavidson.github.io/library/the-invisible-trillion/what-chips-actually-do/a-tour-through-your-day/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="What Chips Actually Do — The Invisible Trillion | The Curious Family Library">
+<meta property="og:description" content="How many chips are in the phone in your pocket?">
+<meta property="og:url" content="https://meiradavidson.github.io/library/the-invisible-trillion/what-chips-actually-do/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/library/">Library</a><span class="sep">›</span><a href="/library/the-invisible-trillion/">The Invisible Trillion</a><span class="sep">›</span><span aria-current="page">What Chips Actually Do</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">The Invisible Trillion</p>
+  
+  <h1>What Chips Actually Do</h1>
+<p><em>Why “A Chip” Is Not a Thing</em></p>
+<p>Here is a small quiz.</p>
+<p>How many chips are in the phone in your pocket?</p>
+<p>Don’t answer yet. Really think. Picture the phone, and picture what’s inside it. What are the chips for?</p>
+<p>If you said “one” — the main processor — you’re off by about thirty. If you said “a few,” you’re still off by about twenty. The answer, for a typical 2026 smartphone, is somewhere between 30 and 60 separate chips, depending on how you count.</p>
+<p>There’s the main processor, obviously. But there’s also a separate chip for the cellular modem, one for Wi-Fi, one (or sometimes the same one) for Bluetooth, one for each of the three or four cameras, one for the fingerprint sensor, one for the touchscreen, one for the accelerometer, one for the gyroscope, one for the microphone array, one for the speaker amplifier, one for managing the battery, one for wireless charging, one for NFC (the tap-to-pay chip), one for GPS, several for different kinds of memory, and a bunch of tiny specialized ones for everything from haptic feedback to ambient light sensing.</p>
+<p>All of these are chips. All of them are made in fabs like the ones in the last chapter. And all of them do radically different things, in radically different ways, at radically different scales.</p>
+<p>When someone says “AI chips” or “the chips in data centers” or “chip manufacturing,” they are talking about one small corner of a very large, very varied universe of chips. This chapter is going to map out that universe, so you know what you’re talking about when you talk about it.</p>
+<p>The short version: <strong>“chip” is a shape, not a job.</strong> Like “machine” or “vehicle.” A cargo ship and a dirt bike are both vehicles, and knowing that tells you nearly nothing about either one.</p>
+<hr>
+
+<h2>The Big Four Categories</h2>
+<p>Most chips fall into one of four broad categories: <strong>CPUs</strong>, <strong>GPUs</strong>, <strong>memory</strong>, and <strong>everything else</strong>. Let me take them in order.</p>
+
+<h3>CPUs: The Thinkers</h3>
+<p>CPU stands for <strong>Central Processing Unit</strong>. A CPU is what most people picture when they picture a computer chip. It’s the “brain” of a general-purpose computer — your laptop, the main processor in your phone, the thing running the operating system.</p>
+<p>CPUs are good at doing complicated things one at a time, very fast. “One at a time” is a slight lie — modern CPUs have between 4 and 64 “cores” that can each do something in parallel — but compared to the other things on this list, they are specialists in sequential, branching, decision-heavy work. If a task requires a long series of decisions, each of which depends on the previous one, a CPU is what you want.</p>
+<p>Running your operating system is this kind of task. So is most software you interact with directly: web browsers, word processors, spreadsheets, games (for the non-graphics parts), compilers, databases. The logic of these programs is full of “if this, then that” steps, where the next move depends on what just happened. CPUs are optimized to race through that kind of work.</p>
+<p>The CPU in your phone is roughly as powerful as the fastest supercomputer on Earth was in 1998. The CPU in a modern laptop is roughly as powerful as the fastest supercomputer of 2003. Both of these things are astonishing, and neither one is made by particularly famous companies — Apple makes theirs, Qualcomm makes theirs, AMD and Intel make most of the laptop ones. The CPU in your phone has, probably, eight cores and runs at around 3 GHz, which means each core is doing roughly three billion operations per second.</p>
+
+<h3>GPUs: The Parallel Processors That Accidentally Became the AI Chips</h3>
+<p>GPU stands for <strong>Graphics Processing Unit</strong>. GPUs were invented in the late 1990s to draw graphics in video games.</p>
+<p>Drawing 3D graphics in real time is a weird computational problem. You don’t have to make a lot of sequential decisions. But you do have to perform roughly the same simple calculation — figure out what color this pixel should be, given where the light is coming from and what’s in front of it — <em>millions of times at once</em>, for every pixel on the screen, every time a new frame is drawn. 60 times a second, 120 times a second, higher.</p>
+<p>CPUs are bad at this. A CPU with 8 powerful cores can only do 8 things at once, and for graphics you want to do a million things at once. So GPU designers built chips the opposite way: instead of a few powerful cores, they made <em>thousands</em> of small, simple cores that could all work in parallel on the same kind of task. A modern GPU has between 5,000 and 20,000 cores. Each individual core is much less capable than a CPU core. But all of them working together can do some specific kinds of calculations vastly faster than a CPU can.</p>
+<p>For about twenty years, this was a fine but specialized niche in the chip industry. GPUs made video games look good and were mostly bought by gamers. A company called <strong>Nvidia</strong> was the market leader, selling a few billion dollars’ worth of GPUs a year, mostly to people who wanted to play Call of Duty in higher resolution.</p>
+<p>Then something unexpected happened.</p>
+<p>Around 2012, researchers figured out that the kind of math GPUs were good at — the same simple operation performed on millions of numbers in parallel — was also exactly the kind of math you needed to train <strong>neural networks</strong>. The whole mathematical guts of a neural network is, mostly, one operation: multiply a big matrix of numbers by another big matrix of numbers. GPUs could do that operation hundreds of times faster than CPUs.</p>
+<p>Almost overnight, AI researchers started buying GPUs instead of CPUs. Nvidia’s business grew. Then, starting around 2020, AI got <em>really</em> big, and Nvidia’s business grew ridiculously. As of 2026, Nvidia is one of the most valuable companies in the world, primarily because they make the GPUs that are used to train and run large AI models.</p>
+<p>The chips in big AI data centers are mostly GPUs. The chip shortages you hear about are mostly about GPUs. The CHIPS Act, the export controls, the rivalry with China over AI — all of it, at the object level, is mostly about GPUs. The current most advanced GPU costs about $40,000, and the companies making it can’t make them fast enough to meet demand.</p>
+<p>It is, genuinely, one of the stranger pivots in industrial history: the chips designed to render dragons in video games turned out to be the same chips that run ChatGPT, and the company that made them was sitting there, quietly growing for twenty years, until suddenly everyone on Earth needed them.</p>
+
+<h3>Memory: The Rememberers</h3>
+<p>Computers need to remember things. There are basically two kinds of memory chips, and they do it in two different ways.</p>
+<p><strong>DRAM</strong> (Dynamic Random Access Memory) is fast, volatile memory. It holds whatever the computer is currently working on. When you open an app, it gets loaded from storage into DRAM, and the CPU reads and writes DRAM as it runs the app. DRAM is very fast — it can be read or written in tens of nanoseconds — but the moment the power goes off, everything in DRAM vanishes. The chip physically cannot hold its contents without a steady supply of electricity refreshing the values thousands of times a second. DRAM is how the computer thinks in the moment.</p>
+<p>Your phone probably has 8 or 12 gigabytes of DRAM. Your laptop probably has 16 or 32. A server in a data center might have 1,000. The largest DRAM chips hold around 16 gigabytes each, and a device might combine dozens of them.</p>
+<p><strong>Flash memory</strong> (and its big cousin, the SSD, or Solid-State Drive) is slower but persistent. When the power goes off, flash remembers. Every photo on your phone, every app on your laptop, every file on a cloud server — almost all of it lives on flash memory when it’s not actively being used. Reading flash is about a hundred times slower than reading DRAM, and writing is several thousand times slower, but flash can be much denser and much cheaper per gigabyte.</p>
+<p>Memory chips are their own industry. <strong>Samsung</strong> and <strong>SK Hynix</strong> in South Korea dominate DRAM. Samsung and <strong>Kioxia</strong> (which used to be the memory arm of Toshiba) dominate flash. Memory is one of the few parts of the chip industry where Korea, not Taiwan, is the center of gravity. It’s also one of the most cyclical — memory prices rise and crash in multi-year cycles that regularly bankrupt entire companies.</p>
+<p>You will mostly not think about memory chips. But every phone, every laptop, every server, and every data center contains vastly more memory chips than logic chips, and the total value of the memory industry is about the same as the total value of the CPU industry.</p>
+
+<h3>Microcontrollers and Specialized Chips: Everything Else</h3>
+<p>Now we get to the part of the chip universe you almost never hear about, which is also most of it.</p>
+<p>A <strong>microcontroller</strong> is a small, cheap, specialized chip that does one specific job. Not “runs a general-purpose computer” — one job. The chip in your microwave that reads the buttons and controls the timer is a microcontroller. The chip in your car that reads the pedal position and tells the engine what to do is a microcontroller. The chip in a traffic light, a thermostat, a pacemaker, an electric toothbrush, a smoke detector, a dishwasher — all microcontrollers. They cost pennies to dollars each, and there are about 30 billion of them sold a year.</p>
+<p>Microcontrollers are made on older, cheaper process technologies — often the “mature” nodes that big fabs moved on from 15 or 20 years ago. You don’t need EUV lithography to make a chip that reads a thermostat. The economics are completely different from cutting-edge processors. So are the suppliers: a lot of microcontrollers come from companies you’ve never heard of, in fabs in places like Germany, France, and mainland China, not from TSMC at 3 nanometers.</p>
+<p><strong>Sensor chips</strong> are a category of specialized chip that converts some physical thing — light, sound, pressure, acceleration, magnetic field — into an electrical signal the computer can read. Every camera has an image sensor chip (mostly made by <strong>Sony</strong>, which has about half the market). Every phone has accelerometer and gyroscope chips so it can tell when you rotate it. Every car has dozens of sensor chips, each watching some specific thing. These chips are genuinely clever: the image sensor in your phone has about 50 million light-sensitive pixels, each one a tiny electronic eye, all on a piece of silicon the size of your pinky fingernail.</p>
+<p><strong>Radio chips</strong> handle wireless communication — cellular, Wi-Fi, Bluetooth, GPS. Each one is a small masterpiece of analog engineering, because radio frequencies behave in ways that are much harder to control than digital logic. <strong>Qualcomm</strong>, <strong>MediaTek</strong>, and <strong>Broadcom</strong> dominate these markets.</p>
+<p><strong>Application-specific integrated circuits</strong>, or ASICs, are chips designed to do one specialized thing extremely well. Bitcoin mining chips are ASICs. The chips in a credit card terminal are ASICs. Google’s custom AI chips, called TPUs, are ASICs — they’re chips designed by Google to be better than general-purpose GPUs for Google’s specific AI workloads. Tesla’s self-driving chip is an ASIC. When a company’s computational needs are narrow enough and large enough, it can be worth hundreds of millions of dollars to design a custom chip that does that one thing better than a general-purpose chip can.</p>
+<p>The ASIC trend is accelerating in AI. Every big tech company — Google, Amazon, Meta, Microsoft, OpenAI — is now designing custom chips for their AI workloads. Some of these are already in production. Others are still in development. One of the interesting things to watch over the next few years is whether Nvidia’s dominance in AI chips survives a world where every major AI customer is trying to design their own alternative.</p>
+<hr>
+  
+  <nav class="pager">
+    <a class="p" href="/library/the-invisible-trillion/sand-light-and-the-worlds-most-precise-factories/what-this-chapter-is-for/"><span>Previous</span>What This Chapter Is For</a>
+    <a class="n" href="/library/the-invisible-trillion/what-chips-actually-do/a-tour-through-your-day/"><span>Next</span>A Tour Through Your Day</a>
+  </nav>
+  <p class="backto"><a href="/library/the-invisible-trillion/">All 19 chapters of The Invisible Trillion</a> · <a href="/library/">Library</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Library","item":"https://meiradavidson.github.io/library/"},{"@type":"ListItem","position":3,"name":"The Invisible Trillion","item":"https://meiradavidson.github.io/library/the-invisible-trillion/"},{"@type":"ListItem","position":4,"name":"What Chips Actually Do"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/library/the-invisible-trillion/what-chips-actually-do/","url":"https://meiradavidson.github.io/library/the-invisible-trillion/what-chips-actually-do/","headline":"What Chips Actually Do","articleSection":"What Chips Actually Do","inLanguage":"en","isAccessibleForFree":true,"wordCount":2014,"isPartOf":{"@type":"Book","name":"The Invisible Trillion","url":"https://meiradavidson.github.io/library/the-invisible-trillion/"}}]}</script>
+</body>
+</html>

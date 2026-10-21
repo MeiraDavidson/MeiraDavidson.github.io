@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7.6 When iteration goes wild: a doorway to chaos — 7 Functions as Objects, Numbers &amp; Functions | The Curious Family Library</title>
+<meta name="description" content="Now something that genuinely unsettled mathematicians in the 1970s — and it needs nothing more than the arithmetic you already have. Take the simplest…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/numbers-and-functions/7-functions-as-objects/6-when-iteration-goes-wild-a-doorway-to-chaos/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/numbers-and-functions/7-functions-as-objects/5-the-proof-that-works-like-iteration-induction/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/numbers-and-functions/7-functions-as-objects/7-the-five-families-one-viewpoint/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7.6 When iteration goes wild: a doorway to chaos — 7 Functions as Objects, Numbers &amp; Functions | The Curious Family Library">
+<meta property="og:description" content="Now something that genuinely unsettled mathematicians in the 1970s — and it needs nothing more than the arithmetic you already have. Take the simplest…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/numbers-and-functions/7-functions-as-objects/6-when-iteration-goes-wild-a-doorway-to-chaos/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/numbers-and-functions/">Numbers &amp; Functions</a><span class="sep">›</span><a href="/foundations/numbers-and-functions/7-functions-as-objects/">7 Functions as Objects</a><span class="sep">›</span><span aria-current="page">7.6 When iteration goes wild: a doorway to chaos</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Numbers &amp; Functions · 7 Functions as Objects</p>
+  <h1>7.6 When iteration goes wild: a doorway to chaos</h1>
+  
+<p>Now something that genuinely unsettled mathematicians in the 1970s — and it needs nothing more than the arithmetic you already have. Take the simplest interesting feedback machine, the logistic map (the iterated cousin of Chapter 5’s S-curve): f(x) = r x (1 −x).</p>
+<p>Think of x as a population (a fraction between 0 and 1). The r x part is growth; the (1 −x) part is the ceiling. One knob, r, controls how fast it tries to grow. We iterate: this year’s population in, next year’s out, repeat. Here’s the unsettling part. Just by turning the single knob r, the long-run behavior changes in sudden, violent jumps: • Small r (r = 2): settles to a single steady value. Calm.</p>
+<p>• Turn r up (around 3): the steady value splits in two — now it bounces forever between a high year and a low year.</p>
+<p>• Turn it up more: two splits into four, then eight — a cascade. • Past about r = 3.57: no pattern at all. The population jumps around forever, never repeating — and yet there’s no randomness anywhere. The rule is fixed and simple; you could compute every step with a pencil. But the behavior is, for all practical purposes, unpredictable.</p>
+<p>This is chaos: a simple, fully deterministic rule producing behavior so sensitive it can’t be predicted in practice. It overturned a comfortable assumption held for centuries — that simple causes make simple effects. (It’s also why weather can’t be forecast far ahead: tiny differences now become huge differences later. The “butterfly effect.”) Functions as Objects 0.0 0.5 1.0 population r = 2 settles to one value 0 5 10 15 20 25 30 35 40 iteration 0.0 0.5 1.0 population r = 3.9 jumps around forever (chaos) One knob turns calm into chaos same simple rule Figure 7.7. One knob turns calm into chaos. At r = 2 the population settles to a single value; at r = 3.9 the same simple rule jumps around forever with no pattern.</p>
+<p>2.8 3.0 3.2 3.4 3.6 3.8 4.0 r 0.0 0.2 0.4 0.6 0.8 1.0 long-run population ≈3.57: chaos begins Bifurcation diagram: the period-doubling cascade into chaos 0 20 40 iteration 0.0 0.2 0.4 0.6 0.8 1.0 population Butterfly effect: a hair apart, then worlds apart start 0.300 start 0.301 Figure 7.8. Left: the bifurcation diagram — the iconic period-doubling cascade into chaos. Right: the butterfly effect — two runs starting a hair apart (0.300 and 0.301) track closely, then explode into different futures. ▶Run it yourself — turn the knob and watch order collapse into chaos. (notebook 7.2 in Colab) Drag r upward and watch the population settle, then split, then split again, then dissolve into chaos — then generate the famous bifurcation diagram that shows the whole cascade at once. Finally, start two runs a hair apart (0.300 and 0.301) and watch them explode into different futures. Do this before you read the next paragraph — experience it first, then read what it means.</p>
+<p>Why I’m planting this seed now. Look at the shape of what happened: as you slowly turned one knob, the system held steady, held steady — then, at a sharp threshold, abruptly reorganized into something qualitatively new. That pattern — a smooth change in a setting producing a sudden jump in behavior — is called a phase transition, and once you have the eyes for it you see it everywhere: water that cools degree by degree and then, at one temperature, abruptly freezes; and — this is the live frontier — an artificial intelligence that is trained and trained showing no sign of a skill, and then, rather suddenly, acquiring it. The way large AI models seem to snap into new abilities as they grow is, many suspect, this same phenomenon. Nobody fully understands it yet. It is some of the most important unsolved territory in modern science, and it lives right here, in the doorway you’re standing in — a child iterating r x(1 −x) with a pencil is touching the same mathematics.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/numbers-and-functions/7-functions-as-objects/5-the-proof-that-works-like-iteration-induction/"><span>Previous</span>7.5 The proof that works like iteration: induction</a>
+    <a class="n" href="/foundations/numbers-and-functions/7-functions-as-objects/7-the-five-families-one-viewpoint/"><span>Next</span>7.7 The five families, one viewpoint</a>
+  </nav>
+  <p class="backto"><a href="/foundations/numbers-and-functions/">All 8 chapters of Numbers &amp; Functions</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Numbers & Functions","item":"https://meiradavidson.github.io/foundations/numbers-and-functions/"},{"@type":"ListItem","position":4,"name":"7 Functions as Objects","item":"https://meiradavidson.github.io/foundations/numbers-and-functions/7-functions-as-objects/"},{"@type":"ListItem","position":5,"name":"7.6 When iteration goes wild: a doorway to chaos"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/numbers-and-functions/7-functions-as-objects/6-when-iteration-goes-wild-a-doorway-to-chaos/","url":"https://meiradavidson.github.io/foundations/numbers-and-functions/7-functions-as-objects/6-when-iteration-goes-wild-a-doorway-to-chaos/","headline":"7.6 When iteration goes wild: a doorway to chaos","articleSection":"7 Functions as Objects","inLanguage":"en","isAccessibleForFree":true,"wordCount":683,"isPartOf":{"@type":"Book","name":"Numbers & Functions","url":"https://meiradavidson.github.io/foundations/numbers-and-functions/"}}]}</script>
+</body>
+</html>

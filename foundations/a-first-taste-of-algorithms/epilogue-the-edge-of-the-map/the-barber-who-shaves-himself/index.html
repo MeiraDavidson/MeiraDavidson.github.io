@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The barber who shaves himself — Epilogue: The Edge of the Map, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="The argument is a descendant of an old paradox. A town has one barber, who shaves exactly those men who do not shave themselves. Does the barber shave…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/epilogue-the-edge-of-the-map/the-barber-who-shaves-himself/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/epilogue-the-edge-of-the-map/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/epilogue-the-edge-of-the-map/easy-to-check-hard-to-find/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The barber who shaves himself — Epilogue: The Edge of the Map, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="The argument is a descendant of an old paradox. A town has one barber, who shaves exactly those men who do not shave themselves. Does the barber shave…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/epilogue-the-edge-of-the-map/the-barber-who-shaves-himself/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/epilogue-the-edge-of-the-map/">Epilogue: The Edge of the Map</a><span class="sep">›</span><span aria-current="page">The barber who shaves himself</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Epilogue: The Edge of the Map</p>
+  <h1>The barber who shaves himself</h1>
+  
+<p>The argument is a descendant of an old paradox. A town has one barber, who shaves <em>exactly those men who do not shave themselves</em>. Does the barber shave himself? If he does, then he is a man who shaves himself, so by the rule the barber does <em>not</em> shave him — contradiction. If he does not, then he is a man who does not shave himself, so by the rule the barber <em>does</em> shave him — contradiction. There is no consistent answer. The town, as described, cannot exist.</p>
+<p>Turing built that barber out of programs. Suppose, for contradiction, the halt-checker exists: a program <code>HALTS(P, x)</code> that always stops and correctly returns <em>yes</em> if program <code>P</code> halts on input <code>x</code>, <em>no</em> if it loops forever. From it, build a second program — call it <code>TROUBLE</code> — that takes a single program <code>P</code> as input and does this:</p>
+<blockquote>
+<p>ask <code>HALTS(P, P)</code> — does <code>P</code> halt when fed <em>its own code</em> as input?
+if the answer is <em>yes</em>, deliberately loop forever;
+if the answer is <em>no</em>, immediately stop.</p>
+</blockquote>
+<p><code>TROUBLE</code> does the opposite of whatever the halt-checker predicts. Now ask the question that destroys the town. <strong>Run <code>TROUBLE</code> on its own code.</strong> Does <code>TROUBLE(TROUBLE)</code> halt?</p>
+<ul>
+<li>Suppose it halts. It halts only if, inside, <code>HALTS(TROUBLE, TROUBLE)</code> returned <em>no</em> — i.e. the halt-checker predicted it runs forever. The checker was wrong.</li>
+<li>Suppose it runs forever. It loops only if <code>HALTS(TROUBLE, TROUBLE)</code> returned <em>yes</em> — i.e. the checker predicted it halts. The checker was wrong.</li>
+</ul>
+<p>Either way the halt-checker gives the wrong answer about <code>TROUBLE(TROUBLE)</code>. But the halt-checker was assumed <em>never</em> to be wrong. The assumption cannot stand. <strong>No halt-checker exists</strong> — not “none has been found,” not “none is fast enough,” but none is <em>possible</em>, ever, on any machine, by any mind. The work cannot be refused because it cannot be done.</p>
+<blockquote>
+<h3>Deeper water: this is Chapter 6’s fence, grown infinite</h3>
+<p>Look at the shape of what just happened. Chapter 6 proved no comparison sort beats n log n by counting: n! distinct situations, too few questions to tell them apart. Chapter 1 fenced the guessing game the same way. This is that argument’s furthest reach — a <em>diagonal</em> argument, the technique Georg Cantor invented in 1891 to prove some infinities are larger than others. Imagine an infinite table: one row per program, one column per input, each cell marked “halts” or “loops.” <code>TROUBLE</code> is built to <em>disagree with the table’s diagonal</em> — to differ from program 1 on input 1, program 2 on input 2, program <em>k</em> on input <em>k</em>, forever. So <code>TROUBLE</code> cannot be any row of the table; it differs from each at the diagonal. Yet <code>TROUBLE</code> is a perfectly good program — it should be <em>some</em> row. Contradiction, built by walking down the diagonal and flipping every entry. The same diagonal flip proves there are more real numbers than whole numbers, more functions than programs to compute them, more truths than proofs. It is the single most powerful idea about the limits of systems, and you have now seen it draw a fence around computation itself.</p>
+</blockquote>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/epilogue-the-edge-of-the-map/"><span>Previous</span>Epilogue: The Edge of the Map</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/epilogue-the-edge-of-the-map/easy-to-check-hard-to-find/"><span>Next</span>Easy to check, hard to find</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Epilogue: The Edge of the Map","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/epilogue-the-edge-of-the-map/"},{"@type":"ListItem","position":5,"name":"The barber who shaves himself"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/epilogue-the-edge-of-the-map/the-barber-who-shaves-himself/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/epilogue-the-edge-of-the-map/the-barber-who-shaves-himself/","headline":"The barber who shaves himself","articleSection":"Epilogue: The Edge of the Map","inLanguage":"en","isAccessibleForFree":true,"wordCount":519,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

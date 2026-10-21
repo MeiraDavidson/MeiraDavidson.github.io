@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The whole loop, honestly — Learning as an Algorithm, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="You now hold every part of the modern machine, so here is what “training an AI” is, in one paragraph, with nothing hidden. A model is a formula with knobs…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/the-whole-loop-honestly/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/the-two-valleys/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-8/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The whole loop, honestly — Learning as an Algorithm, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="You now hold every part of the modern machine, so here is what “training an AI” is, in one paragraph, with nothing hidden. A model is a formula with knobs…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/the-whole-loop-honestly/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/">Learning as an Algorithm</a><span class="sep">›</span><span aria-current="page">The whole loop, honestly</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Learning as an Algorithm</p>
+  <h1>The whole loop, honestly</h1>
+  
+<p>You now hold every part of the modern machine, so here is what “training an AI” is, in one paragraph, with nothing hidden. A model is a formula with knobs — not one knob w but billions, the same mathematics with the derivative grown into a <em>gradient</em> (a slope per knob; the deep water below). The loss is a number measuring wrongness averaged over examples — for a language model, roughly: across mountains of text, how badly did you predict each next word? Training is the loop you ran by hand on the bowl: compute the loss’s gradient, step every knob a little downhill, repeat — not three steps but trillions, on hardware built for exactly this loop and nothing else. That is the entire ritual. The gradient of a billion-knob formula sounds unaffordable; the algorithm that makes it cheap is a beautiful machine built from this book’s own parts — the chain rule riding a graph — and Chapter 9 does not describe it. Chapter 9 <em>builds it</em>, and then builds the model, and then trains it, on your machine, until it speaks.</p>
+<h2>The real question</h2>
+<p>One question stands above all of it, and nearest neighbor — remember the island — asked it first. A learner is fitted to examples; agreeing with <em>those examples</em> is therefore no evidence at all. Nearest neighbor agrees with its own examples <em>perfectly, always, by construction</em> — ask it about a memorized point and it finds that very point at distance zero and copies the label. A parrot scores 100% on the questions it was trained on. The only honest exam is one the student hasn’t seen.</p>
+<p>So the field’s entire experimental discipline is one move: <strong>split the examples</strong>. Fit on one part (the <em>training set</em>); measure on the part the learner never saw (the <em>test set</em>); report only the second number. The gap between the two numbers is the gap between <em>memorizing</em> and <em>learning</em> — and in Lab 8 you will measure that gap on nearest neighbor itself, watch a single poisoned example widen it, and hold in your hands the distinction this entire subject turns on. When the test score is good, something genuinely transferred from the examples to the world. Why transfer happens as well as it does for enormous models — models with vastly more knobs than examples, which by every classical right <em>should</em> be parrots — is, as of this book’s writing, an open research problem. People are working on it. The author of this book is one of them. The honest sentence is: we can build it, we can train it, we can measure that it generalizes, and we cannot yet fully say why. You are not reading a finished subject. You are reading one with the paint wet, and the last brushes are within reach of people who, like you, started by counting steps.</p>
+<blockquote>
+<h3>Deeper water: many knobs, and the shape of high places</h3>
+<p>With knobs w₁, …, w_d, the loss is a surface over d-dimensional space, and “slope” becomes the <strong>gradient</strong>: the vector of partial derivatives (∂L/∂w₁, …, ∂L/∂w_d) — each entry answering “if I turn only this knob, how does the loss tilt?” The gradient points in the steepest uphill direction (a lovely fact, provable with Book 2’s tools plus one inequality), so the update w ← w − η·∇L steps each knob against its own slope, all knobs at once: one line, any dimension. Everything in this chapter survives the generalization untouched — bowls (now called <em>convex</em> functions) still come with guarantees, valleys still trap.</p>
+<p>But dimension does something strange to the <em>zoology</em> of flat places. In one dimension a flat point is a floor or a hilltop. In a million dimensions it is almost always neither: a <strong>saddle</strong> — downhill some directions, uphill others — and a walker pausing there can usually find an exit, where a true 1-D hilltop offers none. Some of the empirical mercy of deep learning (greedy works far better than the two-valleys picture predicts) is suspected to live here, in the geometry of very high places; the suspicion is not a theorem, the geometry of real loss landscapes is an active research frontier, and the tools being thrown at it include some you would recognize — eigenvalues, phase transitions, the spectra of large matrices. The mountains are real; the cartography has barely begun.</p>
+</blockquote>
+<p><img src="/foundations/a-first-taste-of-algorithms/img/fig_8_4_learning_rates.png" alt="Figure 8.4 — Three temperaments of the stride: the crawl, the brisk arrival, and the explosion. One dial, every fate." loading="lazy"></p>
+<p><em>Figure 8.4 — Three temperaments of the stride: the crawl, the brisk arrival, and the explosion. One dial, every fate.</em></p>
+<blockquote>
+<h3>Deeper water: the stride, exactly</h3>
+<p>On the bowl, the Diamond’s law |x_{k+1}| = |1 − 2η|·|x_k| classifies every stride with one number, |1 − 2η|, and it is worth tabulating the taxonomy because every behavior in it occurs daily in real training: η tiny → factor near 1, convergence at a crawl (real name: “undertrained”); η = 0.5 → factor 0, the floor in one step (possible only because this bowl is perfectly known — never in real life); η ∈ (0.5, 1) → negative factor, <em>oscillating</em> convergence, the loss curve ringing downward (you will see this ringing in Chapter 9’s training runs and now you know its name); η ≥ 1 → factor at or beyond 1, ringing forever or exploding (real name, seen in every practitioner’s logs: “loss went to NaN”). One honest limitation, which the Diamond’s part (e) makes you locate precisely: the <em>exactness</em> of this law leans on the bowl’s slope being exactly linear. General smooth bowls keep the qualitative story — small strides converge, oversized strides explode — but the clean factor and the magic η = 0.5 are this bowl’s private property. The idea generalizes; the arithmetic does not. Knowing which part travels is most of mathematical maturity.</p>
+</blockquote>
+<h2>Where this leaves us</h2>
+<p>The two questions held. “Correct” softened to <em>approximately correct on average over unseen examples</em> — measured by the train/test discipline, trusted by Chapter 7’s concentration. “Cost” never softened: nearest neighbor pays at answer time, descent pays per step times steps, and we counted. The new machinery is small and yours: examples instead of definitions; loss — wrongness as one number; descent — greedy on a landscape, with greedy’s old guarantee on bowls and greedy’s old disease among valleys, now incurable by the notebook and managed by dice. And above it all, the field’s one honest exam: never grade a learner on questions it has memorized.</p>
+<p>What remains is to stop gesturing at “a formula with billions of knobs” and build one — the knobs, the chain rule that prices them all at once, the loop, the model, the training run, the first words it speaks. Everything needed is already in this book, scattered through eight chapters like parts on a workbench. Chapter 9 is assembly.</p>
+<hr>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>Try writing a definition of 'cat photo' precise enough to check a procedure against. How far did you get before it fell apart?</li><li>The deal changes: instead of a definition you get examples, and success means agreeing with examples you have not seen. What is given up, and what is gained?</li><li>'Approximately correct, on average sounds like a retreat from Chapter 1's two questions. It is actually their final form.' Do you accept that?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/the-two-valleys/"><span>Previous</span>The two valleys</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/problem-set-8/"><span>Next</span>Problem Set 8</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Learning as an Algorithm","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/"},{"@type":"ListItem","position":5,"name":"The whole loop, honestly"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/the-whole-loop-honestly/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/the-whole-loop-honestly/","headline":"The whole loop, honestly","articleSection":"Learning as an Algorithm","inLanguage":"en","isAccessibleForFree":true,"wordCount":1122,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why “always” is the hard part — Two Questions, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Look at the first demand again: the procedure must work for every possible input. This is a strange and strong demand, and it is what makes algorithms…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/two-questions/why-always-is-the-hard-part/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/two-questions/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/two-questions/structure-buys-speed/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Why “always” is the hard part — Two Questions, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Look at the first demand again: the procedure must work for every possible input. This is a strange and strong demand, and it is what makes algorithms…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/two-questions/why-always-is-the-hard-part/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/two-questions/">Two Questions</a><span class="sep">›</span><span aria-current="page">Why “always” is the hard part</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Two Questions</p>
+  <h1>Why “always” is the hard part</h1>
+  
+<p>Look at the first demand again: the procedure must work for <em>every</em> possible input. This is a strange and strong demand, and it is what makes algorithms mathematics rather than folklore.</p>
+<p>Suppose your friend claims a strategy for the guessing game and demonstrates it: she finds your number in six questions. Impressive — and it proves almost nothing. Maybe she was lucky. Maybe your number happened to sit somewhere her strategy reaches quickly. A demonstration is one input. A guarantee is <em>all</em> of them, and there are a hundred possible numbers — or a trillion, in the big version. You cannot check a trillion cases by playing a trillion games.</p>
+<p>So how can anyone ever promise “always”? The same way mathematics always handles infinity and its little cousins: by an argument that covers every case at once without visiting any of them. For the halving strategy, the argument is short enough to say in one breath: <em>after every question, the suspects that remain always form a single unbroken range that contains my number, and the range shrinks by at least half each time; a range under 1 cannot hide anything.</em> Hold on to the first half of that sentence — “the survivors always form a range containing the answer.” A statement that stays true through every step of a procedure is the basic instrument for proving procedures correct, and it has a name we will meet in the deep water below.</p>
+<p>The second demand — counting cost — needs its own honesty rule. When we count, we count the <strong>worst case</strong>: the most steps the procedure could possibly need, over all inputs. Not the lucky case, not the typical case (we’ll earn the right to talk about “typical” in Chapter 7, and it will take real probability to do it honestly). The worst case is the only promise you can make to someone who hasn’t told you their input yet. “At most seven questions” is a contract. “Usually around four” is a mood.</p>
+<h2>The obvious algorithm</h2>
+<p>Now put the game in the form computers actually meet ten billion times a day. You have a <strong>list</strong> of items — names, numbers, song titles — and a <strong>target</strong>, and the question is: <em>is the target in the list, and where?</em></p>
+<p>The obvious procedure: check the first item. Then the second. Keep going until you find the target or run out of list. This is <strong>linear search</strong>, and you should not look down on it. It is correct on <em>every</em> list — sorted, scrambled, repetitive, empty — and its correctness needs no cleverness to believe: if the target is anywhere, the march from front to back must step on it.</p>
+<p>The cost: on a list of n items, up to n checks. There is the word from the honesty rule — <em>up to</em>. If the target sits in front, one check. If it sits at the back, n. And if the target is <strong>absent</strong>, exactly n, every time, with no luck possible: you cannot declare something missing until you have looked everywhere. Sit with that for a second, because it is the first genuinely useful insight of the book. <em>Proving absence is expensive.</em> Finding your keys takes until you find them; being <em>sure</em> they’re not in the house takes searching the whole house.</p>
+<p>Unless — and this is the turn the whole chapter pivots on — the house is organized.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/two-questions/"><span>Previous</span>Two Questions</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/two-questions/structure-buys-speed/"><span>Next</span>Structure buys speed</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Two Questions","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/two-questions/"},{"@type":"ListItem","position":5,"name":"Why “always” is the hard part"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/two-questions/why-always-is-the-hard-part/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/two-questions/why-always-is-the-hard-part/","headline":"Why “always” is the hard part","articleSection":"Two Questions","inLanguage":"en","isAccessibleForFree":true,"wordCount":573,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

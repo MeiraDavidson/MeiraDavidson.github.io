@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Slope of a Single Point — Calculus I | The Curious Family Library</title>
+<meta name="description" content="Or: how fast is something changing right now, when “rate” seems to need two moments?">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/calculus-i/the-slope-of-a-single-point/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/calculus-i/getting-arbitrarily-close/where-this-is-heading/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/calculus-i/the-slope-of-a-single-point/the-derivative/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Slope of a Single Point — Calculus I | The Curious Family Library">
+<meta property="og:description" content="Or: how fast is something changing right now, when “rate” seems to need two moments?">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/calculus-i/the-slope-of-a-single-point/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/calculus-i/">Calculus I</a><span class="sep">›</span><span aria-current="page">The Slope of a Single Point</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">Calculus I</p>
+  
+  <h1>The Slope of a Single Point</h1>
+<p><em>Or: how fast is something changing </em>right now<em>, when “rate” seems to need two moments?</em></p>
+<blockquote>
+<p><strong>Companion notebook.</strong> Play with this chapter’s ideas — sliders, animations, and drills — in <a href="https://github.com/MeiraDavidson/math_module2/blob/main/notebooks/ch3_derivative.ipynb"><code>notebooks/ch3_derivative.ipynb</code></a>.</p>
+</blockquote>
+<p>This is the chapter the whole book is named for. By the end of it you will be able to do the central act of calculus: find the <strong>exact rate at which a function is changing at a single instant</strong> — the steepness of a curve at one point, the speed of a moving thing at one moment — and you will do it <em>from scratch</em>, with nothing but the limits you learned in Chapter 2. No formulas handed to you, no rules to memorize yet. You will compute derivatives the way they were first computed: by hand, from the definition, watching the answer fall out.</p>
+<p>You’ll find the slope of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>x</mi><mn>2</mn></msup><annotation encoding="application/x-tex">x^2</annotation></semantics></math>, of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>x</mi><mn>3</mn></msup><annotation encoding="application/x-tex">x^3</annotation></semantics></math>, of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mstyle displaystyle="false"><mfrac><mn>1</mn><mi>x</mi></mfrac></mstyle><annotation encoding="application/x-tex">\tfrac1x</annotation></semantics></math>, of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mi>x</mi></msqrt><annotation encoding="application/x-tex">\sqrt{x}</annotation></semantics></math> — each one earned, not received. You’ll see that the result is itself a <strong>function</strong>, a machine that returns the slope at every point at once. You’ll connect it to <strong>velocity</strong>, the most physical version of the idea. And in the Layer-2 climb you’ll discover the one place this can fail — a function so sharp it has no slope at all — which turns out to be deeply connected to the corners and jumps of Chapter 2.</p>
+<p>Here is the paradox we have to resolve, because it’s what makes the whole thing interesting. “Rate of change” normally compares two moments: you went <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>120</mn><annotation encoding="application/x-tex">120</annotation></semantics></math> miles in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math> hours, so your <em>average</em> speed was <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>60</mn><annotation encoding="application/x-tex">60</annotation></semantics></math>. But your speedometer shows a speed at a single instant, with no interval at all. How can there be a rate of change <em>at one point</em>, when measuring a rate seems to require two? The answer is the limit, and it is the most important idea you will learn this year.</p>
+<hr>
+
+<h2>From two points to one: the difference quotient</h2>
+<p>Start where it’s easy: the rate of change over an <strong>interval</strong>. Take a function <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math> and look at it between <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">x = a</annotation></semantics></math> and a nearby point <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>a</mi><mo>+</mo><mi>h</mi></mrow><annotation encoding="application/x-tex">x = a + h</annotation></semantics></math> (here <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math> is a small step, the gap between the two points). Over that interval, the <strong>average rate of change</strong> is the change in output divided by the change in input:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><mi>h</mi></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">\frac{f(a+h) - f(a)}{h}.</annotation></semantics></math></p>
+<p>Geometrically, this is the <strong>slope of the secant line</strong> — the straight line through the two points <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>,</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(a, f(a))</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mi>h</mi><mo>,</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(a+h, f(a+h))</annotation></semantics></math> on the graph. (You’ll meet this same quantity again in Chapter 6, where the Mean Value Theorem calls it the “average slope.”) There’s nothing mysterious here yet; it’s rise over run between two points. <em>(Figure 3.1: a curve with two points marked and the secant line through them, the rise and run labeled.)</em></p>
+<figure>
+<img src="/foundations/calculus-i/img/file15.png" alt="Figure 3.1" loading="lazy">
+<figcaption>Figure 3.1</figcaption>
+</figure>
+<p>Now the move that creates calculus. We don’t want the average rate over an interval — we want the rate <em>at the single point</em> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>. So we slide the second point toward the first: let <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math> shrink toward <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>. The two points merge, the secant line pivots, and — if all goes well — it settles onto a single line just <strong>touching</strong> the curve at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>: the <strong>tangent line</strong>. Its slope is the rate of change at that one instant. <em>(Figure 3.2: the same curve with a sequence of secant lines as the second point slides in, converging onto the tangent line at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>.)</em></p>
+<figure>
+<img src="/foundations/calculus-i/img/file16.png" alt="Figure 3.2" loading="lazy">
+<figcaption>Figure 3.2</figcaption>
+</figure>
+<p>But look at what happens to the formula as <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h \to 0</annotation></semantics></math>. Both the top, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>+</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">f(a+h) - f(a)</annotation></semantics></math>, and the bottom, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>, go to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>. We are staring straight at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mstyle displaystyle="false"><mfrac><mn>0</mn><mn>0</mn></mfrac></mstyle><annotation encoding="application/x-tex">\tfrac00</annotation></semantics></math> — the indeterminate form from Chapter 2. And that is exactly why we spent a whole chapter learning that <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mstyle displaystyle="false"><mfrac><mn>0</mn><mn>0</mn></mfrac></mstyle><annotation encoding="application/x-tex">\tfrac00</annotation></semantics></math> is <strong>not a wall</strong>. It’s an invitation to simplify and cancel. The rate of change at a point is a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mstyle displaystyle="false"><mfrac><mn>0</mn><mn>0</mn></mfrac></mstyle><annotation encoding="application/x-tex">\tfrac00</annotation></semantics></math> limit, and we already know how to handle those.</p>
+<hr>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/calculus-i/getting-arbitrarily-close/where-this-is-heading/"><span>Previous</span>Where this is heading</a>
+    <a class="n" href="/foundations/calculus-i/the-slope-of-a-single-point/the-derivative/"><span>Next</span>The derivative</a>
+  </nav>
+  <p class="backto"><a href="/foundations/calculus-i/">All 13 chapters of Calculus I</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"Calculus I","item":"https://meiradavidson.github.io/foundations/calculus-i/"},{"@type":"ListItem","position":4,"name":"The Slope of a Single Point"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/calculus-i/the-slope-of-a-single-point/","url":"https://meiradavidson.github.io/foundations/calculus-i/the-slope-of-a-single-point/","headline":"The Slope of a Single Point","articleSection":"The Slope of a Single Point","inLanguage":"en","isAccessibleForFree":true,"wordCount":657,"isPartOf":{"@type":"Book","name":"Calculus I","url":"https://meiradavidson.github.io/foundations/calculus-i/"}}]}</script>
+</body>
+</html>

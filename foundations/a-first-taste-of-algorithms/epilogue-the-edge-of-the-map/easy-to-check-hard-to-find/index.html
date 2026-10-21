@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Easy to check, hard to find — Epilogue: The Edge of the Map, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="The halting problem is a wall: solving it is impossible. The second edge of the map is stranger, because no one knows whether it is a wall or a door. It…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/epilogue-the-edge-of-the-map/easy-to-check-hard-to-find/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/epilogue-the-edge-of-the-map/the-barber-who-shaves-himself/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/epilogue-the-edge-of-the-map/the-schoolroom-again/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Easy to check, hard to find — Epilogue: The Edge of the Map, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="The halting problem is a wall: solving it is impossible. The second edge of the map is stranger, because no one knows whether it is a wall or a door. It…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/epilogue-the-edge-of-the-map/easy-to-check-hard-to-find/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/epilogue-the-edge-of-the-map/">Epilogue: The Edge of the Map</a><span class="sep">›</span><span aria-current="page">Easy to check, hard to find</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Epilogue: The Edge of the Map</p>
+  <h1>Easy to check, hard to find</h1>
+  
+<p>The halting problem is a wall: solving it is <em>impossible</em>. The second edge of the map is stranger, because no one knows whether it is a wall or a door. It is the most important open question in this subject, and one of the deepest in all of mathematics, and you can understand exactly what it asks.</p>
+<p>Some problems are hard to <em>solve</em> but easy to <em>check</em>. A finished jigsaw is obviously finished — one glance. Finding the arrangement took hours; verifying it takes a second. A sudoku solution is checked in a moment; finding it is work. This gap — between <em>finding</em> an answer and <em>recognizing</em> a correct one — has a precise form, and a name.</p>
+<p>Consider a concrete puzzle, the granddaddy of them all. You are given a logical formula: a string of true/false variables joined by ANDs and ORs, like <em>(a or b or not-c) and (not-a or c or d) and …</em>, with hundreds of variables and clauses. The question: is there any setting of the variables that makes the whole thing true? This is <strong>satisfiability</strong>, and notice its two faces. If someone <em>hands</em> you a setting that works, you check it in an eyeblink — plug in the values, evaluate each clause, done, a few hundred steps. But <em>finding</em> a setting, with no one to hand you one? The obvious method is Chapter 1’s enemy: try all 2ⁿ settings, an exponential wall, hopeless past a few dozen variables. Centuries of cleverness have not found a fast method, and satisfiability is not alone — thousands of problems, from scheduling to protein folding to optimal routing, share its exact character: <em>a solution is checkable in polynomial time (the “easy” growth shapes of this book — n, n², n log n); a solution seems to require exponential time to find.</em></p>
+<p>Call the easy-to-<em>solve</em> problems <strong>P</strong> (solvable in polynomial time — everything this book built fast algorithms for). Call the easy-to-<em>check</em> problems <strong>NP</strong> (a proposed solution is <em>verifiable</em> in polynomial time — satisfiability, and its thousands of cousins). Every P problem is obviously in NP: if you can solve it fast, you can check a solution fast by solving it yourself. The question — the whole question — is whether it goes the other way:</p>
+<p><strong>Is P equal to NP?</strong> Is every problem whose solutions are easy to <em>check</em> also a problem whose solutions are easy to <em>find</em>?</p>
+<p>If <strong>P = NP</strong>, then finding is secretly no harder than checking — there is a fast algorithm for satisfiability, for thousands of problems we believe are hard, and almost every optimization humanity cares about falls at once. Much of modern cryptography, which rests on certain problems being hard to <em>solve</em> but easy to <em>check</em>, would dissolve; so would much of the difficulty of science. If <strong>P ≠ NP</strong>, then some problems are genuinely, permanently hard to solve despite being trivial to verify — finding really is harder than recognizing, and the exponential wall around satisfiability is real and forever.</p>
+<p>Almost everyone who studies it believes <strong>P ≠ NP</strong>. No one has proved it. The problem was crisply posed around 1971, by Stephen Cook and Leonid Levin — independently, on two sides of a closed border, the book’s recurring pattern one final time. It carries a million-dollar prize, unclaimed. It is, very possibly, the deepest question this book could point at, and it remains exactly as open today as the day it was asked. The honest sentence, the one this whole book has been teaching you to say: <em>we do not know, and the not-knowing is not a gap in your education — it is the live edge of human knowledge, and you are now standing on it.</em></p>
+<blockquote>
+<h3>Deeper water: the strange unity of the hard problems</h3>
+<p>One fact makes P vs NP sharper than “some problems seem hard.” In 1971 Cook proved that satisfiability is <strong>NP-complete</strong>: every single problem in NP can be efficiently <em>translated into</em> a satisfiability question. Then Richard Karp, in 1972, showed twenty-one classic problems — scheduling, graph coloring, the traveling salesman among them — are NP-complete too, and the list has since grown to thousands. They are, in a precise sense, <em>the same problem in different clothes</em>: a fast algorithm for any one of them would yield a fast algorithm for <em>all</em> of them, and would prove P = NP. They stand or fall together. This is why the question is not a curiosity about one puzzle but a hinge under all of computation: thousands of independent walls turn out to be one wall, and no one knows if it has a door. (The translation between them, by the way, is itself an algorithm — efficient, constructive, the book’s own machinery turned to map one problem onto another. Even the study of impossibility is done with algorithms.)</p>
+</blockquote>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/epilogue-the-edge-of-the-map/the-barber-who-shaves-himself/"><span>Previous</span>The barber who shaves himself</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/epilogue-the-edge-of-the-map/the-schoolroom-again/"><span>Next</span>The schoolroom, again</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Epilogue: The Edge of the Map","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/epilogue-the-edge-of-the-map/"},{"@type":"ListItem","position":5,"name":"Easy to check, hard to find"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/epilogue-the-edge-of-the-map/easy-to-check-hard-to-find/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/epilogue-the-edge-of-the-map/easy-to-check-hard-to-find/","headline":"Easy to check, hard to find","articleSection":"Epilogue: The Edge of the Map","inLanguage":"en","isAccessibleForFree":true,"wordCount":808,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Architecture That Works — The Invisible Trillion | The Curious Family Library</title>
+<meta name="description" content="What Compute Used Well Would Actually Look Like">
+<link rel="canonical" href="https://meiradavidson.github.io/library/the-invisible-trillion/the-architecture-that-works/">
+<link rel="prev" href="https://meiradavidson.github.io/library/the-invisible-trillion/how-much-do-we-actually-need/where-this-leaves-us-and-what-comes-next/">
+<link rel="next" href="https://meiradavidson.github.io/library/the-invisible-trillion/the-architecture-that-works/but-wait-why-cant-i-rent-an-h100/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Architecture That Works — The Invisible Trillion | The Curious Family Library">
+<meta property="og:description" content="What Compute Used Well Would Actually Look Like">
+<meta property="og:url" content="https://meiradavidson.github.io/library/the-invisible-trillion/the-architecture-that-works/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/library/">Library</a><span class="sep">›</span><a href="/library/the-invisible-trillion/">The Invisible Trillion</a><span class="sep">›</span><span aria-current="page">The Architecture That Works</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">The Invisible Trillion</p>
+  
+  <h1>The Architecture That Works</h1>
+<p><em>What Compute Used Well Would Actually Look Like</em></p>
+<p>The previous chapter ended with a diagnosis: the buildout is running ahead of demand, much of the inference flowing through hyperscale infrastructure doesn’t need to be there, and the gap between what’s being built and what’s justified is what I called <em>inflation</em>. That diagnosis raises an obvious question. If the current pattern is wrong, what would the right one look like?</p>
+<p>This chapter tries to answer that concretely. Then it takes on the objection that anyone who actually uses this stuff will be shouting at the page by now — <em>if the buildout is overprovisioned, why can’t I rent an H100, and why does Google keep saying it can’t meet demand?</em> — because the chapter would be a fraud if it ducked that. As it turns out, resolving the apparent contradiction is one of the more revealing things in the whole argument.</p>
+<p>From there I’ll use xAI’s Colossus as the cleanest worked example of how the inflation actually operates, give a name to the financial machinery around the buildout — the <em>anticipation economy</em> — and end on self-driving, which is the best evidence we have for what compute used well looks like.</p>
+
+<h2>What Honest Sizing Would Look Like</h2>
+<p>One distinction first, because the rest of this section leans on it and the earlier draft blurred it. Almost none of the buildout I’m about to size is <em>built and sitting idle</em>. It’s <strong>announced</strong> — capex targets, signed power contracts, cluster counts in press releases, projections out to 2030. So what follows isn’t measured capacity against measured demand. It’s <strong>the plan against the possible reality</strong>: what the industry says it intends to build, set beside what today’s demand would justify. Both sides of that are soft, and I’d rather show you the softness than hand you a clean number and ask you to trust it.</p>
+<p>With that flag raised — suppose you took the inflation hypothesis seriously and asked what a buildout matched to durable demand would actually look like.</p>
+<p><strong>Frontier training.</strong> Watch how fast the arithmetic turns into assumption. Ten or so organizations do frontier training. If each needs one or two hyperscale-class clusters — with slack for failed runs, redundancy, and experimentation — you get roughly twenty to thirty. The announced plans point at several hundred by 2030. Divide one by the other and out pops “5–10x too much.”</p>
+<p>I’ve quoted ratios like that, including in earlier drafts of this chapter, as if they were findings. They aren’t. That’s one soft number — my “one or two clusters per lab” — divided by another soft number — capacity announcements, which are half marketing — with no error bars on either. Read it as an order-of-magnitude sketch, not a measurement.</p>
+<p>And the assumption holding the whole sketch up — that training demand stays roughly what it is now — is exactly where it’s most likely to break, for a reason worth taking seriously: <em>world models.</em> The frontier so far has mostly trained on text, and text is small. A growing and well-funded camp is betting the next leap is models that learn the physical world — space, motion, cause and effect, the sensorimotor understanding a toddler or a self-driving car needs. This is not a fringe wager. Yann LeCun left Meta in late 2025 to build it at AMI Labs; Fei-Fei Li’s World Labs raised a billion dollars for it; the venture Jeff Bezos is co-running, Project Prometheus, is pointed squarely at the physical economy with more than six billion behind it.</p>
+<p>If that pivot is real — and it’s a real <em>if</em> — training demand could climb steeply, because the inputs are enormous. NVIDIA’s Cosmos world model was reportedly trained on something like twenty million hours of real-world video, a different order of scale than the text corpora behind today’s language models, and training at that scale is genuinely compute-hungry. A buildout that looks like 5–10x overkill against text-model demand could look right-sized, or even short, against world-model demand.</p>
+<p>I’ll give the other side of even that, though, because it isn’t settled. The most prominent researcher in the camp, LeCun, is betting on an architecture whose entire point is to need <em>less</em> brute-force compute, not more — his March 2026 result trained a working version on a single GPU. So world models might detonate training demand, or might arrive on a leaner path that doesn’t. Nobody knows yet. This is the piece of the inflation thesis I hold most loosely, and it’s where the boom-side argument is strongest.</p>
+<p><strong>Consumer inference.</strong> Harder to pin down, but it comes down to three things: how many active users, how many queries each sends a day, and what fraction of those queries route to hyperscale rather than to the edge. If the edge migration proceeds — and the trajectory of small-model capability says it will — then by 2028 the consumer inference actually landing on hyperscale is perhaps 30–50% of what today’s projections assume. Overbuilt by 2–3x.</p>
+<p><strong>Enterprise inference.</strong> Same shape of argument. Enterprises are already drifting off the frontier APIs toward cheaper options, and the drift is speeding up. Overbuilt by perhaps 2x.</p>
+<p><strong>Scientific and specialized compute.</strong> Here is the one category that is <em>not</em> overbuilt. Drug discovery, climate modeling, protein folding, materials science — real demand, growing, justified by the work it does, and if anything <em>underserved</em> by the current buildout. A sanely-sized buildout would shift capacity toward these uses even as the total came down.</p>
+<p><strong>Robotics and sovereign AI.</strong> Both real, both growing, both meaningful — and both still modest shares of the whole. The interest a lot of governments have shown in sovereign compute, so as not to depend on American hyperscalers, is durable and has been building since 2024.</p>
+<p>Add all of that up and a justified buildout would be substantially smaller, more geographically spread out, tilted toward scientific and government work, with far less consumer and enterprise inference at hyperscale and far more of it at the edge — and with a much smaller footprint on the grid and on the neighborhoods.</p>
+<p>What’s actually being built looks more like the opposite instruction set: maximize total capacity, maximize the hyperscale share, push everything through frontier APIs because that’s what the business model needs, build wherever the legal tactics from the neighborhood chapters make it cheapest, treat residential proximity as a feature rather than a problem, and trust that the demand will show up to justify it.</p>
+<p>That distance — between what’s planned and what today’s demand would justify — is the inflation. The inference pieces are where I’d put the most weight: the edge migration and the enterprise awakening are already visible, and they point at a hyperscale inference buildout sized well above where demand is heading. The training piece is softer, for the world-models reason above. But even setting training aside entirely, the inference overhang alone is large.</p>
+<p>And the cost of it gets paid in the present by the residents in the earlier chapters and by every ratepayer across the PJM region. It gets paid in the future by the write-downs that follow if the demand never arrives, and by the neighborhood cascades that grind on whether or not anyone ever writes the assets down.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/library/the-invisible-trillion/how-much-do-we-actually-need/where-this-leaves-us-and-what-comes-next/"><span>Previous</span>Where This Leaves Us, And What Comes Next</a>
+    <a class="n" href="/library/the-invisible-trillion/the-architecture-that-works/but-wait-why-cant-i-rent-an-h100/"><span>Next</span>But Wait — Why Can’t I Rent an H100?</a>
+  </nav>
+  <p class="backto"><a href="/library/the-invisible-trillion/">All 19 chapters of The Invisible Trillion</a> · <a href="/library/">Library</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Library","item":"https://meiradavidson.github.io/library/"},{"@type":"ListItem","position":3,"name":"The Invisible Trillion","item":"https://meiradavidson.github.io/library/the-invisible-trillion/"},{"@type":"ListItem","position":4,"name":"The Architecture That Works"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/library/the-invisible-trillion/the-architecture-that-works/","url":"https://meiradavidson.github.io/library/the-invisible-trillion/the-architecture-that-works/","headline":"The Architecture That Works","articleSection":"The Architecture That Works","inLanguage":"en","isAccessibleForFree":true,"wordCount":1210,"isPartOf":{"@type":"Book","name":"The Invisible Trillion","url":"https://meiradavidson.github.io/library/the-invisible-trillion/"}}]}</script>
+</body>
+</html>

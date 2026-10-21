@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>But Wait — Why Can’t I Rent an H100? — The Architecture That Works, The Invisible Trillion | The Curious Family Library</title>
+<meta name="description" content="If you’ve tried to actually use this infrastructure in 2026, you have an objection ready, and it’s a good one. If there’s so much idle capacity, why is it…">
+<link rel="canonical" href="https://meiradavidson.github.io/library/the-invisible-trillion/the-architecture-that-works/but-wait-why-cant-i-rent-an-h100/">
+<link rel="prev" href="https://meiradavidson.github.io/library/the-invisible-trillion/the-architecture-that-works/">
+<link rel="next" href="https://meiradavidson.github.io/library/the-invisible-trillion/the-architecture-that-works/the-subsidy-and-the-awakening/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="But Wait — Why Can’t I Rent an H100? — The Architecture That Works, The Invisible Trillion | The Curious Family Library">
+<meta property="og:description" content="If you’ve tried to actually use this infrastructure in 2026, you have an objection ready, and it’s a good one. If there’s so much idle capacity, why is it…">
+<meta property="og:url" content="https://meiradavidson.github.io/library/the-invisible-trillion/the-architecture-that-works/but-wait-why-cant-i-rent-an-h100/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/library/">Library</a><span class="sep">›</span><a href="/library/the-invisible-trillion/">The Invisible Trillion</a><span class="sep">›</span><a href="/library/the-invisible-trillion/the-architecture-that-works/">The Architecture That Works</a><span class="sep">›</span><span aria-current="page">But Wait — Why Can’t I Rent an H100?</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">The Invisible Trillion · The Architecture That Works</p>
+  <h1>But Wait — Why Can’t I Rent an H100?</h1>
+  
+<p>If you’ve tried to actually use this infrastructure in 2026, you have an objection ready, and it’s a good one. <em>If there’s so much idle capacity, why is it so hard to rent an H100? Why does Google’s leadership keep telling earnings calls they can’t keep up with demand? Why does Claude Code crawl at peak hours, sometimes for days? Why does ChatGPT fall over during a spike?</em> The numbers from the last chapter — 5% enterprise utilization, 11% at Colossus — say <em>abundance</em>. Your lived experience says <em>scarcity</em>.</p>
+<p>Both are right. And the reason they’re both right is the most useful thing in this section, because it shows what’s actually going on under the hood. The short version is that there is no such thing as “the” AI compute market. There are at least three of them, with genuinely different supply-and-demand dynamics, and the apparent contradiction is just what you get from mashing them together.</p>
+
+<h3>The Three Markets</h3>
+<p><strong>One: stranded enterprise capacity.</strong> This is where the 5% comes from. Companies that bought H100s in the 2023–2024 panic — banks, insurers, manufacturers, agencies — are sitting on piles of idle silicon. It’s real, it’s racked, it’s drawing power, and it’s idle most of the time because the applications that were supposed to run on it either never showed up or turned out to need a fraction of the compute the purchase order assumed.</p>
+<p>And it’s <em>stranded</em> in a precise way: it can’t be redeployed to serve the demand that does exist. An idle H100 in a regional bank’s data center cannot serve Claude inference for a developer in Seattle. It’s on the bank’s network, behind the bank’s firewall, plugged into none of the orchestration any public cloud uses. The capacity is real; the <em>market</em> for it isn’t, because the hardware is in the wrong account, wired for the wrong job, and the cost of repurposing it swamps whatever value it could throw off.</p>
+<p>We’ve seen this before. The 1990s telecom boom laid down enormous quantities of “dark fiber” — cable physically buried but never lit for traffic. Real, expensive, and basically useless for years, until demand finally grew into it and the cost of lighting it fell.</p>
+<p>The enterprise GPU build has produced the same thing one layer up: dark silicon. Real, expensive, and largely useless to the broader market because the integration cost is more than it’s worth. NVIDIA booked the revenue. The enterprises booked the depreciation. The analysts count the chips in their “total deployed GPU” tallies. But none of it is part of the <em>usable</em> supply for the market that’s currently begging for inference.</p>
+<p><strong>Two: hyperscale frontier inference, deliberately under-provisioned.</strong> This is where your bad afternoon with Claude Code comes from. The hyperscalers running Claude, ChatGPT, and Gemini do hold a lot of compute, and they run it harder than the enterprise market — probably 30–50%, though none of them will tell you. But they don’t provision for the <em>peak</em>. They provision for something like the 70th or 80th percentile of load. When demand runs above that, the service degrades, and you experience it as “Claude Code is unusable this morning.”</p>
+<p>The thing to see is that this is a unit-economics decision, not a physics problem. Provisioning for peak means holding capacity idle most of the time to catch the occasional spike — and the GPUs depreciate and the power meter spins whether or not anything is computing. To make the economics work at today’s prices, the providers run hot and eat the degraded peaks.</p>
+<p>Which flips the usual story on its head. The industry says, “we can’t add capacity, we’re constrained.” The honest sentence is, “we <em>won’t</em> add capacity, because doing so would make unit economics we’re already losing money on even worse.” The first is a claim about physics. The second is a claim about money — and that second claim is itself evidence for the inflation. If provisioning for peak would torch the economics, then the price per token is <em>already</em> too low to support the infrastructure being run, before you add a single chip for the real demand curve. They’re losing money on the average query and choosing to ration the marginal one rather than make the loss bigger.</p>
+<p><strong>Three: newest-generation chips.</strong> When Google’s CEO says he can’t meet demand, he’s mostly talking about the <em>latest</em> chips — Blackwell in 2025, the next thing in 2026. That supply genuinely is tight: TSMC’s production was spoken for years ahead, the advanced packaging (CoWoS) is a real bottleneck, the high-bandwidth memory is supply-constrained, and NVIDIA hands out the scarce allocation on strategic grounds, not pure willingness to pay. So yes, Google can’t get all the <em>Blackwell-class</em> chips it wants on the schedule it wants.</p>
+<p>That is not the same as total compute being constrained. The previous generation — H100s, which by 2026 standards are last year’s model — is not tight at all; rental prices for older hardware are softening. The “can’t rent an H100” feeling is partly a question of <em>where you’re shopping</em>. Hard, if you’re trying to rent from AWS or GCP in the configurations they’d rather sell you. Easy, if you’ll take older silicon from the specialty shops — Lambda, CoreWeave, RunPod, Vast.ai, Together, Modal, and the dozens of “neoclouds” that have sprung up since 2023 — often at lower prices. For anything short of the frontier, the hyperscalers have quietly become the most expensive option, not the cheapest.</p>
+<p>Lay the three side by side and the contradiction evaporates. Aggregate capacity is overbuilt; frontier inference is under-provisioned on purpose; the newest chips are genuinely scarce. All true at once, all pointing the same way. None of them — alone or together — justifies a buildout sized on the bet that total compute demand keeps climbing at today’s rate forever.</p>
+  
+  <nav class="pager">
+    <a class="p" href="/library/the-invisible-trillion/the-architecture-that-works/"><span>Previous</span>The Architecture That Works</a>
+    <a class="n" href="/library/the-invisible-trillion/the-architecture-that-works/the-subsidy-and-the-awakening/"><span>Next</span>The Subsidy, and the Awakening</a>
+  </nav>
+  <p class="backto"><a href="/library/the-invisible-trillion/">All 19 chapters of The Invisible Trillion</a> · <a href="/library/">Library</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Library","item":"https://meiradavidson.github.io/library/"},{"@type":"ListItem","position":3,"name":"The Invisible Trillion","item":"https://meiradavidson.github.io/library/the-invisible-trillion/"},{"@type":"ListItem","position":4,"name":"The Architecture That Works","item":"https://meiradavidson.github.io/library/the-invisible-trillion/the-architecture-that-works/"},{"@type":"ListItem","position":5,"name":"But Wait — Why Can’t I Rent an H100?"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/library/the-invisible-trillion/the-architecture-that-works/but-wait-why-cant-i-rent-an-h100/","url":"https://meiradavidson.github.io/library/the-invisible-trillion/the-architecture-that-works/but-wait-why-cant-i-rent-an-h100/","headline":"But Wait — Why Can’t I Rent an H100?","articleSection":"The Architecture That Works","inLanguage":"en","isAccessibleForFree":true,"wordCount":976,"isPartOf":{"@type":"Book","name":"The Invisible Trillion","url":"https://meiradavidson.github.io/library/the-invisible-trillion/"}}]}</script>
+</body>
+</html>

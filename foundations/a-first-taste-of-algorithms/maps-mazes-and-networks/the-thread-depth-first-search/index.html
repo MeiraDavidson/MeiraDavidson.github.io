@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The thread: depth-first search — Maps, Mazes, and Networks, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="The opposite temperament: instead of expanding evenly, commit. Walk down one corridor as far as it goes; only when stuck, back up to the last junction…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/the-thread-depth-first-search/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/ripples-breadth-first-search/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-5/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The thread: depth-first search — Maps, Mazes, and Networks, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="The opposite temperament: instead of expanding evenly, commit. Walk down one corridor as far as it goes; only when stuck, back up to the last junction…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/the-thread-depth-first-search/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/">Maps, Mazes, and Networks</a><span class="sep">›</span><span aria-current="page">The thread: depth-first search</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Maps, Mazes, and Networks</p>
+  <h1>The thread: depth-first search</h1>
+  
+<p>The opposite temperament: instead of expanding evenly, <em>commit</em>. Walk down one corridor as far as it goes; only when stuck, back up to the last junction with an untried option and commit again. This is <strong>depth-first search (DFS)</strong> — the instinct of every maze-runner in history, including the first one: Greek myth sends Theseus into the Labyrinth trailing Ariadne’s thread, and the thread <em>is</em> the algorithm — it is the record of the current path, paid out going forward, rewound when backing up.</p>
+<p>The first person to state the maze method precisely enough to deserve the word algorithm was Charles Trémaux, a French engineer, around 1880 — and his work reached the world in the <em>Récréations Mathématiques</em> of one Édouard Lucas. Yes: the Hanoi man, again, in his other role as mathematics’ great impresario of puzzles. And Lucas’s two appearances in this book are secretly one appearance, because <strong>DFS is recursion</strong> — Chapter 3 in a new costume. “Explore a vertex” means: mark it visited; for each unseen neighbor, <em>explore that neighbor</em> — a procedure calling itself — and the backing-up is nothing but the call stack unwinding. Ariadne’s thread, Trémaux’s pencil marks, and Chapter 3’s visible staircase are the same object. In the lab you will see it plainly: written iteratively, DFS and BFS differ by <em>one word</em> — serve the line from the back instead of the front, a stack instead of a queue, and the patient ripple becomes the headlong thread.</p>
+<p>What DFS does <em>not</em> promise is shortest paths — the thread plunges past near rooms to reach far ones, and Problem 3.1 has you build the maze that proves it. What it does superbly: visit everything reachable, cheaply, while carrying a <em>path</em> in its hand at all times — which makes it the tool of choice when the question is “is there a way at all,” “find me any route,” or, later in your life, a dozen subtler questions about structure.</p>
+<h2>When hops lie: Dijkstra</h2>
+<p>BFS’s currency is hops — every edge costs 1. But hallways have lengths, roads have minutes, flights have prices, and the fewest-edges route may be the slowest one. Put a number, a <strong>weight</strong>, on each edge, and ask for the route of least total weight. Hops now lie; we need a new discipline.</p>
+<p>Here it is as a tabletop protocol — play it with coins before reading any code. Every vertex gets a tentative price tag: the start reads 0, all others read ∞ (“no known way yet”). Then repeat:</p>
+<blockquote>
+<p>among vertices not yet <em>settled</em>, pick the one with the <strong>cheapest</strong> tag and settle it — its tag is now the truth;
+for each neighbor of the newly settled vertex, check whether traveling <em>through</em> it beats the neighbor’s current tag: settled-tag + edge-weight, and if that is cheaper, write it over the old tag.</p>
+</blockquote>
+<p>That overwrite — “is the path through me better than your best so far?” — is called <em>relaxing</em> an edge, and the whole algorithm is just: settle the cheapest, relax its edges, repeat until done. Run it by hand on this map (it reappears in the lab; distances are minutes):</p>
+<blockquote>
+<p>Home–Park 2, Park–School 5, Home–School 9, School–Library 1, Park–Library 9, Library–Café 4, School–Café 7, Park–Gym 11, Gym–Café 3.</p>
+</blockquote>
+<p>From Home: Park settles at 2; School at 7 — <em>through the park</em>, beating the direct 9; Library at 8 (through School, beating Park’s 11); Café at 12 (through Library, beating School’s 14); Gym at 13 (through Park, beating Café’s 15). Every single answer is a detour beating a direct claim, which is the algorithm earning its keep: the cheap-looking edge is not the cheap path, and only patient relaxation finds out.</p>
+<p><img src="/foundations/a-first-taste-of-algorithms/img/fig_5_3_town_dijkstra.png" alt="Figure 5.3 — The town, then Dijkstra's settled tags: the red tree is the cheapest-routes answer, and every tag beats a direct edge." loading="lazy"></p>
+<p><em>Figure 5.3 — The town, then Dijkstra’s settled tags: the red tree is the cheapest-routes answer, and every tag beats a direct edge.</em></p>
+<p>Now name what you just did. <em>Repeatedly commit to the cheapest-looking option.</em> This is Chapter 2’s instinct — <strong>Dijkstra’s algorithm is a greedy algorithm</strong> — and after Sevenia you are right to demand the theorem before trusting it. It exists, and it is the stays-ahead argument in new clothes: when the cheapest unsettled vertex v is settled at price p, no future discovery can undercut it, because any other route to v must <em>exit the settled region somewhere</em>, and its first step outside already costs at least p — v was the cheapest exit, and edges only add. Read that twice; the deep water writes it carefully, and shows the one assumption it leans its whole weight on: <strong>edges only add</strong> — weights are not negative. Hand the argument a negative edge and it collapses like greedy in Sevenia, with a three-vertex counterexample waiting in Problem 3.3.</p>
+<blockquote>
+<h3>A human moment</h3>
+<p>In 1956, Edsger Dijkstra — twenty-six, employed as the Netherlands’ first professional “programmer,” a job title so new his marriage license wouldn’t accept it — was shopping in Amsterdam with his fiancée. Tired, they sat on a café terrace, and in about twenty minutes, over coffee, without pencil or paper, he designed the algorithm you just executed with coins. The constraint was the method, he later said: designing without paper “you are almost forced to avoid all avoidable complexities.” He thought so little of the result that he didn’t publish for <em>three years</em>, and then only as a three-page note. That note now guides essentially every navigation app on Earth; some appreciable fraction of all routed packets, delivered parcels, and turned-left cars are downstream of one tired afternoon. Two lessons, both real: simplicity is a discipline, not an accident — and the inventor is reliably the worst judge of which twenty minutes mattered.</p>
+<h3>Deeper water: why the cheapest exit is safe</h3>
+<p>The invariant: <em>every settled vertex’s tag equals its true shortest distance.</em> True at the start (Home, tag 0). Preserved: suppose it holds, and v is the cheapest unsettled tag, value p, about to settle. Any path from the start to v begins inside the settled region and at some point crosses out — let its first unsettled vertex be u. The path’s length up to u is a true settled distance plus one relaxed edge, which is exactly what u’s tag records or better, so the path already costs ≥ tag(u) ≥ tag(v) = p by v’s minimality — <em>and the remaining leg from u onward cannot bring the total back down, because the remaining edges only add.</em> So no path to v beats p; settling is safe. Decisive at the end: all settled, all true. ∎ (Fifth appearance of the trick.)</p>
+<p>The italicized clause is the load-bearing one. With a negative edge, “remaining edges only add” is false and the proof dies at that exact word — and so does the algorithm, as your three-vertex counterexample will show. A theorem’s hypotheses are not decoration; they are the places it can be killed.</p>
+<p>One honesty note on cost: our protocol finds the cheapest unsettled vertex by <em>scanning everyone</em>, so a map with n places and m roads costs about n² — fine for towns, sloppy for continents. Real implementations keep the tags in a structure that surrenders its minimum quickly (a <em>heap</em>); the algorithm is unchanged, only the line-keeping improves. Chapter 6 is entirely about what good line-keeping is worth.</p>
+</blockquote>
+<h2>Where this leaves us</h2>
+<p>One abstraction — keep the connections, burn the geography — and three disciplines for walking it. The ripple (a queue): shortest paths in hops, and certified absence when the ripple dies. The thread (a stack, or Chapter 3’s recursion undisguised): any path, all of reachability, cheaply. The price tags (greedy, with a theorem): cheapest paths under honest, nonnegative weights. Between them sits one of the quietest facts in the chapter: BFS and DFS are <em>one word apart</em>. Which end of the line you serve — that is the entire difference between the patient cartographer and the plunging maze-runner. Small hinges; large doors.</p>
+<p>You now hold the book’s first half: two questions, two strategies (greedy and the table), recursion beneath both, and the territory — graphs — where they all live. Before Chapter 6 takes up the toll booth this book has been promising since Chapter 1 (sorting: its price, and the astonishing proof that the price has a floor), there is a short interlude. It concerns a rumor you have heard all your life — that computers got fast — and the half of the story the rumor leaves out: most of the speed, measured honestly, was never in the machines. It was in chapters like the five you have just read.</p>
+<hr>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>Euler's first reaction was that the bridge problem 'has little connection to mathematics' — then he solved it and founded a field. What changed?</li><li>'Euler threw the city away.' Sizes, lengths and bends do not matter; only what connects to what. What is the risk of throwing away detail, and what is the gain?</li><li>Find something in your own life — a timetable, a friendship group, a website — and redraw it as dots and lines. What became obvious?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/ripples-breadth-first-search/"><span>Previous</span>Ripples: breadth-first search</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/problem-set-5/"><span>Next</span>Problem Set 5</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Maps, Mazes, and Networks","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/"},{"@type":"ListItem","position":5,"name":"The thread: depth-first search"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/the-thread-depth-first-search/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/the-thread-depth-first-search/","headline":"The thread: depth-first search","articleSection":"Maps, Mazes, and Networks","inLanguage":"en","isAccessibleForFree":true,"wordCount":1427,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

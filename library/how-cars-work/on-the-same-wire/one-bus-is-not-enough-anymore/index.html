@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One bus is not enough anymore — On the Same Wire, How Cars Work | The Curious Family Library</title>
+<meta name="description" content="For most of the 1990s and 2000s, a single CAN bus could handle every computer in a car. But cars kept getting more computers, and the original CAN bus is…">
+<link rel="canonical" href="https://meiradavidson.github.io/library/how-cars-work/on-the-same-wire/one-bus-is-not-enough-anymore/">
+<link rel="prev" href="https://meiradavidson.github.io/library/how-cars-work/on-the-same-wire/taking-turns/">
+<link rel="next" href="https://meiradavidson.github.io/library/how-cars-work/the-big-battery/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="One bus is not enough anymore — On the Same Wire, How Cars Work | The Curious Family Library">
+<meta property="og:description" content="For most of the 1990s and 2000s, a single CAN bus could handle every computer in a car. But cars kept getting more computers, and the original CAN bus is…">
+<meta property="og:url" content="https://meiradavidson.github.io/library/how-cars-work/on-the-same-wire/one-bus-is-not-enough-anymore/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/library/">Library</a><span class="sep">›</span><a href="/library/how-cars-work/">How Cars Work</a><span class="sep">›</span><a href="/library/how-cars-work/on-the-same-wire/">On the Same Wire</a><span class="sep">›</span><span aria-current="page">One bus is not enough anymore</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">How Cars Work · On the Same Wire</p>
+  <h1>One bus is not enough anymore</h1>
+  
+<p>For most of the 1990s and 2000s, a single CAN bus could handle every computer in a car. But cars kept getting more computers, and the original CAN bus is too slow for some modern needs. (Half a million bits per second is plenty for engine and brake messages. It is not nearly enough for a high-resolution camera streaming video at 30 frames per second.)</p>
+<p>So modern cars have several different buses, each tuned for what it carries. The original CAN bus still handles engine, brake, and stability messages. A slower, cheaper bus called LIN handles low-priority things like the buttons in your door panel and the rearview mirror motors. A faster bus called FlexRay handles ultra-time-critical safety. And for cameras and self-driving sensors, modern cars use Ethernet — the same kind of network that connects computers in an office.</p>
+<p>The car has gone from one shared wire to something more like a small office network on wheels.</p>
+
+<h3>Try It: The Conversation Game</h3>
+<p>You will need:</p>
+<ul>
+<li><p>Two or more family members</p></li>
+<li><p>A dinner table or other place where everyone is together</p></li>
+</ul>
+<p>The rules are simple. Each person takes turns saying a short message. Every message must start with who it is for. Some examples:</p>
+<ul>
+<li><p>“Mom: please pass the salt.”</p></li>
+<li><p>“Dad: did you remember to call the dentist?”</p></li>
+<li><p>“Everyone: dinner is ready.”</p></li>
+<li><p>“Whoever has the dog: she’s at the back door.”</p></li>
+</ul>
+<p>Now play for a few minutes. Notice what happens. Everyone hears every message — you are all sharing the same room and the same air. But only the addressed person is expected to respond. If a message starts with “Mom,” dad doesn’t answer. If it starts with “Everyone,” everyone is supposed to react.</p>
+<p>Notice also: when two people try to talk at the same time, one of them stops and lets the other go first, then takes a turn after. People do this naturally, without thinking.</p>
+<p>You have just acted out, with humans instead of microchips, the basic protocol of the CAN bus inside your mom’s car. Shared channel. Addressed messages. Everyone hears everything. Receivers filter what is relevant. Talkers take turns. Higher-priority things go first.</p>
+<p>The car does this on two wires, with computers, hundreds of times per second. You did it with your family for five minutes at dinner. Same idea. Same architecture. Different speeds.</p>
+
+<p><strong>Did You Know?</strong> Underneath the dashboard of every car sold in the United States since 1996, there is a small port called OBD-II. It looks like a 16-pin plug shaped a bit like a trapezoid, usually tucked under the steering column or near the driver’s left knee. You probably haven’t noticed it. Mechanics use it constantly. Through that one port, a special tool called a scanner can listen to everything happening on the car’s CAN bus — every wheel speed, every fault code, every sensor value, in real time. If your mom takes the car to the shop because the check-engine light is on, the very first thing the mechanic does is plug a scanner into the OBD-II port. The car tells the scanner what is wrong, in plain text codes. (P0301, for example, means “cylinder 1 misfire detected.”) Before OBD-II, mechanics had to guess at problems. After OBD-II, they have a direct line into the car’s nervous system. One small plug under the dash, one window into the entire car.</p>
+
+<h2>End of Part 2</h2>
+<p>That is Part 2.</p>
+<p>The modern car is a hybrid of old and new. The mechanical chain from Part 1 is all still there — pistons firing, the crankshaft turning, the transmission ratcheting through gears, the brakes converting energy to heat, tie rods pivoting the front wheels. None of it has gone away. Take the hood off a modern car and you’ll see the same kinds of moving metal that filled the hood of a 1960s car.</p>
+<p>But all of it is now wrapped in software. Sensors watching every part. Computers reading the sensors and deciding things hundreds of times per second. A network of buses tying them all together. The old physics is still doing the work. The new electronics are managing the work.</p>
+<p>Then, in the early 2000s, an old idea — much older than most people realize — came back. People stopped putting gas in some cars at all. Some cars now have no engine, no transmission, no gears, no exhaust pipe. They have a giant battery and an electric motor, and not much else.</p>
+<p>That is Part 3.</p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>Wiring a hundred computers to each other directly needs 4,950 connections; one shared bus needs one line. Work out why the number grows so fast. Where else does connecting everything to everything get out of hand?</li><li>On the CAN bus every computer hears every message and ignores the ones it does not need. That seems wasteful. Why is broadcasting to everyone simpler than addressing each recipient?</li><li>Before OBD-II, mechanics had to guess at faults; now the car reports its own. What changes about the job of a mechanic when the machine can describe what is wrong with it?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/library/how-cars-work/on-the-same-wire/taking-turns/"><span>Previous</span>Taking turns</a>
+    <a class="n" href="/library/how-cars-work/the-big-battery/"><span>Next</span>The Big Battery</a>
+  </nav>
+  <p class="backto"><a href="/library/how-cars-work/">All 13 chapters of How Cars Work</a> · <a href="/library/">Library</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Library","item":"https://meiradavidson.github.io/library/"},{"@type":"ListItem","position":3,"name":"How Cars Work","item":"https://meiradavidson.github.io/library/how-cars-work/"},{"@type":"ListItem","position":4,"name":"On the Same Wire","item":"https://meiradavidson.github.io/library/how-cars-work/on-the-same-wire/"},{"@type":"ListItem","position":5,"name":"One bus is not enough anymore"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/library/how-cars-work/on-the-same-wire/one-bus-is-not-enough-anymore/","url":"https://meiradavidson.github.io/library/how-cars-work/on-the-same-wire/one-bus-is-not-enough-anymore/","headline":"One bus is not enough anymore","articleSection":"On the Same Wire","inLanguage":"en","isAccessibleForFree":true,"wordCount":750,"isPartOf":{"@type":"Book","name":"How Cars Work","url":"https://meiradavidson.github.io/library/how-cars-work/"}}]}</script>
+</body>
+</html>

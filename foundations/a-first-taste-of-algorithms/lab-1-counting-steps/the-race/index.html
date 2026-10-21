@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5. The race — Lab 1: Counting Steps, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Now the measurement this lab has been building toward. We race the two searches on lists of increasing size, searching each time for the last element —…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-1-counting-steps/the-race/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-1-counting-steps/searching-for-what-isnt-there/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-greedy-idea/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5. The race — Lab 1: Counting Steps, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Now the measurement this lab has been building toward. We race the two searches on lists of increasing size, searching each time for the last element —…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-1-counting-steps/the-race/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/lab-1-counting-steps/">Lab 1: Counting Steps</a><span class="sep">›</span><span aria-current="page">5. The race</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Lab 1: Counting Steps</p>
+  <h1>5. The race</h1>
+  
+<p>Now the measurement this lab has been building toward. We race the two searches on lists of increasing size, searching each time for the <em>last</em> element — the worst case for linear search:</p>
+<pre><code>for n in [10, 100, 1000, 10000, 100000, 1000000]:
+    items = list(range(n))          # the sorted list 0, 1, ..., n-1
+    target = n - 1                  # the last element
+    print(n, linear_search(items, target), binary_search(items, target))
+</code></pre>
+<p>Run it and look at the table. The left column multiplies by 10 each row. The middle column does the same — linear search’s cost grows in step with the list, which is what “linear” means. The right column barely moves. A million items, about twenty steps.</p>
+<p>Now sit with the table for a minute, because it is saying something strange. Each tenfold growth in the list adds the same <em>small, fixed</em> number of steps to binary search — roughly three or four per row. Multiplying the problem <em>adds</em> to the cost. You met a function with exactly this character in Book 2: the logarithm, the function that turns multiplication into addition. Binary search costs about log₂ n steps because each step halves the region, and “how many halvings from n down to 1” is precisely what log₂ n counts.</p>
+<p><strong>Deeper water.</strong> Extend the table in your head: at this rate, how many steps would binary search need on a <em>trillion</em> items? Write down your estimate, then test the rule “tenfold the items, add three or four steps” against it. Later, when you can prove the cost is ⌈log₂(n+1)⌉ exactly, check your estimate again. (And a question to keep: linear search never needed the list sorted. Binary search does. Sorting itself costs something — Chapter 6 asks how much, and whether the toll is worth paying. Spoiler: it depends on how many searches you plan to do, which is the kind of answer cost questions usually have.)</p>
+<h2>Break it</h2>
+<p>Predict first. Run second. Explain any gap third.</p>
+<ol>
+<li>In <code>binary_search</code>, change <code>lo = mid + 1</code> to <code>lo = mid</code>. Search the list 2, 5, 8, 13 for 21. Predict what happens before you run it — and be patient with your prediction. (When you understand what went wrong, you have understood why the <code>+ 1</code> is load-bearing, and you have met the most common way binary search is written incorrectly by professionals.)</li>
+<li>Run <code>binary_search</code> on an <em>unsorted</em> list, searching for an element that is genuinely in it. Does it find it? Sometimes? Always? Never? Try several lists before answering. What exactly did sortedness buy?</li>
+<li>In the race of §5, change the target from the last element to the <em>first</em> (<code>target = 0</code>). Predict both columns. Which algorithm’s cost changed, and what does that tell you about worst-case versus best-case as ways of describing an algorithm?</li>
+<li>(Harder.) Modify <code>linear_search</code> so that instead of returning step counts it returns the <em>position</em> of the target, or <code>-1</code> if absent. Then do the same for <code>binary_search</code>. You now have the two functions every programmer carries; Python’s own <code>in</code> and <code>index</code> are these, in dress clothes.</li>
+</ol>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>Cost is measured by counting, not by a stopwatch. What can counting tell you that timing cannot?</li><li>'The loop is not a trick bolted onto the algorithm. The loop is the algorithm.' Explain that to someone who has never programmed.</li><li>What does the difference between worst case and best case hide, and when would quoting the best case be dishonest?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/lab-1-counting-steps/searching-for-what-isnt-there/"><span>Previous</span>3. Searching for what isn’t there</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/the-greedy-idea/"><span>Next</span>The Greedy Idea</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Lab 1: Counting Steps","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-1-counting-steps/"},{"@type":"ListItem","position":5,"name":"5. The race"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-1-counting-steps/the-race/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-1-counting-steps/the-race/","headline":"5. The race","articleSection":"Lab 1: Counting Steps","inLanguage":"en","isAccessibleForFree":true,"wordCount":511,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diamond — Problem Set 7, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="4.1 Twenty-three, by inequality alone. Let q(k) be the probability that k people have k different birthdays (365 days, all equally likely). (a) Derive…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-7/diamond/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-7/concept-and-counterexample/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/lab-7-the-honest-die/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Diamond — Problem Set 7, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="4.1 Twenty-three, by inequality alone. Let q(k) be the probability that k people have k different birthdays (365 days, all equally likely). (a) Derive…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-7/diamond/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/problem-set-7/">Problem Set 7</a><span class="sep">›</span><span aria-current="page">Diamond</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Problem Set 7</p>
+  <h1>Diamond</h1>
+  
+<p><strong>4.1</strong> <em>Twenty-three, by inequality alone.</em> Let q(k) be the probability that k people have k different birthdays (365 days, all equally likely).
+(a) Derive q(k) = (1 − 1/365)(1 − 2/365)···(1 − (k−1)/365), arguing each factor as a conditional step: given no collision so far, the next person must dodge how many taken days?
+(b) Book 2’s inequality: 1 − x ≤ e^(−x) for all x. Apply it factor by factor to get q(k) ≤ e^(−k(k−1)/730), showing where the sum 1 + 2 + … + (k−1) enters.
+(c) Conclude: a shared birthday has probability at least ½ as soon as k(k−1) ≥ 730 ln 2. Compute 730 ln 2 ≈ 505.97 and 23 × 22 = 506, and savor the margin of 0.03 — then state the theorem you have proved with no calculator beyond one logarithm: at k = 23, p ≥ 1 − e^(−506/730) &gt; ½.
+(d) The general moral: for k keys into N buckets the same argument gives the collision threshold at k ≈ √(2N ln 2) ≈ 1.18√N. Verify it predicts 23 for N = 365, and use it to answer: how many random 8-digit ID numbers before a collision is more likely than not?
+(e) One sentence: the inequality in (b) points the <em>useful</em> direction — it upper-bounds q, hence lower-bounds the collision probability. If it pointed the other way, what exactly would your “proof” of (c) be worth?</p>
+<h2>Computational Lab</h2>
+<p><strong>5.1</strong> Lab 7 in full, predictions before runs. Your histogram and its mean are evidence in problems 3.3 and the Diamond’s part (b) check; export the numbers.</p>
+<h2>Teach It</h2>
+<p><strong>6.1</strong> Run the birthday bet live: gather any group of 23+ (a class, a team roster, a family reunion — or a list of 23 historical mathematicians’ birthdays pulled from a shelf) and check for a shared birthday, <em>after</em> recording everyone’s prediction. Whatever happens, explain the 253 pairs. Three sentences: did the demonstration or the pairs-argument move them more — and which <em>should</em> it have been, by this book’s own standards?</p>
+<p><strong>6.2</strong> Explain to someone why a casino is calm. They face thousands of gamblers, any one of whom might win big tonight — yet the house sleeps well. Use this chapter’s words: whose worst case is whose bad luck, what does linearity promise the house per bet, and what does concentration add that the average alone doesn’t? Then the turn: explain that randomized quicksort <em>is</em> the house. Report whether they bought it.</p>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>Construct the input that makes a fixed-pivot quicksort behave at its worst. How easy was it?</li><li>What does it mean to trust an average? What would have to be true about the spread for the trust to be earned?</li><li>Where else in life do you accept a guarantee about the average rather than the worst case?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/problem-set-7/concept-and-counterexample/"><span>Previous</span>Concept &amp; Counterexample</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/lab-7-the-honest-die/"><span>Next</span>Lab 7: The Honest Die</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Problem Set 7","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-7/"},{"@type":"ListItem","position":5,"name":"Diamond"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-7/diamond/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-7/diamond/","headline":"Diamond","articleSection":"Problem Set 7","inLanguage":"en","isAccessibleForFree":true,"wordCount":411,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

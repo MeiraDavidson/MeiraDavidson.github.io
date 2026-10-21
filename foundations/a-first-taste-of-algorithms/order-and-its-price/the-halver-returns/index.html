@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The halver returns — Order, and Its Price, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Chapter 3 already built the alternative: merge sort — split, sort each half, merge — with its bill read off the tree: every level’s merges touch n cards,…">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/order-and-its-price/the-halver-returns/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/order-and-its-price/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/order-and-its-price/the-fence/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The halver returns — Order, and Its Price, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Chapter 3 already built the alternative: merge sort — split, sort each half, merge — with its bill read off the tree: every level’s merges touch n cards,…">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/order-and-its-price/the-halver-returns/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/order-and-its-price/">Order, and Its Price</a><span class="sep">›</span><span aria-current="page">The halver returns</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · Order, and Its Price</p>
+  <h1>The halver returns</h1>
+  
+<p>Chapter 3 already built the alternative: <strong>merge sort</strong> — split, sort each half, merge — with its bill read off the tree: every level’s merges touch n cards, log₂ n levels, about n log₂ n element-steps. (A lineage note worth one sentence: when John von Neumann sketched programs for the first stored-program computer in 1945, among the very first things he wrote out was merge sort. The halver is as old as the machines themselves.)</p>
+<p>Now race them in the counted currency, worst case against worst case, and read the gap as it opens:</p>
+<table>
+<thead>
+<tr>
+<th>n</th>
+<th>insertion (comparisons)</th>
+<th>merge (element-steps)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8</td>
+<td>28</td>
+<td>24</td>
+</tr>
+<tr>
+<td>32</td>
+<td>496</td>
+<td>160</td>
+</tr>
+<tr>
+<td>128</td>
+<td>8,128</td>
+<td>896</td>
+</tr>
+<tr>
+<td>512</td>
+<td>130,816</td>
+<td>4,608</td>
+</tr>
+<tr>
+<td>2,048</td>
+<td>2,096,128</td>
+<td>22,528</td>
+</tr>
+</tbody>
+</table>
+<p><img src="/foundations/a-first-taste-of-algorithms/img/fig_6_1_crossover.png" alt="Figure 6.1 — The counted race on log-log axes: two nearly straight lines, slopes 2 and ~1, diverging forever. In this currency the halver never loses." loading="lazy"></p>
+<p><em>Figure 6.1 — The counted race on log-log axes: two nearly straight lines, slopes 2 and ~1, diverging forever. In this currency the halver never loses.</em></p>
+<p>At a deck of 8 the two are neighbors. At 2,048 the plodder pays <em>ninety times</em> more, and every doubling of the deck doubles the ratio again. In the counted currency, the halver never loses and never looks back — Lab 6 plots this table and the gap becomes a pair of diverging straight lines. (Then why does insertion sort exist in every real library on Earth? Because clocks are not counts. Lab 6’s second experiment times both on your machine and finds a neighborhood — small n — where the plodder’s low overhead <em>wins the clock</em> while losing the count. Constants, the thing our counting openly declines to chase, own the small-n neighborhood; the count owns everywhere else. This is Chapter 1’s confession, audited and confirmed.)</p>
+<p><img src="/foundations/a-first-taste-of-algorithms/img/fig_6_3_counted_vs_clocked.png" alt="Figure 6.2 — Counted steps beside clocked seconds: the count predicts the shape everywhere; the constants own the small-n neighborhood, where the plodder's low overhead wins the clock." loading="lazy"></p>
+<p><em>Figure 6.2 — Counted steps beside clocked seconds: the count predicts the shape everywhere; the constants own the small-n neighborhood, where the plodder’s low overhead wins the clock.</em></p>
+<h2>Names for the shapes, at last</h2>
+<p>Six chapters of tables have earned you the right to some professional shorthand. You have met, repeatedly, costs that grow like log n, like n, like n log n, like n², like 2ⁿ — and what mattered every single time was the <em>shape</em>, never the constant: not “496 comparisons” but “quadruples when n doubles.”</p>
+<p>The notation: a cost grows as <strong>O(f(n))</strong> — read “big-oh of f” — if, for large n, it is at most a constant multiple of f(n). It grows as <strong>Ω(f(n))</strong> if it is at <em>least</em> a constant multiple. <strong>Θ(f(n))</strong> claims both: the shape, exactly. So insertion sort’s worst case is Θ(n²); merge sort’s is Θ(n log n); binary search is Θ(log n); the amnesiac staircase was exponential and the notebook made it Θ(n).</p>
+<p>Three honest remarks, because notation is where understanding goes to hide:</p>
+<ol>
+<li><em>O is a ceiling, not a destination.</em> “Insertion sort is O(n²)” promises it never exceeds that shape; it does not promise to reach it. On an already-sorted deck, insertion runs in n − 1 steps. Saying “O(n²), so it takes about n² steps” is a misreading you will now hear weekly for the rest of your life; correct it gently.</li>
+<li><em>The dropped constants are real.</em> Θ tells you who wins the race eventually; the clocked crossover tells you the constants pick the winner at small n. Both are facts; the notation simply chooses, openly, to track the first.</li>
+<li><em>We waited on purpose.</em> This notation in Chapter 1 would have been vocabulary; in Chapter 6 it is bookkeeping for tables you built yourself. Notation should always arrive in arrears.</li>
+</ol>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/order-and-its-price/"><span>Previous</span>Order, and Its Price</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/order-and-its-price/the-fence/"><span>Next</span>The fence</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Order, and Its Price","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/order-and-its-price/"},{"@type":"ListItem","position":5,"name":"The halver returns"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/order-and-its-price/the-halver-returns/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/order-and-its-price/the-halver-returns/","headline":"The halver returns","articleSection":"Order, and Its Price","inLanguage":"en","isAccessibleForFree":true,"wordCount":570,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

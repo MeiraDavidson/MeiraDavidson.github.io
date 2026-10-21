@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Problem Set 5 — A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Lab 5 (Dots and Lines) is the Computational Lab tier. Problems 2.3 and 3.3 expect its code as equipment.">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-5/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/the-thread-depth-first-search/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-5/concept-and-counterexample/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Problem Set 5 — A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Lab 5 (Dots and Lines) is the Computational Lab tier. Problems 2.3 and 3.3 expect its code as equipment.">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-5/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><span aria-current="page">Problem Set 5</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms</p>
+  
+  <h1>Problem Set 5</h1>
+<p>✦ ✦ ✦</p>
+<p><em>Lab 5 (Dots and Lines) is the Computational Lab tier. Problems 2.3 and 3.3 expect its code as equipment.</em></p>
+<h2>Fluency</h2>
+<p><strong>1.1</strong> Draw the Königsberg graph from the description (four land masses A, B, C, D; you may invent which bridges join which, keeping seven total and every vertex odd). Label each vertex’s <em>degree</em> — its count of edge-ends.</p>
+<p><strong>1.2</strong> Write the <code>hallways</code> school as a drawing, then write this drawing back as a dictionary: vertices P, Q, R, S, T; edges PQ, PR, QR, QS, RS, ST. (Round trips between picture and dictionary should feel free by the end.)</p>
+<p><strong>1.3</strong> Run BFS by hand from P on the graph of 1.2: list the rings (ring 0, ring 1, …) and give each vertex its hop-distance. Then rerun from T and watch the rings reorganize.</p>
+<p><strong>1.4</strong> Run DFS by hand from P on the same graph, exploring neighbors in alphabetical order; write the sequence of visits and, separately, the moments of backing up. Compare its visit order with BFS’s.</p>
+<p><strong>1.5</strong> Execute Dijkstra’s protocol on the chapter’s town map starting from <strong>School</strong> (not Home): full table of tags, with each overwrite shown struck through. Check your finished tags give the Home distance as 7.</p>
+<p><strong>1.6</strong> In the town map, the city closes the School–Library path (construction). Re-run Dijkstra from Home. Which destinations got more expensive, and by how much?</p>
+<h2>Practice</h2>
+<p><strong>2.1</strong> <em>Euler’s parity argument, yours.</em> Prove: in any walk that crosses every edge exactly once, every vertex except possibly the first and last must have even degree. Scaffold: count each intermediate visit’s consumption of edge-ends (arrive + depart = ?). Conclude Königsberg’s stroll is impossible. Then the modern victory lap: the city (now Kaliningrad) lost two bridges to war and history — with the right two gone, does a walk exist? Choose which two to delete from your 1.1 drawing and exhibit the walk.</p>
+<p><strong>2.2</strong> Word ladders: CAT → COT → DOG-style puzzles, one letter changing at a time, every rung a real word. Recast as a graph problem: what are the vertices, what are the edges, and what does BFS from CAT <em>guarantee</em> about the ladder it finds to DOG? Find by hand a shortest CAT→DOG ladder (there is one of length 3 — three edges).</p>
+<p><strong>2.3</strong> “Six degrees of separation” claims any two people are ≤ 6 friendship-hops apart. Say precisely what BFS from you, on the friendship graph of Earth, would compute, ring by ring. If each person had exactly 30 <em>new</em> acquaintances per ring, how many people would ring 6 contain? Compare with Earth’s population, and state what that arithmetic does and does not prove about the claim. (Chapter 3’s exponential, now working <em>for</em> the rumor.)</p>
+<p><strong>2.4</strong> Your town’s subway charges per <em>transfer</em>, not per stop: riding any single line any distance is one token. Model “fewest tokens from station X to station Y” as a shortest-path problem — the trick is choosing what the vertices and edges are (hint: lines, not just stations, may deserve to be vertices). Set it up; don’t solve.</p>
+<p><strong>2.5</strong> A knight stands on a chessboard corner. “Fewest knight-moves to the opposite corner” is a BFS problem: say what the graph is (vertices? edges? how many of each?) and run the first three rings by hand from the corner. (Lab Break-it 4 lets the machine finish; predict the full answer now and write it down.)</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/maps-mazes-and-networks/the-thread-depth-first-search/"><span>Previous</span>The thread: depth-first search</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/problem-set-5/concept-and-counterexample/"><span>Next</span>Concept &amp; Counterexample</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Problem Set 5"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-5/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-5/","headline":"Problem Set 5","articleSection":"Problem Set 5","inLanguage":"en","isAccessibleForFree":true,"wordCount":568,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

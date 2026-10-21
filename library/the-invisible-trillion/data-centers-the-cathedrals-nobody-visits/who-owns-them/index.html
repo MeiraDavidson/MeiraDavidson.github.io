@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who Owns Them — Data Centers: The Cathedrals Nobody Visits, The Invisible Trillion | The Curious Family Library</title>
+<meta name="description" content="The global data center industry is dominated, at the top end, by a handful of companies often called the hyperscalers:">
+<link rel="canonical" href="https://meiradavidson.github.io/library/the-invisible-trillion/data-centers-the-cathedrals-nobody-visits/who-owns-them/">
+<link rel="prev" href="https://meiradavidson.github.io/library/the-invisible-trillion/data-centers-the-cathedrals-nobody-visits/the-cooling/">
+<link rel="next" href="https://meiradavidson.github.io/library/the-invisible-trillion/the-energy-question-honestly/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Who Owns Them — Data Centers: The Cathedrals Nobody Visits, The Invisible Trillion | The Curious Family Library">
+<meta property="og:description" content="The global data center industry is dominated, at the top end, by a handful of companies often called the hyperscalers:">
+<meta property="og:url" content="https://meiradavidson.github.io/library/the-invisible-trillion/data-centers-the-cathedrals-nobody-visits/who-owns-them/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/library/">Library</a><span class="sep">›</span><a href="/library/the-invisible-trillion/">The Invisible Trillion</a><span class="sep">›</span><a href="/library/the-invisible-trillion/data-centers-the-cathedrals-nobody-visits/">Data Centers: The Cathedrals Nobody Visits</a><span class="sep">›</span><span aria-current="page">Who Owns Them</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">The Invisible Trillion · Data Centers: The Cathedrals Nobody Visits</p>
+  <h1>Who Owns Them</h1>
+  
+<p>The global data center industry is dominated, at the top end, by a handful of companies often called the <strong>hyperscalers</strong>:</p>
+<ul>
+<li><strong>Amazon Web Services</strong> (AWS): the largest cloud provider in the world. Runs data centers in most of the major regions listed earlier.</li>
+<li><strong>Microsoft Azure</strong>: the second largest. Also has significant exclusivity deals with OpenAI for AI infrastructure.</li>
+<li><strong>Google Cloud</strong> (GCP): third. Runs on infrastructure Google originally built for its own services.</li>
+<li><strong>Meta</strong>: builds its own data centers for Facebook, Instagram, WhatsApp, and its AI research.</li>
+<li><strong>Apple</strong>: builds data centers for iCloud and related services, though smaller than the others.</li>
+<li><strong>Oracle Cloud</strong>: a newer but rapidly-growing player, particularly in AI infrastructure.</li>
+<li><strong>Alibaba Cloud</strong> and <strong>Tencent Cloud</strong>: dominant in China, significant in Southeast Asia.</li>
+</ul>
+<p>Below the hyperscalers are a layer of <strong>colocation providers</strong> — <strong>Equinix</strong>, <strong>Digital Realty</strong>, <strong>CoreSite</strong>, <strong>NTT</strong>, and others — that build data center buildings and rent space in them to companies that need data center capacity but don’t want to own the buildings themselves. Colocation is where most smaller companies run their infrastructure: banks, retailers, media companies, universities, hospitals.</p>
+<p>Below colocation are enterprise data centers: individual large companies running their own data centers. This model is declining; most companies have moved to the cloud over the last 15 years.</p>
+<p>And there is a small but growing category of <strong>specialized AI infrastructure providers</strong> — <strong>CoreWeave</strong>, <strong>Lambda Labs</strong>, and others — that build data centers specifically for AI training and inference, often renting GPUs by the hour to AI companies. As of 2026, some of these companies are valued in the tens of billions of dollars, despite being almost unknown outside the industry a few years ago.</p>
+<p>Finally, there are <strong>neo-cloud and sovereign data center projects</strong> — countries and regions building their own data centers so that they don’t depend on American (or Chinese) companies for AI infrastructure. The EU has a major initiative on this. The UAE. Saudi Arabia. India. This is a politically growing space, partly driven by the observation that whoever owns the data centers owns significant leverage over whoever uses them.</p>
+<hr>
+
+<h2>The Two Kinds of AI Work</h2>
+<p>For reasons that matter for the next chapters, it’s worth separating out two very different kinds of work that happen in AI-oriented data centers.</p>
+<p><strong>Training</strong> is what happens when a new AI model is being built. A huge cluster of thousands of GPUs runs continuously for weeks or months, processing enormous amounts of data, adjusting billions of numerical weights in the model. Training is done once per model version. It is extremely expensive — the training of a frontier AI model in 2026 costs, roughly, between 100 million and a few billion dollars in compute. It uses an enormous amount of power in one place, briefly. It is the thing that grabs headlines.</p>
+<p><strong>Inference</strong> is what happens when you actually talk to the AI. You send a query. A much smaller cluster of GPUs — often just one or two, sometimes a whole rack — runs the trained model against your specific query and returns an answer. Inference is cheap per query, but it happens billions of times a day, spread across hundreds of data centers worldwide. The total compute spent on inference, across all users of all AI services, is now larger than the compute spent on training, though training gets most of the attention.</p>
+<p>The environmental story differs between these two. Training is a big one-time spike. Inference is a continuous, distributed load that is probably going to grow faster than training in the coming years. The energy and water figures from Chapter 5 combined both into averages; more careful analyses separate them.</p>
+<hr>
+
+<h2>What They Enable</h2>
+<p>Before we move on to the chapters about costs, it is worth saying plainly: these buildings run the modern world.</p>
+<p>The list of things that would immediately stop working if the data centers stopped working, for even an hour, is essentially a list of the things that make 2026 distinguishable from 1970. Banking. Airlines. Hospitals. Supply chains. Phones. Entertainment. News. Commerce. Scientific research. Communication. Navigation. Weather prediction. Drug discovery. Law enforcement. Energy grid operation. Stock markets. Social media, for better and worse. AI, for better and worse. Most of the things you did today.</p>
+<p>This is not a reason to ignore their costs. It is a reason to take their costs seriously, because they are not going away. The buildings are the foundation of the world you live in, and they are getting bigger, and they are getting more concentrated, and they are using more power every year.</p>
+<p>The next three chapters are about what those costs actually are, in numbers.</p>
+<p>Now that you’ve been in one of the buildings — in your head, anyway — the numbers should land differently than they would have a few chapters ago.</p>
+<hr>
+<p><em>A note on sources: the Loudoun County figures are from the Loudoun County Department of Economic Development and the Virginia Data Center Coalition. The PUE figures and industry metrics are from the Uptime Institute, which is the industry’s main authority on these things. The hyperscaler rankings and market shares are from Synergy Research Group’s quarterly reports. The AI training cost estimates are from Epoch AI, whose public database is a good resource if you want to look up the numbers yourself. The descriptions of data center interiors are from personal accounts, industry trade publications, and the small number of facilities that have been opened to journalists or researchers.</em></p>
+  
+  <section class="discuss">
+    <h2>Questions to talk about</h2>
+    <p class="note">No answer key. These are for arguing over, with someone who read the same chapter.</p>
+    <ol><li>The cloud is a metaphor; the internet is a specific set of buildings with addresses, parking lots and guards with bad coffee. Why do we use the metaphor, and what does it let us avoid thinking about?</li><li>There is no visitors' centre and barely any staff. What does it mean for infrastructure this important to be effectively invisible to the public?</li><li>Your photos, your bank, every hospital record, every airline booking, and now all the AI models — in beige rectangles behind fences. Does knowing that change anything about how you use them?</li></ol>
+  </section>
+  <nav class="pager">
+    <a class="p" href="/library/the-invisible-trillion/data-centers-the-cathedrals-nobody-visits/the-cooling/"><span>Previous</span>The Cooling</a>
+    <a class="n" href="/library/the-invisible-trillion/the-energy-question-honestly/"><span>Next</span>The Energy Question, Honestly</a>
+  </nav>
+  <p class="backto"><a href="/library/the-invisible-trillion/">All 19 chapters of The Invisible Trillion</a> · <a href="/library/">Library</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Library","item":"https://meiradavidson.github.io/library/"},{"@type":"ListItem","position":3,"name":"The Invisible Trillion","item":"https://meiradavidson.github.io/library/the-invisible-trillion/"},{"@type":"ListItem","position":4,"name":"Data Centers: The Cathedrals Nobody Visits","item":"https://meiradavidson.github.io/library/the-invisible-trillion/data-centers-the-cathedrals-nobody-visits/"},{"@type":"ListItem","position":5,"name":"Who Owns Them"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/library/the-invisible-trillion/data-centers-the-cathedrals-nobody-visits/who-owns-them/","url":"https://meiradavidson.github.io/library/the-invisible-trillion/data-centers-the-cathedrals-nobody-visits/who-owns-them/","headline":"Who Owns Them","articleSection":"Data Centers: The Cathedrals Nobody Visits","inLanguage":"en","isAccessibleForFree":true,"wordCount":908,"isPartOf":{"@type":"Book","name":"The Invisible Trillion","url":"https://meiradavidson.github.io/library/the-invisible-trillion/"}}]}</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Problem Set 8 — A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Lab 8 (Downhill) is the Computational Lab tier; problems 2.4, 3.3, and the Diamond’s part (d) use its runs as evidence.">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-8/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/the-whole-loop-honestly/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-8/concept-and-counterexample/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Problem Set 8 — A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Lab 8 (Downhill) is the Computational Lab tier; problems 2.4, 3.3, and the Diamond’s part (d) use its runs as evidence.">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-8/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><span aria-current="page">Problem Set 8</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms</p>
+  
+  <h1>Problem Set 8</h1>
+<p>✦ ✦ ✦</p>
+<p><em>Lab 8 (Downhill) is the Computational Lab tier; problems 2.4, 3.3, and the Diamond’s part (d) use its runs as evidence.</em></p>
+<h2>Fluency</h2>
+<p><strong>1.1</strong> Run gradient descent by hand on f(x) = x², f′(x) = 2x, with η = 0.1 from x₀ = 5, for four steps, keeping three decimals. What constant factor multiplies x each step? Check it against 1 − 2η.</p>
+<p><strong>1.2</strong> For the loss L(w) = average of (w·xᵢ − yᵢ)² on the two examples (1, 2) and (2, 5): compute L(0), L(2), and L(3) by hand. Which of the three candidate slopes is best, and what is each prediction actually missing by?</p>
+<p><strong>1.3</strong> Differentiate the one-example loss ℓ(w) = (w·x − y)² with respect to w (Book 2’s chain rule, one application). Then state the descent update for w in terms of the miss (w·x − y) — and read it aloud as a sentence about blame: which examples move the knob hardest, and in which direction?</p>
+<p><strong>1.4</strong> Nearest neighbor by hand: examples at (1, 1) PASS, (2, 4) PASS, (4, 1) FAIL, (5, 4) FAIL. Classify the points (3, 1), (3, 4), and (3, 2.5) — distances computed explicitly (squared distances suffice; why may you skip the square root when only <em>comparing</em>?). One of the three is a genuine coin flip; which?</p>
+<p><strong>1.5</strong> On the two-valley landscape f(x) = x⁴ − 3x² + x, evaluate f and f′ at x = −0.5 and x = +0.5, and state — from the signs alone, before any descent — which direction each walker’s first step takes and which valley therefore claims it.</p>
+<p><strong>1.6</strong> The stride taxonomy: for η = 0.05, 0.4, 0.5, 0.75, 1.0, 1.2 on the bowl, compute the factor 1 − 2η and classify each stride’s fate in one word (crawl / converge / one-step / ring-inward / ring-forever / explode).</p>
+<h2>Practice</h2>
+<p><strong>2.1</strong> Hours studied x, test score y, three students: (2, 65), (4, 72), (6, 91). Fit y ≈ w·x by hand-cranked descent: start w = 0, η = 0.01, run four steps with the gradient from 1.3 (calculator encouraged, three decimals). Then sanity-check your w against the crude estimate “average of y/x.” Is descent heading there?</p>
+<p><strong>2.2</strong> A delivery company predicts delivery time as w · (distance). Their loss is squared misses. A rival argues for absolute misses, |w·x − y|, because “a 20-minute miss is exactly twice as bad as a 10-minute miss, not four times.” Both positions are defensible — give one realistic scenario favoring each loss, then state which one this chapter’s <em>machinery</em> prefers and point to the exact sentence of the descent method that explains why (what does the update need to exist at every point?).</p>
+<p><strong>2.3</strong> Nearest neighbor for music: each song is a point (loudness, tempo), labeled “morning” or “night” by a user’s history. Design six example songs (your numbers) such that one plausible new song gets a label you’d call <em>wrong</em> despite the algorithm working perfectly. What feature is missing from your points, and what does this say about where a learner’s competence actually lives — the algorithm, or the representation?</p>
+<p><strong>2.4</strong> <em>The several-starts gamble.</em> On the two-valley landscape, suppose starting points are drawn uniformly from [−2, 2], and (from your lab runs or 1.5’s reasoning) starts below the hilltop at ≈ 0.17 reach the deep valley. What is the probability one random start finds the deep floor? How many independent starts before the probability of <em>missing</em> it drops below 1%? (Chapter 7’s machinery: the misses must all happen together.) State the general trade this strategy makes, in the currency-language of this book.</p>
+<p><strong>2.5</strong> The parrot exam: a learner is graded 98% on its training examples and 71% on held-out examples. A second learner scores 84% and 82%. Which would you deploy, and what <em>single number</em> — define it — summarizes why? Then construct the cautionary scenario: describe circumstances under which even the honest test score misleads (think: where did the test examples come from, and where will tomorrow’s questions come from?).</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/learning-as-an-algorithm/the-whole-loop-honestly/"><span>Previous</span>The whole loop, honestly</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/problem-set-8/concept-and-counterexample/"><span>Next</span>Concept &amp; Counterexample</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Problem Set 8"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-8/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-8/","headline":"Problem Set 8","articleSection":"Problem Set 8","inLanguage":"en","isAccessibleForFree":true,"wordCount":671,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

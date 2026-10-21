@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Problem Set 6 — A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="Lab 6 (Counted and Clocked) is the Computational Lab tier; problems 2.1 and 3.2 use its measurements.">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-6/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/order-and-its-price/dodging-the-fence/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-6/concept-and-counterexample/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Problem Set 6 — A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="Lab 6 (Counted and Clocked) is the Computational Lab tier; problems 2.1 and 3.2 use its measurements.">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-6/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><span aria-current="page">Problem Set 6</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms</p>
+  
+  <h1>Problem Set 6</h1>
+<p>✦ ✦ ✦</p>
+<p><em>Lab 6 (Counted and Clocked) is the Computational Lab tier; problems 2.1 and 3.2 use its measurements.</em></p>
+<h2>Fluency</h2>
+<p><strong>1.1</strong> Sort the hand 7, 3, 9, 1, 8 by insertion sort on paper, drawing the hand after each arrival and counting every comparison. Then feed the same five cards in reverse-sorted order and count again; check against n(n−1)/2.</p>
+<p><strong>1.2</strong> Compute n(n−1)/2 and n·log₂ n (round freely) for n = 16, 256, 4,096. At each n, how many times more does the plodder pay?</p>
+<p><strong>1.3</strong> Compute log₂(n!) exactly for n = 3, 4, 5 (small factorials by hand), and compare with merge sort’s element-steps on the same n from Lab 3’s counter. Is the fence below the algorithm at every n?</p>
+<p><strong>1.4</strong> Classify each cost into its Θ shape, citing which chapter’s table you met it in: 2ⁿ − 1; ⌈log₂(n+1)⌉; n(n−1)/2; calls of the memoized staircase; element-steps of merge sort; steps of linear search.</p>
+<p><strong>1.5</strong> True positions: “f is O(g)” is a ceiling claim. For each pair, say which of O, Ω, Θ honestly relate f to g: f = 3n², g = n²; f = n log n, g = n²; f = 100n, g = n²; f = n², g = n log n.</p>
+<p><strong>1.6</strong> Using the crude bound n! ≥ (n/2)^(n/2), show by hand that log₂(8!) ≥ 8 — then compute log₂(8!) exactly (8! = 40,320) and report how loose the crude bound was. Loose but load-bearing: what did the bound’s <em>shape</em> establish that its constant didn’t need to?</p>
+<h2>Practice</h2>
+<p><strong>2.1</strong> <em>The toll, exactly.</em> A list of n items will be searched s times. Unsorted: each search costs n. Sorted once (n log₂ n) then searched: each costs log₂ n. For n = 1,000,000, find the smallest s for which sorting first is the cheaper total. Then derive the rule of thumb in symbols and compare with the chapter’s “more than about log n searches.”</p>
+<p><strong>2.2</strong> A librarian receives returned books all day and must keep the shelf ordered. Argue that her natural method is insertion sort run in slow motion — and explain why her n² is nothing to fix (what is her n per insertion, and what would she pay to “batch” with merge sort at closing time instead?). Sometimes the plodder is the right professional.</p>
+<p><strong>2.3</strong> Design counting sort, in full sentences or code, for sorting a million dates-of-birth by <em>year</em> (years 1900–2030). State the exact cost in touches and buckets. Then the follow-up: your output groups by year but you also want each year’s people ordered by month — compose two counting sorts and state the property from the deep water your composition silently requires.</p>
+<p><strong>2.4</strong> You have k sorted piles totaling n cards (the ends of k merge sorts, say). Two plans to combine them: merge pile 1 with 2, the result with 3, the result with 4, …; or merge them as a balanced tournament, pairs of pairs. Count both plans’ element-steps for k = 8 equal piles of m cards each, and explain the difference using Chapter 3’s tree-of-levels picture. (You are re-deriving why the halver halves.)</p>
+<p><strong>2.5</strong> “Is it already sorted?” is itself an algorithm question. Give the obvious checker and its exact cost. Then prove a small fence: any checker must, in the worst case, examine every adjacent pair — exhibit what an adversary does with any pair you skip. (A fence argument with no tree in it; fences come in many materials.)</p>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/order-and-its-price/dodging-the-fence/"><span>Previous</span>Dodging the fence</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/problem-set-6/concept-and-counterexample/"><span>Next</span>Concept &amp; Counterexample</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"Problem Set 6"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-6/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/problem-set-6/","headline":"Problem Set 6","articleSection":"Problem Set 6","inLanguage":"en","isAccessibleForFree":true,"wordCount":580,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The move — The Algorithm That Flips Coins, A First Taste of Algorithms | The Curious Family Library</title>
+<meta name="description" content="So stop being predictable. Choose the pivot by flipping coins — uniformly at random from the current list, fresh randomness at every level.">
+<link rel="canonical" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-algorithm-that-flips-coins/the-move/">
+<link rel="prev" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-algorithm-that-flips-coins/">
+<link rel="next" href="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-algorithm-that-flips-coins/the-trick-under-the-notebook/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The move — The Algorithm That Flips Coins, A First Taste of Algorithms | The Curious Family Library">
+<meta property="og:description" content="So stop being predictable. Choose the pivot by flipping coins — uniformly at random from the current list, fresh randomness at every level.">
+<meta property="og:url" content="https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-algorithm-that-flips-coins/the-move/">
+<meta property="og:site_name" content="The Curious Family Library">
+<meta name="robots" content="noindex,follow">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/read.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="/">The Curious Family Library</a>
+  <a href="/library/">Library</a><a href="/foundations/">Foundations</a>
+  <a href="/meditation/">Meditation</a><a href="/math/">Maths Practice</a>
+</div></header>
+<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><a href="/">Home</a><span class="sep">›</span><a href="/foundations/">Foundations</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/">A First Taste of Algorithms</a><span class="sep">›</span><a href="/foundations/a-first-taste-of-algorithms/the-algorithm-that-flips-coins/">The Algorithm That Flips Coins</a><span class="sep">›</span><span aria-current="page">The move</span></div></nav>
+<main id="main"><div class="wrap">
+
+<article class="read">
+  <p class="eyebrow">A First Taste of Algorithms · The Algorithm That Flips Coins</p>
+  <h1>The move</h1>
+  
+<p>So stop being predictable. <strong>Choose the pivot by flipping coins</strong> — uniformly at random from the current list, fresh randomness at every level.</p>
+<p>Feel precisely what changed, because it is a shift in the logic, not the code. Before: the adversary picks the input <em>after</em> reading your rule, so there exists a bad input. After: the adversary still picks any input it likes — sorted, reversed, crafted with infinite malice — but your coins are flipped <em>afterward</em>, and the coins do not read lists. Against every input, most pivots are decent (half the items split off at least a quarter of the list — mediocrity is abundant). There is no longer such a thing as a <strong>bad input</strong>; there is only <strong>bad luck</strong>, and bad luck, unlike a bad input, cannot be arranged by anyone.</p>
+<p>The worst case did not vanish — be honest about this. The coins could come up cruel every time, and the n² bill would arrive; Problem 3.1 makes you stare at that possibility. What changed is its <em>status</em>: from “the adversary’s certainty” to “an improbability on every input, of the same kind as shuffling a deck into perfect order.” We have traded a guarantee for a gamble. The rest of the chapter is about why this particular gamble deserves your trust — which requires knowing, honestly, what “fast on average” means.</p>
+<h2>What an average promises</h2>
+<p><strong>Expected value</strong> is the average of the outcomes weighted by their probabilities — the long-run average if you played forever. A die’s expected roll is (1+2+3+4+5+6)/6 = 3.5: a number the die never shows, and yet the most useful single fact about it.</p>
+<p>The tool that makes expectation <em>compute</em> is one fact, modest-looking and inexhaustible — <strong>linearity</strong>: the expectation of a sum is the sum of the expectations, <em>always</em>, even when the pieces influence each other. No independence required, no fine print. Watch it demolish a problem that looks hopeless. The <strong>hat-check story</strong>: n people check their hats; the clerk loses the tickets and returns hats at random. On average, how many people get their own hat back?</p>
+<p>The full analysis looks dreadful — whether you get your hat affects whether I get mine. Linearity ignores the entanglement. Person i gets their own hat with probability 1/n (one right hat among n, symmetry). The number of lucky people is a sum of n such person-by-person events, so its expectation is the sum of the pieces: n × (1/n) = <strong>1</strong>. One lucky person on average — for ten hats, for a million hats, for any n whatsoever. The interactions, which terrified us, were never asked to testify. That is linearity’s standing offer: <em>decompose the quantity into small events, price each alone, add.</em> It is the table method’s spirit — refuse the whole, price the pieces — applied to chance, and it is the workhorse of every average in this subject.</p>
+<p>Applied to quicksort (the full derivation is the deep water; here is its shape): decompose the total comparisons into pair-by-pair events — do items i and j ever get compared? They do exactly when one of them is the <em>first pivot chosen</em> from the stretch of items between them, which for distant pairs is unlikely; price each pair, add them all, and the sum comes out near <strong>2n ln n</strong> — the n log n shape, with a particular constant, as a theorem about the average. For n = 256 that is a few thousand comparisons against a worst case of 32,640.</p>
+<p>But an average alone can mislead (the hat-check average is 1 whether the outcomes are steady or wild), so the lab does the thing this book always does: it <em>measures the whole distribution</em>. Two thousand independent runs of randomized quicksort on the same input, every comparison counted, all of it poured into your first <strong>histogram</strong> — and the picture is the argument: a tight hill near the mean, thin tails, and the worst case so far to the right it cannot share the page. The gamble is not a coin flip between fast and slow; it is fast with overwhelming concentration, and you will have seen it with your own instrument rather than taken it on faith.</p>
+<p><img src="/foundations/a-first-taste-of-algorithms/img/fig_7_1_quicksort_histogram.png" alt="Figure 7.1 — Two thousand gambles, one hill: randomized quicksort's comparison counts at n = 256, the mean at the measured 2,125, and the worst case so far right it cannot share the page." loading="lazy"></p>
+<p><em>Figure 7.1 — Two thousand gambles, one hill: randomized quicksort’s comparison counts at n = 256, the mean at the measured 2,125, and the worst case so far right it cannot share the page.</em></p>
+<blockquote>
+<h3>A human moment</h3>
+<p>Computing with deliberate randomness was born in convalescence, over a card game. In 1946 Stanisław Ulam — recovering from a severe illness, playing endless rounds of solitaire — asked himself what fraction of solitaire deals are winnable. The honest combinatorics was hopeless. Then the lazier, deeper thought: <em>deal a hundred random games and count.</em> Back at Los Alamos, Ulam and John von Neumann (his second appearance in two chapters — the man is unavoidable) realized the trick was general: problems too tangled to solve exactly — neutrons rattling through a bomb core, integrals with no formula — could be <em>sampled</em> instead, on the new electronic computers, with manufactured randomness. The approach needed a code name, and their colleague Nicholas Metropolis supplied one from family gossip: Ulam had an uncle who was forever borrowing money to gamble at <strong>Monte Carlo</strong>. The name stuck to the method, then to a whole way of computing. Within it sits this chapter’s lesson in miniature: when exact analysis closes its door, an honest die and a fast counter open a window — and the window, used carefully, can be made as trustworthy as the door.</p>
+</blockquote>
+  
+  <nav class="pager">
+    <a class="p" href="/foundations/a-first-taste-of-algorithms/the-algorithm-that-flips-coins/"><span>Previous</span>The Algorithm That Flips Coins</a>
+    <a class="n" href="/foundations/a-first-taste-of-algorithms/the-algorithm-that-flips-coins/the-trick-under-the-notebook/"><span>Next</span>The trick under the notebook</a>
+  </nav>
+  <p class="backto"><a href="/foundations/a-first-taste-of-algorithms/">All 32 chapters of A First Taste of Algorithms</a> · <a href="/foundations/">Foundations</a> · <a href="/">Home</a></p>
+</article>
+</div></main>
+<footer><div class="wrap">
+  <p class="fine">© 2026 The Curious Family Library · <a href="/">Back to the library</a></p>
+</div></footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://meiradavidson.github.io/"},{"@type":"ListItem","position":2,"name":"Foundations","item":"https://meiradavidson.github.io/foundations/"},{"@type":"ListItem","position":3,"name":"A First Taste of Algorithms","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"},{"@type":"ListItem","position":4,"name":"The Algorithm That Flips Coins","item":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-algorithm-that-flips-coins/"},{"@type":"ListItem","position":5,"name":"The move"}]},{"@type":"Article","@id":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-algorithm-that-flips-coins/the-move/","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/the-algorithm-that-flips-coins/the-move/","headline":"The move","articleSection":"The Algorithm That Flips Coins","inLanguage":"en","isAccessibleForFree":true,"wordCount":928,"isPartOf":{"@type":"Book","name":"A First Taste of Algorithms","url":"https://meiradavidson.github.io/foundations/a-first-taste-of-algorithms/"}}]}</script>
+</body>
+</html>
