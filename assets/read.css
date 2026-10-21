@@ -56,3 +56,17 @@ h3{font-family:var(--sans);font-weight:600;font-size:1.06rem;margin:1.6rem 0 .5r
 
 .backto{margin-top:1.8rem;font-size:.92rem;color:var(--ink3)}
 .backto a{font-weight:500}
+
+/* Hub pages: a cover above each card, mirroring the front page. */
+.books{grid-template-columns:repeat(auto-fill,minmax(14rem,1fr));gap:1.4rem}
+.bk{display:flex;flex-direction:column}
+.bk-cover{display:block;text-align:center;margin:-.2rem 0 .9rem}
+.bk-cover img,.bk-cover .ph{display:inline-block;height:11rem;width:auto;border-radius:6px;
+  box-shadow:0 14px 26px -16px rgba(35,48,58,.55);transition:transform .18s,box-shadow .18s}
+.bk-cover .ph{display:inline-flex;flex-direction:column;justify-content:center;gap:.4rem;
+  width:7.6rem;padding:.9rem .7rem;color:#fff;text-align:center}
+.bk-cover .ph-t{font-family:var(--disp);font-weight:600;font-size:.95rem;line-height:1.2}
+.bk-cover .ph-a{font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;opacity:.82}
+.bk-cover:hover img,.bk-cover:hover .ph{transform:translateY(-4px);
+  box-shadow:0 22px 38px -18px rgba(35,48,58,.6)}
+.bk .m{margin-top:auto;padding-top:.5rem}
