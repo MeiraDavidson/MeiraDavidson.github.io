@@ -96,3 +96,18 @@ h3{font-family:var(--sans);font-weight:600;font-size:1.06rem;margin:1.6rem 0 .5r
 .bk .links a.dl{color:var(--accent-2)}
 .bk .links a.rd{color:var(--accent-2);font-weight:700}
 .bk .links a:hover{text-decoration:underline}
+
+/* Contents on the card, lifted from the front page — chapters are links here. */
+.toc{margin-top:14px}
+.toc>summary{cursor:pointer;font-size:.84rem;font-weight:600;color:var(--accent-2);
+  list-style:none;display:inline-flex;align-items:center;gap:7px;user-select:none}
+.toc>summary::-webkit-details-marker{display:none}
+.toc>summary::before{content:"\25B8";font-size:.7em;color:var(--gold)}
+.toc[open]>summary::before{content:"\25BE"}
+.toc-list{list-style:none;columns:170px;column-gap:28px;margin:13px 0 0;padding:0;
+  font-size:.85rem;color:var(--ink2);line-height:1.5}
+.toc-list li{margin:0 0 5px;break-inside:avoid;padding-left:1.1em;text-indent:-1.1em}
+.toc-list li::before{content:"\2022";color:var(--gold);margin-right:.55em}
+.toc-list a{text-decoration:none;color:var(--ink2)}
+.toc-list a:hover{color:var(--accent-2);text-decoration:underline}
+.toc-list .n{color:var(--ink3);font-variant-numeric:tabular-nums;margin-right:.4rem}

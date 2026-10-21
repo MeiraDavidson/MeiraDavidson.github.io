@@ -396,6 +396,12 @@ input[type=text]:focus{border-color:var(--accent); outline:none; box-shadow:0 0 
 
 /* login */
 .login{min-height:100%; display:grid; place-items:center; padding:var(--s4)}
+.gate-back{display:none; position:fixed; top:14px; left:14px; z-index:40;
+  align-items:center; gap:6px; background:var(--paper); border:1px solid var(--rule);
+  border-radius:99px; padding:7px 14px; font-size:.82rem; font-weight:600;
+  color:var(--ink2); text-decoration:none}
+.gate-back:hover{border-color:var(--accent); color:var(--accent)}
+#app[hidden] ~ .gate-back{display:inline-flex}
 .lcard{background:var(--paper); border:1px solid var(--rule); border-radius:18px; box-shadow:var(--shadow);
   padding:var(--s5) var(--s4); max-width:460px; width:100%; text-align:center}
 .lcard h1{font-size:1.9rem; margin-bottom:6px; letter-spacing:-.015em}
@@ -710,7 +716,7 @@ input.cfind{display:block; width:100%; max-width:440px; font-family:var(--sans);
     <div id="view"></div>
   </div>
 </div>
-<div id="login" class="login"></div>
+<div id="login" class="login"></div><a class="gate-back" href="../" title="Back to The Curious Family Library">←&nbsp;The Curious Family Library</a>
 <div id="finder" hidden role="dialog" aria-modal="true" aria-label="Search">
   <div class="finder-card">
     <div class="finder-in"><span aria-hidden="true">⌕</span>
