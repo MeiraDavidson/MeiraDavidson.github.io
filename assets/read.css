@@ -79,7 +79,13 @@ h3{font-family:var(--sans);font-weight:600;font-size:1.06rem;margin:1.6rem 0 .5r
 @media (max-width:52rem){ .books{grid-template-columns:1fr;gap:2.1rem} }
 @media (max-width:24rem){ .book-cover-wrap{grid-template-columns:110px 1fr;gap:16px} }
 
-/* The three hubs are listings, not reading pages: the grid gets the full
-   width while headings and intro keep a readable measure. */
+/* The three hubs are listings, not reading pages. They drop the white
+   reading card and sit straight on the page, the way the front page does,
+   and the grid gets the full width while the text keeps a readable measure. */
 .wrap-wide{max-width:1120px}
+.wrap-wide > article{background:none;border:0;box-shadow:none;padding:0;border-radius:0}
 .wrap-wide article > :not(.books){max-width:46rem}
+.books{gap:42px 44px}
+.book-cover-wrap{grid-template-columns:170px 1fr;gap:28px}
+@media (max-width:52rem){ .books{grid-template-columns:1fr;gap:34px} }
+@media (max-width:24rem){ .book-cover-wrap{grid-template-columns:110px 1fr;gap:16px} }
